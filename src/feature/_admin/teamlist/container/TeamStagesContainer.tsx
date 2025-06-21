@@ -1,26 +1,31 @@
 "use client";
 
-import { formatDate } from "@/shared/utils/formatDate";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
 import { useTeamInformation } from "../hooks/useTeamInformationData";
-import { getCurrentStagesStyle } from "@/shared/utils/currentStagesStyle";
+import StagesCard from "../components/TeamStages/StagesCard";
+import JudgingCard from "../components/TeamStages/JudgingCard";
+import { useTeamStages } from "../hooks/useTeamStages";
 
 const TeamListContainer = () => {
     const params = useParams();
     const team_id = params.team_id as string;
     const { teamInformationData, loading, error } = useTeamInformation(team_id);
+    const { stagesData, stagesLoading, stagesError } = useTeamStages(team_id);
 
-    if (loading) {
+    if (loading || stagesLoading) {
         return <div>Loading...</div>;
     }
-    if (error) {
-        return <div>Error: {error}</div>;
+
+    if (error || stagesError) {
+        return <div>Error: {error || stagesError}</div>;
     }
-    if (!teamInformationData) {
-        return <div>No team information found.</div>;
+
+    if (!teamInformationData || !stagesData) {
+        return <div>No team information or stages data found.</div>;
     }
+
     return (
         <section className="px-4 sm:px-8 mycontainer md:px-12 lg:px-20 py-24 md:py-12 lg:py-20 h-full font-changa">
             <div className="">
@@ -35,26 +40,15 @@ const TeamListContainer = () => {
                 <h1 className="text-3xl font-bold mb-6">Team Stages</h1>
 
                 {/* Main Grid Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                    {/* Kartu Kategori Lomba */}
-                    <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 text-center">
-                        <h2 className="text-5xl font-robotech font-bold text-cyan-400">{teamInformationData.competition_category}</h2>
+                <div className="flex flex-col lg:flex-row gap-6 w-full">
+                    <div className="w-full lg:w-1/2">
+                        <StagesCard teamInfo={teamInformationData} />
                     </div>
 
-                    {/* Kartu Stages */}
-                    <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 text-center">
-                        <h2 className="text-xl font-bold mb-2">Stages</h2>
-                        <div className="text-center py-2 rounded-lg mb-4">
-                            <p className={getCurrentStagesStyle(teamInformationData.progress.stage_status)}>{teamInformationData.progress.stage_status}</p>
-                        </div>
-                        <div className="text-center">
-                            <p className="text-lg font-bold">{teamInformationData.progress.stage_name}</p>
-                            <p className="text-gray-200 text-sm">
-                                Until {formatDate(teamInformationData.progress.deadline)}
-                            </p>
-                        </div>
+                    <div className="w-full lg:w-1/2">
+                        {stagesData && <JudgingCard stageData={stagesData} status={stagesData.stages[0].status_submission} onPass={function (): void { }} onReject={function (): void { }} />}
                     </div>
+
                 </div>
             </div>
         </section>
