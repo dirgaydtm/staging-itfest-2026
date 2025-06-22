@@ -481,6 +481,35 @@ export class TeamsService {
     }
   }
 
+  async denyPayment(team_id: string): Promise<UpdateTeamResponse> {
+    try {
+      const response = await apiClient.patch<TeamInformationData>(
+        `/admin/teams/${team_id}`,
+        { team_id: team_id, payment_status: "ditolak" }
+      );
+
+      if (response.status.isSuccess) {
+        return response as UpdateTeamResponse;
+      }
+
+      throw new Error(response.message || "Failed to verify payment");
+    } catch (err: unknown) {
+      console.error("Verify payment error:", err);
+
+      let errorMessage = "An unexpected error occurred while verifying payment";
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else {
+          errorMessage = err.message;
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      throw new Error(errorMessage);
+    }
+  }
+
   async updateStageStatus(
     team_id: string,
     stage_id: number, // <-- Lihat Saran Tambahan di bawah

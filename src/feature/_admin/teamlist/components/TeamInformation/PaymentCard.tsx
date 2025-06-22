@@ -8,6 +8,7 @@ interface PaymentCardProps {
   teamInfo: TeamInformationData;
   onAcceptVerify?: () => void;
   onDenyVerify?: () => void;
+  onResetVerify?: () => void;
   onCheckPayment?: () => void;
 }
 
@@ -15,6 +16,7 @@ const PaymentCard = ({
   teamInfo, 
   onAcceptVerify, 
   onDenyVerify, 
+  onResetVerify,
   onCheckPayment 
 }: PaymentCardProps) => {
   return (
@@ -63,6 +65,15 @@ const PaymentCard = ({
             className="bg-red-600 hover:bg-red-500 disabled:opacity-50"
           >
             Deny Verify
+          </Button>
+
+          <Button
+            type="button"
+            onClick={onResetVerify}
+            disabled={!teamInfo.payment_transaction}
+            className="bg-slate-600 hover:bg-slate-900 disabled:opacity-50"
+          >
+            Reset Status Verify
           </Button>
         </div>
       </div>
