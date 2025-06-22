@@ -12,7 +12,7 @@ const SubmissionStages = ({ currentStageIndex }: SubmissionStagesProps) => {
     <div className="flex justify-between items-center px-4 py-6 bg-[#1A1650] rounded-xl overflow-x-auto">
       {stages.map((stage, index) => {
         const isActive = index === currentStageIndex;
-        const isCompleted = currentStageIndex.;
+        const isCompleted = currentStageIndex;
 
         return (
           <div
