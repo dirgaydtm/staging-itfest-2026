@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { teamsService, TeamStagesData, SubmissionStatus } from "@/api/services/admin";
+import { teamsService, SubmissionStatus } from "@/api/services/admin";
 
 interface UseTeamStagesStatusReturn {
   updateStatus: (stageId: number, status: SubmissionStatus) => Promise<void>;
