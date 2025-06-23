@@ -13,15 +13,12 @@ interface JudgingCardProps {
     onReject: () => void;
 }
 
-// Komponen Ikon Diamond
 const DiamondIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L2 12L12 22L22 12L12 2Z" stroke="#A78BFA" strokeWidth="2" strokeLinejoin="round" />
+        <path d="M12 L2 12L12 22L22 12L12 2Z" stroke="#A78BFA" strokeWidth="2" strokeLinejoin="round" />
     </svg>
 );
 
-
-// Komponen Utama JudgingCard
 const JudgingCard = ({
     stageData,
     status,
@@ -34,7 +31,9 @@ const JudgingCard = ({
         return null;
     }
 
-    const areActionsDisabled = status !== 'Not Determined Yet' || stagesLoading;
+    // const areActionsDisabled = status !== 'Not Determined Yet' || stagesLoading;
+    const areActionsDisabled = false;
+    // ANGGAP KITA SELALU BISA PASS ATAU REJECT UNTUK SEMENTARA karena API belum ada
 
     return (
         <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 text-center">
