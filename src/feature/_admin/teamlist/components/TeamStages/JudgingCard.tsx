@@ -15,7 +15,7 @@ interface JudgingCardProps {
 
 const DiamondIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 L2 12L12 22L22 12L12 2Z" stroke="#A78BFA" strokeWidth="2" strokeLinejoin="round" />
+        <path d="M12 2L2 12L12 22L22 12L12 2Z" stroke="#A78BFA" strokeWidth="2" strokeLinejoin="round" />
     </svg>
 );
 
@@ -49,16 +49,16 @@ const JudgingCard = ({
             <div className="flex flex-col md:flex-row items-center gap-6">
 
                 {/* Kolom Kiri: Info Stage */}
-                <div className="flex-1 space-y-4">
+                <div className="flex-1 space-y-4 text-left">
                     <div>
-                        <p className="text-sm text-gray-400">Current Stage</p>
+                        <p className="text-md text-gray-300">Current Stage</p>
                         <div className="flex items-center gap-3 mt-1">
                             <DiamondIcon />
                             <span className="text-xl font-semibold">{stageData.current_stage}</span>
                         </div>
                     </div>
                     <div>
-                        <p className="text-sm text-gray-400">Next Stage</p>
+                        <p className="text-md text-gray-300">Next Stage</p>
                         <div className="flex items-center gap-3 mt-1">
                             <DiamondIcon />
                             <span className="text-xl font-semibold">{stageData.next_stage}</span>

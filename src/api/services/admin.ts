@@ -116,6 +116,7 @@ export interface UpdateTeamResponse {
 
 // Add these interfaces at the top with other interfaces
 export interface TeamStage {
+  stage_id: number;
   stage_name: string;
   stage_deadline: string;
   link_submission: string;
@@ -518,7 +519,7 @@ export class TeamsService {
     try {
       // Endpoint dan payload sekarang dinamis
       const response = await apiClient.patch<TeamInformationData>(
-        `/admin/teams/${team_id}/progress/${stage_id}`,
+        `/admin/teams/${team_id}/progress/`,
         { team_id: team_id, submission_status: status }
       );
 

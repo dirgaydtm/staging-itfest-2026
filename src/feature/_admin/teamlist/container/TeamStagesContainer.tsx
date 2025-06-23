@@ -57,17 +57,6 @@ const TeamListContainer = () => {
             handleCloseModal();
         }
     };
-    // const {
-    //     data: submissionsData,
-    //     loading: submissionsLoading,
-    //     error: submissionsError,
-    // } = useSubmissions();
-
-    // const {
-    //     data: stageData,
-    //     loading: stageLoading,
-    //     error: stageError,
-    // } = useSubmissionStage();
 
     if (loading || stagesLoading) {
         return <div>Loading...</div>;
@@ -81,13 +70,14 @@ const TeamListContainer = () => {
         return <div>No team information or stages data found.</div>;
     }
 
-    const handleCheckStageDetails = () => {
-        console.log("Check Stage Details clicked"); //test dulu
-        // ini harusnya ngebuka window baru dengan link ke Proposal/Yang Dikirimin Tim
+    const handleCheckStageDetails = (stageIndex: number) => {
+        const selectedStage = stagesData?.stages[stageIndex];
+        if (!selectedStage?.link_submission) {
+            console.error('No submission link available for this stage');
+            return;
+        }
 
-        // if (teamInformationData?.payment_transaction) {
-        //     window.open(teamInformationData.payment_transaction, '_blank');
-        // }
+        window.open(selectedStage.link_submission, '_blank', 'noopener,noreferrer');
     };
 
     return (
@@ -113,7 +103,7 @@ const TeamListContainer = () => {
                     </div>
                 </div>
 
-                <SubmissionStages status={"payment"} currentStageIndex={0} onCheckStageDetails={handleCheckStageDetails} />
+                <SubmissionStages stagesData={stagesData} status={"payment"} currentStageIndex={0} onCheckStageDetails={handleCheckStageDetails} />
             </div>
 
             <Modal isOpen={modalState.isOpen} onClose={handleCloseModal}>
@@ -124,7 +114,7 @@ const TeamListContainer = () => {
                             : 'Confirm Stage Rejection'}
                     </h2>
                     <p className="text-gray-300 mb-8">
-                        Are you sure you want to {modalState.type === 'pass' ? 'PASS ' : 'REJECT '} 
+                        Are you sure you want to {modalState.type === 'pass' ? 'PASS ' : 'REJECT '}
                         this team to the next stage? This action cannot be undone.
                     </p>
                     <div className="flex justify-center gap-4">
