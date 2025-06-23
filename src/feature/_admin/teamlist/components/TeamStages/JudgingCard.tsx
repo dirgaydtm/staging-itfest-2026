@@ -47,7 +47,7 @@ const JudgingCard = ({
             </div>
 
             {/* Konten Utama */}
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col md:flex-row items-center gap-6">
 
                 {/* Kolom Kiri: Info Stage */}
                 <div className="flex-1 space-y-4">
@@ -68,7 +68,7 @@ const JudgingCard = ({
                 </div>
 
                 {/* Garis Pemisah */}
-                <div className="border-l border-gray-600 h-24"></div>
+                <div className="border-l border-gray-600 h-4 md:h-24 rotate-90 md:rotate-0"></div>
 
                 {/* Kolom Kanan: Tombol Aksi */}
                 <div className="flex flex-col gap-4 w-56">

@@ -46,7 +46,7 @@ const PaymentCard = ({
         </div>
 
         {/* Vertical Divider */}
-        <div className="border-l border-gray-600 h-20"></div>
+        <div className="border-l border-gray-600 h-4 md:h-24 rotate-90 md:rotate-0"></div>
 
         {/* Right Side */}
         <div className="flex flex-col gap-3">

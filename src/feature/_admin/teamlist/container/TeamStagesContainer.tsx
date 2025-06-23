@@ -7,12 +7,28 @@ import { useTeamInformation } from "../hooks/useTeamInformationData";
 import StagesCard from "../components/TeamStages/StagesCard";
 import JudgingCard from "../components/TeamStages/JudgingCard";
 import { useTeamStages } from "../hooks/useTeamStages";
+import SubmissionStages from "@/feature/_admin/teamlist/components/TeamStages/SubmissionStage";
+// import { useSubmissions, useSubmissionStage } from "@/feature/_user/dashboard/hooks/useSubmission";
+
+
 
 const TeamListContainer = () => {
     const params = useParams();
     const team_id = params.team_id as string;
     const { teamInformationData, loading, error } = useTeamInformation(team_id);
     const { stagesData, stagesLoading, stagesError } = useTeamStages(team_id);
+
+    // const {
+    //     data: submissionsData,
+    //     loading: submissionsLoading,
+    //     error: submissionsError,
+    // } = useSubmissions();
+
+    // const {
+    //     data: stageData,
+    //     loading: stageLoading,
+    //     error: stageError,
+    // } = useSubmissionStage();
 
     if (loading || stagesLoading) {
         return <div>Loading...</div>;
@@ -39,8 +55,7 @@ const TeamListContainer = () => {
             <div className=" text-white">
                 <h1 className="text-3xl font-bold mb-6">Team Stages</h1>
 
-                {/* Main Grid Layout */}
-                <div className="flex flex-col lg:flex-row gap-6 w-full">
+                <div className="flex flex-col lg:flex-row gap-6 w-full mb-8">
                     <div className="w-full lg:w-1/2">
                         <StagesCard teamInfo={teamInformationData} />
                     </div>
@@ -48,8 +63,9 @@ const TeamListContainer = () => {
                     <div className="w-full lg:w-1/2">
                         {stagesData && <JudgingCard stageData={stagesData} status={stagesData.stages[0].status_submission} onPass={function (): void { }} onReject={function (): void { }} />}
                     </div>
-
                 </div>
+
+                <SubmissionStages status={"payment"} currentStageIndex={0} />
             </div>
         </section>
     );
