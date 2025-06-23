@@ -1,6 +1,5 @@
 "use client";
 
-import Stars from "@/feature/hero/components/Stars";
 import React, { useState } from "react";
 import { useTeamProfile } from "../hooks/useTeamProfile";
 import SideButtons from "../components/information/SideButton";
@@ -9,9 +8,9 @@ import Announcement from "../components/information/Announcement";
 import TeamProfile from "../components/information/TeamProfile";
 import Guidebook from "../components/information/Guidebook";
 import SubmissionHeader from "../components/submission/SubmissionHeader";
-import SubmissionStages from "../components/submission/SubmissionStage";
+import SubmissionStages from "../components/submission/SubmissionStages";
 import SubmissionMessage from "../components/submission/SubmissionMessage";
-import { useSubmissions, useSubmissionStage } from "../hooks/useSubmission";
+import { useSubmissions } from "../hooks/useSubmission";
 
 const DashboardContainer = () => {
   const {
@@ -24,21 +23,13 @@ const DashboardContainer = () => {
     loading: submissionsLoading,
     error: submissionsError,
   } = useSubmissions();
-  const {
-    data: stageData,
-    loading: stageLoading,
-    error: stageError,
-  } = useSubmissionStage();
 
   const [active, setActive] = useState<"info" | "submit">("info");
   const isNotRegistered = teamData?.competition_category === "Not Registered";
 
-  if (
-    teamLoading ||
-    (active === "submit" && (submissionsLoading || stageLoading))
-  ) {
+  if (teamLoading || (active === "submit" && submissionsLoading)) {
     return (
-      <div className="relative mycontainer pt-40">
+      <div className="relative mycontainer  pt-40">
         <div className="text-center py-16 text-lg font-semibold">
           Loading...
         </div>
@@ -46,7 +37,7 @@ const DashboardContainer = () => {
     );
   }
 
-  if (teamError || (active === "submit" && (submissionsError || stageError))) {
+  if (teamError || (active === "submit" && submissionsError)) {
     return (
       <div className="relative mycontainer pt-40">
         <div className="text-center py-16 text-lg font-semibold text-red-400">
@@ -59,7 +50,6 @@ const DashboardContainer = () => {
   if (!teamData) {
     return (
       <div className="relative mycontainer pt-40">
-        <Stars />
         <div className="text-center py-16 text-lg font-semibold">
           No data found.
         </div>
@@ -67,30 +57,21 @@ const DashboardContainer = () => {
     );
   }
 
-  const getCurrentStageIndex = () => {
-    if (!stageData || stageData.message === "failed to get current stage") {
-      return 0;
+  let currentStatus = "Loading submission data...";
+  if (submissionsData) {
+    if (submissionsData.current_stage === "") {
+      currentStatus = submissionsData.payment_status;
+    } else {
+      currentStatus = `${submissionsData.stages.map(
+        (item) => item.status_submission
+      )}`;
     }
-    return stageData.data.id_current_stage;
-  };
-
-  const getSubmissionStatus = () => {
-    if (
-      !submissionsData ||
-      !Array.isArray(submissionsData) ||
-      submissionsData.length === 0
-    ) {
-      return "No submissions yet";
-    }
-    return submissionsData.status || "Waiting for payment...";
-  };
+  }
 
   return (
-    <div className="relative mycontainer pt-40">
-      <Stars />
-
-      <div className="flex flex-col lg:flex-row gap-8">
-        <section className="w-full lg:w-2xs">
+    <div className="mycontainer relative lg:h-screen h-fit pt-40 pb-10">
+      <div className="flex flex-col lg:flex-row gap-8 lg:items-start items-center ">
+        <section className="w-full lg:w-2xs xl:w-full max-w-11/12">
           <SideButtons
             active={active}
             onChange={setActive}
@@ -98,7 +79,7 @@ const DashboardContainer = () => {
           />
         </section>
 
-        <main className="flex flex-col gap-6 w-full">
+        <main className="flex flex-col gap-6 ">
           {active === "info" ? (
             <>
               <div className="flex flex-col md:flex-row gap-6">
@@ -127,13 +108,21 @@ const DashboardContainer = () => {
             </>
           ) : (
             <>
-              <SubmissionHeader
-                competitionCategory={teamData.competition_category}
-                status={"ayam"}
-              />
-             {console.log(submissionsData?.data.map((item) => (console.log(item.created_at))))}
-             <SubmissionStages status={submissionsData?.data.map((stage) => (stage.status))} currentStageIndex={stageData?.data.id_current_stage}/>
-              <SubmissionMessage leaderName={teamData.leader_name} />
+              <section className="xl:w-full lg:max-w-11/12">
+                <SubmissionHeader
+                  competitionCategory={teamData.competition_category}
+                  status={currentStatus}
+                />
+              </section>
+
+              <section className="xl:w-full lg:max-w-11/12">
+                {submissionsData && (
+                  <SubmissionStages submissionsData={submissionsData} />
+                )}
+              </section>
+              <section className="xl:w-full lg:max-w-11/12">
+                <SubmissionMessage leaderName={teamData.leader_name} />
+              </section>
             </>
           )}
         </main>

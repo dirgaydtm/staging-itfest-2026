@@ -8,7 +8,7 @@ interface Props {
 
 const SideButtons = ({ active, onChange, disabledSubmit }: Props) => {
   return (
-    <div className="flex flex-col gap-4 lg:w-2xs">
+    <section className="flex flex-col gap-4 lg:w-2xs">
       <button
         onClick={() => onChange("info")}
         className={clsx(
@@ -35,7 +35,7 @@ const SideButtons = ({ active, onChange, disabledSubmit }: Props) => {
       >
         Submit Your Work
       </button>
-    </div>
+    </section>
   );
 };
 

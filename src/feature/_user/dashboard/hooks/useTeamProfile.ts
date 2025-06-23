@@ -13,7 +13,7 @@ export const useTeamProfile = () => {
       setError(null);
       
       const profileData = await userService.getMyTeamProfile();
-      console.log(profileData);
+      // console.log(profileData);
       setData(profileData);
       
     } catch (err) {

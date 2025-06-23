@@ -13,7 +13,7 @@ export default function RootLayout({
     <>
       <AuthProvider>
         <ProtectedRoute>
-          <main className="">
+          <main className="overflow-x-hidden w-full">
             <Navbar />
             <Stars />
             {children}
