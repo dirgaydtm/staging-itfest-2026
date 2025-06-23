@@ -2,7 +2,7 @@ import { BlobResponse } from "@/shared/type/TAuth";
 import { apiClient } from "../core/core";
 import axios from "axios";
 
-type SubmissionStatus = 'lolos' | 'tidak lolos';
+export type SubmissionStatus = 'lolos' | 'tidak lolos';
 
 export interface ParticipantTotalData {
   total_uiux: number;
@@ -519,7 +519,7 @@ export class TeamsService {
     try {
       // Endpoint dan payload sekarang dinamis
       const response = await apiClient.patch<TeamInformationData>(
-        `/admin/teams/${team_id}/progress/`,
+        `/admin/teams/${team_id}/progress/${stage_id}`,
         { team_id: team_id, submission_status: status }
       );
 

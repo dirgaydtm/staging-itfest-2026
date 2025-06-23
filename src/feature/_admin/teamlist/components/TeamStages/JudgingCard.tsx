@@ -31,9 +31,8 @@ const JudgingCard = ({
         return null;
     }
 
-    // const areActionsDisabled = status !== 'Not Determined Yet' || stagesLoading;
-    const areActionsDisabled = false;
-    // ANGGAP KITA SELALU BISA PASS ATAU REJECT UNTUK SEMENTARA karena API belum ada
+    const areActionsDisabled = stageData.current_stage === '0' || stagesLoading;
+    // Tidak bisa jika current_stage adalah '0' (Pembayaran) atau sedang loading
 
     return (
         <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 text-center">
@@ -54,14 +53,14 @@ const JudgingCard = ({
                         <p className="text-md text-gray-300">Current Stage</p>
                         <div className="flex items-center gap-3 mt-1">
                             <DiamondIcon />
-                            <span className="text-xl font-semibold">{stageData.current_stage}</span>
+                            <span className="text-xl font-semibold">{stageData.current_stage ? stageData.current_stage : "(tidak ada)"}</span>
                         </div>
                     </div>
                     <div>
                         <p className="text-md text-gray-300">Next Stage</p>
                         <div className="flex items-center gap-3 mt-1">
                             <DiamondIcon />
-                            <span className="text-xl font-semibold">{stageData.next_stage}</span>
+                            <span className="text-xl font-semibold">{stageData.next_stage ? stageData.next_stage : "(tidak ada)"}</span>
                         </div>
                     </div>
                 </div>

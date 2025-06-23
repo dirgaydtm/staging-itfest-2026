@@ -109,7 +109,7 @@ const TeamInformationContainer = () => {
             <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300">
               <h2 className="text-xl font-bold mb-2">Stages</h2>
               <div className="text-center py-2 rounded-lg mb-4">
-                <p className={getCurrentStagesStyle(teamInformationData.progress.stage_status)}>{teamInformationData.progress.stage_status}</p>
+                <p className={getCurrentStagesStyle(teamInformationData.progress.stage_status)}> {teamInformationData.progress.stage_status} ke {teamInformationData.progress.stage_name}</p>
               </div>
               <div className="text-center">
                 <p className="text-lg font-bold">{teamInformationData.progress.stage_name}</p>
