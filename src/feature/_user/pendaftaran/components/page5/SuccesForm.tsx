@@ -9,10 +9,7 @@ interface SuccesFormProps {
   competitionType: string;
 }
 
-const PendaftaranSelesaiForm: React.FC<SuccesFormProps> = ({
-  teamName,
-  competitionType,
-}) => {
+const PendaftaranSelesaiForm: React.FC<SuccesFormProps> = () => {
   const router = useRouter();
 
   const handleGoToDashboard = () => {

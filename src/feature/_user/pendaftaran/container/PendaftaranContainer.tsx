@@ -2,8 +2,6 @@
 
 import React, { useState } from "react";
 import BoardingTemplate from "@/shared/components/onboarding/BoardingTemplate";
-
-// Import semua komponen halaman
 import PendaftaranForm from "../components/page1/PendaftaranForm";
 import BiodataKetuaForm from "../components/page2/BiodataKetuaForm";
 import TeamKTMForm from "../components/page3/TeamKTMForm";

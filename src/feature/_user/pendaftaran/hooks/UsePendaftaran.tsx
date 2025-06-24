@@ -1,4 +1,3 @@
-// src/feature/_user/pendaftaran/hooks/usePendaftaran.ts
 import { useState, useCallback } from "react";
 import { TeamMember } from "@/api/services/pendaftaran";
 
