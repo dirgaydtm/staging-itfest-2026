@@ -132,7 +132,7 @@ const TeamListContainer = () => {
                     </div>
                 </div>
 
-                <SubmissionStages stagesData={stagesData} status={""} currentStageIndex={0} onCheckStageDetails={handleCheckStageDetails} />
+                <SubmissionStages stagesData={stagesData} onCheckStageDetails={handleCheckStageDetails} />
             </div>
 
             <Modal isOpen={modalState.isOpen} onClose={handleCloseModal}>

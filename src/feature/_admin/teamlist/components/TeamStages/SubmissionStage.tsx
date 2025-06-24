@@ -1,72 +1,128 @@
-import { TeamStagesData } from "@/api/services/admin";
+import { TeamStage, TeamStagesData } from "@/api/services/admin";
 import { Button } from "@/shared/components/ui/Button";
 import { formatDate } from "@/shared/utils/formatDate";
-import React from "react";
-
+import { useMemo } from "react";
+import { StageConnector } from "./StageConnector";
+import { cn } from "@/shared/utils/cn";
 
 interface SubmissionStagesProps {
   stagesData: TeamStagesData | null;
   onCheckStageDetails: (stageIndex: number) => void;
-  currentStageIndex: number | undefined;
-  status: string;
 }
 
-const SubmissionStages = ({ currentStageIndex, onCheckStageDetails, stagesData }: SubmissionStagesProps) => {
+const getStageStatus = (
+  stageName: TeamStage,
+  index: number,
+  allStages: TeamStage[],
+  currentStage: string,
+  currentStageId: number
+) => {
+  const isCurrent =
+    currentStageId === 0
+      ? stageName.stage_name === "Payment"
+      : stageName.stage_name === currentStage;
+
+  const currentIndex = allStages.findIndex(
+    (s) => s.stage_name === currentStage
+  );
+
+  const isPast = currentStageId !== 0 && index < currentIndex;
+  const isLast = index === allStages.length - 1;
+
+  return { isCurrent, isPast, isLast };
+};
+
+const SubmissionStages = ({ onCheckStageDetails, stagesData }: SubmissionStagesProps) => {
   if (!stagesData) return null;
 
+  const allStages = useMemo(() => {
+    return [...stagesData.stages];
+  }, [stagesData]);
+
+  const renderStage = (stage: any, index: number, isDesktop: boolean) => {
+    const { isCurrent, isPast, isLast } = getStageStatus(
+      stage.stage_name,
+      index,
+      allStages,
+      stagesData.current_stage,
+      stagesData.current_stageID
+    );
+
+    return (
+      <div key={index} className="flex justify-around items-center flex-col lg:flex-row">
+        <div className="flex flex-col items-center text-center gap-2 min-w-[70px] p-2 mt-2">
+          {/* Diamond indicator */}
+          <div
+            className={cn(
+              "cursor-pointer rotate-45 transition-all duration-300",
+              isCurrent || isPast
+                ? "bg-white glow-white"
+                : "bg-purple-200",
+              stage.status_submission === "lolos" && isLast
+                ? "bg-yellow-400 glow-yellow"
+                : "",
+              stage.status_submission === "tidak lolos"
+                ? "bg-red-400 glow-red"
+                : "",
+              stage.status_submission ? "bg-white" : "",
+              isDesktop ? "w-12 h-12" : "w-16 h-16"
+            )}
+          />
+
+          <p className="text-md md:text-lg mt-4">{stage.stage_name}</p>
+          <p className="text-sm text-gray-300">{formatDate(stage.stage_deadline)}</p>
+
+          <Button
+            type="button"
+            size="small"
+            disabled={!isCurrent || !stage.link_submission || stage.link_submission.trim() === ""}
+            onClick={() => onCheckStageDetails(index)}
+            className={`mt-1 text-md ${isCurrent
+              ? "bg-blue-300 hover:bg-blue-800 text-white"
+              : "bg-gray-700 text-gray-500"
+              }`}
+          >
+            {isCurrent
+              ? stage.link_submission
+                ? "Check"
+                : "No Submission"
+              : stage.status_submission === "lolos"
+                ? "Completed"
+                : isPast
+                  ? "Completed"
+                  : "Waiting..."
+            }
+          </Button>
+        </div>
+
+        {/* Add connector if not last stage */}
+        {!isLast && (
+          <StageConnector
+            isPast={isCurrent || isPast}
+            orientation={isDesktop ? "horizontal" : "vertical"}
+            status={stage.status_submission}
+          />
+        )}
+      </div>
+    );
+  };
+
   return (
-    <div className="flex flex-col justify-between items-center px-4 py-6 overflow-x-auto bg-blue-500 rounded-4xl text-white border-2 border-purple-300 text-center">
-      <div>
-        <h2 className="text-xl font-bold mb-2">Stages</h2>
-      </div>
+    <section className="bg-blue-500 rounded-4xl border-2 border-purple-300 overflow-x-auto font-changa py-10">
+      <header className="text-white text-3xl font-bold text-center mb-16">
+        Stages
+      </header>
 
-      <div className="flex flex-col md:flex-row justify-around items-center w-full overflow-x-auto">
-        {stagesData.stages.map((stage, index) => {
-          const isActive = index === currentStageIndex;
-          const isCompleted = currentStageIndex;
+      <main className="w-full">
+        <div className="flex flex-col lg:hidden items-center space-y-8">
+          {allStages.map((stage, index) => renderStage(stage, index, false))}
+        </div>
 
-          return (
-            <div
-              key={index}
-              className="flex flex-col items-center text-center gap-2 min-w-[70px] p-2 mt-6"
-            >
-              {/* Diamond indicator */}
-              <div
-                className={`w-6 h-6 md:w-10 md:h-10 rotate-45 ${isActive
-                  ? "bg-blue-200"
-                  : isCompleted
-                    ? "bg-green-400"
-                    : "bg-white/30"
-                  }`}
-              />
-
-              {/* Stage Name */}
-              <p className="text-md md:text-lg">{stage.stage_name}</p>
-
-              {/* Date (dummy dulu) */}
-              <p className="text-sm text-gray-300">{formatDate(stage.stage_deadline)}</p>
-
-              <Button
-                type="button"
-                size="small"
-                disabled={!isActive || !stage.link_submission || stage.link_submission.trim() === ""}
-                onClick={() => onCheckStageDetails(index)}
-                className={`mt-1 text-md ${isActive
-                  ? "bg-blue-300 hover:bg-blue-800 text-white"
-                  : "bg-gray-700 text-gray-500"
-                  }`}
-              >
-                {isActive ?
-                  stage.link_submission ? "Check" : "No Submission"
-                  : isCompleted ? "Completed" : "Waiting..."
-                }
-              </Button>
-            </div>
-          );
-        })}
-      </div>
-
-    </div>
+        <div className="hidden lg:flex items-center justify-center">
+          {allStages.map((stage, index) => renderStage(stage, index, true))}
+        </div>
+      </main>
+    </section>
   );
 };
 
