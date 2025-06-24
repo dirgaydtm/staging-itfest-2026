@@ -1,5 +1,5 @@
 import { apiClient } from "@/api/core/core";
-import { SubmissionItem, SubmissionsResponse, SubmissionStageResponse } from "@/feature/_user/dashboard/types/submission";
+import { PostSubmissionsResponse, SubmissionsResponse } from "@/feature/_user/dashboard/types/submission";
 import { TeamProfileResponse } from "@/feature/_user/dashboard/types/teamProfile";
 
 export const userService = {
@@ -12,23 +12,38 @@ export const userService = {
     },
 
     getSubmissions: async (): Promise<SubmissionsResponse> => {
-        const response = await apiClient.get<SubmissionsResponse>("submissions/");
-        console.log('Full API response:', response);
-        
-        if (!response) {
+        const response = await apiClient.get<SubmissionsResponse>("users/progress");
+        console.log('Submissions Response:', response);
+
+        if (!response.data) {
             throw new Error("Failed to fetch submissions data");
         }
-        
-        return response;
-    },
 
-    getSubmissionStage: async (): Promise<SubmissionStageResponse> => {
-        const response = await apiClient.get<SubmissionStageResponse>("submissions/stage");
-        
-        if (!response.data) {
-            throw new Error("Failed to fetch submission stage data");
-        }
-        
         return response.data;
     },
-};
+
+    postSubmission: async (gdriveLink: string): Promise<void> => {
+        const payload: PostSubmissionsResponse = {
+            gdrive_link: gdriveLink
+        };
+
+        try {
+            await apiClient.post("submissions/", payload);
+        } catch (error) {
+            throw new Error(`Failed to post submission: ${error}`);
+        }
+    },
+
+    postPayment: async (formData: FormData): Promise<void> => {
+        try {
+            await apiClient.post("users/upload-payment", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            });
+        } catch (error) {
+            throw new Error(`Failed to post payment: ${error}`);
+        }
+    }
+}
+

@@ -4,10 +4,12 @@ interface SubmissionMessageProps {
 
 const SubmissionMessage = ({ leaderName }: SubmissionMessageProps) => {
   return (
-    <div className="bg-[#1A1650] p-4 rounded-xl text-sm">
-      <p><strong>Message!</strong></p>
-      <p>Please submit your payment through ...</p>
-      <p>If you have any problem, please contact {leaderName || "our team"} 😊</p>
+    <div className="bg-blue-500 border-2 border-purple-300 p-8 rounded-4xl text-sm font-changa">
+      <h2 className="font-bold text-2xl">Message:</h2>
+      <div className="mt-4">
+        <p>yaa gitulahh</p>
+        <p>Nanti yaa bang {leaderName || "our team"} </p>
+      </div>
     </div>
   );
 };

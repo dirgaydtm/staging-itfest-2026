@@ -8,11 +8,11 @@ interface Props {
 
 const SideButtons = ({ active, onChange, disabledSubmit }: Props) => {
   return (
-    <div className="flex flex-col gap-4 lg:w-2xs">
+    <section className="flex lg:flex-col flex-row gap-4 w-full">
       <button
         onClick={() => onChange("info")}
         className={clsx(
-          "p-8 font-changa font-bold text-2xl rounded-3xl transition",
+          "p-6 font-changa font-bold md:text-xl text-base rounded-3xl transition w-full flex justify-center items-center",
           active === "info"
             ? "bg-purple-300 text-glow"
             : "bg-purple-400 hover:bg-purple-500"
@@ -25,7 +25,7 @@ const SideButtons = ({ active, onChange, disabledSubmit }: Props) => {
         onClick={() => onChange("submit")}
         disabled={disabledSubmit}
         className={clsx(
-          "p-8 font-changa font-bold text-2xl rounded-3xl transition",
+          "p-6 font-changa font-bold md:text-xl text-base rounded-3xl transition w-full  flex justify-center items-center truncate",
           disabledSubmit
             ? "bg-gray-800 cursor-not-allowed text-gray-400"
             : active === "submit"
@@ -35,7 +35,7 @@ const SideButtons = ({ active, onChange, disabledSubmit }: Props) => {
       >
         Submit Your Work
       </button>
-    </div>
+    </section>
   );
 };
 
