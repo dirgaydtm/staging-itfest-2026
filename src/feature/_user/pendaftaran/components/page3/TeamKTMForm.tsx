@@ -124,6 +124,17 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
               Format: JPG, PNG, PDF (Max 5MB)
             </p>
             
+            {/* File preview */}
+            {selectedFile && (
+              <div className="bg-green-500/20 border border-green-400 p-2 rounded-lg">
+                <p className="text-green-200 text-sm">
+                  ✓ File terpilih: {selectedFile.name}
+                </p>
+                <p className="text-green-300 text-xs">
+                  Ukuran: {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

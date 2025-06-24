@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Robot from "@/assets/img/onboarding/robot_onboarding.svg";
 
-const BoardingTemplate: React.FC<React.PropsWithChildren<{}>> = ({
-  children,
-}) => {
+interface BoardingTemplateProps {
+  children: React.ReactNode;
+}
+
+const BoardingTemplate: React.FC<BoardingTemplateProps> = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {

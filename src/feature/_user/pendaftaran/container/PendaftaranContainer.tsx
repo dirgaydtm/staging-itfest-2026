@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import BoardingTemplate from "@/shared/components/onboarding/BoardingTemplate";
+
+// Import semua komponen halaman
 import PendaftaranForm from "../components/page1/PendaftaranForm";
 import BiodataKetuaForm from "../components/page2/BiodataKetuaForm";
 import TeamKTMForm from "../components/page3/TeamKTMForm";
@@ -35,10 +37,7 @@ const PendaftaranContainer = () => {
     }
   };
 
-  // Loading state handler
-  const handleLoadingChange = (loading: boolean) => {
-    setIsLoading(loading);
-  };
+  // Removed unused handleLoadingChange function
 
   // Helper function untuk mendapatkan nama kompetisi
   const getCompetitionName = () => {
@@ -140,7 +139,7 @@ const PendaftaranContainer = () => {
 
   return (
     <BoardingTemplate>
-      <div className="md:mx-4 lg:mx-20 pb-30 pt-10 md:pt-0 md:pb-0 md:py-6 lg:py-12 h-screen md:h-full">
+      <div className="md:mx-4 lg:mx-20 md:py-6 lg:py-12 h-full">
         {renderCurrentPage()}
       </div>
     </BoardingTemplate>

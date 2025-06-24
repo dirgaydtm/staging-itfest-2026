@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { teamsService, TeamStagesData } from "@/api/services/admin";
 
 interface UseTeamStagesReturn {
@@ -15,7 +15,7 @@ export const useTeamStages = (team_id: string): UseTeamStagesReturn => {
   const [stagesLoading, setLoading] = useState(true);
   const [stagesError, setError] = useState<string | null>(null);
 
-  const fetchStagesData = async () => {
+  const fetchStagesData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -34,15 +34,15 @@ export const useTeamStages = (team_id: string): UseTeamStagesReturn => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [team_id]);
 
-  const stagesRefetch = async () => {
+  const stagesRefetch = useCallback(async () => {
     await fetchStagesData();
-  };
+  }, [fetchStagesData]);
 
   useEffect(() => {
     fetchStagesData();
-  }, [team_id]);
+  }, [fetchStagesData]);
 
   return {
     stagesData,

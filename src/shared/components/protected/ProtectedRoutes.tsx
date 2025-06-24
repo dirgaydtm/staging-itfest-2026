@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export function ProtectedRoute({
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
-  useEffect(() => {
+  const checkAuthorization = useCallback(() => {
     if (!loading) {
       if (!isAuthenticated) {
         setIsAuthorized(false);
@@ -44,7 +44,11 @@ export function ProtectedRoute({
 
       setIsAuthorized(true);
     }
-  }, [loading, isAuthenticated, IsAdmin, requireAdmin, userOnly, fallbackPath]);
+  }, [loading, isAuthenticated, IsAdmin, requireAdmin, userOnly, fallbackPath, router]);
+
+  useEffect(() => {
+    checkAuthorization();
+  }, [checkAuthorization]);
 
   if (loading || isAuthorized === null) {
     return (

@@ -3,15 +3,16 @@ import { Button } from "@/shared/components/ui/Button";
 import { useRouter } from "next/navigation";
 
 interface MemberFrameProps {
-  onBack: () => void;
+  onBack?: () => void; // Made optional since it's not used
 }
 
-const MemberFrame: React.FC<MemberFrameProps> = ({ onBack }) => {
+const MemberFrame: React.FC<MemberFrameProps> = () => {
   const router = useRouter();
 
   const handleGotIt = () => {
     router.push("/home");
   };
+  
   return (
     <section className="flex flex-col items-center justify-center h-full w-full md:px-8 lg:px-16 gap-12">
       <div className="text-center font-changa font-white flex flex-col items-center justify-center gap-4">

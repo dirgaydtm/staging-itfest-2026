@@ -70,38 +70,7 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
     }
   };
 
-  const handleSkipAndSubmit = async () => {
-    // Clear member2 data and submit
-    onMember2Change({ name: "", student_number: "" });
-
-    const members: TeamMember[] = [];
-    if (member1.name.trim() && member1.student_number.trim()) {
-      members.push(member1);
-    }
-
-    const teamData = {
-      team_name: teamName,
-      members: members,
-    };
-
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await pendaftaranService.upsertTeam(teamData);
-
-      if (response.status.isSuccess) {
-        onNext();
-      } else {
-        setError(response.message || "Gagal menyimpan data tim");
-      }
-    } catch (err) {
-      console.error("Error submitting team data:", err);
-      setError(err instanceof Error ? err.message : "Terjadi kesalahan");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Removed unused handleSkipAndSubmit function
 
   const isFormValid =
     member2.name.trim() !== "" && member2.student_number.trim() !== "";
@@ -116,7 +85,7 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
             Biodata Anggota 2
           </h3>
           <p className="text-base font-changa text-white mt-2 md:px-4">
-            Jika tidak ada Anggota 2, maka kosongkan dan klik "Lanjut"
+            Jika tidak ada Anggota 2, maka kosongkan dan klik &quot;Selesaikan&quot;
           </p>
         </div>
 

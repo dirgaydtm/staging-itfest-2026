@@ -51,7 +51,7 @@ const ChooseRole: React.FC<ChooseRoleProps> = ({ onRoleSelect }) => {
         </div>
         <div className="flex flex-col items-center justify-center gap-0.5 pt-4">
           <p className="text-md lg:text-lg text-center px-8 lg:px-20 font-changa font-normal text-white">
-            Don't wanna register yet?
+            Don&apos;t wanna register yet?
           </p>
           <Link
             href="/"

@@ -37,11 +37,7 @@ const BiodataAnggota1Form: React.FC<BiodataAnggota1FormProps> = ({
     onNext();
   };
 
-  const handleSkip = () => {
-    // Clear member1 data if skipping
-    onMember1Change({ name: "", student_number: "" });
-    onNext();
-  };
+  // Removed unused handleSkip function
 
   const isFormValid =
     member1.name.trim() !== "" && member1.student_number.trim() !== "";
@@ -56,7 +52,7 @@ const BiodataAnggota1Form: React.FC<BiodataAnggota1FormProps> = ({
             Biodata Anggota 1
           </h3>
           <p className="text-base font-changa text-white mt-2 md:px-4">
-            Jika tidak ada Anggota 1, maka kosongkan dan klik "Lanjut"
+            Jika tidak ada Anggota 1, maka kosongkan dan klik &quot;Lanjut&quot;
           </p>
         </div>
 
