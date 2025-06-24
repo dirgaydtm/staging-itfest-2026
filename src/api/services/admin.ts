@@ -1,5 +1,8 @@
 import { BlobResponse } from "@/shared/type/TAuth";
 import { apiClient } from "../core/core";
+import axios from "axios";
+
+type SubmissionStatus = 'lolos' | 'tidak lolos';
 
 export interface ParticipantTotalData {
   total_uiux: number;
@@ -79,7 +82,7 @@ export interface FileDownloadResponse {
 }
 
 export interface AnnouncementData {
-  id_announcement : string;
+  id_announcement: string;
   date_announcement: string;
   message_announcement: string;
 }
@@ -100,6 +103,41 @@ export interface CreateAnnouncementResponse {
   };
   message: string;
   data: AnnouncementData;
+}
+
+export interface UpdateTeamResponse {
+  status: {
+    code: number;
+    isSuccess: boolean;
+  };
+  message: string;
+  data: TeamInformationData;
+}
+
+// Add these interfaces at the top with other interfaces
+export interface TeamStage {
+  stage_name: string;
+  stage_deadline: string;
+  link_submission: string;
+  status_submission: string;
+}
+
+export interface TeamStagesData {
+  competition: string;
+  payment_status: string;
+  current_stageID: number;
+  current_stage: string;
+  next_stage: string;
+  stages: TeamStage[];
+}
+
+export interface TeamStagesResponse {
+  status: {
+    code: number;
+    isSuccess: boolean;
+  };
+  message: string;
+  data: TeamStagesData;
 }
 
 export class ParticipantService {
@@ -341,3 +379,141 @@ export class AnnouncementService {
 }
 
 export const announcementService = AnnouncementService.getInstance();
+
+
+export class TeamsService {
+  private static instance: TeamsService;
+
+  public static getInstance(): TeamsService {
+    if (!TeamsService.instance) {
+      TeamsService.instance = new TeamsService();
+    }
+    return TeamsService.instance;
+  }
+
+  async getTeamStages(team_id: string): Promise<TeamStagesResponse> {
+    try {
+      const response = await apiClient.get<TeamStagesData>(
+        `/admin/teams/${team_id}/progress`
+      );
+
+      if (response.status.isSuccess && response.data) {
+        return {
+          status: response.status,
+          message: response.message,
+          data: response.data
+        };
+      }
+
+      throw new Error(response.message || "Failed to get team stages");
+    } catch (err: unknown) {
+      console.error("Get team stages error:", err);
+
+      let errorMessage = "An unexpected error occurred while getting team stages";
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else {
+          errorMessage = err.message;
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      throw new Error(errorMessage);
+    }
+  }
+
+  async verifyPayment(team_id: string): Promise<UpdateTeamResponse> {
+    try {
+      const response = await apiClient.patch<TeamInformationData>(
+        `/admin/teams/${team_id}`,
+        { team_id: team_id, payment_status: "terverifikasi" }
+      );
+
+      if (response.status.isSuccess) {
+        return response as UpdateTeamResponse;
+      }
+
+      throw new Error(response.message || "Failed to verify payment");
+    } catch (err: unknown) {
+      console.error("Verify payment error:", err);
+
+      let errorMessage = "An unexpected error occurred while verifying payment";
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else {
+          errorMessage = err.message;
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      throw new Error(errorMessage);
+    }
+  }
+
+  async unverifyPayment(team_id: string): Promise<UpdateTeamResponse> {
+    try {
+      const response = await apiClient.patch<TeamInformationData>(
+        `/admin/teams/${team_id}`,
+        { team_id: team_id, payment_status: "belum terverifikasi" }
+      );
+
+      if (response.status.isSuccess) {
+        return response as UpdateTeamResponse;
+      }
+
+      throw new Error(response.message || "Failed to verify payment");
+    } catch (err: unknown) {
+      console.error("Verify payment error:", err);
+
+      let errorMessage = "An unexpected error occurred while verifying payment";
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else {
+          errorMessage = err.message;
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      throw new Error(errorMessage);
+    }
+  }
+
+  async updateStageStatus(
+    team_id: string,
+    stage_id: number, // <-- Lihat Saran Tambahan di bawah
+    status: SubmissionStatus
+  ): Promise<UpdateTeamResponse> {
+    try {
+      // Endpoint dan payload sekarang dinamis
+      const response = await apiClient.patch<TeamInformationData>(
+        `/admin/teams/${team_id}/progress/${stage_id}`,
+        { team_id: team_id, submission_status: status }
+      );
+
+      if (response.status.isSuccess) {
+        return response as UpdateTeamResponse;
+      }
+      throw new Error(response.message || "Failed to update stage status");
+    } catch (err: unknown) {
+      console.error("Update stage status error:", err);
+
+      let errorMessage = "An unexpected error occurred while updating stage status";
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else {
+          errorMessage = err.message;
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      throw new Error(errorMessage);
+    }
+  }
+
+}
+
+export const teamsService = TeamsService.getInstance();
