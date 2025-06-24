@@ -7,7 +7,7 @@ interface UseTeamStagesReturn {
   stagesData: TeamStagesData | null;
   stagesLoading: boolean;
   stagesError: string | null;
-  refetch: () => Promise<void>;
+  stagesRefetch: () => Promise<void>;
 }
 
 export const useTeamStages = (team_id: string): UseTeamStagesReturn => {
@@ -36,7 +36,7 @@ export const useTeamStages = (team_id: string): UseTeamStagesReturn => {
     }
   };
 
-  const refetch = async () => {
+  const stagesRefetch = async () => {
     await fetchStagesData();
   };
 
@@ -48,6 +48,6 @@ export const useTeamStages = (team_id: string): UseTeamStagesReturn => {
     stagesData,
     stagesLoading,
     stagesError,
-    refetch,
+    stagesRefetch,
   };
 };

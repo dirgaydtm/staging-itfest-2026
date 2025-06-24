@@ -2,7 +2,7 @@ import { BlobResponse } from "@/shared/type/TAuth";
 import { apiClient } from "../core/core";
 import axios from "axios";
 
-type SubmissionStatus = 'lolos' | 'tidak lolos';
+export type SubmissionStatus = 'lolos' | 'tidak lolos';
 
 export interface ParticipantTotalData {
   total_uiux: number;
@@ -116,6 +116,7 @@ export interface UpdateTeamResponse {
 
 // Add these interfaces at the top with other interfaces
 export interface TeamStage {
+  stage_id: number;
   stage_name: string;
   stage_deadline: string;
   link_submission: string;
@@ -457,6 +458,35 @@ export class TeamsService {
       const response = await apiClient.patch<TeamInformationData>(
         `/admin/teams/${team_id}`,
         { team_id: team_id, payment_status: "belum terverifikasi" }
+      );
+
+      if (response.status.isSuccess) {
+        return response as UpdateTeamResponse;
+      }
+
+      throw new Error(response.message || "Failed to verify payment");
+    } catch (err: unknown) {
+      console.error("Verify payment error:", err);
+
+      let errorMessage = "An unexpected error occurred while verifying payment";
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else {
+          errorMessage = err.message;
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      throw new Error(errorMessage);
+    }
+  }
+
+  async denyPayment(team_id: string): Promise<UpdateTeamResponse> {
+    try {
+      const response = await apiClient.patch<TeamInformationData>(
+        `/admin/teams/${team_id}`,
+        { team_id: team_id, payment_status: "ditolak" }
       );
 
       if (response.status.isSuccess) {

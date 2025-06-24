@@ -43,29 +43,31 @@ const AnnouncementList = ({ announcements }: AnnouncementListProps) => {
 
             {totalAnnouncements > 0 && (
                 <div className="flex flex-col md:flex-row justify-between items-center my-2">
-                    <Button
-                        onClick={handlePrevPage}
-                        disabled={currentPage === 1}
-                        size="small"
-                        className="flex items-center gap-2"
-                    >
-                        <ChevronLeft className="w-4 h-4" />
-                        Previous
-                    </Button>
+                    {currentPage > 1 && (
+                        <Button
+                            onClick={handlePrevPage}
+                            size="small"
+                            className="flex items-center gap-2"
+                        >
+                            <ChevronLeft className="w-4 h-4" />
+                            Previous
+                        </Button>
+                    )}
 
                     <span className="text-sm">
                         Page {currentPage} of {totalPages}
                     </span>
 
-                    <Button
-                        onClick={handleNextPage}
-                        disabled={currentPage === totalPages}
-                        size="small"
-                        className="flex items-center gap-2"
-                    >
-                        Next
-                        <ChevronRight className="w-4 h-4" />
-                    </Button>
+                    {currentPage < totalPages && (
+                        <Button
+                            onClick={handleNextPage}
+                            size="small"
+                            className="flex items-center gap-2"
+                        >
+                            Next
+                            <ChevronRight className="w-4 h-4" />
+                        </Button>
+                    )}
                 </div>
             )}
 
