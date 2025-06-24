@@ -1,12 +1,12 @@
-
-import { apiClient } from "../";
+import { apiClient } from "../core/core";
 import { ApiResponse } from "@/shared/type/TAuth";
+import { AxiosError } from "axios";
 
 export interface BiodataKetuaRequest {
   full_name: string;
   student_number: string;
   university: string;
-  major: string;
+  phone_number: string;
 }
 
 export interface TeamMember {
@@ -42,36 +42,118 @@ export interface UpsertTeamResponse {
 }
 
 class PendaftaranService {
+  private static instance: PendaftaranService;
+
+  public static getInstance(): PendaftaranService {
+    if (!PendaftaranService.instance) {
+      PendaftaranService.instance = new PendaftaranService();
+    }
+    return PendaftaranService.instance;
+  }
+
   // Register biodata ketua
   async registerBiodataKetua(
     competitionId: number,
     data: BiodataKetuaRequest
   ): Promise<ApiResponse<BiodataKetuaResponse>> {
-    const response = await apiClient.post(
-      `/competitions/register/${competitionId}`,
-      data
-    );
-    return response.data;
+    try {
+      const response = await apiClient.post<BiodataKetuaResponse>(
+        `/competitions/register/${competitionId}`,
+        data
+      );
+      
+      if (response.status.isSuccess) {
+        return response;
+      }
+      
+      throw new Error(response.message || "Gagal menyimpan biodata ketua");
+    } catch (err) {
+      let errorMessage = "Terjadi kesalahan saat menyimpan biodata ketua";
+
+      if (err instanceof AxiosError) {
+        const apiMessage = err.response?.data?.message || err.response?.data?.data;
+        if (typeof apiMessage === "string") {
+          errorMessage = apiMessage;
+        } else if (Array.isArray(apiMessage)) {
+          errorMessage = apiMessage.join(", ");
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
+      throw new Error(errorMessage);
+    }
   }
 
   // Upload KTM
   async uploadKTM(file: File): Promise<ApiResponse<UploadKTMResponse>> {
-    const formData = new FormData();
-    formData.append('ktm', file);
-    
-    const response = await apiClient.post('/competitions/upload-ktm', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response.data;
+    try {
+      const formData = new FormData();
+      formData.append('ktm', file);
+      
+      const response = await apiClient.post<UploadKTMResponse>(
+        '/competitions/upload-ktm', 
+        formData, 
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      
+      if (response.status.isSuccess) {
+        return response;
+      }
+      
+      throw new Error(response.message || "Gagal mengupload KTM");
+    } catch (err) {
+      let errorMessage = "Terjadi kesalahan saat mengupload KTM";
+
+      if (err instanceof AxiosError) {
+        const apiMessage = err.response?.data?.message || err.response?.data?.data;
+        if (typeof apiMessage === "string") {
+          errorMessage = apiMessage;
+        } else if (Array.isArray(apiMessage)) {
+          errorMessage = apiMessage.join(", ");
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
+      throw new Error(errorMessage);
+    }
   }
 
   // Upsert team (add or edit team)
   async upsertTeam(data: UpsertTeamRequest): Promise<ApiResponse<UpsertTeamResponse>> {
-    const response = await apiClient.patch('/users/upsert-team', data);
-    return response.data;
+    try {
+      const response = await apiClient.patch<UpsertTeamResponse>(
+        '/users/upsert-team', 
+        data
+      );
+      
+      if (response.status.isSuccess) {
+        return response;
+      }
+      
+      throw new Error(response.message || "Gagal menyimpan data tim");
+    } catch (err) {
+      let errorMessage = "Terjadi kesalahan saat menyimpan data tim";
+
+      if (err instanceof AxiosError) {
+        const apiMessage = err.response?.data?.message || err.response?.data?.data;
+        if (typeof apiMessage === "string") {
+          errorMessage = apiMessage;
+        } else if (Array.isArray(apiMessage)) {
+          errorMessage = apiMessage.join(", ");
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
+      throw new Error(errorMessage);
+    }
   }
 }
 
-export const pendaftaranService = new PendaftaranService();
+export const pendaftaranService = PendaftaranService.getInstance();
