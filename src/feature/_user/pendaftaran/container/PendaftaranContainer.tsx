@@ -1,11 +1,13 @@
 import React from 'react'
 import BoardingTemplate from '@/shared/components/onboarding/BoardingTemplate'
+import PendaftaranForm from '../components/PendaftaranForm'
 
-const PendaftaranContainer = () => {
+const OnboardingContainer = () => {
   return (
     <BoardingTemplate>
+      <PendaftaranForm />
     </BoardingTemplate>
   )
 }
 
-export default PendaftaranContainer
+export default OnboardingContainer

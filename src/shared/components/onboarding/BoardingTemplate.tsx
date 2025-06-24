@@ -49,7 +49,7 @@ const BoardingTemplate: React.FC<React.PropsWithChildren<{}>> = ({
         >
           <div className="animate-bounce hover:animate-ping transition-all duration-300 flex justify-center items-center">
             <Image
-              className={`xl:w-3/5 lg:w-64 w-48 transform transition-all duration-700 delay-1000
+              className={`2xl:w-3/4 lg:w-3/5 w-48 transform transition-all duration-700 delay-1000
                          hover:scale-110 hover:rotate-2
                          ${
                            isLoaded
@@ -72,12 +72,12 @@ const BoardingTemplate: React.FC<React.PropsWithChildren<{}>> = ({
                           }`}
           >
             <h2
-              className="xl:text-2xl md:text-xl font-bold font-changa"
+              className="lg:text-3xl md:text-xl font-bold font-changa"
             >
               Welcome to ITFEST!
             </h2>
             <p
-              className="xl:text-xl md:text-sm font-changa"
+              className="lg:text-2xl md:text-sm font-changa"
             >
               Compete, Collaborate, and Win <br /> Together!
             </p>
