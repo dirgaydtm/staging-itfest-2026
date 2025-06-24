@@ -5,6 +5,7 @@ import {
   User,
 } from "@/shared/type/TAuth";
 import { apiClient } from "../core/core";
+import { AxiosError } from "axios";
 
 export class AuthService {
   private static instance: AuthService;
@@ -40,11 +41,21 @@ export class AuthService {
       }
 
       return response as AuthResponse;
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        throw new Error(err.message || "Login failed");
+    } catch (err) {
+      let errorMessage = "Terjadi kesalahan saat registrasi";
+
+      if (err instanceof AxiosError) {
+        const apiMessage = err.response?.data?.data;
+        if (typeof apiMessage === "string") {
+          errorMessage = apiMessage;
+        } else if (Array.isArray(apiMessage)) {
+          errorMessage = apiMessage.join(", ");
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
       }
-      throw new Error("Login failed");
+
+      throw new Error(errorMessage);
     }
   }
 
@@ -64,7 +75,7 @@ export class AuthService {
             ...response.data,
             role: tokenData.role,
             IsAdmin: tokenData.IsAdmin,
-            id: tokenData.id,
+            UserID: tokenData.UserID,
             permissions: tokenData.permissions,
           };
         }
@@ -115,7 +126,7 @@ export class AuthService {
       const role = IsAdmin === true ? "admin" : "user";
 
       return {
-        id: payload.UserID,
+        UserID: payload.UserID,
         email: "", // Empty since not in token
         name: "", // Empty since not in token
         role: role,
@@ -144,12 +155,10 @@ export class AuthService {
   }
 
   private getStoredToken(): string | null {
-    // Use apiClient untuk mengambil token dari local storage atau cookie yang sudah di decrypt
     return apiClient.getDecryptedToken();
   }
 
   getStoredUser(): User | null {
-    // Always get user data from token, never from localStorage
     const token = this.getStoredToken();
     if (token) {
       try {
@@ -183,7 +192,6 @@ export class AuthService {
     return user?.role === requiredRole;
   }
 
-  // Method to check admin status directly from token
   IsAdmin(): boolean {
     const token = this.getStoredToken();
     if (!token) return false;
@@ -196,7 +204,6 @@ export class AuthService {
     }
   }
 
-  // Ambil User Id by token
   getUserId(): string | null {
     const token = this.getStoredToken();
     if (!token) return null;
@@ -209,7 +216,6 @@ export class AuthService {
     }
   }
 
-  // Method untuk mengambil decrypted token untuk API call
   getTokenForApiCall(): string | null {
     return apiClient.getDecryptedToken();
   }
