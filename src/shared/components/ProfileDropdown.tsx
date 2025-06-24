@@ -1,7 +1,8 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { User, LogOut, Settings, Shield } from "lucide-react";
+import { User, LogOut, Settings, Shield, Trophy } from "lucide-react";
 import { User as UserType } from "../type/TAuth";
+import Link from "next/link";
 
 interface ProfileDropdownProps {
   user: UserType | null;
@@ -93,10 +94,12 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
 
             {/* Menu Items */}
             <div className="py-1">
-              <button className="w-full px-4 py-2 text-left text-white hover:bg-blue-800/50 transition-colors duration-150 flex items-center gap-3">
-                <User size={16} />
-                <span className="text-sm">My Profile</span>
-              </button>
+              <Link href={"/dashboard"}>
+                <button className="w-full px-4 py-2 text-left text-white hover:bg-blue-800/50 transition-colors duration-150 flex items-center gap-3">
+                  <Trophy size={16} />
+                  <span className="text-sm">Dashboard</span>
+                </button>
+              </Link>
 
               <button className="w-full px-4 py-2 text-left text-white hover:bg-blue-800/50 transition-colors duration-150 flex items-center gap-3">
                 <Settings size={16} />

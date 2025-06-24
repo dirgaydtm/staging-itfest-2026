@@ -11,12 +11,14 @@ import TeamInformationCard from "../components/TeamInformation/TeamInformationCa
 import { getCurrentStagesStyle } from "@/shared/utils/currentStagesStyle";
 import Modal from "@/shared/components/ui/Modal";
 import { teamsService } from "@/api/services/admin";
+import { useTeamStages } from "../hooks/useTeamStages";
 
 const TeamInformationContainer = () => {
   const params = useParams();
   const team_id = params.team_id as string;
   const { teamInformationData, loading, error, refetch } = useTeamInformation(team_id);
-  const [modalState, setModalState] = useState({ isOpen: false, type: null as 'accept' | 'deny' | null });
+  const [modalState, setModalState] = useState({ isOpen: false, type: null as 'accept' | 'deny' | 'reset' | null });
+  const { stagesData } = useTeamStages(team_id);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -36,6 +38,10 @@ const TeamInformationContainer = () => {
     setModalState({ isOpen: true, type: 'deny' });
   };
 
+  const handleResetVerify = () => {
+    setModalState({ isOpen: true, type: 'reset' });
+  };
+
   const handleCloseModal = () => {
     setModalState({ isOpen: false, type: null });
   };
@@ -45,6 +51,8 @@ const TeamInformationContainer = () => {
       if (modalState.type === 'accept') {
         await teamsService.verifyPayment(team_id);
       } else if (modalState.type === 'deny') {
+        await teamsService.denyPayment(team_id);
+      } else if (modalState.type === 'reset') {
         await teamsService.unverifyPayment(team_id);
       }
       // Refresh team data after successful update
@@ -86,6 +94,7 @@ const TeamInformationContainer = () => {
               teamInfo={teamInformationData}
               onAcceptVerify={handleAcceptVerify}
               onDenyVerify={handleDenyVerify}
+              onResetVerify={handleResetVerify}
               onCheckPayment={handleCheckPayment}
             />
           </div>
@@ -102,7 +111,18 @@ const TeamInformationContainer = () => {
             <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300">
               <h2 className="text-xl font-bold mb-2">Stages</h2>
               <div className="text-center py-2 rounded-lg mb-4">
-                <p className={getCurrentStagesStyle(teamInformationData.progress.stage_status)}>{teamInformationData.progress.stage_status}</p>
+                {stagesData && (
+                  teamInformationData.progress.stage_name === "Final" ? (
+                    <p className="text-green-400 font-bold">
+                      Sudah lolos ke tahap final (terakhir)
+                    </p>
+                  ) : (
+                    <p className={getCurrentStagesStyle(teamInformationData.progress.stage_status)}>
+                      {teamInformationData.progress.stage_status || "Belum ada status"} ke{" "}
+                      {stagesData.next_stage ? stagesData.next_stage : "(tidak ada)"}
+                    </p>
+                  )
+                )}
               </div>
               <div className="text-center">
                 <p className="text-lg font-bold">{teamInformationData.progress.stage_name}</p>
@@ -129,7 +149,11 @@ const TeamInformationContainer = () => {
             {modalState.type === 'accept' ? 'Konfirmasi Terima Pembayaran' : 'Konfirmasi Tolak Pembayaran'}
           </h2>
           <p className="text-gray-300 mb-8">
-            Apakah Anda yakin ingin {modalState.type === 'accept' ? 'MENERIMA' : 'MENOLAK'} verifikasi pembayaran ini? Tindakan ini tidak dapat dibatalkan.
+            Apakah Anda yakin ingin {modalState.type === 'accept'
+              ? 'TERIMA'
+              : modalState.type === 'deny'
+                ? 'TOLAK'
+                : 'RESET'} verifikasi pembayaran ini? Tindakan ini tidak dapat dibatalkan.
           </p>
           <div className="flex justify-center gap-4">
             <Button
@@ -144,9 +168,21 @@ const TeamInformationContainer = () => {
               type="button"
               size={'small'}
               onClick={handleConfirmAction}
-              className={modalState.type === 'accept' ? 'bg-green-600 hover:bg-green-500' : 'bg-red-600 hover:bg-red-500'}
+              className={
+                modalState.type === 'accept'
+                  ? 'bg-green-600 hover:bg-green-500'
+                  : modalState.type === 'deny'
+                    ? 'bg-red-600 hover:bg-red-500'
+                    : 'bg-yellow-600 hover:bg-yellow-500'
+              }
             >
-              Ya, {modalState.type === 'accept' ? 'Terima' : 'Tolak'}
+              Ya, {
+                modalState.type === 'accept'
+                  ? 'Terima'
+                  : modalState.type === 'deny'
+                    ? 'Tolak'
+                    : 'Reset'
+              }
             </Button>
           </div>
         </div>

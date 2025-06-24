@@ -9,7 +9,7 @@ import TimelineContainer from "@/feature/timeline/container/container";
 
 export default function Home() {
   return (
-    <main className="min-h-screen scroll-smooth ">
+    <main className="min-h-screen scroll-smooth">
       <HeroContainer />
       <AboutContainer />
       <CategoryContainer />
