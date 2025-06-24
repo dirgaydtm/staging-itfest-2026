@@ -5,8 +5,13 @@ interface TeamDetailsCardProps {
 }
 
 const TeamInformationCard = ({ teamInfo }: TeamDetailsCardProps) => {
-  // Create a default array of 2 empty members if members is null
-  const members = teamInfo.members || Array(2).fill({ full_name: null, student_number: null });
+  const members = Array(2).fill({ full_name: null, student_number: null })
+    .map((defaultMember, index) => {
+      if (teamInfo.members && teamInfo.members[index]) {
+        return teamInfo.members[index];
+      }
+      return defaultMember;
+    });
 
   return (
     <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 h-full">
@@ -24,7 +29,7 @@ const TeamInformationCard = ({ teamInfo }: TeamDetailsCardProps) => {
 
         {/* Mapping untuk anggota tim */}
         {members.map((member, index) => (
-          <div key={index}>
+          <div key={index} className={`${!member.full_name ? 'opacity-50' : ''}`}>
             <h3 className="font-bold text-lg">Team Member {index + 1}</h3>
             <p className="text-gray-300">Name: {member.full_name || '-'}</p>
             <p className="text-gray-300">Student ID: {member.student_number || '-'}</p>
