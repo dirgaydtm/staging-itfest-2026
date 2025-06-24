@@ -44,6 +44,14 @@ const TeamListContainer = () => {
     };
 
     const handleReject = () => {
+        if (stagesData?.current_stageID == 0 || !stagesData?.current_stageID) {
+            setModalState({
+                isOpen: true,
+                type: 'error',
+                errorMessage: "No current stage found. The team might not finished Payment Stage yet."
+            });
+            return;
+        }
         setModalState({ isOpen: true, type: 'reject' });
     };
 
