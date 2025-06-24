@@ -142,7 +142,7 @@ const PendaftaranContainer = () => {
 
   return (
     <BoardingTemplate>
-      <div className="md:mx-4 lg:mx-20 md:py-6 lg:py-12 h-full">
+      <div className="md:mx-4 lg:mx-20 pb-30 pt-10 md:pt-0 md:pb-0 md:py-6 lg:py-12 h-screen md:h-full">
         {renderCurrentPage()}
       </div>
     </BoardingTemplate>

@@ -22,7 +22,6 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -31,6 +30,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
       if (!allowedTypes.includes(file.type)) {
         setError("File harus berupa gambar (JPG, PNG) atau PDF");
+        setSelectedFile(null);
         return;
       }
       
@@ -38,6 +38,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
       const maxSize = 5 * 1024 * 1024; // 5MB
       if (file.size > maxSize) {
         setError("Ukuran file maksimal 5MB");
+        setSelectedFile(null);
         return;
       }
       
@@ -46,7 +47,14 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
     }
   };
 
-  const handleUploadKTM = async () => {
+  const handleNext = async () => {
+    // Validate team name
+    if (!teamName.trim()) {
+      setError("Nama tim harus diisi");
+      return;
+    }
+
+    // Validate file selection
     if (!selectedFile) {
       setError("Pilih file KTM terlebih dahulu");
       return;
@@ -56,11 +64,12 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
     setError("");
     
     try {
+      // Upload KTM first
       const response = await pendaftaranService.uploadKTM(selectedFile);
       
       if (response.status.isSuccess) {
-        setUploadSuccess(true);
-        setError("");
+        // If upload successful, proceed to next step
+        onNext();
       } else {
         setError(response.message || "Gagal mengupload KTM");
       }
@@ -72,19 +81,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
     }
   };
 
-  const handleNext = () => {
-    if (!teamName.trim()) {
-      setError("Nama tim harus diisi");
-      return;
-    }
-    if (!uploadSuccess) {
-      setError("Upload KTM terlebih dahulu");
-      return;
-    }
-    onNext();
-  };
-
-  const isFormValid = teamName.trim() !== "" && uploadSuccess;
+  const isFormValid = teamName.trim() !== "" && selectedFile !== null;
 
   return (
     <section className="flex flex-col items-center justify-between h-full">
@@ -101,12 +98,6 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
           </div>
         )}
 
-        {uploadSuccess && (
-          <div className="bg-green-500/20 border border-green-400 p-3 rounded-xl text-center text-white text-sm">
-            KTM berhasil diupload!
-          </div>
-        )}
-
         <div className="space-y-4">
           <Input
             label="Nama Tim"
@@ -120,59 +111,46 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
 
           <div className="space-y-2">
             <label className="block text-white font-medium text-sm mb-1">
-              Upload KTM (Kartu Tanda Mahasiswa)
+              Upload KTM (Kartu Tanda Mahasiswa) *
             </label>
-            <div className="space-y-2">
-              <input
-                type="file"
-                accept=".jpg,.jpeg,.png,.pdf"
-                onChange={handleFileChange}
-                className="w-full px-3 py-2 bg-white text-blue-400 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
-                disabled={loading || uploadSuccess}
-              />
-              <p className="text-xs text-purple-200">
-                Format: JPG, PNG, PDF (Max 5MB)
-              </p>
-              
-              {selectedFile && !uploadSuccess && (
-                <Button
-                  type="button"
-                  size="small"
-                  className="w-full h-12 text-lg"
-                  onClick={handleUploadKTM}
-                  disabled={loading}
-                >
-                  {loading ? "Mengupload..." : "Upload KTM"}
-                </Button>
-              )}
-            </div>
+            <input
+              type="file"
+              accept=".jpg,.jpeg,.png,.pdf"
+              onChange={handleFileChange}
+              className="w-full px-3 py-2 bg-white text-blue-400 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+              disabled={loading}
+            />
+            <p className="text-xs text-purple-200">
+              Format: JPG, PNG, PDF (Max 5MB)
+            </p>
+            
           </div>
         </div>
       </div>
 
       <div className="w-full flex flex-col md:flex-row md:justify-between lg:justify-center gap-2">
-              <Button
-                type="button"
-                size="normal"
-                variant="tertiary"
-                className="w-full md:w-[48%] text-lg h-12 py-2"
-                onClick={onBack}
-                disabled={loading}
-              >
-                Kembali
-              </Button>
-      
-              <Button
-                type="button"
-                size="normal"
-                variant={"primary"}
-                className="w-full md:w-[48%] disabled:opacity-50 text-lg h-12 py-2"
-                disabled={!isFormValid || loading}
-                onClick={handleNext}
-              >
-                {loading ? "Menyimpan..." : "Lanjut"}
-              </Button>
-            </div>
+        <Button
+          type="button"
+          size="normal"
+          variant="tertiary"
+          className="w-full md:w-[48%] text-lg h-12 py-2"
+          onClick={onBack}
+          disabled={loading}
+        >
+          Kembali
+        </Button>
+
+        <Button
+          type="button"
+          size="normal"
+          variant={"primary"}
+          className="w-full md:w-[48%] disabled:opacity-50 text-lg h-12 py-2"
+          disabled={!isFormValid || loading}
+          onClick={handleNext}
+        >
+          {loading ? "Mengupload" : "Lanjut"}
+        </Button>
+      </div>
     </section>
   );
 };
