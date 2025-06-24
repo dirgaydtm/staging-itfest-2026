@@ -75,7 +75,7 @@ const SubmissionStages = ({ onCheckStageDetails, stagesData }: SubmissionStagesP
           <Button
             type="button"
             size="small"
-            disabled={!isCurrent || !stage.link_submission || stage.link_submission.trim() === ""}
+            disabled={!stage.link_submission || stage.link_submission.trim() === "" }
             onClick={() => onCheckStageDetails(index)}
             className={`mt-1 text-md ${isCurrent
               ? "bg-blue-300 hover:bg-blue-800 text-white"
