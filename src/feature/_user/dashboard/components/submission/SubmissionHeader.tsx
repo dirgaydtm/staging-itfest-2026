@@ -14,7 +14,7 @@ const SubmissionHeader = ({
     competitionData[competitionCategory as keyof typeof competitionData];
 
   return (
-    <header className="flex flex-col lg:flex-row sm:justify-between items-center overflow-x-auto bg-blue-500 border-2 mycontainer border-purple-300 p-4 rounded-4xl mr-10 font-changa gap-4">
+    <header className="flex flex-col lg:flex-row lg:justify-between items-center overflow-x-auto bg-blue-500 border-2 mycontainer border-purple-300 p-4 rounded-4xl gap-8 mr-10 font-changa h-50">
       <section className="flex items-center gap-4 text-center">
         <Image
           src={content.icon}
@@ -29,11 +29,11 @@ const SubmissionHeader = ({
         </h2>
       </section>
 
-      <section className="flex md:flex-col flex-row items-center gap-2 ">
+      <section className="flex lg:flex-col flex-row items-center lg:items-start gap-2 truncate">
         <span className="text-xl lg:text-2xl font-bold text-white">
           Status:
         </span>
-        <span className="text-base md:text-lg lg:text-xl font-normal text-white">
+        <span className="text-base md:text-base lg:text-xl font-normal text-white">
           {status}
         </span>
       </section>

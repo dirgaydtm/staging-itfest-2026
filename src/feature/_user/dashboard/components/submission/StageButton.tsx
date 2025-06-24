@@ -1,58 +1,87 @@
+"use client";
+
 import { useState } from "react";
 import { Button } from "@/shared/components/ui/Button";
 import { IStage } from "../../types/submission";
-import SubmitLinkModal from "./SubmitLinkModal";
+import SubmitLinkModal from "./modal/SubmitLinkModal";
+import SubmitPaymentModal from "./modal/UploadPaymentModal";
+import StatusModal from "./modal/StatusModal";
+import { useStageSubmission } from "../../hooks/useStageSubmission";
 
 interface StageActionButtonProps {
   isCurrent: boolean;
   isPast: boolean;
   status: IStage["status_submission"];
+  stageName: string;
 }
 
 export const StageActionButton = ({
   isCurrent,
-  isPast,
   status,
+  stageName,
 }: StageActionButtonProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleSubmit = (link: string) => {
-    console.log("Link yang dikirim:", link);
-    // TODO: kirim ke API
-  };
+  const [modalOpen, setModalOpen] = useState(false);
+  const {
+    isLoading,
+    handleSubmit,
+    submissionSuccess,
+    showStatusModal,
+    setShowStatusModal,
+  } = useStageSubmission(stageName);
 
   if (isCurrent) {
+    if (["diproses", "tidak lolos", "lolos"].includes(status)) {
+      return (
+        <Button
+          variant="disabled"
+          size="small"
+          className="text-lg w-32 h-12"
+          disabled
+        >
+          {status}
+        </Button>
+      );
+    }
+
     return (
       <>
         <Button
-          variant={"primary"}
-          size={"small"}
-          className="text-xl w-32"
-          onClick={() => setIsModalOpen(true)}
+          variant="primary"
+          size="small"
+          className="text-lg w-32 h-12"
+          onClick={() => setModalOpen(true)}
         >
-          Submit
+          {isLoading ? "Submitting..." : "Submit"}
         </Button>
 
-        <SubmitLinkModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onSubmit={handleSubmit}
+        {stageName === "Payment" ? (
+          <SubmitPaymentModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onSubmit={handleSubmit}
+            isLoading={isLoading}
+          />
+        ) : (
+          <SubmitLinkModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onSubmit={handleSubmit}
+            isLoading={isLoading}
+          />
+        )}
+
+        <StatusModal
+          isOpen={showStatusModal}
+          isSuccess={submissionSuccess === true}
+          onClose={() => setShowStatusModal(false)}
         />
       </>
     );
   }
 
-  if (isPast) {
-    return (
-      <Button variant={"disabled"} size={"small"} className="text-xl w-32">
-        {status}
-      </Button>
-    );
-  }
-
   return (
-    <Button variant={"disabled"} size={"small"} className="text-xl w-32">
-      Waiting...
+    <Button variant="disabled" size="small" className="text-lg w-32 h-12">
+      {status || "waiting.."}
     </Button>
   );
 };

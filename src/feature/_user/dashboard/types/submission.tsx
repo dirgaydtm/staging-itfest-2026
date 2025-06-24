@@ -13,3 +13,10 @@ export interface IStage {
   link_submission: string;
   status_submission: string;
 }
+
+export interface PostSubmissionsResponse {
+  gdrive_link: string;
+}
+export interface PostPaymentResponse {
+  data: FormData;
+}

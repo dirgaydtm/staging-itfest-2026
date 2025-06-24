@@ -1,10 +1,7 @@
-// src/features/submissions/components/SubmissionStages.tsx
-
 import { useMemo } from "react";
 import { StageItem } from "./StageItem";
 import { StageConnector } from "./StageConnector";
 import { IStage, SubmissionsResponse } from "../../types/submission";
-
 
 interface SubmissionStagesProps {
   submissionsData: SubmissionsResponse | undefined;
@@ -22,12 +19,16 @@ const getStageStatus = (
       ? stage.stage_name === "Payment"
       : stage.stage_name === current_stage;
 
-  const isPast =
-    current_stageID === 0
-      ? false
-      : index < allStages.findIndex((s) => s.stage_name === current_stage);
+  const currentIndex = allStages.findIndex(
+    (s) => s.stage_name === current_stage
+  );
+
+  const isPast = current_stageID !== 0 && index < currentIndex;
 
   const isLast = index === allStages.length - 1;
+
+  console.log(isLast);
+  console.log(current_stageID);
 
   return { isCurrent, isPast, isLast };
 };
@@ -37,19 +38,10 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
 
   const allStages = useMemo(() => {
     if (!data) return [];
-    
-    const { stages, payment_status } = data;
-    const nextStageDeadline = stages[0]?.stage_deadline ?? null;
 
-    return [
-      {
-        stage_name: "Payment",
-        stage_deadline: nextStageDeadline,
-        link_submission: "",
-        status_submission: payment_status,
-      },
-      ...stages,
-    ];
+    const { stages } = data;
+
+    return [...stages];
   }, [data]);
 
   if (!data) return null;
@@ -67,17 +59,27 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
 
     return (
       <div key={index} className="flex items-center flex-col lg:flex-row">
-        <StageItem stage={stage} isCurrent={isCurrent} isPast={isPast} isDesktop={isDesktop} />
+        <StageItem
+          stage={stage}
+          isCurrent={isCurrent}
+          isPast={isPast}
+          isDesktop={isDesktop}
+          isLast={isLast}
+        />
         {!isLast && (
-          <StageConnector isPast={isCurrent || isPast} orientation={isDesktop ? "horizontal" : "vertical"} />
+          <StageConnector
+            isPast={isCurrent || isPast}
+            orientation={isDesktop ? "horizontal" : "vertical"}
+            status={stage.status_submission}
+          />
         )}
       </div>
     );
   };
-  
+
   return (
-    <section className="bg-blue-500 rounded-4xl border-2 border-purple-300 p-6">
-      <header className="text-white text-xl font-semibold text-center mb-8">
+    <section className="bg-blue-500 rounded-4xl border-2 border-purple-300 overflow-x-auto font-changa py-10">
+      <header className="text-white text-3xl font-bold text-center mb-16">
         Stages
       </header>
 
