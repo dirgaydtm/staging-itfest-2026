@@ -3,11 +3,9 @@
 import React from 'react';
 import { Button } from '@/shared/components/ui/Button';
 import { TeamStagesData } from '@/api/services/admin';
-import { getCurrentStagesStyle } from '@/shared/utils/currentStagesStyle';
 
 interface JudgingCardProps {
     stageData: TeamStagesData | null;
-    status: string;
     stagesLoading?: boolean;
     onPass: () => void;
     onReject: () => void;
@@ -21,7 +19,6 @@ const DiamondIcon = () => (
 
 const JudgingCard = ({
     stageData,
-    status,
     stagesLoading = false,
     onPass,
     onReject
@@ -39,9 +36,9 @@ const JudgingCard = ({
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
                 <h2 className="text-2xl font-bold">Pass/Not Pass</h2>
-                <span className={`px-3 py-1 text-sm font-semibold rounded-full ${getCurrentStagesStyle(status)}`}>
-                    {status}
-                </span>
+                {/* <span className={`px-3 py-1 text-sm font-semibold rounded-full ${getCurrentStagesStyle(stageData.current_stage)}`}>
+                    {stageData.current_stage}
+                </span> */}
             </div>
 
             {/* Konten Utama */}

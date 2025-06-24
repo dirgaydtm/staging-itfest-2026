@@ -124,15 +124,15 @@ const TeamListContainer = () => {
 
                 <div className="flex flex-col lg:flex-row gap-6 w-full mb-8">
                     <div className="w-full lg:w-1/2">
-                        <StagesCard teamInfo={teamInformationData} />
+                        <StagesCard teamInfo={teamInformationData} stageData={stagesData} />
                     </div>
 
                     <div className="w-full lg:w-1/2">
-                        {stagesData && <JudgingCard stageData={stagesData} status={teamInformationData.progress.stage_status} onPass={handlePass} onReject={handleReject} />}
+                        {stagesData && <JudgingCard stageData={stagesData} onPass={handlePass} onReject={handleReject} />}
                     </div>
                 </div>
 
-                <SubmissionStages stagesData={stagesData} status={""} currentStageIndex={0} onCheckStageDetails={handleCheckStageDetails} />
+                <SubmissionStages stagesData={stagesData} onCheckStageDetails={handleCheckStageDetails} />
             </div>
 
             <Modal isOpen={modalState.isOpen} onClose={handleCloseModal}>
@@ -146,14 +146,17 @@ const TeamListContainer = () => {
                             <p className="text-gray-300 mb-8">
                                 {modalState.errorMessage || 'An unexpected error occurred'}
                             </p>
-                            <Button
-                                type="button"
-                                size="small"
-                                variant="secondary"
-                                onClick={handleCloseModal}
-                            >
-                                Close
-                            </Button>
+                            <div className="flex justify-center gap-4 ">
+                                <Button
+                                    type="button"
+                                    size="small"
+                                    variant="secondary"
+                                    onClick={handleCloseModal}
+                                >
+                                    Close
+                                </Button>
+                            </div>
+
                         </>
                     ) : (
                         <>
