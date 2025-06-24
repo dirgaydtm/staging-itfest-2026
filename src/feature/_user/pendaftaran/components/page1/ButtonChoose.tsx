@@ -1,4 +1,3 @@
-// src/feature/_user/pendaftaran/components/page1/ButtonChoose.tsx
 import React from "react";
 
 interface ButtonChooseProps {

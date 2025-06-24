@@ -1,4 +1,3 @@
-// src/feature/_user/pendaftaran/components/page1/ChooseLomba.tsx
 import React from "react";
 import ButtonChoose from "./ButtonChoose";
 

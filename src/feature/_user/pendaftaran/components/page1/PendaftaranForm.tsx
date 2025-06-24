@@ -31,7 +31,7 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
       <Button
         type="button"
         size={"normal"}
-        className="w-full text-base sm:text-base disabled:opacity-50"
+        className="w-full text-base h-12 sm:text-base disabled:opacity-50"
         disabled={!selectedCompetition}
         onClick={handleNext}
       >
