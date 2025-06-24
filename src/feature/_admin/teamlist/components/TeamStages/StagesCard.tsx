@@ -12,7 +12,7 @@ const StagesCard = ({ teamInfo }: StagesCardProps) => {
       <h2 className="text-xl font-bold mb-2">Stages</h2>
       <div className="text-center py-2 rounded-lg mb-4">
         <p className={getCurrentStagesStyle(teamInfo.progress.stage_status)}>
-          {teamInfo.progress.stage_status}
+          {teamInfo.progress.stage_status} ke {teamInfo.progress.stage_name}
         </p>
       </div>
       <div className="text-center">
