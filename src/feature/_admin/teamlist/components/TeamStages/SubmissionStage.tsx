@@ -33,15 +33,16 @@ const getStageStatus = (
 };
 
 const SubmissionStages = ({ onCheckStageDetails, stagesData }: SubmissionStagesProps) => {
-  if (!stagesData) return null;
-
   const allStages = useMemo(() => {
+    if (!stagesData) return [];
     return [...stagesData.stages];
   }, [stagesData]);
 
-  const renderStage = (stage: any, index: number, isDesktop: boolean) => {
+  if (!stagesData) return null;
+
+  const renderStage = (stage: TeamStage, index: number, isDesktop: boolean) => {
     const { isCurrent, isPast, isLast } = getStageStatus(
-      stage.stage_name,
+      stage,
       index,
       allStages,
       stagesData.current_stage,

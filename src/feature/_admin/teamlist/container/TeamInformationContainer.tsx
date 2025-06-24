@@ -18,7 +18,7 @@ const TeamInformationContainer = () => {
   const team_id = params.team_id as string;
   const { teamInformationData, loading, error, refetch } = useTeamInformation(team_id);
   const [modalState, setModalState] = useState({ isOpen: false, type: null as 'accept' | 'deny' | 'reset' | null });
-  const { stagesData, stagesLoading, stagesError, stagesRefetch } = useTeamStages(team_id);
+  const { stagesData } = useTeamStages(team_id);
 
   if (loading) {
     return <div>Loading...</div>;

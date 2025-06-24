@@ -3,7 +3,6 @@
 import React from 'react';
 import { Button } from '@/shared/components/ui/Button';
 import { TeamStagesData } from '@/api/services/admin';
-import { getCurrentStagesStyle } from '@/shared/utils/currentStagesStyle';
 
 interface JudgingCardProps {
     stageData: TeamStagesData | null;
