@@ -14,11 +14,9 @@ import PendaftaranSelesaiForm from "../components/page5/SuccesForm";
 import { TeamMember } from "@/api/services/pendaftaran";
 
 const PendaftaranContainer = () => {
-  // State untuk navigasi halaman
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading] = useState(false);
 
-  // State untuk data form
   const [selectedCompetition, setSelectedCompetition] = useState<number | null>(
     null
   );
