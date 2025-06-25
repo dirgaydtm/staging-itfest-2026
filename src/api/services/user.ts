@@ -1,4 +1,5 @@
 import { apiClient } from "@/api/core/core";
+import { Announcement } from "@/feature/_user/dashboard/types/announcement";
 import { PostSubmissionsResponse, SubmissionsResponse } from "@/feature/_user/dashboard/types/submission";
 import { TeamProfileResponse } from "@/feature/_user/dashboard/types/teamProfile";
 
@@ -44,6 +45,18 @@ export const userService = {
         } catch (error) {
             throw new Error(`Failed to post payment: ${error}`);
         }
+    },
+
+    getAnnouncement: async (): Promise<Announcement[]> => {
+        const response = await apiClient.get<Announcement[]>("users/announcement");
+        console.log(response.data); 
+
+        if (!response.data || !Array.isArray(response.data)) {
+            throw new Error("Invalid announcement data");
+        }
+
+        return response.data;
     }
+
 }
 

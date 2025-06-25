@@ -34,7 +34,7 @@ export const StageItem = ({
       <div
         className={cn(
           "cursor-pointer rotate-45 transition-all duration-300 overflow-x-auto w-full",
-          isCurrent || isPast 
+          isCurrent || isPast || stage.status_submission === "lolos"
             ? "bg-white glow-white"
             : "bg-purple-200",
           stage.status_submission === "lolos" && isLast
@@ -43,7 +43,6 @@ export const StageItem = ({
           stage.status_submission === "tidak lolos"
             ? "bg-red-400 glow-red"
             : "",
-          stage.status_submission ? "bg-white" : "",
           isDesktop ? "w-12 h-12" : "w-16 h-16"
         )}
       />
