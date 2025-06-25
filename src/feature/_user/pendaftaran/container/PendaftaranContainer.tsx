@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import BoardingTemplate from "@/shared/components/onboarding/BoardingTemplate";
@@ -16,13 +16,21 @@ import { TeamMember } from "@/api/services/pendaftaran";
 const PendaftaranContainer = () => {
   // State untuk navigasi halaman
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  
+  const [isLoading] = useState(false);
+
   // State untuk data form
-  const [selectedCompetition, setSelectedCompetition] = useState<number | null>(null);
+  const [selectedCompetition, setSelectedCompetition] = useState<number | null>(
+    null
+  );
   const [teamName, setTeamName] = useState("");
-  const [member1, setMember1] = useState<TeamMember>({ name: "", student_number: "" });
-  const [member2, setMember2] = useState<TeamMember>({ name: "", student_number: "" });
+  const [member1, setMember1] = useState<TeamMember>({
+    name: "",
+    student_number: "",
+  });
+  const [member2, setMember2] = useState<TeamMember>({
+    name: "",
+    student_number: "",
+  });
 
   // Navigation functions
   const goToNext = () => {
@@ -62,7 +70,7 @@ const PendaftaranContainer = () => {
             onNext={goToNext}
           />
         );
-      
+
       case 2:
         return (
           <BiodataKetuaForm
@@ -71,7 +79,7 @@ const PendaftaranContainer = () => {
             onBack={goToPrevious}
           />
         );
-      
+
       case 3:
         return (
           <TeamKTMForm
@@ -81,7 +89,7 @@ const PendaftaranContainer = () => {
             onBack={goToPrevious}
           />
         );
-      
+
       case 4:
         return (
           <BiodataAnggota1Form
@@ -91,7 +99,7 @@ const PendaftaranContainer = () => {
             onBack={goToPrevious}
           />
         );
-      
+
       case 5:
         return (
           <BiodataAnggota2Form
@@ -103,7 +111,7 @@ const PendaftaranContainer = () => {
             onBack={goToPrevious}
           />
         );
-      
+
       case 6:
         return (
           <PendaftaranSelesaiForm
@@ -111,7 +119,7 @@ const PendaftaranContainer = () => {
             competitionType={getCompetitionName()}
           />
         );
-      
+
       default:
         return (
           <PendaftaranForm
