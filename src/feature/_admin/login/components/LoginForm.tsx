@@ -1,5 +1,7 @@
 import { Button } from "@/shared/components/ui/Button";
 import { Input } from "@/shared/components/ui/Input";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 interface LoginFormProps {
   email: string;
@@ -24,6 +26,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
   handleSubmit,
   logout,
 }) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      redirect("/mangujo/admin/dashboard");
+    }
+  }, [isAuthenticated, redirect]);
   return (
     <div>
       <form
