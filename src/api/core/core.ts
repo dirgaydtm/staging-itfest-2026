@@ -125,7 +125,7 @@ class Core {
       const encryptedToken = this.encryptToken(token);
 
       Cookies.set("auth_token", encryptedToken, {
-        expires: 1 / 6,
+        expires: 1 / 12,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
