@@ -457,7 +457,7 @@ export class TeamsService {
     try {
       const response = await apiClient.patch<TeamInformationData>(
         `/admin/teams/${team_id}`,
-        { team_id: team_id, payment_status: "belum terverifikasi" }
+        { team_id: team_id, payment_status: "diproses" }
       );
 
       if (response.status.isSuccess) {
