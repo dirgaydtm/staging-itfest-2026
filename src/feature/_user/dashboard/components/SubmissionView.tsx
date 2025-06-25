@@ -6,7 +6,7 @@ import { SubmissionsResponse } from "../types/submission";
 import SubmissionHeader from "./submission/SubmissionHeader";
 import { floatDownSoft, stackUpStagger } from "../lib/motionVarians";
 import SubmissionStages from "./submission/SubmissionStages";
-import SubmissionMessage from "./submission/SubmissionMessage";
+import SubmissionBottom from "./submission/SubmissionBottom";
 interface SubmissionViewProps {
   teamData: TeamProfileResponse;
   submissionsData: SubmissionsResponse | null;
@@ -48,7 +48,7 @@ export const SubmissionView = ({
       </motion.section>
 
       <motion.section className="w-full" variants={stackUpStagger} custom={2}>
-        <SubmissionMessage leaderName={teamData.leader_name} />
+        <SubmissionBottom />
       </motion.section>
     </motion.div>
   );

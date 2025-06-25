@@ -59,15 +59,19 @@
 .glow-white:hover {
   box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.6);
 }
+
 .glow-yellow {
   transition: box-shadow 0.3s ease;
 }
+
 .glow-yellow:hover {
   box-shadow: 0 0 12px 4px rgba(255, 197, 5, 0.6);
 }
+
 .glow-red:hover {
   box-shadow: 0 0 12px 4px rgba(255, 33, 33, 0.6);
 }
+
 .glow-red {
   transition: box-shadow 0.3s ease;
 }
@@ -306,23 +310,29 @@
     @apply bg-background text-foreground;
   }
 }
+
 @layer utilities {
   @keyframes glitch-1 {
     0% {
       transform: translateX(0);
     }
+
     20% {
       transform: translateX(-2px);
     }
+
     40% {
       transform: translateX(2px);
     }
+
     60% {
       transform: translateX(-2px);
     }
+
     80% {
       transform: translateX(2px);
     }
+
     100% {
       transform: translateX(0);
     }
@@ -332,18 +342,23 @@
     0% {
       transform: translateX(0);
     }
+
     20% {
       transform: translateX(2px);
     }
+
     40% {
       transform: translateX(-2px);
     }
+
     60% {
       transform: translateX(2px);
     }
+
     80% {
       transform: translateX(-2px);
     }
+
     100% {
       transform: translateX(0);
     }
@@ -357,4 +372,27 @@
     animation: glitch-2 0.3s ease-in-out infinite alternate;
     animation-delay: 0.1s;
   }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateY(-10px) scale(1.2);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.6;
+  }
+}
+
+.animate-float {
+  animation-name: float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 }
