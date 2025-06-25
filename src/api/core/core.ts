@@ -1,6 +1,7 @@
 import { ApiResponse, BlobResponse } from "@/shared/type/TAuth";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import CryptoJS from "crypto-js";
+import Cookies from "js-cookie";
 
 class Core {
   private client: AxiosInstance;
@@ -27,7 +28,6 @@ class Core {
     return Core.instance;
   }
 
-  // Encrypt token before storing
   private encryptToken(token: string): string {
     try {
       return CryptoJS.AES.encrypt(token, this.encryptionKey).toString();
@@ -37,7 +37,6 @@ class Core {
     }
   }
 
-  // Decrypt token when retrieving
   private decryptToken(encryptedToken: string): string {
     try {
       const bytes = CryptoJS.AES.decrypt(encryptedToken, this.encryptionKey);
@@ -63,7 +62,6 @@ class Core {
           config.headers.Authorization = `Bearer ${token}`;
         }
 
-        // Handle blob requests
         if (config.responseType === "blob") {
           config.headers["Accept"] = "application/octet-stream";
         }
@@ -105,41 +103,52 @@ class Core {
   }
 
   private getAuthToken(): string | null {
-    if (typeof window !== "undefined") {
-      const encryptedToken = localStorage.getItem("auth_token");
+    try {
+      const encryptedToken = Cookies.get("auth_token");
       if (encryptedToken) {
         try {
           return this.decryptToken(encryptedToken);
         } catch (error) {
           console.error("Failed to decrypt stored token:", error);
-          // Clear invalid token
           this.handleAuthError();
           return null;
         }
       }
+    } catch (error) {
+      console.error("Failed to get token from cookies:", error);
     }
     return null;
   }
 
   private setAuthTokens(token: string): void {
-    if (typeof window !== "undefined") {
-      try {
-        // Encrypt tokens before storing
-        const encryptedToken = this.encryptToken(token);
-        localStorage.setItem("auth_token", encryptedToken);
-      } catch (error) {
-        console.error("Failed to encrypt and store tokens:", error);
-        throw new Error("Failed to store authentication tokens");
-      }
+    try {
+      const encryptedToken = this.encryptToken(token);
+
+      Cookies.set("auth_token", encryptedToken, {
+        expires: 1 / 6,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+    } catch (error) {
+      console.error("Failed to encrypt and store tokens:", error);
+      throw new Error("Failed to store authentication tokens");
     }
   }
 
   private handleAuthError(): void {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("user_data");
-      window.location.href = "/login";
+    try {
+      // Remove auth-related cookies
+      Cookies.remove("auth_token", { path: "/" });
+      Cookies.remove("refresh_token", { path: "/" });
+      Cookies.remove("user_data", { path: "/" });
+
+      // Redirect to login if we're on the client side
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+    } catch (error) {
+      console.error("Error during auth cleanup:", error);
     }
   }
 
@@ -149,6 +158,16 @@ class Core {
 
   public setEncryptedAuthTokens(token: string): void {
     this.setAuthTokens(token);
+  }
+
+  // Helper method to check if user is authenticated
+  public isAuthenticated(): boolean {
+    return this.getAuthToken() !== null;
+  }
+
+  // Method to manually logout (clear tokens)
+  public logout(): void {
+    this.handleAuthError();
   }
 
   // Add specific method for blob downloads

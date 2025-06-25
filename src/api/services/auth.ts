@@ -142,16 +142,11 @@ export class AuthService {
   }
 
   private setAuthData(authData: { token: string; user: User }): void {
-    if (typeof window !== "undefined") {
-      apiClient.setEncryptedAuthTokens(authData.token);
-    }
+    apiClient.setEncryptedAuthTokens(authData.token);
   }
 
   private clearAuthData(): void {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("refresh_token");
-    }
+    apiClient.logout();
   }
 
   private getStoredToken(): string | null {
@@ -171,20 +166,17 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    if (typeof window !== "undefined") {
-      try {
-        const token = apiClient.getDecryptedToken();
-        if (!token) return false;
+    try {
+      const token = apiClient.getDecryptedToken();
+      if (!token) return false;
 
-        const payload: JWTPayload = JSON.parse(atob(token.split(".")[1]));
-        const currentTime = Math.floor(Date.now() / 1000);
-        return payload.exp > currentTime;
-      } catch (error) {
-        console.error("Authentication check failed:", error);
-        return false;
-      }
+      const payload: JWTPayload = JSON.parse(atob(token.split(".")[1]));
+      const currentTime = Math.floor(Date.now() / 1000);
+      return payload.exp > currentTime;
+    } catch (error) {
+      console.error("Authentication check failed:", error);
+      return false;
     }
-    return false;
   }
 
   hasRole(requiredRole: string): boolean {
