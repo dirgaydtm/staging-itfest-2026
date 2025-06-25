@@ -1,7 +1,8 @@
 import React from "react";
+import PendaftaranContainer from "@/feature/_user/pendaftaran/container/PendaftaranContainer";
 
 const page = () => {
-  return <div>ayams</div>;
+  return <PendaftaranContainer/>;
 };
 
 export default page;

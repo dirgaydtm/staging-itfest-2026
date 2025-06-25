@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 interface UseSubmissionStatusProps {
     isOpen: boolean;
@@ -11,10 +11,10 @@ export const useSubmissionStatus = ({
     timeout = 5000,
     onClose,
 }: UseSubmissionStatusProps) => {
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         onClose();
         window.location.reload();
-    };
+    }, [onClose]);
 
     useEffect(() => {
         if (isOpen) {
@@ -24,7 +24,7 @@ export const useSubmissionStatus = ({
 
             return () => clearTimeout(timer);
         }
-    }, [isOpen, timeout]);
+    }, [isOpen, timeout, handleClose]);
 
     return { handleClose };
 };
