@@ -21,9 +21,16 @@ export function ProtectedRoute({
   const { loading, isAuthenticated, IsAdmin } = useAuth();
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [isChecking, setIsChecking] = useState(true);
 
   const checkAuthorization = useCallback(() => {
-    if (!loading) {
+    if (loading) {
+      return;
+    }
+
+    setIsChecking(true);
+
+    try {
       if (!isAuthenticated) {
         setIsAuthorized(false);
         router.push(fallbackPath);
@@ -43,17 +50,34 @@ export function ProtectedRoute({
       }
 
       setIsAuthorized(true);
+    } catch (error) {
+      console.error("Authorization check error:", error);
+      setIsAuthorized(false);
+      router.push(fallbackPath);
+    } finally {
+      setIsChecking(false);
     }
-  }, [loading, isAuthenticated, IsAdmin, requireAdmin, userOnly, fallbackPath, router]);
+  }, [
+    loading,
+    isAuthenticated,
+    IsAdmin,
+    requireAdmin,
+    userOnly,
+    fallbackPath,
+    router,
+  ]);
 
   useEffect(() => {
     checkAuthorization();
   }, [checkAuthorization]);
 
-  if (loading || isAuthorized === null) {
+  if (loading || isChecking || isAuthorized === null) {
     return (
       <div className="flex items-center justify-center h-screen bg-[#030d35]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+          <p className="text-white text-sm">Loading...</p>
+        </div>
       </div>
     );
   }

@@ -3,6 +3,8 @@ import { Input } from "@/shared/components/ui/Input";
 import Link from "next/link";
 import { useTogglePassword } from "../../register/hooks/useTogglePassword";
 import { Eye, EyeOff } from "lucide-react";
+import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 interface LoginFormProps {
   email: string;
@@ -26,6 +28,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
   setPassword,
   handleSubmit,
 }) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      redirect("/home");
+    }
+  }, [isAuthenticated, redirect]);
   const passwordToggle = useTogglePassword();
   if (isAuthenticated) {
     return (
