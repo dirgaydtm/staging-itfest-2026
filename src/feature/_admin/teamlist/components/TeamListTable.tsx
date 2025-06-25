@@ -17,7 +17,6 @@ import { Button } from "@/shared/components/ui/Button";
 
 
 interface TeamListTableProps {
-    totalAll: number;
     teamData: TeamDetailsData[] | null;
     currentFilter: string;
     onFilterChange: (filter: string) => void;
@@ -36,7 +35,7 @@ const isValidTeam = (team: TeamDetailsData): boolean => {
     );
 };
 
-const TeamListTable = ({ totalAll, teamData, currentFilter, onFilterChange }: TeamListTableProps) => {
+const TeamListTable = ({ teamData, currentFilter, onFilterChange }: TeamListTableProps) => {
     if (!teamData) {
         return <div>Loading...</div>;
     }

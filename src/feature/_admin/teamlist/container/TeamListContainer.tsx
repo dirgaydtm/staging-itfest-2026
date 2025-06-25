@@ -3,13 +3,10 @@
 import React, { useState } from "react";
 import TeamListTable from "../components/TeamListTable";
 import TeamListHeader from "../components/TeamListHeader";
-import { useParticipant } from "../../dashboard/hooks/useParticipantData";
 import { useTeamDetails } from "../hooks/useTeamDetailsData";
-import { Button } from "@/shared/components/ui/Button";
 
 const TeamListContainer = () => {
-  const { totalAll } = useParticipant();
-  const { teamData, loading, error, refetch } = useTeamDetails();
+  const { teamData, loading, error } = useTeamDetails();
   const [currentFilter, setCurrentFilter] = useState("");
 
   const handleFilterChange = (filter: string) => {
@@ -25,7 +22,7 @@ const TeamListContainer = () => {
         <TeamListHeader />
       </div>
 
-      <TeamListTable totalAll={totalAll} teamData={teamData} currentFilter={currentFilter} onFilterChange={handleFilterChange} />
+      <TeamListTable teamData={teamData} currentFilter={currentFilter} onFilterChange={handleFilterChange} />
     </section>
   );
 };
