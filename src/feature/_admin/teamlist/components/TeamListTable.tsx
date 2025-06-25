@@ -45,8 +45,18 @@ const TeamListTable = ({ totalAll, teamData, currentFilter, onFilterChange }: Te
         return <div>No teams found.</div>;
     }
 
-    const validTeams = teamData.filter(isValidTeam)
-        .filter(team => !currentFilter || team.current_stage === currentFilter);
+    const validTeams = teamData
+        .filter(isValidTeam)
+        .filter(team => !currentFilter || team.current_stage === currentFilter)
+        .sort((a, b) => {
+            if (currentFilter) {
+                if (a.competition_name === "UI/UX" && b.competition_name === "BP") return -1;
+                if (a.competition_name === "BP" && b.competition_name === "UI/UX") return 1;
+            }
+            return 0;
+        });
+
+    const filteredTotal = validTeams.length;
 
     const filters = ["Payment", "BMC", "Proposal", "Final"];
 
@@ -124,8 +134,10 @@ const TeamListTable = ({ totalAll, teamData, currentFilter, onFilterChange }: Te
                 </TableBody>
                 <TableFooter>
                     <TableRow>
-                        <TableCell className="font-bold" colSpan={6}>Total Team</TableCell>
-                        <TableCell className="font-bold text-right">{totalAll}</TableCell>
+                        <TableCell className="font-bold" colSpan={6}>
+                            {currentFilter ? "Total Filtered Team" : "Total Team"}
+                        </TableCell>
+                        <TableCell className="font-bold text-right">{filteredTotal}</TableCell>
                     </TableRow>
                 </TableFooter>
             </Table>
