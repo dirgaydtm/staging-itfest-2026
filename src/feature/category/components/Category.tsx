@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import Link from "next/link";
 
 const Category = () => {
   return (
@@ -8,7 +9,9 @@ const Category = () => {
         CHOOSE YOUR CHALLENGE
       </h1>
       <div>
-        <Button />
+        <Link href={"/onboarding"}>
+          <Button />
+        </Link>
       </div>
     </section>
   );

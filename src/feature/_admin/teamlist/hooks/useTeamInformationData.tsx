@@ -1,5 +1,5 @@
 import { participantService, TeamInformationData } from "@/api/services/admin";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface UseTeamInformationReturn {
   teamInformationData: TeamInformationData | null;
@@ -13,7 +13,7 @@ export const useTeamInformation = (team_id: string): UseTeamInformationReturn =>
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchTeamInformationData = async () => {
+  const fetchTeamInformationData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -32,15 +32,15 @@ export const useTeamInformation = (team_id: string): UseTeamInformationReturn =>
     } finally {
       setLoading(false);
     }
-  };
+  }, [team_id]);
 
-  const refetch = async () => {
+  const refetch = useCallback(async () => {
     await fetchTeamInformationData();
-  };
+  }, [fetchTeamInformationData]);
 
   useEffect(() => {
     fetchTeamInformationData();
-  }, []);
+  }, [fetchTeamInformationData]);
 
   return {
     teamInformationData: teamInfo,

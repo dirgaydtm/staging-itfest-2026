@@ -3,6 +3,7 @@
 import Modal from "@/shared/components/ui/Modal";
 import { Button } from "@/shared/components/ui/Button";
 import { useUploadPayment } from "../../../hooks/useUploadPayment";
+import Image from "next/image";
 
 interface UploadPaymentModalProps {
   isOpen: boolean;
@@ -43,9 +44,11 @@ const UploadPaymentModal = ({
         />
 
         {preview && (
-          <img
+          <Image
             src={preview}
             alt="Preview"
+            width={400}
+            height={200}
             className="rounded-lg max-h-48 object-contain mb-4 w-full"
           />
         )}
