@@ -8,6 +8,7 @@ interface StageItemProps {
   isPast: boolean;
   isLast: boolean;
   isDesktop: boolean;
+  isDeadlineOver: boolean;
 }
 
 const formatDate = (dateString: string | null) => {
@@ -25,22 +26,17 @@ export const StageItem = ({
   isPast,
   isLast,
   isDesktop,
+  isDeadlineOver,
 }: StageItemProps) => {
   const stageName =
     stage.stage_name === "" ? stage.status_submission : stage.stage_name;
-  const isDeadlineOver =
-    stage.stage_deadline && new Date(stage.stage_deadline) < new Date();
 
   return (
     <div className={cn("flex flex-col items-center", isDesktop && "w-24")}>
       <div
         className={cn(
           "cursor-pointer rotate-45 transition-all duration-300 overflow-x-auto w-full",
-          isDeadlineOver &&
-            !isPast &&
-            !["lolos", "tidak lolos", "terverifikasi", "ditolak"].includes(
-              stage.status_submission
-            )
+          isDeadlineOver
             ? "glow-blackhole-box purple-particles"
             : isCurrent
             ? "bg-white glow-white"
@@ -91,6 +87,7 @@ export const StageItem = ({
             status={stage.status_submission}
             stageName={stage.stage_name}
             submission_deadline={stage.stage_deadline}
+            isDeadlineOver={isDeadlineOver}
           />
         </div>
       </div>
