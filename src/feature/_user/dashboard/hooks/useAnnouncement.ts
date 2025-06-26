@@ -9,7 +9,7 @@ export const useAnnouncement = () => {
 
   const fetchAnnouncement = async () => {
     try {
-      const response = await userService.getAnnouncement(); // <- langsung array
+      const response = await userService.getAnnouncement();
       setData(response);
     } catch (err: unknown) {
       if (err instanceof Error) {

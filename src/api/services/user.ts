@@ -14,7 +14,6 @@ export const userService = {
 
     getSubmissions: async (): Promise<SubmissionsResponse> => {
         const response = await apiClient.get<SubmissionsResponse>("users/progress");
-        console.log('Submissions Response:', response);
 
         if (!response.data) {
             throw new Error("Failed to fetch submissions data");
@@ -49,7 +48,6 @@ export const userService = {
 
     getAnnouncement: async (): Promise<Announcement[]> => {
         const response = await apiClient.get<Announcement[]>("users/announcement");
-        console.log(response.data); 
 
         if (!response.data || !Array.isArray(response.data)) {
             throw new Error("Invalid announcement data");
