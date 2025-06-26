@@ -10,6 +10,7 @@ const Background = () => {
         alt="background"
         className="w-full h-full object-fill"
         priority
+        draggable={false}
       />
     </div>
   );

@@ -9,10 +9,10 @@ const Sponsor = () => {
   return (
     <div className="w-full bg-[#37176E] mt-10 flex justify-center items-center py-6">
       <div className="max-w-screen-lg flex flex-wrap justify-center gap-6">
-        <Image className="w-1/6 md:w-1/6" alt="Nagari" src={Nagari} />
-        <Image className="w-1/6 md:w-1/6" alt="Praise" src={Praise} />
-        <Image className="w-1/6 md:w-1/6" alt="Dq" src={Dq} />
-        <Image className="w-1/6 md:w-1/6" alt="Dl" src={Dl} />
+        <Image className="w-1/6 md:w-1/6" alt="Nagari" src={Nagari} draggable={false}/>
+        <Image className="w-1/6 md:w-1/6" alt="Praise" src={Praise} draggable={false}/>
+        <Image className="w-1/6 md:w-1/6" alt="Dq" src={Dq} draggable={false}/>
+        <Image className="w-1/6 md:w-1/6" alt="Dl" src={Dl} draggable={false}/>
       </div>
     </div>
   );

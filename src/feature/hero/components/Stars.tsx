@@ -8,7 +8,7 @@ const Stars = () => {
   return (
     <div className="absolute top-0 h-screen w-full right-0 overflow-hidden ">
       {stars.map(({ id, src, style }) => (
-        <Image key={id} src={src} alt="random star" style={style} unoptimized />
+        <Image key={id} src={src} alt="random star" style={style} unoptimized draggable={false}/>
       ))}
     </div>
   );
