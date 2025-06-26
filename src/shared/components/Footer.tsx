@@ -7,6 +7,24 @@ import logoitfest from "../../assets/img/footer/logoitfest.webp";
 import whatsapp from "../../assets/img/footer/whatsapp.webp";
 
 const Footer = () => {
+  const handleWhatsAppClick = (phoneNumber: string, name: string) => {
+    // Format nomor telepon (hapus 0 di depan, tambah 62)
+    const formattedNumber = phoneNumber.startsWith("0")
+      ? "62" + phoneNumber.slice(1)
+      : phoneNumber;
+
+    // Pesan default
+    const message = `Halo ${name}, saya ingin bertanya tentang IT FEST 2025`;
+
+    // Encode pesan untuk URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // Buat URL WhatsApp
+    const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodedMessage}`;
+
+    // Buka di tab baru
+    window.open(whatsappUrl, "_blank");
+  };
   return (
     <footer className="min-h-[35rem] md:min-h-fit bg-linear-180 from-blue-500 to-blue-400 text-white font-changa border-t-5 border-blue-250">
       <div className="mycontainer mb-10 md:mb-20">
@@ -30,13 +48,30 @@ const Footer = () => {
           <section className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16">
             <div className="flex flex-col gap-4 items-center lg:items-start">
               <h1 className="font-bold text-2xl md:text-3xl">Contact Us</h1>
-              <div className="flex items-center gap-3.5">
-                <Image
-                  src={whatsapp}
-                  alt="whatsapp"
-                  className="w-8 h-8 md:w-11 md:h-11"
-                />
-                <p className="text-base md:text-lg">Wildan</p>
+              <div className="flex gap-4">
+                <div
+                  className="flex items-center gap-3.5 cursor-pointer p-2 rounded-lg transition-colors"
+                  onClick={() => handleWhatsAppClick("082132929575", "Devi")}
+                >
+                  <Image
+                    src={whatsapp}
+                    alt="whatsapp"
+                    className="w-8 h-8 md:w-11 md:h-11"
+                  />
+                  <p className="text-base md:text-lg">Devi</p>
+                </div>
+
+                <div
+                  className="flex items-center gap-3.5 cursor-pointer  p-2 rounded-lg transition-colors"
+                  onClick={() => handleWhatsAppClick("082140456252", "Izza")}
+                >
+                  <Image
+                    src={whatsapp}
+                    alt="whatsapp"
+                    className="w-8 h-8 md:w-11 md:h-11"
+                  />
+                  <p className="text-base md:text-lg">Izza</p>
+                </div>
               </div>
             </div>
             <div className="flex flex-col gap-4 items-center lg:items-start">

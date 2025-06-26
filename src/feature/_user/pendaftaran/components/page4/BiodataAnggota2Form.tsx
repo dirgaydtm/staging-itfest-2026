@@ -85,7 +85,8 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
             Biodata Anggota 2
           </h3>
           <p className="text-base font-changa text-white mt-2 md:px-4">
-            Jika tidak ada Anggota 2, maka kosongkan dan klik &quot;Selesaikan&quot;
+            {`Jika tidak ada Anggota 1, maka isi dengan "-" dan klik `}
+            Lanjut
           </p>
         </div>
 

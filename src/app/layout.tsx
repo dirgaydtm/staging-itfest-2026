@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body
         className={` ${neighbor.variable} ${robotech.variable} ${changa.variable} antialiased`}
       >

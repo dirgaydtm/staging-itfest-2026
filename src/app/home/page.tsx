@@ -11,13 +11,23 @@ export default function Home() {
   return (
     <main className="min-h-screen scroll-smooth">
       <HeroContainer />
-      <AboutContainer />
+      <section id="about">
+        <AboutContainer />
+      </section>
       <CategoryContainer />
-      <TimelineContainer />
-      <SpecialPrizeContainer />
-      <FaqContainer />
+      <section id="timeline">
+        <TimelineContainer />
+      </section>
+      <section id="prize">
+        <SpecialPrizeContainer />
+      </section>
+      <section id="faq">
+        <FaqContainer />
+      </section>
       <EventContainer />
-      <GuideContainer />
+      <section id="guide">
+        <GuideContainer />
+      </section>
     </main>
   );
 }

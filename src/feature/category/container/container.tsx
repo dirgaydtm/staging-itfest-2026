@@ -4,7 +4,7 @@ import Category from "../components/Category";
 
 const CategoryContainer = () => {
   return (
-    <section className="bg-blue-450 min-h-screen relative overflow-visible ">
+    <section className="bg-blue-450 min-h-screen pb-20 lg:pb-0 relative overflow-visible ">
       <Background />
       <div className="mycontainer relative">
         <Category />

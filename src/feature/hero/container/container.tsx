@@ -6,7 +6,7 @@ import Stars from "../components/Stars";
 const HeroContainer = () => {
   return (
     <main className="comingsoonbg h-screen relative overflow-hidden">
-      <Stars  />
+      <Stars />
       <Hero />
       <Ornament />
     </main>
