@@ -99,7 +99,7 @@ export const StageActionButton = ({
 
   return (
     <Button variant="disabled" size="small" className="text-lg w-32 h-12">
-      {!isDeadlineOver ? "late.." : status || "waiting.."}
+      {isDeadlineOver ? "late.." : status || "waiting.."}
     </Button>
   );
 };
