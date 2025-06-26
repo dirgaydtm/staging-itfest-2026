@@ -28,21 +28,39 @@ export const StageItem = ({
 }: StageItemProps) => {
   const stageName =
     stage.stage_name === "" ? stage.status_submission : stage.stage_name;
+  const isDeadlineOver =
+    stage.stage_deadline && new Date(stage.stage_deadline) < new Date();
 
   return (
     <div className={cn("flex flex-col items-center", isDesktop && "w-24")}>
       <div
         className={cn(
           "cursor-pointer rotate-45 transition-all duration-300 overflow-x-auto w-full",
-          isCurrent || isPast || stage.status_submission === "lolos"
+          isDeadlineOver &&
+            !isPast &&
+            !["lolos", "tidak lolos", "terverifikasi", "ditolak"].includes(
+              stage.status_submission
+            )
+            ? "glow-blackhole-box purple-particles"
+            : isCurrent
             ? "bg-white glow-white"
             : "bg-purple-200",
+          isPast && stage.status_submission === "lolos"
+            ? "bg-white glow-whites"
+            : "",
+          isPast && stage.status_submission === "terverifikasi"
+            ? "bg-white glow-whites"
+            : "",
+          isCurrent && stage.status_submission === "diproses"
+            ? "bg-white glow-whites animate-pulse"
+            : "",
           stage.status_submission === "lolos" && isLast
             ? "bg-yellow-400 glow-yellow"
             : "",
           stage.status_submission === "tidak lolos"
             ? "bg-red-400 glow-red"
             : "",
+          stage.status_submission === "ditolak" ? "bg-red-400 glow-red" : "",
           isDesktop ? "w-12 h-12" : "w-16 h-16"
         )}
       />
@@ -72,6 +90,7 @@ export const StageItem = ({
             isPast={isPast}
             status={stage.status_submission}
             stageName={stage.stage_name}
+            submission_deadline={stage.stage_deadline}
           />
         </div>
       </div>

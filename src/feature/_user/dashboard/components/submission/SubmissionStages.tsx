@@ -23,7 +23,7 @@ const getStageStatus = (
     (s) => s.stage_name === current_stage
   );
 
-  const isPast = current_stageID !== 0 && index < currentIndex;
+  const isPast = index < currentIndex;
 
   const isLast = index === allStages.length - 1;
 
@@ -68,9 +68,9 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
         />
         {!isLast && (
           <StageConnector
-            isPast={isCurrent || isPast}
+            isPast={isPast}
             orientation={isDesktop ? "horizontal" : "vertical"}
-            status={stage.status_submission}
+            isCurrent={isCurrent}
           />
         )}
       </div>

@@ -14,6 +14,7 @@ export const useSubmissions = () => {
       
       const submissionsData = await userService.getSubmissions();
       setData(submissionsData);
+      console.log(submissionsData);
       
     } catch (err) {
       console.error("Failed to fetch submissions", err);
