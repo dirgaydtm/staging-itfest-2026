@@ -15,11 +15,13 @@ const MeteorOrnament = () => {
           src={Meteor}
           alt="Meteor"
           className="absolute right-8  lg:right-0 w-40 lg:w-80 scale-x-[1] meteor-move-right"
+          draggable={false}
         />
         <Image
           src={Meteor}
           alt="Meteor"
           className="absolute left-8 top-8 lg:left-20 lg:w-40 w-32 meteor-move-left"
+          draggable={false}
         />
       </div>
     </>

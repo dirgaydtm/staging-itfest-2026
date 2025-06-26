@@ -11,12 +11,14 @@ import TeamInformationCard from "../components/TeamInformation/TeamInformationCa
 import { getCurrentStagesStyle } from "@/shared/utils/currentStagesStyle";
 import Modal from "@/shared/components/ui/Modal";
 import { teamsService } from "@/api/services/admin";
+import { useTeamStages } from "../hooks/useTeamStages";
 
 const TeamInformationContainer = () => {
   const params = useParams();
   const team_id = params.team_id as string;
   const { teamInformationData, loading, error, refetch } = useTeamInformation(team_id);
   const [modalState, setModalState] = useState({ isOpen: false, type: null as 'accept' | 'deny' | 'reset' | null });
+  const { stagesData } = useTeamStages(team_id);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -109,7 +111,18 @@ const TeamInformationContainer = () => {
             <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300">
               <h2 className="text-xl font-bold mb-2">Stages</h2>
               <div className="text-center py-2 rounded-lg mb-4">
-                <p className={getCurrentStagesStyle(teamInformationData.progress.stage_status)}> {teamInformationData.progress.stage_status} ke {teamInformationData.progress.stage_name}</p>
+                {stagesData && (
+                  teamInformationData.progress.stage_name === "Final" ? (
+                    <p className="text-green-400 font-bold">
+                      Sudah lolos ke tahap final (terakhir)
+                    </p>
+                  ) : (
+                    <p className={getCurrentStagesStyle(teamInformationData.progress.stage_status)}>
+                      {teamInformationData.progress.stage_status || "Belum ada status"} ke{" "}
+                      {stagesData.next_stage ? stagesData.next_stage : "(tidak ada)"}
+                    </p>
+                  )
+                )}
               </div>
               <div className="text-center">
                 <p className="text-lg font-bold">{teamInformationData.progress.stage_name}</p>

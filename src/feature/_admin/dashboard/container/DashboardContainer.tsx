@@ -4,7 +4,7 @@ import DashboardHeader from "../components/DashboardHeader";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { useParticipant } from "../hooks/useParticipantData";
 import TotalTeamsCard from "../components/TotalTeamsCard";
-import TotalPaymentsCard from "../components/TotalPaymentsCard";
+// import TotalPaymentsCard from "../components/TotalPaymentsCard";
 import TotalEachCompe from "../components/TotalEachCompe";
 import { Button } from "@/shared/components/ui/Button";
 import { useDownloadTeams, useDownloadPayments } from "../hooks/useDownload";
@@ -70,7 +70,7 @@ const DashboardContainer = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4">
         <div className="space-y-4">
           <TotalTeamsCard totalAll={totalAll} isLoading={loading} />
-          <TotalPaymentsCard totalPayment="100" />
+          {/* <TotalPaymentsCard totalPayment="100" /> */}
           <div className="flex flex-col sm:flex-row gap-4">
             <TotalEachCompe
               total_bp={participantData?.total_bp}

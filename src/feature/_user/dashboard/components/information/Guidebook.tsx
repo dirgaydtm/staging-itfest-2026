@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/shared/components/ui/Button";
 import crossCircle from "@/assets/img/_user/dashboard/crossCircle.webp";
 import { competitionData } from "../../data/competitionData";
+import Link from "next/link";
 
 interface GuidebookProps {
   competitionCategory: "BP" | "UI/UX" | "Not Registered";
@@ -21,7 +22,7 @@ const Guidebook = ({ competitionCategory }: GuidebookProps) => {
               src={content.icon}
               alt="Blank Phone"
               className="object-contain w-30 z-10 glow-purple"
-              width={150} 
+              width={150}
               height={150}
             />
             <Image
@@ -34,8 +35,8 @@ const Guidebook = ({ competitionCategory }: GuidebookProps) => {
           <Image
             src={content.icon}
             alt="Category Icon"
-            width={64}
-            height={64}
+            width={300}
+            height={300}
             className="w-36 min-w-24 p-2 object-contain"
           />
         )}
@@ -54,9 +55,11 @@ const Guidebook = ({ competitionCategory }: GuidebookProps) => {
 
         <div className="flex justify-center">
           {isNotRegistered ? (
-            <Button variant="primary" size="normal" className="2xl:w-60 w-48">
-              Register Now
-            </Button>
+            <Link href={"/pendaftaran"}>
+              <Button variant="primary" size="normal" className="2xl:w-60 w-48">
+                Register Now
+              </Button>
+            </Link>
           ) : (
             <a href={content.link}>
               <Button variant="primary" size="normal">

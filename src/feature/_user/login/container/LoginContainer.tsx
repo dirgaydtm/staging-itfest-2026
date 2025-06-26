@@ -16,24 +16,24 @@ const LoginContainer = () => {
     handleSubmit,
     logout,
   } = useLoginForm();
+
   return (
-    <section className="bg-gradient-to-b from-slate-900 relative to-indigo-900 overflow-hidden h-screen">
-      <div className=" flex items-center gap-4 flex-col justify-center h-full mycontainer">
-        <div className="font-changa z-20 text-5xl text-white font-bold">
-          <h6 className="">Masuk </h6>
-        </div>
-        <LoginForm
-          email={email}
-          password={password}
-          error={error}
-          loading={loading}
-          isAuthenticated={isAuthenticated}
-          setEmail={setEmail}
-          setPassword={setPassword}
-          handleSubmit={handleSubmit}
-          logout={logout}
-        />
+    <section className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 to-indigo-900 relative">
+      <div className="font-changa text-center text-white mb-6 z-20">
+        <h5 className="text-4xl font-bold leading-16">Masuk</h5>
+        <span className="text-lg">Akses Akunmu</span>
       </div>
+      <LoginForm
+        email={email}
+        password={password}
+        error={error}
+        loading={loading}
+        isAuthenticated={isAuthenticated}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        handleSubmit={handleSubmit}
+        logout={logout}
+      />
       <Stars />
     </section>
   );

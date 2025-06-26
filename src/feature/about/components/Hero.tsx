@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <section className="relative h-[100lvh] w-full font-changa ">
+    <section className="relative h-[100lvh] md:lg:h-[80lvh] lg:h-[70lvh] w-full font-changa ">
       <main className="text-white flex lg:flex-row lg:gap-4 gap-8 justify-around flex-col items-center lg:pt-50 pt-30">
         <div className="xl:w-xl lg:w-lg w-96 flex flex-col gap-4 mycontainer">
           <h1 className="font-neighbor lg:text-6xl text-4xl text-left">
@@ -24,11 +24,12 @@ const Hero = () => {
         </div>
 
         <div className="xl:w-96 lg:w-80 w-72 relative">
-          <Image src={Ornament2} alt="ornament"></Image>
+          <Image src={Ornament2} alt="ornament" draggable={false}></Image>
           <Image
             src={Ornament3}
             alt="ornament"
             className="absolute bottom-0 mx-auto left-0 right-0 xl:w-64 lg:w-52 w-48"
+            draggable={false}
           ></Image>
         </div>
       </main>

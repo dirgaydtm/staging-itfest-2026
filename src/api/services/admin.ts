@@ -16,6 +16,7 @@ export interface TeamDetailsData {
   university: string;
   payment_status: string;
   competition_name: string;
+  current_stage: string;
   team_members: TeamMember[];
 }
 
@@ -457,7 +458,7 @@ export class TeamsService {
     try {
       const response = await apiClient.patch<TeamInformationData>(
         `/admin/teams/${team_id}`,
-        { team_id: team_id, payment_status: "belum terverifikasi" }
+        { team_id: team_id, payment_status: "diproses" }
       );
 
       if (response.status.isSuccess) {

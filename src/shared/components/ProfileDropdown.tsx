@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { User, LogOut, Settings, Shield, Trophy } from "lucide-react";
+import { User, LogOut, Shield, Trophy } from "lucide-react";
 import { User as UserType } from "../type/TAuth";
 import Link from "next/link";
 
@@ -50,7 +50,7 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
         </div>
 
         <span className="font-medium text-sm">
-          {user?.name || user?.email || "Username"}
+          {user?.name || user?.email?.split("@")[0] || "Username"}
         </span>
 
         <svg
@@ -71,21 +71,26 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
       </button>
 
       {isOpen && (
-        <div className="absolute -right-4 mt-2 w-[120%] bg-blue-900/95 backdrop-blur-md border-2 border-dashed border-blue-400 rounded-lg shadow-xl z-50">
-          <div className="py-2">
-            <div className="px-4 py-3 border-b border-blue-400/30">
+        <div
+          className="absolute -right-4 mt-2 w-[120%] bg-blue-900/40 backdrop-blur-md rounded-[20px] shadow-xl z-50 border border-blue-400/30 overflow-hidden"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.1) 100%)",
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+          }}
+        >
+          <div className="py-2 backdrop-blur-lg bg-gradient-to-b from-blue-900/20 to-blue-900/10">
+            <div className="px-4 py-3 border-b border-blue-400/20">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-300 rounded-full flex items-center justify-center overflow-hidden">
+                <div className="w-10 h-10 bg-blue-300/80 rounded-full flex items-center justify-center overflow-hidden backdrop-blur-sm">
                   <User
                     size={20}
                     className="text-black font-bold rounded-full"
                   />
                 </div>
-                <div>
-                  <p className="text-white font-medium text-sm">
-                    {user?.name || "User"}
-                  </p>
-                  <p className="text-blue-200 text-xs">
+                <div className="w-2/3">
+                  <p className="text-white/90 font-medium text-sm">Hello!</p>
+                  <p className="text-blue-200/80 text-xs truncate">
                     {user?.email || "user@example.com"}
                   </p>
                 </div>
@@ -95,30 +100,25 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
             {/* Menu Items */}
             <div className="py-1">
               <Link href={"/dashboard"}>
-                <button className="w-full px-4 py-2 text-left text-white hover:bg-blue-800/50 transition-colors duration-150 flex items-center gap-3">
-                  <Trophy size={16} />
+                <button className="w-full px-4 py-2 text-left text-white/90 bg-purple-300/70 transition-all duration-300 flex items-center gap-3">
+                  <Trophy size={16} className="" />
                   <span className="text-sm">Dashboard</span>
                 </button>
               </Link>
 
-              <button className="w-full px-4 py-2 text-left text-white hover:bg-blue-800/50 transition-colors duration-150 flex items-center gap-3">
-                <Settings size={16} />
-                <span className="text-sm">Settings</span>
-              </button>
-
               {isAdmin && (
-                <button className="w-full px-4 py-2 text-left text-white hover:bg-blue-800/50 transition-colors duration-150 flex items-center gap-3">
-                  <Shield size={16} />
+                <button className="w-full px-4 py-2 text-left text-white/90 hover:bg-blue-400/10 transition-all duration-300 flex items-center gap-3">
+                  <Shield size={16} className="text-blue-300/90" />
                   <span className="text-sm">Admin Panel</span>
                 </button>
               )}
             </div>
 
             {/* Logout */}
-            <div className="border-t border-blue-400/30 pt-1">
+            <div className="border-t border-blue-400/20 pt-1">
               <button
                 onClick={handleLogout}
-                className="w-full px-4 py-2 text-left text-red-300 hover:bg-red-900/30 transition-colors duration-150 flex items-center gap-3"
+                className="w-full px-4 py-2 text-left text-red-300/90 hover:bg-red-500/10 transition-all duration-300 flex items-center gap-3"
               >
                 <LogOut size={16} />
                 <span className="text-sm">Sign Out</span>

@@ -4,11 +4,13 @@ import { competitionData } from "../../data/competitionData";
 interface SubmissionHeaderProps {
   competitionCategory: "BP" | "UI/UX" | "Not Registered";
   status: string;
+  isDeadlineOver: boolean;
 }
 
 const SubmissionHeader = ({
   competitionCategory,
   status,
+  isDeadlineOver,
 }: SubmissionHeaderProps) => {
   const content =
     competitionData[competitionCategory as keyof typeof competitionData];
@@ -19,8 +21,8 @@ const SubmissionHeader = ({
         <Image
           src={content.icon}
           alt="Category Icon"
-          width={64}
-          height={64}
+          width={100}
+          height={100}
           className="w-36 min-w-24 p-2 object-contain"
         />
 
@@ -33,8 +35,14 @@ const SubmissionHeader = ({
         <span className="text-xl lg:text-2xl font-bold text-white">
           Status:
         </span>
-        <span className="text-base md:text-base lg:text-xl font-normal text-white">
-          {status}
+        <span
+          className={`text-base md:text-base lg:text-xl font-normal truncate ${
+            isDeadlineOver
+              ? "text-red-400 font-semibold animate-pulse"
+              : "text-white"
+          }`}
+        >
+          {isDeadlineOver ? "Terlambat" : status}
         </span>
       </section>
     </header>

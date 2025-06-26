@@ -18,11 +18,9 @@ export const ForgotPasswordForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Clear previous messages
     setErrorMessage("");
     setSuccessMessage("");
 
-    // Validation
     if (!email.trim()) {
       setErrorMessage("Email harus diisi");
       return;
@@ -46,7 +44,6 @@ export const ForgotPasswordForm: React.FC = () => {
         );
         toast.success("Email reset password telah dikirim!");
 
-        // Redirect after 2 seconds
         setTimeout(() => {
           window.location.href = "/forgot-password/verify-otp";
         }, 2000);

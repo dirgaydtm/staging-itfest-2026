@@ -24,10 +24,13 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    initializeAuth();
-  }, []);
+    if (!initialized) {
+      initializeAuth();
+    }
+  }, [initialized]);
 
   async function initializeAuth() {
     try {
@@ -36,6 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (!isAuth) {
         setUser(null);
         setLoading(false);
+        setInitialized(true);
         return;
       }
 
@@ -62,11 +66,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
     } finally {
       setLoading(false);
+      setInitialized(true);
     }
   }
 
   async function refreshUser() {
     try {
+      setLoading(true);
       const currentUser = await authService.getCurrentUser();
       if (currentUser) {
         setUser(currentUser);
@@ -78,6 +84,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error("Error refreshing user:", error);
       const storedUser = authService.getStoredUser();
       setUser(storedUser);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -108,6 +116,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await authService.logout();
       setUser(null);
+      // Force a page reload to clear any cached state
       if (typeof window !== "undefined") {
         window.location.href = "/home";
       }
@@ -119,6 +128,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  // Compute these values dynamically to ensure they're always up-to-date
   const isAuthenticated = authService.isAuthenticated() && !!user;
   const IsAdmin = authService.IsAdmin();
 

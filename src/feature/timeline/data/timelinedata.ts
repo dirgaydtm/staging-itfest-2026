@@ -4,7 +4,7 @@ export const TimelineData: TTimelineListData[] = [
   {
     id: 1,
     title: "Open Registration",
-    date: "7 Juli 2025",
+    date: "1 Juli 2025",
   },
   {
     id: 2,
