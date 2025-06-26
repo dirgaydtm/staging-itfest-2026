@@ -10,8 +10,7 @@ const TeamProfile = ({ profile }: Props) => {
     <section className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 font-changa">
       <h2 className="text-3xl font-bold text-center mb-6">Team Profile</h2>
 
-      <p className="font-bold text-xl">[Team Name]</p>
-      <p className="font-normal text-xl mb-6">{profile.team_name}</p>
+      <p className="font-bold text-xl mb-6">[ {profile.team_name} ]</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 text-lg font-normal leading-relaxed">
         <section>

@@ -13,12 +13,15 @@ interface StageActionButtonProps {
   isPast: boolean;
   status: IStage["status_submission"];
   stageName: string;
+  submission_deadline: string;
+  isDeadlineOver: boolean;
 }
 
 export const StageActionButton = ({
   isCurrent,
   status,
   stageName,
+  isDeadlineOver,
 }: StageActionButtonProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const {
@@ -30,7 +33,7 @@ export const StageActionButton = ({
   } = useStageSubmission(stageName);
 
   if (isCurrent) {
-    if (["diproses", "tidak lolos", "lolos"].includes(status)) {
+    if (["diproses", "tidak lolos", "ditolak"].includes(status)) {
       return (
         <Button
           variant="disabled"
@@ -39,6 +42,18 @@ export const StageActionButton = ({
           disabled
         >
           {status}
+        </Button>
+      );
+    }
+    if (isDeadlineOver) {
+      return (
+        <Button
+          variant="disabled"
+          size="small"
+          className="text-lg w-32 h-12"
+          disabled
+        >
+          Late..
         </Button>
       );
     }
@@ -81,7 +96,7 @@ export const StageActionButton = ({
 
   return (
     <Button variant="disabled" size="small" className="text-lg w-32 h-12">
-      {status || "waiting.."}
+      {isDeadlineOver ? "late.." : status || "waiting.."}
     </Button>
   );
 };

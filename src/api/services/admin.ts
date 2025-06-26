@@ -16,6 +16,7 @@ export interface TeamDetailsData {
   university: string;
   payment_status: string;
   competition_name: string;
+  current_stage: string;
   team_members: TeamMember[];
 }
 
