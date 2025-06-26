@@ -27,9 +27,6 @@ const getStageStatus = (
 
   const isLast = index === allStages.length - 1;
 
-  console.log(isLast);
-  console.log(current_stageID);
-
   return { isCurrent, isPast, isLast };
 };
 
@@ -48,6 +45,11 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
 
   const { current_stage, current_stageID } = data;
 
+  const now = new Date();
+  const firstOverdueIndex = allStages.findIndex(
+    (s) => s.stage_deadline && new Date(s.stage_deadline) < now
+  );
+
   const renderStage = (stage: IStage, index: number, isDesktop: boolean) => {
     const { isCurrent, isPast, isLast } = getStageStatus(
       stage,
@@ -65,12 +67,18 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
           isPast={isPast}
           isDesktop={isDesktop}
           isLast={isLast}
+          isDeadlineOver={
+            firstOverdueIndex !== -1 && index >= firstOverdueIndex
+          }
         />
         {!isLast && (
           <StageConnector
             isPast={isPast}
             orientation={isDesktop ? "horizontal" : "vertical"}
             isCurrent={isCurrent}
+            isDeadlineOver={
+              firstOverdueIndex !== -1 && index >= firstOverdueIndex
+            }
           />
         )}
       </div>

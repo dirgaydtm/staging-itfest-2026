@@ -17,6 +17,8 @@ export const SubmissionView = ({
   submissionsData,
 }: SubmissionViewProps) => {
   let currentStatus = "Loading Status...";
+  let isDeadlineOver = false;
+
   if (submissionsData) {
     if (submissionsData.current_stageID === 0) {
       currentStatus = submissionsData.payment_status;
@@ -26,6 +28,16 @@ export const SubmissionView = ({
       );
       currentStatus = activeStage?.status_submission || "Waiting...";
     }
+    const now = new Date();
+    const firstOverdueIndex = submissionsData.stages.findIndex(
+      (s) => s.stage_deadline && new Date(s.stage_deadline) < now
+    );
+    const currentIndex = submissionsData.stages.findIndex(
+      (s) => s.stage_name === submissionsData.current_stage
+    );
+
+    isDeadlineOver =
+      firstOverdueIndex !== -1 && currentIndex >= firstOverdueIndex;
   }
 
   return (
@@ -34,6 +46,7 @@ export const SubmissionView = ({
         <SubmissionHeader
           competitionCategory={teamData.competition_category}
           status={currentStatus}
+          isDeadlineOver={isDeadlineOver}
         />
       </motion.section>
 

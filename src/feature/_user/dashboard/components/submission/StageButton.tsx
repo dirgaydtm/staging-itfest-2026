@@ -14,13 +14,14 @@ interface StageActionButtonProps {
   status: IStage["status_submission"];
   stageName: string;
   submission_deadline: string;
+  isDeadlineOver: boolean;
 }
 
 export const StageActionButton = ({
   isCurrent,
   status,
   stageName,
-  submission_deadline,
+  isDeadlineOver,
 }: StageActionButtonProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const {
@@ -30,10 +31,6 @@ export const StageActionButton = ({
     showStatusModal,
     setShowStatusModal,
   } = useStageSubmission(stageName);
-
-  const isDeadlineOver = submission_deadline
-    ? new Date(submission_deadline) < new Date()
-    : false;
 
   if (isCurrent) {
     if (["diproses", "tidak lolos", "ditolak"].includes(status)) {
