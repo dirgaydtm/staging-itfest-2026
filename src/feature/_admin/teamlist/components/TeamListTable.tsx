@@ -13,15 +13,17 @@ import {
 import { getPaymentStatusStyle } from "@/shared/utils/paymentStyles";
 import { TeamDetailsData } from "@/api/services/admin";
 import Link from "next/link";
+import { Button } from "@/shared/components/ui/Button";
 
 
 interface TeamListTableProps {
-    totalAll: number;
     teamData: TeamDetailsData[] | null;
+    currentFilter: string;
+    onFilterChange: (filter: string) => void;
 }
 
 const getDisplayValue = (value: string | null | undefined): string => {
-    if (!value || value.trim() === '') return 'Empty Data';
+    if (!value || value.trim() === '') return 'No Data';
     return value;
 };
 
@@ -33,7 +35,7 @@ const isValidTeam = (team: TeamDetailsData): boolean => {
     );
 };
 
-const TeamListTable = ({ totalAll, teamData }: TeamListTableProps) => {
+const TeamListTable = ({ teamData, currentFilter, onFilterChange }: TeamListTableProps) => {
     if (!teamData) {
         return <div>Loading...</div>;
     }
@@ -42,58 +44,103 @@ const TeamListTable = ({ totalAll, teamData }: TeamListTableProps) => {
         return <div>No teams found.</div>;
     }
 
-    const validTeams = teamData.filter(isValidTeam);
+    const validTeams = teamData
+        .filter(isValidTeam)
+        .filter(team => !currentFilter || team.current_stage === currentFilter)
+        .sort((a, b) => {
+            if (currentFilter) {
+                if (a.competition_name === "UI/UX" && b.competition_name === "BP") return -1;
+                if (a.competition_name === "BP" && b.competition_name === "UI/UX") return 1;
+            }
+            return 0;
+        });
+
+    const filteredTotal = validTeams.length;
+
+    const filters = ["Payment", "BMC", "Proposal", "Final"];
 
     return (
-        <Table className="font-changa">
-            <TableHeader>
-                <TableRow className="table-custom">
-                    <TableHead>Team Name</TableHead>
-                    <TableHead>Leader Name</TableHead>
-                    <TableHead>University</TableHead>
-                    <TableHead>Payment Status</TableHead>
-                    <TableHead>Competition</TableHead>
-                    <TableHead>Edit</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {validTeams.map((team) => (
-                    <TableRow key={team.team_id}>
-                        <TableCell className="font-medium">
-                            {getDisplayValue(team.team_name)}
-                        </TableCell>
-                        <TableCell className="font-medium">
-                            {getDisplayValue(team.leader_name)}
-                        </TableCell>
-                        <TableCell>
-                            {getDisplayValue(team.university)}
-                        </TableCell>
-                        <TableCell>
-                            <span className={getPaymentStatusStyle(team.payment_status)}>
-                                {getDisplayValue(team.payment_status)}
-                            </span>
-                        </TableCell>
-                        <TableCell>
-                            {getDisplayValue(team.competition_name)}
-                        </TableCell>
-                        <TableCell>
-                            <Link
-                                href={`team-list/${team.team_id}`}
-                                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
-                            >
-                                Edit
-                            </Link>
-                        </TableCell>
+        <>
+            <div className="flex justify-between gap-2 mb-4">
+                <p className="text-lg text-white justify-center">
+                    Filter by Current Stage:
+                </p>
+                <div className="flex justify-between gap-2 mb-4">
+                    <Button
+                        onClick={() => onFilterChange("")}
+                        className={`${!currentFilter ? 'bg-blue-600' : 'bg-gray-600'}`}
+                        size="small"
+                    >
+                        All
+                    </Button>
+                    {filters.map(filter => (
+                        <Button
+                            key={filter}
+                            onClick={() => onFilterChange(filter)}
+                            className={`${currentFilter === filter ? 'bg-blue-600' : 'bg-gray-600'}`}
+                            size="small"
+                        >
+                            {filter}
+                        </Button>
+                    ))}
+                </div>
+            </div>
+            <Table className="font-changa">
+                <TableHeader>
+                    <TableRow className="table-custom">
+                        <TableHead>Team Name</TableHead>
+                        <TableHead>Leader Name</TableHead>
+                        <TableHead>University</TableHead>
+                        <TableHead>Payment Status</TableHead>
+                        <TableHead>Competition</TableHead>
+                        <TableHead>Current Stage</TableHead>
+                        <TableHead>Edit</TableHead>
                     </TableRow>
-                ))}
-            </TableBody>
-            <TableFooter>
-                <TableRow>
-                    <TableCell colSpan={5}>Total Team</TableCell>
-                    <TableCell className="text-right">{totalAll}</TableCell>
-                </TableRow>
-            </TableFooter>
-        </Table>
+                </TableHeader>
+                <TableBody>
+                    {validTeams.map((team) => (
+                        <TableRow key={team.team_id}>
+                            <TableCell className="font-medium">
+                                {getDisplayValue(team.team_name)}
+                            </TableCell>
+                            <TableCell className="font-medium">
+                                {getDisplayValue(team.leader_name)}
+                            </TableCell>
+                            <TableCell>
+                                {getDisplayValue(team.university)}
+                            </TableCell>
+                            <TableCell>
+                                <span className={getPaymentStatusStyle(team.payment_status)}>
+                                    {getDisplayValue(team.payment_status)}
+                                </span>
+                            </TableCell>
+                            <TableCell>
+                                {getDisplayValue(team.competition_name)}
+                            </TableCell>
+                            <TableCell>
+                                {getDisplayValue(team.current_stage)}
+                            </TableCell>
+                            <TableCell>
+                                <Link
+                                    href={`team-list/${team.team_id}`}
+                                    className="px-4 py-0 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+                                >
+                                    Edit
+                                </Link>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TableCell className="font-bold" colSpan={6}>
+                            {currentFilter ? "Total Filtered Team" : "Total Team"}
+                        </TableCell>
+                        <TableCell className="font-bold text-right">{filteredTotal}</TableCell>
+                    </TableRow>
+                </TableFooter>
+            </Table>
+        </>
     );
 };
 
