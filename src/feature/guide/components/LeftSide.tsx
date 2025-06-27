@@ -1,4 +1,5 @@
 import { Button } from "@/shared/components/ui/Button";
+import Link from "next/link";
 import React from "react";
 
 const LeftSide = () => {
@@ -10,14 +11,19 @@ const LeftSide = () => {
       <p className="font-changa w-full text-lg text-center lg:text-left lg:text-xl xl:text-2xl mt-4 text-white xl:w-2/3 ">
         Everything you need to know about the competition, in one place.
       </p>
-
-      <Button
-        className="mt-10 w-full lg:w-1/2"
-        size={"normal"}
-        variant={"primary"}
+      <Link
+        href={
+          "https://drive.google.com/drive/folders/1tKrksf-4iGy390OgF3hYitqJEB4753sM?usp=sharing"
+        }
       >
-        Download Guidebook
-      </Button>
+        <Button
+          className="mt-10 w-full lg:w-1/2"
+          size={"normal"}
+          variant={"primary"}
+        >
+          Download Guidebook
+        </Button>
+      </Link>
     </div>
   );
 };

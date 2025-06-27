@@ -13,10 +13,14 @@ const Hero = () => {
             WHAT IS IT FEST?
           </h1>
           <p className="xl:text-2xl md:text-lg text-sm text-justify indent-7">
-            IT Fest adalah event teknologi yang diselenggarakan oleh KBMDSI UB,
-            dengan tujuan untuk blablabla. Event ini terdiri dari 2 lomba, yaitu
-            UIUX dan Business Plan, sebagai kompetisi antar mahasiswa PT di
-            seluruh Indonesia.
+            IT FEST 2025 adalah kompetisi teknologi berskala nasional yang
+            mengusung tema “Visionary Design for Technological Breakthrough”. IT
+            FEST 2025 mendorong generasi muda untuk menghadirkan solusi
+            teknologi yang inovatif dan berdampak ke masa depan. Tahun ini, IT
+            FEST menghadirkan dua cabang lomba utama, yaitu Business Plan dan
+            UI/UX Design. Melalui kompetisi ini, IT FEST menjadi wadah bagi
+            talenta muda Indonesia untuk menunjukkan kemampuan terbaik mereka di
+            bidang teknologi dan desain.
           </p>
           <div className="w-full flex lg:justify-end justify-center animate-pulse">
             <Image src={Ornament4} alt="ornament" className="w-50"></Image>

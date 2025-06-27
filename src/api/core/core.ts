@@ -203,14 +203,28 @@ class Core {
     }
   }
 
-  private handleApiError(error: unknown): Error {
+  private handleApiError(error: unknown, suppressConsole = true): Error {
     if (axios.isAxiosError(error)) {
-      return new Error(
+      const errorMessage =
         error.response?.data?.message ||
-          error.message ||
-          "An unexpected error occurred"
-      );
+        error.message ||
+        "An unexpected error occurred";
+
+      if (!suppressConsole) {
+        console.error("API Error:", {
+          status: error.response?.status,
+          message: errorMessage,
+          url: error.config?.url,
+        });
+      }
+
+      return new Error(errorMessage);
     }
+
+    if (!suppressConsole) {
+      console.error("Unexpected error:", error);
+    }
+
     return new Error("An unexpected error occurred");
   }
 

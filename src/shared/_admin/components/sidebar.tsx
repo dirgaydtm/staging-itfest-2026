@@ -23,7 +23,7 @@ export default function Sidebar({ profileData, onLogout }: SidebarProps) {
     <>
       {/* Mobile Menu Button */}
       <button
-        className="fixed top-4 left-4 z-10 p-2 rounded-lg bg-blue-500 text-white md:hidden"
+        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-blue-500 text-white md:hidden"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         <svg
@@ -52,14 +52,14 @@ export default function Sidebar({ profileData, onLogout }: SidebarProps) {
 
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/40 blur-3xl z-40 md:hidden"
+          className="fixed inset-0 bg-black/40 blur-3xl z-50 md:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       <aside
         className={cn(
-          "fixed md:static w-64 min-h-screen bg-blue-400 text-white p-4 flex flex-col z-10 transition-transform duration-300 ease-in-out",
+          "fixed md:static w-64 min-h-screen z-50 bg-blue-400 text-white p-4 flex flex-col transition-transform duration-300 ease-in-out",
           "md:transform-none",
           isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}

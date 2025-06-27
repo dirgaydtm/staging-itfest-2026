@@ -15,7 +15,7 @@ export default function RootLayout({
         <ProtectedRoute>
           <Stars />
           <Navbar />
-          {children};
+          {children}
         </ProtectedRoute>
       </AuthProvider>
     </>
