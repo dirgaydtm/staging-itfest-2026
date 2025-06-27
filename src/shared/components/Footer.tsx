@@ -48,7 +48,7 @@ const Footer = () => {
           <section className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16">
             <div className="flex flex-col gap-4 items-center lg:items-start">
               <h1 className="font-bold text-2xl md:text-3xl">Contact Us</h1>
-              <div className="flex gap-4">
+              <div className="flex md:flex-col md:gap-0 flex-row gap-4">
                 <div
                   className="flex items-center gap-3.5 cursor-pointer p-2 rounded-lg transition-colors"
                   onClick={() => handleWhatsAppClick("082132929575", "Devi")}
