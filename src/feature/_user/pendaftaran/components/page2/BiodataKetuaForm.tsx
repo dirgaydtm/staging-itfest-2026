@@ -78,21 +78,21 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
   );
 
   return (
-    <section className="flex flex-col items-center justify-between h-full">
+    <section className="flex flex-col lg:-mt-4 xl:mt-0 items-center justify-between h-full px-4 py-4">
       <PageIndex index={2} title="Biodata Ketua" />
 
-      <div className="w-full max-w-md space-y-2">
-        <h3 className="font-bold font-changa text-xl text-center text-white">
+      <div className="w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-md 2xl:max-w-lg space-y-2 sm:space-y-3 md:space-y-2 lg:space-y-2 xl:space-y-3">
+        <h3 className="font-bold font-changa text-base sm:text-lg md:text-lg lg:text-xl xl:text-2xl text-center text-white">
           Isi Biodata Ketua Tim
         </h3>
 
         {error && (
-          <div className="bg-red-500/20 border border-red-400 p-3 rounded-xl text-center text-white text-sm">
+          <div className="bg-red-500/20 border border-red-400 p-2 sm:p-3 rounded-xl text-center text-white text-xs sm:text-sm">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-2">
+        <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3">
           <Input
             label="Nama Lengkap"
             type="text"
@@ -102,6 +102,7 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             placeholder="Masukkan nama lengkap"
             required
             disabled={loading}
+            className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
 
           <Input
@@ -113,6 +114,7 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             placeholder="Masukkan NIM"
             required
             disabled={loading}
+            className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
 
           <Input
@@ -124,6 +126,7 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             placeholder="Masukkan nama universitas"
             required
             disabled={loading}
+            className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
 
           <Input
@@ -135,16 +138,17 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             placeholder="Masukkan nomor telepon"
             required
             disabled={loading}
+            className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
         </form>
       </div>
 
-      <div className="w-full flex flex-col md:flex-row md:justify-between lg:justify-center gap-2">
+      <div className="w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-md 2xl:max-w-lg flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-3 mt-3 sm:mt-4 md:mt-3 lg:mt-3 xl:mt-4">
         <Button
           type="button"
           size="normal"
           variant="tertiary"
-          className="w-full md:w-[48%] text-lg h-12 py-2"
+          className="w-full sm:w-[48%] text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           onClick={onBack}
           disabled={loading}
         >
@@ -155,7 +159,7 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
           type="button"
           size="normal"
           variant={"primary"}
-          className="w-full md:w-[48%] disabled:opacity-50 text-lg h-12 py-2"
+          className="w-full sm:w-[48%] disabled:opacity-50 text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           disabled={!isFormValid || loading}
           onClick={handleSubmit}
         >
