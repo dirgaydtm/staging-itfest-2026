@@ -4,7 +4,7 @@ import Background from "../components/Background";
 
 const AboutContainer = () => {
   return (
-    <main className="  relative bg-blue-350">
+    <main className="min-h-[50rem]   relative bg-blue-350">
       <Background />
       <div className="mycontainer">
         <Hero />
