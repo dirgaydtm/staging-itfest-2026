@@ -2,13 +2,12 @@
 
 import React from "react";
 import { useAuth } from "@/shared/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export const useLoginForm = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
-  const router = useRouter();
 
   const { login, loading, user, isAuthenticated, logout } = useAuth();
 
@@ -28,7 +27,7 @@ export const useLoginForm = () => {
 
     try {
       await login(email, password);
-      router.push("/home");
+      redirect("/home");
     } catch (error) {
       setError((error as Error).message || "Login failed. Please try again.");
     }
