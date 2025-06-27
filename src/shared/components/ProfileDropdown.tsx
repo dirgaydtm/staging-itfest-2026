@@ -50,7 +50,7 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
         </div>
 
         <span className="font-medium text-sm">
-          {user?.name || user?.email || "Username"}
+          {user?.name || user?.email?.split("@")[0] || "Username"}
         </span>
 
         <svg
@@ -88,9 +88,9 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
                     className="text-black font-bold rounded-full"
                   />
                 </div>
-                <div>
+                <div className="w-2/3">
                   <p className="text-white/90 font-medium text-sm">Hello!</p>
-                  <p className="text-blue-200/80 text-xs">
+                  <p className="text-blue-200/80 text-xs truncate">
                     {user?.email || "user@example.com"}
                   </p>
                 </div>
@@ -100,8 +100,8 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
             {/* Menu Items */}
             <div className="py-1">
               <Link href={"/dashboard"}>
-                <button className="w-full px-4 py-2 text-left text-white/90 hover:bg-blue-400/10 transition-all duration-300 flex items-center gap-3">
-                  <Trophy size={16} className="text-blue-300/90" />
+                <button className="w-full px-4 py-2 text-left text-white/90 bg-purple-300/70 transition-all duration-300 flex items-center gap-3">
+                  <Trophy size={16} className="" />
                   <span className="text-sm">Dashboard</span>
                 </button>
               </Link>

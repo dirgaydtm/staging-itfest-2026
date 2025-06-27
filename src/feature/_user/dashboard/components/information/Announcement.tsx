@@ -58,7 +58,7 @@ const Announcement = () => {
 
       <p className="mt-6 text-sm text-center flex flex-col">
         Stay tuned at our social media
-        <span className="font-semibold text-purple-100">@itfest_gacor_rek</span>
+        <span className="font-semibold text-purple-100">@itfest.filkom</span>
       </p>
     </section>
   );

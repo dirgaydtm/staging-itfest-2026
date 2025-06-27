@@ -21,8 +21,8 @@ const SubmissionHeader = ({
         <Image
           src={content.icon}
           alt="Category Icon"
-          width={64}
-          height={64}
+          width={100}
+          height={100}
           className="w-36 min-w-24 p-2 object-contain"
         />
 

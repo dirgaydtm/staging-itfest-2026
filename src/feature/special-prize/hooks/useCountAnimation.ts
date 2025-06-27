@@ -83,7 +83,7 @@ export const useSlotMachineAnimation = (
     setDigits(new Array(totalDigits).fill(0));
     setIsFinished(false);
 
-    const intermediate = 7999999;
+    const intermediate = 6499999;
 
     animateToValue(0, intermediate, duration * 0.75, () => {
       animateFinalDigitSmoothly(intermediate, targetValue, duration * 0.25);

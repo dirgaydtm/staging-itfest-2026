@@ -35,8 +35,8 @@ const Guidebook = ({ competitionCategory }: GuidebookProps) => {
           <Image
             src={content.icon}
             alt="Category Icon"
-            width={64}
-            height={64}
+            width={300}
+            height={300}
             className="w-36 min-w-24 p-2 object-contain"
           />
         )}
@@ -61,11 +61,11 @@ const Guidebook = ({ competitionCategory }: GuidebookProps) => {
               </Button>
             </Link>
           ) : (
-            <a href={content.link}>
+            <Link href={content.link}>
               <Button variant="primary" size="normal">
                 <span className="text-xl">Download GuideBook</span>
               </Button>
-            </a>
+            </Link>
           )}
         </div>
       </section>

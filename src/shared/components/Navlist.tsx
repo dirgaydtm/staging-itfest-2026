@@ -32,7 +32,7 @@ const Navlist: FC<NavlistProps> = ({ item, onClick }) => {
         });
       }
     } else {
-      window.location.href = `/${item.href}`;
+      window.location.href = `/home/${item.href}`;
     }
   };
 

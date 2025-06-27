@@ -11,14 +11,10 @@ export const useSubmissions = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const submissionsData = await userService.getSubmissions();
       setData(submissionsData);
-      console.log(submissionsData);
-      
-    } catch (err) {
-      console.error("Failed to fetch submissions", err);
-      setError(err instanceof Error ? err.message : "Failed to fetch submissions");
+    } catch {
     } finally {
       setLoading(false);
     }
@@ -28,10 +24,10 @@ export const useSubmissions = () => {
     fetchSubmissions();
   }, []);
 
-  return { 
-    data, 
-    loading, 
+  return {
+    data,
+    loading,
     error,
-    refetch: fetchSubmissions
+    refetch: fetchSubmissions,
   };
 };

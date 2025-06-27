@@ -9,6 +9,7 @@ const Background = () => {
         src={BackgroundImg}
         alt="abstract background"
         className="w-full h-full lg:object-fill object-cover"
+        draggable={false}
       />
     </div>
   );

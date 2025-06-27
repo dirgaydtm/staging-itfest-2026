@@ -8,27 +8,27 @@ export const TimelineData: TTimelineListData[] = [
   },
   {
     id: 2,
-    title: "Close Registration",
+    title: "Close Registration Business Plan",
     date: "13 Juli 2025",
   },
   {
     id: 3,
-    title: "Pengumuman Proposal",
-    date: "15 Agustus 2025",
+    title: "Close Registration UI/UX",
+    date: "2 Agustus 2025",
   },
   {
     id: 4,
-    title: "Technical Meeting",
+    title: "Finalist Announcement",
     date: "16 Agustus 2025",
   },
   {
     id: 5,
-    title: "Final Pitching",
+    title: "Technical Meeting",
     date: "23 Agustus 2025",
   },
   {
     id: 6,
-    title: "Awarding",
+    title: "Final Pitching and Awarding",
     date: "25 Agustus 2025",
   },
 ];

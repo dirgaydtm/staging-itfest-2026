@@ -18,6 +18,7 @@ const Ornament = () => {
             className="xl:w-64 lg:w-52 w-32"
             alt="ornament"
             src={Ornament1}
+            draggable={false}
           />
         </motion.div>
         <motion.div
@@ -29,6 +30,7 @@ const Ornament = () => {
             className="xl:w-64 lg:w-52 w-32"
             alt="ornament"
             src={Ornament2}
+            draggable={false}
           />
         </motion.div>
       </div>

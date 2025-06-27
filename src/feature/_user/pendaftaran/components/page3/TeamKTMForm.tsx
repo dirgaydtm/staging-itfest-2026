@@ -111,7 +111,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
 
           <div className="space-y-2">
             <label className="block text-white font-medium text-sm mb-1">
-              Upload KTM (Kartu Tanda Mahasiswa) *
+              Upload KTM (Kartu Tanda Mahasiswa)
             </label>
             <input
               type="file"
