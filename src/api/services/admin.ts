@@ -2,7 +2,7 @@ import { BlobResponse } from "@/shared/type/TAuth";
 import { apiClient } from "../core/core";
 import axios from "axios";
 
-export type SubmissionStatus = 'lolos' | 'tidak lolos';
+export type SubmissionStatus = "lolos" | "tidak lolos";
 
 export interface ParticipantTotalData {
   total_uiux: number;
@@ -40,6 +40,7 @@ export interface TeamInformationData {
   payment_transaction: string;
   members: TeamMember[];
   progress: TeamProgress;
+  student_card?: string;
 }
 
 export interface TeamInformationResponse {
@@ -48,7 +49,7 @@ export interface TeamInformationResponse {
     isSuccess: boolean;
   };
   message: string;
-  data: TeamInformationData; // Changed to single object since API returns one team
+  data: TeamInformationData;
 }
 
 export interface TeamMember {
@@ -217,9 +218,7 @@ export class ParticipantService {
 
   async getTeamDetails(): Promise<TeamDetailsResponse> {
     try {
-      const response = await apiClient.get<TeamDetailsData[]>(
-        "/admin/teams"
-      );
+      const response = await apiClient.get<TeamDetailsData[]>("/admin/teams");
 
       if (response.status.isSuccess && response.data) {
         return {
@@ -249,7 +248,7 @@ export class ParticipantService {
         return {
           status: response.status,
           message: response.message,
-          data: response.data // Now matches TeamInformationResponse type
+          data: response.data, // Now matches TeamInformationResponse type
         };
       }
 
@@ -266,7 +265,6 @@ export class ParticipantService {
 
 export const participantService = ParticipantService.getInstance();
 
-
 export class ExcelService {
   private static instance: ExcelService;
 
@@ -282,12 +280,14 @@ export class ExcelService {
       const response = await apiClient.getBlob("/admin/excel/data-payment");
 
       if (!(response.data instanceof Blob)) {
-        console.error("Invalid response format: Expected a Blob but received", typeof response.data);
+        console.error(
+          "Invalid response format: Expected a Blob but received",
+          typeof response.data
+        );
         throw new Error("The server response was not a valid file.");
       }
 
       return response;
-
     } catch (err: unknown) {
       console.error("Download payment data error:", err);
       if (err instanceof Error) {
@@ -302,12 +302,14 @@ export class ExcelService {
       const response = await apiClient.getBlob("/admin/excel/data-team");
 
       if (!(response.data instanceof Blob)) {
-        console.error("Invalid response format: Expected a Blob but received", typeof response.data);
+        console.error(
+          "Invalid response format: Expected a Blob but received",
+          typeof response.data
+        );
         throw new Error("The server response was not a valid file.");
       }
 
       return response;
-
     } catch (err: unknown) {
       console.error("Download payment data error:", err);
       if (err instanceof Error) {
@@ -319,8 +321,6 @@ export class ExcelService {
 }
 
 export const excelService = ExcelService.getInstance();
-
-
 
 export class AnnouncementService {
   private static instance: AnnouncementService;
@@ -334,13 +334,15 @@ export class AnnouncementService {
 
   async getAnnouncements(): Promise<AnnouncementResponse> {
     try {
-      const response = await apiClient.get<AnnouncementData[]>("/admin/announcement/");
+      const response = await apiClient.get<AnnouncementData[]>(
+        "/admin/announcement/"
+      );
 
       if (response.status.isSuccess && response.data) {
         return {
           status: response.status,
           message: response.message,
-          data: response.data
+          data: response.data,
         };
       }
 
@@ -354,18 +356,20 @@ export class AnnouncementService {
     }
   }
 
-  async createAnnouncement(message: string): Promise<CreateAnnouncementResponse> {
+  async createAnnouncement(
+    message: string
+  ): Promise<CreateAnnouncementResponse> {
     try {
-      const response = await apiClient.post<AnnouncementData, { message: string }>(
-        "/admin/announcement/",
-        { message }
-      );
+      const response = await apiClient.post<
+        AnnouncementData,
+        { message: string }
+      >("/admin/announcement/", { message });
 
       if (response.status.isSuccess && response.data) {
         return {
           status: response.status,
           message: response.message,
-          data: response.data
+          data: response.data,
         };
       }
 
@@ -381,7 +385,6 @@ export class AnnouncementService {
 }
 
 export const announcementService = AnnouncementService.getInstance();
-
 
 export class TeamsService {
   private static instance: TeamsService;
@@ -403,7 +406,7 @@ export class TeamsService {
         return {
           status: response.status,
           message: response.message,
-          data: response.data
+          data: response.data,
         };
       }
 
@@ -411,7 +414,8 @@ export class TeamsService {
     } catch (err: unknown) {
       console.error("Get team stages error:", err);
 
-      let errorMessage = "An unexpected error occurred while getting team stages";
+      let errorMessage =
+        "An unexpected error occurred while getting team stages";
       if (axios.isAxiosError(err)) {
         if (err.response?.data?.message) {
           errorMessage = err.response.data.message;
@@ -531,7 +535,8 @@ export class TeamsService {
     } catch (err: unknown) {
       console.error("Update stage status error:", err);
 
-      let errorMessage = "An unexpected error occurred while updating stage status";
+      let errorMessage =
+        "An unexpected error occurred while updating stage status";
       if (axios.isAxiosError(err)) {
         if (err.response?.data?.message) {
           errorMessage = err.response.data.message;
@@ -544,7 +549,6 @@ export class TeamsService {
       throw new Error(errorMessage);
     }
   }
-
 }
 
 export const teamsService = TeamsService.getInstance();
