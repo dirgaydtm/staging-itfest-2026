@@ -39,7 +39,7 @@ const PaymentInfoSection = () => {
       setCopiedAccount(accountType);
       setTimeout(() => setCopiedAccount(null), 2000);
     } catch (err) {
-      // Fallback untuk browser yang tidak support clipboard API atau konteks non-secure
+      console.warn("Clipboard API gagal, menggunakan fallback:", err);
       const textArea = document.createElement("textarea");
       textArea.value = text;
       textArea.style.position = "fixed";
@@ -237,15 +237,15 @@ const UploadPaymentModal = ({
 
         <div
           className={`
-            relative border-2 border-dashed rounded-lg p-4 sm:p-6 text-center cursor-pointer transition-all duration-200 mb-3 sm:mb-4
-            ${
-              isDragOver
-                ? "border-blue-400 bg-blue-400/10"
-                : preview
-                ? "border-green-400 bg-green-400/10"
-                : "border-gray-400 hover:border-gray-300 hover:bg-gray-800/20"
-            }
-          `}
+              relative border-2 border-dashed rounded-lg p-4 sm:p-6 text-center cursor-pointer transition-all duration-200 mb-3 sm:mb-4
+              ${
+                isDragOver
+                  ? "border-blue-400 bg-blue-400/10"
+                  : preview
+                  ? "border-green-400 bg-green-400/10"
+                  : "border-gray-400 hover:border-gray-300 hover:bg-gray-800/20"
+              }
+            `}
           onClick={handleUploadAreaClick}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}

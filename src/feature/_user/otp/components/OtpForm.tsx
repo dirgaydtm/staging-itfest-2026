@@ -1,4 +1,3 @@
-// src/components/OtpForm.tsx (Fixed Expired Logic)
 import React, {
   ClipboardEvent,
   KeyboardEvent,
@@ -32,7 +31,6 @@ interface Props {
   inputRefs: RefObject<HTMLInputElement | null>[];
   clearErrors?: () => void;
 
-  // New prop to determine which type of OTP form this is
   type?: "registration" | "forgot-password";
 }
 
@@ -75,10 +73,8 @@ export const OtpForm: React.FC<Props> = ({
     onChange(index, value);
   };
 
-  // Check if OTP is expired
   const isExpired = timeLeft <= 0 || expiredError;
 
-  // Loading state
   if (!isPageReady && hasAccess)
     return (
       <div className="flex items-center justify-center">
@@ -87,7 +83,6 @@ export const OtpForm: React.FC<Props> = ({
       </div>
     );
 
-  // No access state
   if (!hasAccess) {
     const redirectPath =
       type === "forgot-password" ? "/forgot-password" : "/register";
@@ -116,7 +111,6 @@ export const OtpForm: React.FC<Props> = ({
     );
   }
 
-  // Success state with simple green design
   if (verificationSuccess) {
     const successMessage =
       type === "forgot-password"
@@ -134,15 +128,12 @@ export const OtpForm: React.FC<Props> = ({
           {/* Outer glow */}
           <div className="absolute inset-0 bg-green-500/20 rounded-2xl blur-xl scale-110"></div>
 
-          {/* Main container */}
           <div className="relative bg-green-800/90 backdrop-blur-sm border border-green-700/50 rounded-2xl p-8 text-center shadow-2xl">
-            {/* Animated border */}
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500 via-emerald-400 to-green-500 p-[1px] bg-[length:200%_100%] animate-pulse">
               <div className="h-full w-full rounded-2xl bg-green-800/90"></div>
             </div>
 
             <div className="relative z-10">
-              {/* Success icon */}
               <div className="flex justify-center mb-6">
                 <div className="relative">
                   <div className="w-16 h-16 border-2 border-green-400 rounded-full flex items-center justify-center">
@@ -160,7 +151,6 @@ export const OtpForm: React.FC<Props> = ({
                       />
                     </svg>
                   </div>
-                  {/* Orbiting dots */}
                   <div className="absolute inset-0 animate-spin">
                     <div className="w-2 h-2 bg-emerald-400 rounded-full absolute -top-1 left-1/2 transform -translate-x-1/2"></div>
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full absolute top-1/2 -right-1 transform -translate-y-1/2"></div>
@@ -170,7 +160,6 @@ export const OtpForm: React.FC<Props> = ({
                 </div>
               </div>
 
-              {/* Success text */}
               <h2 className="text-2xl font-extrabold text-white mb-2">
                 {successMessage}
               </h2>
@@ -178,7 +167,6 @@ export const OtpForm: React.FC<Props> = ({
                 {redirectMessage}
               </p>
 
-              {/* Progress bar */}
               <div className="w-48 mx-auto">
                 <div className="h-1 bg-green-700 rounded-full overflow-hidden">
                   <div
@@ -191,7 +179,6 @@ export const OtpForm: React.FC<Props> = ({
                 </div>
               </div>
 
-              {/* Subtle data stream effect */}
               <div className="mt-4 flex justify-center space-x-1">
                 {[...Array(5)].map((_, i) => (
                   <div
