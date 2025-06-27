@@ -99,7 +99,6 @@ export default function NotFound() {
         className="fixed bottom-6 sm:bottom-10 right-6 sm:right-1/4 z-[9999] flex flex-col items-center will-change-transform"
       >
         <Link href="/home" className="block cursor-pointer">
-          {/* Mobil animasi loop */}
           <motion.div
             className="will-change-transform"
             animate={{
