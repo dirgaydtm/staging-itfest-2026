@@ -7,7 +7,7 @@ const PrizeCount = () => {
   const { ref, isVisible } = useScrollTrigger(0.1);
   const [digits, isFinished] = useSlotMachineAnimation(
     isVisible,
-    8000000,
+    6500000,
     2500
   );
   const [isShaking, setIsShaking] = useState(false);

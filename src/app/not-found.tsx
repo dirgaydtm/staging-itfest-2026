@@ -9,17 +9,20 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="bg-gradient-to-b  from-slate-900 to-indigo-900 relative overflow-hidden min-h-screen">
-      {/* Optimized background gradient overlay */}
+    <main className="bg-gradient-to-b from-slate-900 to-indigo-900 relative min-h-screen">
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-pink-600/5"
         animate={{ opacity: [0.8, 1, 0.8] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Planet + 404 + subtitle */}
+      {/* Stars component dengan z-index rendah */}
+      <div className="absolute inset-0 z-0">
+        <Stars />
+      </div>
+
       <motion.div
-        className="absolute inset-0 flex items-center justify-center z-0"
+        className="absolute inset-0 flex items-center justify-center z-10"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 2 }}
@@ -36,7 +39,6 @@ export default function NotFound() {
             ease: "easeInOut",
           }}
         >
-          {/* 404 hologram */}
           <motion.div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[160%] z-50 will-change-transform"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -81,60 +83,58 @@ export default function NotFound() {
             </span>
           </motion.div>
         </motion.div>
+      </motion.div>
 
-        {/* Mobil muncul dari kanan */}
-        <Link className="z-100 " href={"/home"}>
+      {/* Link component dengan z-index tinggi dan positioning yang diperbaiki */}
+      <motion.div
+        initial={{ x: "100vw", opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{
+          delay: 2,
+          duration: 1.5,
+          type: "spring",
+          stiffness: 60,
+          damping: 12,
+        }}
+        className="fixed bottom-6 sm:bottom-10 right-6 sm:right-1/4 z-[9999] flex flex-col items-center will-change-transform"
+      >
+        <Link href="/home" className="block cursor-pointer">
+          {/* Mobil animasi loop */}
           <motion.div
-            initial={{ x: "100vw", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{
-              delay: 2,
-              duration: 1.5,
-              type: "spring",
-              stiffness: 60,
-              damping: 12,
+            className="will-change-transform"
+            animate={{
+              y: [0, -4, 0],
             }}
-            className="absolute bottom-6 sm:bottom-10 right-6 sm:right-1/4 translate-x-0 z-50 flex flex-col items-center cursor-pointer will-change-transform"
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           >
-            {/* Mobil animasi loop */}
-            <motion.div
-              className="will-change-transform"
-              animate={{
-                y: [0, -4, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <Image
-                src={Mobil}
-                alt="Go Home"
-                className="w-16 sm:w-20 md:w-28 drop-shadow-[0_0_6px_#00ffff]"
-                priority
-              />
-            </motion.div>
+            <Image
+              src={Mobil}
+              alt="Go Home"
+              className="w-16 sm:w-20 md:w-28 drop-shadow-[0_0_6px_#00ffff] hover:drop-shadow-[0_0_12px_#00ffff] transition-all duration-300"
+              priority
+            />
+          </motion.div>
 
-            {/* Hologram teks: animasi sekali saat masuk */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 3.3, duration: 0.6, ease: "easeOut" }}
-              className="relative mt-2 sm:mt-3 text-center bg-black/10 px-4 py-2 sm:p-4 rounded backdrop-blur-sm max-w-[90vw] sm:max-w-xs"
-            >
-              <p className="text-cyan-200 text-xs sm:text-sm font-mono tracking-wide select-none pointer-events-none">
-                you are lost
-              </p>
-              <p className="text-cyan-300 font-semibold text-xs sm:text-sm font-mono tracking-wide select-none pointer-events-none">
-                let&apos;s go home →
-              </p>
-            </motion.div>
+          {/* Hologram teks: animasi sekali saat masuk */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.3, duration: 0.6, ease: "easeOut" }}
+            className="relative mt-2 sm:mt-3 text-center bg-black/10 px-4 py-2 sm:p-4 rounded backdrop-blur-sm max-w-[90vw] sm:max-w-xs hover:bg-black/20 transition-all duration-300"
+          >
+            <p className="text-cyan-200 text-xs sm:text-sm font-mono tracking-wide select-none pointer-events-none">
+              you are lost
+            </p>
+            <p className="text-cyan-300 font-semibold text-xs sm:text-sm font-mono tracking-wide select-none pointer-events-none">
+              let&apos;s go home →
+            </p>
           </motion.div>
         </Link>
       </motion.div>
-
-      <Stars />
     </main>
   );
 }

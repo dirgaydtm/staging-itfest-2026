@@ -61,11 +61,11 @@ const Guidebook = ({ competitionCategory }: GuidebookProps) => {
               </Button>
             </Link>
           ) : (
-            <a href={content.link}>
+            <Link href={content.link}>
               <Button variant="primary" size="normal">
                 <span className="text-xl">Download GuideBook</span>
               </Button>
-            </a>
+            </Link>
           )}
         </div>
       </section>
