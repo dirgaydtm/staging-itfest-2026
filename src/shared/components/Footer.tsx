@@ -5,24 +5,19 @@ import Link from "next/link";
 import Image from "next/image";
 import logoitfest from "../../assets/img/footer/logoitfest.webp";
 import whatsapp from "../../assets/img/footer/whatsapp.webp";
-
+import Tiktok from "@/assets/img/footer/tiktok.png";
 const Footer = () => {
   const handleWhatsAppClick = (phoneNumber: string, name: string) => {
-    // Format nomor telepon (hapus 0 di depan, tambah 62)
     const formattedNumber = phoneNumber.startsWith("0")
       ? "62" + phoneNumber.slice(1)
       : phoneNumber;
 
-    // Pesan default
     const message = `Halo ${name}, saya ingin bertanya tentang IT FEST 2025`;
 
-    // Encode pesan untuk URL
     const encodedMessage = encodeURIComponent(message);
 
-    // Buat URL WhatsApp
     const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodedMessage}`;
 
-    // Buka di tab baru
     window.open(whatsappUrl, "_blank");
   };
   return (
@@ -74,18 +69,24 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 items-center lg:items-start">
+            <div className="flex flex-col gap-6 items-center lg:items-start">
               <h1 className="font-semibold text-2xl md:text-3xl">
                 Social Media
               </h1>
-              <Link href="https://www.instagram.com/itfest.filkom/">
-                <div
-                  className="flex items-center gap-3.5 cursor-pointer  p-2 rounded-lg transition-colors"
-                  onClick={() => handleWhatsAppClick("082140456252", "Izza")}
-                >
-                  <Instagram className="w-8 text-blue-200 h-8" />
-                  <p className="text-base md:text-lg">@itfest.filkom</p>
-                </div>
+
+              <Link
+                className="flex mt-2 items-center gap-3.5"
+                href="https://www.instagram.com/itfest.filkom/"
+              >
+                <Instagram className="w-8 text-blue-200 h-8" />
+                <p className="text-base md:text-lg">@itfest.filkom</p>
+              </Link>
+              <Link
+                className="flex items-center gap-3.5"
+                href="https://www.tiktok.com/@itfest_filkom"
+              >
+                <Image src={Tiktok} alt="whatsapp" className="w-8" />
+                <p className="text-base md:text-lg">@itfest_filkom</p>
               </Link>
             </div>
           </section>
