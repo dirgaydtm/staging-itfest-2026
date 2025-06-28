@@ -13,14 +13,14 @@ export const GuideBooks: GuideBookData[] = [
   {
     title: "Guidebook BP",
     subtitle: "Your Complete Blueprint to Success!",
-    href: "https://drive.google.com/file/d/1JeaQSNOMEQrLOINHXT7rWgXvJBi7RUD2/view?usp=drive_link",
+    href: "https://drive.google.com/file/d/10ZoiqBb3L0IDxuCHn1zf2PywxVfS5zDf/view?usp=drive_link",
     glowColor: "from-cyan-400/20 to-blue-600/30",
     image: BP,
   },
   {
     title: "Guidebook UI/UX",
     subtitle: "Revolutionize Your Design Thinking!",
-    href: "https://drive.google.com/file/d/1UfFWp_uh89dlbsAnH2Cs1CG5Twp8vzQC/view?usp=drive_link",
+    href: "hhttps://drive.google.com/file/d/1HEPfYg_jbqH3UkTJoz63XvQcoCD0qpZq/view?usp=drive_link",
     glowColor: "from-purple-400/20 to-pink-600/30",
     image: UIUX,
   },
