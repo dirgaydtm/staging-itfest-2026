@@ -1,6 +1,6 @@
 import React from "react";
 import LeftSide from "../components/LeftSide";
-import GuideBook from "../components/GuideBook";
+import GuideBookStack from "../components/GuideBookStack";
 
 const GuideContainer = () => {
   return (
@@ -23,8 +23,8 @@ const GuideContainer = () => {
                           transform transition-all duration-500 ease-out
                           hover:scale-105 lg:hover:scale-[1.02]"
             >
-              <div className="w-full max-w-sm mx-auto lg:max-w-none">
-                <GuideBook />
+              <div className="w-full  max-w-sm mx-auto lg:max-w-none">
+                <GuideBookStack />
               </div>
             </div>
           </div>

@@ -17,11 +17,11 @@ const LeftSide = () => {
         }
       >
         <Button
-          className="mt-10 w-full lg:w-1/2"
+          className="mt-10 w-full hidden lg:block lg:w-1/2"
           size={"normal"}
           variant={"primary"}
         >
-          Download Guidebook
+          Lihat Guidebook
         </Button>
       </Link>
     </div>
