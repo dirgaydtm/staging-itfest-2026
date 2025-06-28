@@ -1,5 +1,6 @@
 import { TeamInformationData } from "@/api/services/admin";
-import { IdCardIcon } from "lucide-react";
+import { IdCardIcon, PhoneCall } from "lucide-react";
+import Link from "next/link";
 
 interface TeamDetailsCardProps {
   teamInfo: TeamInformationData;
@@ -49,16 +50,28 @@ const TeamInformationCard = ({
         ))}
       </div>
       <div>
-        <h4 className="text-xl font-bold my-2">Check Student Card</h4>
-        <div
-          onClick={onCheckStudentCard}
-          title="Check Student Card"
-          className="group p-2.5 w-fit border-2 border-purple-300  dark:bg-slate-800 rounded-lg  dark:border-slate-700 shadow-sm cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:border-purple-100 dark:hover:border-blue-600"
-        >
-          <IdCardIcon
-            size={32}
-            className="text-purple-100  dark:text-slate-400 group-hover:text-purple-200 dark:group-hover:text-blue-400 transition-colors"
-          />
+        <h4 className="text-xl font-bold my-2">Leader Contact Information</h4>
+        <div className="flex gap-4  w-1/2 ">
+          <div
+            onClick={onCheckStudentCard}
+            title="Check Student Card"
+            className="group p-2.5 w-fit border-2 border-purple-300  dark:bg-slate-800 rounded-lg  dark:border-slate-700 shadow-sm cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:border-purple-100 dark:hover:border-blue-600"
+          >
+            <IdCardIcon
+              size={32}
+              className="text-purple-100  dark:text-slate-400 group-hover:text-purple-200 dark:group-hover:text-blue-400 transition-colors"
+            />
+          </div>
+          <Link
+            href={`https://wa.me/${teamInfo.phone_number}`}
+            title="Contact WhatsApp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative gap-2  p-3  flex justify-center items-center border-2 border-green-300 dark:bg-slate-800 rounded-lg dark:border-slate-700 shadow-sm cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:border-green-100 dark:hover:border-green-600"
+          >
+            <PhoneCall />
+            <span className=" ">{teamInfo.phone_number}</span>
+          </Link>
         </div>
       </div>
     </div>

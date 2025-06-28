@@ -41,6 +41,7 @@ export interface TeamInformationData {
   members: TeamMember[];
   progress: TeamProgress;
   student_card?: string;
+  phone_number?: string;
 }
 
 export interface TeamInformationResponse {
