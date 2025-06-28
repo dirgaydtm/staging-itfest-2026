@@ -7,10 +7,13 @@ import { useTeamDetails } from "../hooks/useTeamDetailsData";
 
 const TeamListContainer = () => {
   const { teamData, loading, error } = useTeamDetails();
-  const [currentFilter, setCurrentFilter] = useState("");
 
-  const handleFilterChange = (filter: string) => {
-    setCurrentFilter(filter);
+  const [competitionFilter, setCompetitionFilter] = useState("");
+  const [stageFilter, setStageFilter] = useState("");
+
+  const handleCompetitionFilterChange = (filter: string) => {
+    setCompetitionFilter(filter);
+    setStageFilter("");
   };
 
   if (loading) return <div>Loading...</div>;
@@ -22,7 +25,13 @@ const TeamListContainer = () => {
         <TeamListHeader />
       </div>
 
-      <TeamListTable teamData={teamData} currentFilter={currentFilter} onFilterChange={handleFilterChange} />
+      <TeamListTable
+        teamData={teamData}
+        currentCompetitionFilter={competitionFilter}
+        currentStageFilter={stageFilter}
+        onCompetitionFilterChange={handleCompetitionFilterChange}
+        onStageFilterChange={setStageFilter}
+      />
     </section>
   );
 };
