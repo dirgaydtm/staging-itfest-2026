@@ -78,14 +78,15 @@ const Footer = () => {
               <h1 className="font-semibold text-2xl md:text-3xl">
                 Social Media
               </h1>
-              <div className="flex gap-5 items-center text-blue-200">
-                <Link
-                  href="https://www.instagram.com/itfest.filkom/
-"
+              <Link href="https://www.instagram.com/itfest.filkom/">
+                <div
+                  className="flex items-center gap-3.5 cursor-pointer  p-2 rounded-lg transition-colors"
+                  onClick={() => handleWhatsAppClick("082140456252", "Izza")}
                 >
-                  <Instagram className="w-8 h-8 md:w-10 md:h-10" />
-                </Link>
-              </div>
+                  <Instagram className="w-8 text-blue-200 h-8" />
+                  <p className="text-base md:text-lg">@itfest.filkom</p>
+                </div>
+              </Link>
             </div>
           </section>
         </div>
