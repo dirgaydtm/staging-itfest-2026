@@ -73,11 +73,11 @@ const NavbarContent = () => {
           </Link>
         </div>
         <div
-          className={`${isOpen ? "bg-transparent " : "bg-white"} rounded-lg`}
+          className={`${isOpen ? "bg-transparent " : "bg-[#171F74]"} rounded-lg`}
         >
           <Hamburger
-            size={30}
-            color={`${isOpen ? "white" : "black"}`}
+            size={25}
+            color={`${isOpen ? "white" : "white"}`}
             toggled={isOpen}
             toggle={setIsOpen}
           />
