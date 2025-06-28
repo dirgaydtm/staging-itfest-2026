@@ -51,7 +51,7 @@ export const StageItem = ({
             ? "bg-white glow-whites animate-pulse"
             : "",
           stage.status_submission === "lolos" && isLast
-            ? "bg-yellow-400 glow-yellow"
+            ? "glow-yellow"
             : "",
           stage.status_submission === "tidak lolos"
             ? "bg-red-400 glow-red"

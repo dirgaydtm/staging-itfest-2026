@@ -33,7 +33,7 @@ export const StageActionButton = ({
   } = useStageSubmission(stageName);
 
   if (isCurrent) {
-    if (["diproses", "tidak lolos", "ditolak"].includes(status)) {
+    if (["diproses", "tidak lolos", "ditolak", "lolos"].includes(status)) {
       return (
         <Button
           variant="disabled"
