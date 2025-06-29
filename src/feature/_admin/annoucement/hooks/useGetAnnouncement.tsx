@@ -2,14 +2,14 @@ import { announcementService, AnnouncementData } from "@/api/services/admin";
 import { useState, useEffect } from "react";
 
 interface UseGetAnnouncementReturn {
-  announcements: AnnouncementData[] | null;
+  announcements: AnnouncementData[];
   loading: boolean;
   error: string | null;
   refetch: () => Promise<void>;
 }
 
 export const useGetAnnouncement = (): UseGetAnnouncementReturn => {
-  const [announcements, setAnnouncements] = useState<AnnouncementData[] | null>(null);
+  const [announcements, setAnnouncements] = useState<AnnouncementData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,12 +19,18 @@ export const useGetAnnouncement = (): UseGetAnnouncementReturn => {
       setError(null);
       const response = await announcementService.getAnnouncements();
 
-      if (response.status.isSuccess && response.data) {
-        setAnnouncements(response.data);
+      if (response.status.isSuccess) {
+        if (response.data && response.data.length > 0) {
+          setAnnouncements(response.data);
+        } else {
+          setAnnouncements([]);
+        }
       } else {
+        setAnnouncements([]);
         setError(response.message);
       }
     } catch (err) {
+      setAnnouncements([]);
       setError(
         err instanceof Error ? err.message : "Failed to fetch announcements"
       );
