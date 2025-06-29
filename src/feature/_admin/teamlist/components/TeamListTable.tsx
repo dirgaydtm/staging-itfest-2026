@@ -63,8 +63,11 @@ const TeamListTable = ({
   onCompetitionFilterChange,
   onStageFilterChange,
 }: TeamListTableProps) => {
+  if (teamData?.length === 0 || !teamData) {
+    return <div>Belum ada tim</div>;
+  }
   if (!teamData) {
-    return <div>Loading...</div>;
+    return <div>Loading Teams Data....</div>;
   }
 
   const registeredTeams = teamData.filter(

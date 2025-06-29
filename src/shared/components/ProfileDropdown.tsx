@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 import { User, LogOut, Shield, Trophy } from "lucide-react";
 import { User as UserType } from "../type/TAuth";
 import Link from "next/link";
-
 interface ProfileDropdownProps {
   user: UserType | null;
   logout: () => void;
@@ -72,7 +71,7 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
 
       {isOpen && (
         <div
-          className="absolute left-[-95px] xl:-right-4 mt-2 w-[220%] md:w-[120%] bg-blue-900/40 backdrop-blur-md rounded-[20px] shadow-xl z-50 border border-blue-400/30 overflow-hidden"
+          className="absolute  -left-4 xl:-right-4 mt-2 w-fit md:w-[120%] bg-blue-900/40 backdrop-blur-md rounded-[20px] shadow-xl z-50 border border-blue-400/30 overflow-hidden"
           style={{
             background:
               "linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.1) 100%)",
