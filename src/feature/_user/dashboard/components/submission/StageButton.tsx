@@ -58,6 +58,38 @@ export const StageActionButton = ({
       );
     }
 
+    if (stageName === "Final") {
+      const currentDate = new Date();
+      const submissionStart = new Date("2025-07-17");
+      const submissionEnd = new Date("2025-07-20");
+
+      if (currentDate < submissionStart) {
+        return (
+          <Button
+            variant="disabled"
+            size="small"
+            className="text-xs w-32 h-12"
+            disabled
+          >
+            tunggu submission dibuka
+          </Button>
+        );
+      }
+
+      if (currentDate >= submissionEnd) {
+        return (
+          <Button
+            variant="disabled"
+            size="small"
+            className="text-xs w-32 h-12"
+            disabled
+          >
+            submission ditutup
+          </Button>
+        );
+      }
+    }
+
     return (
       <>
         <Button

@@ -35,7 +35,7 @@ const Announcement = () => {
       {loading ? (
         <p className="text-center">Loading...</p>
       ) : error ? (
-        <p className="text-center text-red-300">{error}</p>
+        <p className="text-center "></p>
       ) : displayedAnnouncements.length > 0 ? (
         <ul className="space-y-6 rounded-2xl max-h-84 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-200">
           {displayedAnnouncements.map((item) => (

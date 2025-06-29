@@ -63,9 +63,9 @@ const PaymentInfoSection = () => {
     <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/20 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
       <div className="text-center mb-3 sm:mb-4">
         <h3 className="text-white font-semibold text-sm sm:text-base mb-2">
-          💳 Informasi Pembayaran
+          Informasi Pembayaran
         </h3>
-        <div className="text-purple-300 text-xs sm:text-sm">
+        <div className="text-yellow-200 text-xs sm:text-sm">
           Biaya Pendaftaran:{" "}
           <span className="font-bold text-white">{paymentData.amount}</span>
         </div>
