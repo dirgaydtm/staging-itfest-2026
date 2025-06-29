@@ -6,12 +6,12 @@ export const competitionData = {
   "UI/UX": {
     title: "UI/UX DESIGN",
     icon: uiux,
-    link: "https://drive.google.com/file/d/1JeaQSNOMEQrLOINHXT7rWgXvJBi7RUD2/view?usp=drive_link ",
+    link: "https://drive.google.com/file/d/1HEPfYg_jbqH3UkTJoz63XvQcoCD0qpZq/view?usp=sharing ",
   },
   BP: {
     title: "Business Plan",
     icon: bp,
-    link: "https://drive.google.com/file/d/1JeaQSNOMEQrLOINHXT7rWgXvJBi7RUD2/view?usp=drive_link ",
+    link: "https://drive.google.com/file/d/10ZoiqBb3L0IDxuCHn1zf2PywxVfS5zDf/view",
   },
   "Not Registered": {
     title: "Register Now",

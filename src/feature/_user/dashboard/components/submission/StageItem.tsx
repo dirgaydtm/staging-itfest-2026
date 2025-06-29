@@ -31,32 +31,47 @@ export const StageItem = ({
   const stageName =
     stage.stage_name === "" ? stage.status_submission : stage.stage_name;
 
+  const showFinalistText =
+    stage.stage_name === "Proposal" && stage.status_submission === "lolos";
+
   return (
-    <div className={cn("flex flex-col items-center", isDesktop && "w-24")}>
+    <div
+      className={cn("relative flex flex-col items-center", isDesktop && "w-24")}
+    >
+      {showFinalistText && (
+        <p
+          className={cn(
+            "absolute text-glow-yellow   font-bold whitespace-nowrap",
+            isDesktop ? "text-xl -top-12" : "text-lg  bottom-30",
+            "left-1/2 -translate-x-1/2"
+          )}
+        >
+          Congrats, You are a finalist
+        </p>
+      )}
+
       <div
         className={cn(
           "cursor-pointer rotate-45 transition-all duration-300 overflow-x-auto w-full",
-          isDeadlineOver
-            ? "glow-blackhole-box purple-particles"
-            : isCurrent
-            ? "bg-white glow-white"
-            : "bg-purple-200",
-          isPast && stage.status_submission === "lolos"
-            ? "bg-white glow-whites"
-            : "",
-          isPast && stage.status_submission === "terverifikasi"
-            ? "bg-white glow-whites"
-            : "",
-          isCurrent && stage.status_submission === "diproses"
-            ? "bg-white glow-whites animate-pulse"
-            : "",
-          stage.status_submission === "lolos" && isLast
+          "bg-purple-200",
+          isCurrent && "bg-white glow-white",
+          isPast &&
+            (stage.status_submission === "lolos" ||
+              stage.status_submission === "terverifikasi") &&
+            "bg-white glow-whites",
+          isCurrent &&
+            stage.status_submission === "diproses" &&
+            "bg-white glow-whites animate-pulse",
+          (stage.stage_name === "Proposal" &&
+            stage.status_submission === "lolos") ||
+            (stage.stage_name === "Final" && isCurrent)
             ? "glow-yellow"
             : "",
-          stage.status_submission === "tidak lolos"
-            ? "bg-red-400 glow-red"
-            : "",
-          stage.status_submission === "ditolak" ? "bg-red-400 glow-red" : "",
+          stage.status_submission === "lolos" && isLast ? "" : "",
+          (stage.status_submission === "tidak lolos" ||
+            stage.status_submission === "ditolak") &&
+            "bg-red-400 glow-red",
+          isDeadlineOver && "glow-blackhole-box purple-particles",
           isDesktop ? "w-12 h-12" : "w-16 h-16"
         )}
       />

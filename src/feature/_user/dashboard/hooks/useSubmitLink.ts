@@ -6,7 +6,7 @@ export const useSubmitLink = (onSubmit: (link: string) => void) => {
 
   const validateGoogleDriveLink = (url: string): boolean => {
     const driveRegex =
-      /^(https?:\/\/)?(drive\.google\.com\/(file\/d\/|open\?id=|folderview\?id=|drive\/folders\/))[a-zA-Z0-9_-]+(\/view(\?usp=[a-zA-Z_]+)?)?$/;
+      /^(https?:\/\/)?(drive\.google\.com\/(?:file\/d\/|open\?id=|folderview\?id=|drive\/folders\/))([a-zA-Z0-9_-]+)(?:\/[a-zA-Z0-9_-]+)?(?:\?usp=[a-zA-Z_]+(?:&[a-zA-Z0-9_%=]*)*)?$/;
     return driveRegex.test(url);
   };
 
