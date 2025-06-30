@@ -6,12 +6,21 @@ import Cookies from "js-cookie";
 class Core {
   private client: AxiosInstance;
   private static instance: Core;
-  private readonly encryptionKey =
-    process.env.NEXT_PUBLIC_ENCRYPTION_KEY || "mangujoterbaik";
+  private readonly encryptionKey: string;
 
   private constructor() {
+    const key = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
+
+    if (!key) {
+      throw new Error(
+        "FATAL ERROR: ENCRYPTION_KEY tidak diatur di environment variables."
+      );
+    }
+
+    this.encryptionKey = key;
+
     this.client = axios.create({
-      baseURL: "https://backend.itfest-filkom.com/api/v1",
+      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
       timeout: 40000,
       headers: {
         "Content-Type": "application/json",
@@ -138,12 +147,10 @@ class Core {
 
   private handleAuthError(): void {
     try {
-      // Remove auth-related cookies
       Cookies.remove("auth_token", { path: "/" });
       Cookies.remove("refresh_token", { path: "/" });
       Cookies.remove("user_data", { path: "/" });
 
-      // Redirect to login if we're on the client side
       if (typeof window !== "undefined") {
         window.location.href = "/login";
       }
@@ -160,17 +167,14 @@ class Core {
     this.setAuthTokens(token);
   }
 
-  // Helper method to check if user is authenticated
   public isAuthenticated(): boolean {
     return this.getAuthToken() !== null;
   }
 
-  // Method to manually logout (clear tokens)
   public logout(): void {
     this.handleAuthError();
   }
 
-  // Add specific method for blob downloads
   public async getBlob(
     url: string,
     config?: AxiosRequestConfig
