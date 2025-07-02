@@ -9,7 +9,7 @@ const Hero = () => {
     <section className="relative h-[100lvh] md:lg:h-[80lvh] lg:h-[70lvh] w-full font-changa -translate-y-20">
       <main className="text-white flex lg:flex-row lg:gap-4 gap-8 justify-around flex-col items-center lg:pt-52 pt-30">
         <div className="xl:w-xl lg:w-lg w-96 flex flex-col gap-6 mycontainer items-left justify-center">
-          <h1 className="font-neighbor lg:text-6xl text-4xl text-left">
+          <h1 className="font-neighbor lg:text-6xl text-4xl text-center md:text-left">
             WHAT IS IT FEST?
           </h1>
           <p className="xl:text-2xl/9 md:text-lg text-sm/6 text-justify">
@@ -19,13 +19,18 @@ const Hero = () => {
             teknologi yang inovatif dan berdampak ke masa depan.
           </p>
           <p className="xl:text-2xl/9 md:text-lg text-sm/6 text-justify">
-            Tahun ini, IT FEST menghadirkan dua cabang lomba utama, yaitu <strong>Business Plan</strong> dan
-            <strong> UI/UX Design</strong>. Melalui kompetisi ini, IT FEST menjadi wadah bagi
-            talenta muda Indonesia untuk menunjukkan kemampuan terbaik mereka di
-            bidang teknologi dan desain.
+            Tahun ini, IT FEST menghadirkan dua cabang lomba utama, yaitu{" "}
+            <strong>Business Plan</strong> dan
+            <strong> UI/UX Design</strong>. Melalui kompetisi ini, IT FEST
+            menjadi wadah bagi talenta muda Indonesia untuk menunjukkan
+            kemampuan terbaik mereka di bidang teknologi dan desain.
           </p>
           <div className="w-full flex lg:justify-end justify-center animate-pulse">
-            <Image src={Ornament4} alt="ornament" className="w-40 md:w-50 h-10 md:h-15"></Image>
+            <Image
+              src={Ornament4}
+              alt="ornament"
+              className="w-40 md:w-50 h-10 md:h-15"
+            ></Image>
           </div>
         </div>
 
