@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import PageIndex from "../PageIndex";
 import { Button } from "@/shared/components/ui/Button";
 import { Input } from "@/shared/components/ui/Input";
-import { pendaftaranService } from "@/api/services/pendaftaran";
 
 interface TeamKTMFormProps {
   teamName: string;
   onTeamNameChange: (name: string) => void;
+  ktmFile: File | null;
+  onKtmFileChange: (file: File | null) => void;
   onNext: () => void;
   onBack: () => void;
 }
@@ -16,11 +17,11 @@ interface TeamKTMFormProps {
 const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
   teamName,
   onTeamNameChange,
+  ktmFile,
+  onKtmFileChange,
   onNext,
   onBack,
 }) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +36,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
       ];
       if (!allowedTypes.includes(file.type)) {
         setError("File harus berupa gambar (JPG, PNG) atau PDF");
-        setSelectedFile(null);
+        onKtmFileChange(null);
         return;
       }
 
@@ -43,16 +44,16 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
       const maxSize = 5 * 1024 * 1024; // 5MB
       if (file.size > maxSize) {
         setError("Ukuran file maksimal 5MB");
-        setSelectedFile(null);
+        onKtmFileChange(null);
         return;
       }
 
-      setSelectedFile(file);
+      onKtmFileChange(file);
       setError("");
     }
   };
 
-  const handleNext = async () => {
+  const handleNext = () => {
     // Validate team name
     if (!teamName.trim()) {
       setError("Nama tim harus diisi");
@@ -60,35 +61,16 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
     }
 
     // Validate file selection
-    if (!selectedFile) {
+    if (!ktmFile) {
       setError("Pilih file KTM terlebih dahulu");
       return;
     }
 
-    setLoading(true);
-    setError("");
-
-    try {
-      // Upload KTM first
-      const response = await pendaftaranService.uploadKTM(selectedFile);
-
-      if (response.status.isSuccess) {
-        // If upload successful, proceed to next step
-        onNext();
-      } else {
-        setError(response.message || "Gagal mengupload KTM");
-      }
-    } catch (err) {
-      console.error("Error uploading KTM:", err);
-      setError(
-        err instanceof Error ? err.message : "Terjadi kesalahan saat upload"
-      );
-    } finally {
-      setLoading(false);
-    }
+    // Just proceed to next step, no upload yet
+    onNext();
   };
 
-  const isFormValid = teamName.trim() !== "" && selectedFile !== null;
+  const isFormValid = teamName.trim() !== "" && ktmFile !== null;
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 md:gap-0  md:justify-between h-screen md:h-full">
@@ -113,7 +95,6 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
             onChange={(e) => onTeamNameChange(e.target.value)}
             placeholder="Masukkan nama tim"
             required
-            disabled={loading}
           />
 
           <div className="space-y-2">
@@ -125,20 +106,19 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
               accept=".jpg,.jpeg,.png,.pdf"
               onChange={handleFileChange}
               className="w-full px-3 py-2 bg-white text-blue-400 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
-              disabled={loading}
             />
             <p className="text-xs text-purple-200">
               Format: JPG, PNG, PDF (Max 5MB)
             </p>
 
             {/* File preview */}
-            {selectedFile && (
+            {ktmFile && (
               <div className="bg-green-500/20 border border-green-400 p-2 rounded-lg">
                 <p className="text-green-200 text-sm">
-                  ✓ File terpilih: {selectedFile.name}
+                  ✓ File terpilih: {ktmFile.name}
                 </p>
                 <p className="text-green-300 text-xs">
-                  Ukuran: {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                  Ukuran: {(ktmFile.size / 1024 / 1024).toFixed(2)} MB
                 </p>
               </div>
             )}
@@ -153,7 +133,6 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
           variant="tertiary"
           className="w-full md:w-[48%] text-lg h-12 py-2"
           onClick={onBack}
-          disabled={loading}
         >
           Kembali
         </Button>
@@ -163,10 +142,10 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
           size="normal"
           variant={"primary"}
           className="w-full md:w-[48%] disabled:opacity-50 text-lg h-12 py-2"
-          disabled={!isFormValid || loading}
+          disabled={!isFormValid}
           onClick={handleNext}
         >
-          {loading ? "Mengupload" : "Lanjut"}
+          Lanjut
         </Button>
       </div>
     </section>

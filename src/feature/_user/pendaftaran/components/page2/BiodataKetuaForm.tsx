@@ -4,76 +4,48 @@ import React, { useState } from "react";
 import PageIndex from "../PageIndex";
 import { Button } from "@/shared/components/ui/Button";
 import { Input } from "@/shared/components/ui/Input";
-import {
-  pendaftaranService,
-  BiodataKetuaRequest,
-} from "@/api/services/pendaftaran";
+import { BiodataKetuaRequest } from "@/api/services/pendaftaran";
 
 interface BiodataKetuaFormProps {
   competitionId: number;
+  biodataKetua: BiodataKetuaRequest;
+  onBiodataKetuaChange: (data: BiodataKetuaRequest) => void;
   onNext: () => void;
   onBack: () => void;
 }
 
 const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
-  competitionId,
+  biodataKetua,
+  onBiodataKetuaChange,
   onNext,
   onBack,
 }) => {
-  const [formData, setFormData] = useState<BiodataKetuaRequest>({
-    full_name: "",
-    student_number: "",
-    university: "",
-    phone_number: "",
-  });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+    onBiodataKetuaChange({
+      ...biodataKetua,
       [name]: value,
-    }));
+    });
     setError("");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleNext = () => {
     if (
-      !formData.full_name ||
-      !formData.student_number ||
-      !formData.university ||
-      !formData.phone_number
+      !biodataKetua.full_name ||
+      !biodataKetua.student_number ||
+      !biodataKetua.university ||
+      !biodataKetua.phone_number
     ) {
       setError("Semua field harus diisi");
       return;
     }
 
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await pendaftaranService.registerBiodataKetua(
-        competitionId,
-        formData
-      );
-
-      if (response.status.isSuccess) {
-        onNext();
-      } else {
-        setError(response.message || "Gagal menyimpan biodata");
-      }
-    } catch (err) {
-      console.error("Error submitting biodata ketua:", err);
-      setError(err instanceof Error ? err.message : "Terjadi kesalahan");
-    } finally {
-      setLoading(false);
-    }
+    onNext();
   };
 
-  const isFormValid = Object.values(formData).every(
+  const isFormValid = Object.values(biodataKetua).every(
     (value) => value.trim() !== ""
   );
 
@@ -92,16 +64,15 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           <Input
             label="Nama Lengkap"
             type="text"
             name="full_name"
-            value={formData.full_name}
+            value={biodataKetua.full_name}
             onChange={handleInputChange}
             placeholder="Masukkan nama lengkap"
             required
-            disabled={loading}
             className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
 
@@ -109,11 +80,10 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             label="NIM"
             type="number"
             name="student_number"
-            value={formData.student_number}
+            value={biodataKetua.student_number}
             onChange={handleInputChange}
             placeholder="Masukkan NIM"
             required
-            disabled={loading}
             className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
 
@@ -121,11 +91,10 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             label="Universitas"
             type="text"
             name="university"
-            value={formData.university}
+            value={biodataKetua.university}
             onChange={handleInputChange}
             placeholder="Masukkan nama universitas"
             required
-            disabled={loading}
             className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
 
@@ -133,14 +102,13 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             label="No Telepon"
             type="number"
             name="phone_number"
-            value={formData.phone_number}
+            value={biodataKetua.phone_number}
             onChange={handleInputChange}
             placeholder="Masukkan nomor telepon"
             required
-            disabled={loading}
             className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
-        </form>
+        </div>
       </div>
 
       <div className="w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-md 2xl:max-w-lg flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-3 mt-3 sm:mt-4 md:mt-3 lg:mt-3 xl:mt-4">
@@ -150,7 +118,6 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
           variant="tertiary"
           className="w-full sm:w-[48%] text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           onClick={onBack}
-          disabled={loading}
         >
           Kembali
         </Button>
@@ -160,10 +127,10 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
           size="normal"
           variant={"primary"}
           className="w-full sm:w-[48%] disabled:opacity-50 text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
-          disabled={!isFormValid || loading}
-          onClick={handleSubmit}
+          disabled={!isFormValid}
+          onClick={handleNext}
         >
-          {loading ? "Menyimpan..." : "Lanjut"}
+          Lanjut
         </Button>
       </div>
     </section>
