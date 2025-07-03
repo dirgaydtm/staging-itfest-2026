@@ -1,6 +1,6 @@
 import React from "react";
-import Hero from "../components/Hero";
-import Sponsor from "../components/Sponsor";
+// import Hero from "../components/Hero";
+// import Sponsor from "../components/Sponsor";
 import EventSeparator from "../components/EventSeparator";
 
 const EventContainer = () => {
