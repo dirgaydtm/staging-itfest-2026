@@ -78,7 +78,7 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
   );
 
   return (
-    <section className="flex flex-col lg:-mt-4 xl:mt-0 items-center justify-between h-full px-4 py-4">
+    <section className="flex flex-col lg:-mt-4 xl:mt-0 items-center  gap-4 md:gap-0 justify-center md:justify-between h-screen px-4 py-4 md:h-full">
       <PageIndex index={2} title="Biodata Ketua" />
 
       <div className="w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-md 2xl:max-w-lg space-y-2 sm:space-y-3 md:space-y-2 lg:space-y-2 xl:space-y-3">
