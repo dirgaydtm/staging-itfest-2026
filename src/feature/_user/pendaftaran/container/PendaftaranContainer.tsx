@@ -19,7 +19,9 @@ const PendaftaranContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [selectedCompetition, setSelectedCompetition] = useState<number | null>(null);
+  const [selectedCompetition, setSelectedCompetition] = useState<number | null>(
+    null
+  );
   const [teamName, setTeamName] = useState("");
   const [biodataKetua, setBiodataKetua] = useState<BiodataKetuaRequest>({
     full_name: "",
@@ -39,16 +41,22 @@ const PendaftaranContainer = () => {
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (currentPage < 6 && !isSubmitting && !teamProfile) {
+      const isFillingForm = !(
+        teamProfile &&
+        teamProfile.competition_category &&
+        teamProfile.competition_category !== "Not Registered"
+      );
+
+      if (isFillingForm && currentPage < 6 && !isSubmitting) {
         e.preventDefault();
         e.returnValue =
           "Apakah Anda yakin ingin pergi? Data yang belum disimpan akan hilang.";
       }
     };
+
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [currentPage, isSubmitting, teamProfile]);
-
   const goToNext = () => {
     if (currentPage < 6) setCurrentPage(currentPage + 1);
   };
