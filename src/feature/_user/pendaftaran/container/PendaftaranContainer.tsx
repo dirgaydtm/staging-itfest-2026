@@ -11,16 +11,24 @@ import BiodataAnggota1Form from "../components/page4/BiodataAnggota1Form";
 import BiodataAnggota2Form from "../components/page4/BiodataAnggota2Form";
 import PendaftaranSelesaiForm from "../components/page5/SuccesForm";
 
-import { TeamMember } from "@/api/services/pendaftaran";
+import { TeamMember, BiodataKetuaRequest } from "@/api/services/pendaftaran";
 
 const PendaftaranContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
+  // State untuk menyimpan semua data form
   const [selectedCompetition, setSelectedCompetition] = useState<number | null>(
     null
   );
   const [teamName, setTeamName] = useState("");
+  const [biodataKetua, setBiodataKetua] = useState<BiodataKetuaRequest>({
+    full_name: "",
+    student_number: "",
+    university: "",
+    phone_number: "",
+  });
+  const [ktmFile, setKtmFile] = useState<File | null>(null);
   const [member1, setMember1] = useState<TeamMember>({
     name: "",
     student_number: "",
@@ -42,8 +50,6 @@ const PendaftaranContainer = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-
-  // Removed unused handleLoadingChange function
 
   // Helper function untuk mendapatkan nama kompetisi
   const getCompetitionName = () => {
@@ -73,6 +79,8 @@ const PendaftaranContainer = () => {
         return (
           <BiodataKetuaForm
             competitionId={selectedCompetition!}
+            biodataKetua={biodataKetua}
+            onBiodataKetuaChange={setBiodataKetua}
             onNext={goToNext}
             onBack={goToPrevious}
           />
@@ -83,6 +91,8 @@ const PendaftaranContainer = () => {
           <TeamKTMForm
             teamName={teamName}
             onTeamNameChange={setTeamName}
+            ktmFile={ktmFile}
+            onKtmFileChange={setKtmFile}
             onNext={goToNext}
             onBack={goToPrevious}
           />
@@ -105,8 +115,12 @@ const PendaftaranContainer = () => {
             member1={member1}
             member2={member2}
             onMember2Change={setMember2}
+            biodataKetua={biodataKetua}
+            ktmFile={ktmFile}
+            competitionId={selectedCompetition!}
             onNext={goToNext}
             onBack={goToPrevious}
+            setIsLoading={setIsLoading}
           />
         );
 
