@@ -63,7 +63,11 @@ const TeamInformationCard = ({
             />
           </div>
           <Link
-            href={`https://wa.me/${teamInfo.phone_number}`}
+            href={`https://wa.me/${
+              teamInfo.phone_number && teamInfo.phone_number.startsWith("0")
+                ? "62" + teamInfo.phone_number.slice(1)
+                : teamInfo.phone_number || ""
+            }`}
             title="Contact WhatsApp"
             target="_blank"
             rel="noopener noreferrer"

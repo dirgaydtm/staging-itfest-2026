@@ -63,30 +63,32 @@ const TeamListTable = ({
   onCompetitionFilterChange,
   onStageFilterChange,
 }: TeamListTableProps) => {
-  if (teamData?.length === 0 || !teamData) {
-    return <div>Belum ada tim</div>;
-  }
+  // MODIFIKASI: State dan logika untuk toggle "No Data" dihapus.
+
+  const visibleTeams =
+    teamData?.filter(
+      (team) =>
+        team.competition_name && team.competition_name !== "Not Registered"
+    ) || [];
+
   if (!teamData) {
     return <div>Loading Teams Data....</div>;
   }
+  if (visibleTeams.length === 0) {
+    return <div>Belum ada tim yang terdaftar di kompetisi.</div>;
+  }
 
-  const registeredTeams = teamData.filter(
-    (team) =>
-      team.competition_name && team.competition_name !== "Not Registered"
-  );
-  const notRegisteredTeams = teamData.filter(
-    (team) =>
-      !team.competition_name || team.competition_name === "Not Registered"
-  );
+  // MODIFIKASI: `baseTeams` sekarang langsung menggunakan `visibleTeams`, sehingga "No Data" selalu tampil.
+  const baseTeams = visibleTeams;
 
   const competitionNames = [
-    ...new Set(registeredTeams.map((team) => team.competition_name as string)),
+    ...new Set(baseTeams.map((team) => team.competition_name as string)),
   ];
 
   const getStagesForCompetition = (competitionName: string) => {
     return [
       ...new Set(
-        registeredTeams
+        baseTeams
           .filter(
             (team) =>
               team.competition_name === competitionName && team.current_stage
@@ -98,24 +100,15 @@ const TeamListTable = ({
 
   const filteredTeams = (() => {
     if (!currentCompetitionFilter) {
-      return teamData;
+      return baseTeams;
     }
 
-    let teamsToFilter;
-    if (currentCompetitionFilter === "NOT_REGISTERED") {
-      teamsToFilter = notRegisteredTeams;
-    } else {
-      teamsToFilter = registeredTeams.filter(
-        (team) => team.competition_name === currentCompetitionFilter
-      );
-    }
+    const teamsToFilter = baseTeams.filter(
+      (team) => team.competition_name === currentCompetitionFilter
+    );
 
     if (!currentStageFilter) {
       return teamsToFilter;
-    }
-
-    if (currentStageFilter === "NO_STAGE") {
-      return teamsToFilter.filter((team) => !team.current_stage);
     }
 
     return teamsToFilter.filter(
@@ -135,10 +128,11 @@ const TeamListTable = ({
       <div className="p-4 bg-slate-900/70 backdrop-blur-sm rounded-xl border border-slate-700/50 space-y-3">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-bold text-white">Filters</h3>
+          {/* MODIFIKASI: Tombol untuk "Show/Hide No Data Teams" dihapus. */}
           {(currentCompetitionFilter || currentStageFilter) && (
             <button
               onClick={handleClearFilters}
-              className="flex items-center gap-1.5 text-xs text-yellow-400  hover:text-white transition-colors"
+              className="flex items-center gap-1.5 text-xs text-yellow-400 hover:text-white transition-colors"
             >
               <X size={14} /> Clear All
             </button>
@@ -160,7 +154,10 @@ const TeamListTable = ({
                 isActive={
                   currentCompetitionFilter === name && !currentStageFilter
                 }
-                onClick={() => onCompetitionFilterChange(name)}
+                onClick={() => {
+                  onCompetitionFilterChange(name);
+                  onStageFilterChange("");
+                }}
               />
               {getStagesForCompetition(name).map((stage) => (
                 <FilterButton
@@ -179,40 +176,12 @@ const TeamListTable = ({
             </div>
           </div>
         ))}
-
-        <div className="flex items-start md:items-center gap-4 p-3 bg-slate-800/30 rounded-lg flex-col md:flex-row">
-          <p className="w-24 text-slate-400 font-bold text-sm flex-shrink-0">
-            Lainnya
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <FilterButton
-              label="Not Registered"
-              isMainCategory
-              isActive={
-                currentCompetitionFilter === "NOT_REGISTERED" &&
-                !currentStageFilter
-              }
-              onClick={() => onCompetitionFilterChange("NOT_REGISTERED")}
-            />
-            <FilterButton
-              label="Tidak Memiliki Stage"
-              isActive={
-                currentCompetitionFilter === "NOT_REGISTERED" &&
-                currentStageFilter === "NO_STAGE"
-              }
-              onClick={() => {
-                onCompetitionFilterChange("NOT_REGISTERED");
-                onStageFilterChange("NO_STAGE");
-              }}
-            />
-          </div>
-        </div>
       </div>
 
       <div className="mt-8">
         <Table className="font-changa bg-blue-500 rounded-xl">
-          <TableHeader className="">
-            <TableRow className=" bg-purple-400">
+          <TableHeader>
+            <TableRow className="bg-purple-400">
               <TableHead>Team Name</TableHead>
               <TableHead>Leader Name</TableHead>
               <TableHead>University</TableHead>
@@ -242,7 +211,7 @@ const TeamListTable = ({
                 <TableCell>
                   <Link
                     href={`team-list/${team.team_id}`}
-                    className="px-4 py-0 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
                   >
                     Edit
                   </Link>
