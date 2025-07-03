@@ -6,6 +6,7 @@ import EventSeparator from "../components/EventSeparator";
 const EventContainer = () => {
   return (
     <section className="eventbg min-h-[80px] py-40 -mt-10  z-10 relative">
+      {/* sementara yahh */}
       {/* <Hero /> */}
       {/* <Sponsor /> */}
       <EventSeparator />
