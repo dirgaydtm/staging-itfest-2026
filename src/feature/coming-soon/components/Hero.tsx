@@ -15,7 +15,6 @@ const Hero = () => {
       >
         <h1 className="text-4xl md:text-6xl text-center">IT FEST 2025</h1>
         <h2 className="text-6xl md:text-8xl mt-8 text-center">COMING SOON</h2>
-        <h2 className="text-6xl stroke-[3px] font-changa stroke-white w-full text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-[#1D5D77] to-[#4FC5CE]">COMING SOON</h2>
       </motion.div>
 
       <motion.span
