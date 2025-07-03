@@ -21,7 +21,7 @@ const PendaftaranSelesaiForm: React.FC<SuccesFormProps> = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-between h-full  ">
+    <section className="flex flex-col items-center justify-center gap-4 md:gap-0 md:justify-between h-screen md:h-full ">
       <PageIndex index={5} title="Selesai" />
       <InformartionSucces />
       <div className="flex flex-col items-center justify-center w-full space-y-2">

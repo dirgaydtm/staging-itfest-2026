@@ -76,7 +76,7 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
     member2.name.trim() !== "" && member2.student_number.trim() !== "";
 
   return (
-    <section className="flex flex-col items-center justify-between h-full">
+    <section className="flex flex-col items-center justify-center gap-4 md:gap-0 md:justify-between h-screen md:h-full">
       <PageIndex index={5} title="Biodata Anggota 2" />
 
       <div className="w-full max-w-md space-y-6">

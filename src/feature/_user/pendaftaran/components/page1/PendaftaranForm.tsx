@@ -22,9 +22,9 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
   };
 
   return (
-    <section className="flex flex-col items-center justify-between h-full">
+    <section className="flex flex-col items-center justify-center gap-10 md:gap-0 md:justify-between  h-screen md:h-full">
       <PageIndex index={1} title="Pilih Lomba" />
-      <ChooseLomba 
+      <ChooseLomba
         selectedCompetition={selectedCompetition}
         onCompetitionSelect={onCompetitionSelect}
       />

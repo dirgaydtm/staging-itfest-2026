@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import PageIndex from "../PageIndex";
@@ -27,13 +27,18 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
     const file = e.target.files?.[0];
     if (file) {
       // Validate file type
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+      const allowedTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "application/pdf",
+      ];
       if (!allowedTypes.includes(file.type)) {
         setError("File harus berupa gambar (JPG, PNG) atau PDF");
         setSelectedFile(null);
         return;
       }
-      
+
       // Validate file size (max 5MB)
       const maxSize = 5 * 1024 * 1024; // 5MB
       if (file.size > maxSize) {
@@ -41,7 +46,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
         setSelectedFile(null);
         return;
       }
-      
+
       setSelectedFile(file);
       setError("");
     }
@@ -62,11 +67,11 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
 
     setLoading(true);
     setError("");
-    
+
     try {
       // Upload KTM first
       const response = await pendaftaranService.uploadKTM(selectedFile);
-      
+
       if (response.status.isSuccess) {
         // If upload successful, proceed to next step
         onNext();
@@ -75,7 +80,9 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
       }
     } catch (err) {
       console.error("Error uploading KTM:", err);
-      setError(err instanceof Error ? err.message : "Terjadi kesalahan saat upload");
+      setError(
+        err instanceof Error ? err.message : "Terjadi kesalahan saat upload"
+      );
     } finally {
       setLoading(false);
     }
@@ -84,14 +91,14 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
   const isFormValid = teamName.trim() !== "" && selectedFile !== null;
 
   return (
-    <section className="flex flex-col items-center justify-between h-full">
+    <section className="flex flex-col items-center justify-center gap-4 md:gap-0  md:justify-between h-screen md:h-full">
       <PageIndex index={3} title="Berkas Ketua" />
-      
+
       <div className="w-full max-w-md space-y-6">
         <h3 className="font-bold font-changa text-xl text-center text-white">
           Nama Tim & Upload KTM
         </h3>
-        
+
         {error && (
           <div className="bg-red-500/20 border border-red-400 p-3 rounded-xl text-center text-white text-sm">
             {error}
@@ -123,7 +130,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
             <p className="text-xs text-purple-200">
               Format: JPG, PNG, PDF (Max 5MB)
             </p>
-            
+
             {/* File preview */}
             {selectedFile && (
               <div className="bg-green-500/20 border border-green-400 p-2 rounded-lg">
