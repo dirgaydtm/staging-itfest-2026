@@ -26,7 +26,8 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
   const [submitError, setSubmitError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let { name, value } = e.target;
+    let { value } = e.target;
+    const { name } = e.target;
 
     // --- Real-time validation for the Phone Number field ---
     if (name === "phone_number") {
