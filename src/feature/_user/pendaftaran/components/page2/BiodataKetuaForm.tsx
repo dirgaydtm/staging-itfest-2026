@@ -20,34 +20,65 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
   onNext,
   onBack,
 }) => {
-  const [error, setError] = useState("");
+  // State specifically for the phone number error
+  const [phoneError, setPhoneError] = useState("");
+  // General error for the final submission check
+  const [submitError, setSubmitError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+
+    // --- Real-time validation for the Phone Number field ---
+    if (name === "phone_number") {
+      // 1. Enforce max length of 15
+      if (value.length > 15) {
+        value = value.slice(0, 15);
+      }
+
+      // 2. Check for starting with "0"
+      if (value.length > 0 && !value.startsWith("0")) {
+        setPhoneError("Nomor telepon harus diawali dengan angka 0.");
+      }
+      // 3. Check for minimum length
+      else if (value.length > 0 && value.length < 10) {
+        setPhoneError("Nomor telepon minimal harus 10 digit.");
+      }
+      // 4. Clear error if valid
+      else {
+        setPhoneError("");
+      }
+    }
+
+    // Clear general submission error when user starts typing
+    setSubmitError("");
+
     onBiodataKetuaChange({
       ...biodataKetua,
       [name]: value,
     });
-    setError("");
   };
 
   const handleNext = () => {
+    // Final check before allowing user to proceed
     if (
+      !isFormValid ||
+      phoneError ||
       !biodataKetua.full_name ||
       !biodataKetua.student_number ||
-      !biodataKetua.university ||
-      !biodataKetua.phone_number
+      !biodataKetua.university
     ) {
-      setError("Semua field harus diisi");
+      setSubmitError("Harap perbaiki semua error dan isi semua field.");
       return;
     }
-
     onNext();
   };
 
-  const isFormValid = Object.values(biodataKetua).every(
-    (value) => value.trim() !== ""
-  );
+  // The form is valid only when all fields are filled AND the phone number meets all criteria
+  const isFormValid =
+    Object.values(biodataKetua).every((value) => value.trim() !== "") &&
+    biodataKetua.phone_number.startsWith("0") &&
+    biodataKetua.phone_number.length >= 10 &&
+    biodataKetua.phone_number.length <= 15;
 
   return (
     <section className="flex flex-col lg:-mt-4 xl:mt-0 items-center  gap-4 md:gap-0 justify-center md:justify-between h-screen px-4 py-4 md:h-full">
@@ -58,9 +89,10 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
           Isi Biodata Ketua Tim
         </h3>
 
-        {error && (
+        {/* General error message on final submit attempt */}
+        {submitError && (
           <div className="bg-red-500/20 border border-red-400 p-2 sm:p-3 rounded-xl text-center text-white text-xs sm:text-sm">
-            {error}
+            {submitError}
           </div>
         )}
 
@@ -98,16 +130,27 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
 
-          <Input
-            label="No Telepon"
-            type="number"
-            name="phone_number"
-            value={biodataKetua.phone_number}
-            onChange={handleInputChange}
-            placeholder="Masukkan nomor telepon"
-            required
-            className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
-          />
+          <div>
+            <Input
+              label="No Telepon"
+              type="number"
+              name="phone_number"
+              value={biodataKetua.phone_number}
+              onChange={handleInputChange}
+              placeholder="Masukkan nomor telepon"
+              required
+              className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
+            />
+            {phoneError && (
+              <p className="text-red-400 font-medium text-xs mt-1.5 px-1">
+                {phoneError}
+              </p>
+            )}
+            <p className="text-xs text-purple-200 mt-1.5 px-1">
+              *Wajib diisi, min 10 & maks 15 digit, diawali 0. Contoh:
+              081234567890
+            </p>
+          </div>
         </div>
       </div>
 
