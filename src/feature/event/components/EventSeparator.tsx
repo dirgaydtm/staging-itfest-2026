@@ -3,7 +3,7 @@ import React from "react";
 
 const EventSeparator = () => {
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-screen overflow-hidden">
+    <div className="absolute bottom-0 left-0 right-0 h-[200px] overflow-hidden">
       <div className="absolute bottom-2 lg:bottom-0 left-0 right-0 flex animate-pulse">
         <svg
           className="w-1/2 h-auto flex-shrink-0 transform transition-all duration-1000 ease-in-out animate-[pulse_3s_ease-in-out_infinite]"
