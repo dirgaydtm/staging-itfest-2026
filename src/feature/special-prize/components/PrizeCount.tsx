@@ -54,7 +54,7 @@ const PrizeCount = () => {
   return (
     <div
       ref={ref}
-      className={`text-center font-robotech relative xl:text-9xl lg:text-4xl text-6xl textprizeglow text-blue-100 transition-transform duration-300 ${
+      className={`text-center font-robotech relative xl:text-9xl lg:text-7xl text-6xl textprizeglow text-blue-100 transition-transform duration-300 ${
         isShaking ? "animate-bounce-down " : ""
       }`}
     >
