@@ -27,23 +27,18 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Validate file type
-      const allowedTypes = [
-        "image/jpeg",
-        "image/jpg",
-        "image/png",
-        "application/pdf",
-      ];
+      // Validate file type (images only)
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
       if (!allowedTypes.includes(file.type)) {
-        setError("File harus berupa gambar (JPG, PNG) atau PDF");
+        setError("File harus berupa gambar (JPG, PNG)");
         onKtmFileChange(null);
         return;
       }
 
-      // Validate file size (max 5MB)
-      const maxSize = 5 * 1024 * 1024; // 5MB
+      // Validate file size (max 1MB)
+      const maxSize = 1 * 1024 * 1024; // 1MB
       if (file.size > maxSize) {
-        setError("Ukuran file maksimal 5MB");
+        setError("Ukuran file maksimal 1MB");
         onKtmFileChange(null);
         return;
       }
@@ -103,12 +98,12 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
             </label>
             <input
               type="file"
-              accept=".jpg,.jpeg,.png,.pdf"
+              accept=".jpg,.jpeg,.png"
               onChange={handleFileChange}
               className="w-full px-3 py-2 bg-white text-blue-400 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
             />
             <p className="text-xs text-purple-200">
-              Format: JPG, PNG, PDF (Max 5MB)
+              Format: JPG, PNG (Max 1MB)
             </p>
 
             {/* File preview */}

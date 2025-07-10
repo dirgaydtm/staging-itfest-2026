@@ -178,7 +178,7 @@ const PendaftaranContainer = () => {
     {
       return (
         <BoardingTemplate>
-          <div className="h-full flex items-center justify-center text-center text-white">
+          <div className="md:h-full h-screen flex items-center justify-center text-center text-white">
             <div className="space-y-6">
               <h1 className="text-4xl font-robotech text-purple-100">
                 Anda Sudah Terdaftar
