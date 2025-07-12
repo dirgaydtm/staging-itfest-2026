@@ -109,9 +109,10 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
 
+          {/* 👇 PERUBAHAN DI SINI 👇 */}
           <Input
             label="NIM"
-            type="number"
+            type="text" // Diubah dari "number" menjadi "text"
             name="student_number"
             value={biodataKetua.student_number}
             onChange={handleInputChange}
@@ -119,6 +120,7 @@ const BiodataKetuaForm: React.FC<BiodataKetuaFormProps> = ({
             required
             className="text-xs sm:text-sm md:text-xs lg:text-xs xl:text-sm 2xl:text-base h-9 sm:h-10 md:h-9 lg:h-9 xl:h-10 2xl:h-11 py-1 sm:py-2"
           />
+          {/* 👆 PERUBAHAN SELESAI 👆 */}
 
           <Input
             label="Universitas"
