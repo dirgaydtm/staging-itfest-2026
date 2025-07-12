@@ -24,7 +24,7 @@ const SubmitLinkModal = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="font-changa">
         <h2 className="text-white text-xl font-semibold text-center mb-4">
-          Kirim Link Bukti Pembayaran
+          Kirim Link Submission
         </h2>
         <p className="text-white text-xs text-center font-normal mb-12 opacity-70">
           Link tidak bisa dirubah setelah dikirim
