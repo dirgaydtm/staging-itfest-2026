@@ -20,7 +20,7 @@ export const GuideBooks: GuideBookData[] = [
   {
     title: "Guidebook UI/UX",
     subtitle: "Revolutionize Your Design Thinking!",
-    href: "https://drive.google.com/file/d/1HEPfYg_jbqH3UkTJoz63XvQcoCD0qpZq/view?usp=sharing",
+    href: "https://drive.google.com/file/d/19raMgOZZ5oW9vS3efeEBJbn08Z-00xFl/view?usp=drive_link",
     glowColor: "from-purple-400/20 to-pink-600/30",
     image: UIUX,
   },
