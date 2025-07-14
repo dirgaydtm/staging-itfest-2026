@@ -6,7 +6,7 @@ export const competitionData = {
   "UI/UX": {
     title: "UI/UX DESIGN",
     icon: uiux,
-    link: "https://drive.google.com/file/d/10ZoiqBb3L0IDxuCHn1zf2PywxVfS5zDf/view?usp=drive_link",
+    link: "https://drive.google.com/file/d/19raMgOZZ5oW9vS3efeEBJbn08Z-00xFl/view?usp=drive_link",
   },
   BP: {
     title: "Business Plan",
