@@ -3,7 +3,7 @@ import { cn } from "@/shared/utils/cn";
 interface StageConnectorProps {
   isPast: boolean;
   isCurrent: boolean;
-  isDeadlineOver: boolean;
+  isDeadlineOver: boolean | string;
   orientation: "vertical" | "horizontal";
 }
 
