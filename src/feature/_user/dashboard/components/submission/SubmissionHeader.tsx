@@ -4,7 +4,7 @@ import { competitionData } from "../../data/competitionData";
 interface SubmissionHeaderProps {
   competitionCategory: "BP" | "UI/UX" | "Not Registered";
   status: string;
-  isDeadlineOver: boolean;
+  isDeadlineOver: boolean | string;
 }
 
 const SubmissionHeader = ({

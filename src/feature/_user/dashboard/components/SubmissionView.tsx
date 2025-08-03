@@ -7,6 +7,7 @@ import SubmissionHeader from "./submission/SubmissionHeader";
 import { floatDownSoft, stackUpStagger } from "../lib/motionVarians";
 import SubmissionStages from "./submission/SubmissionStages";
 import SubmissionBottom from "./submission/SubmissionBottom";
+
 interface SubmissionViewProps {
   teamData: TeamProfileResponse;
   submissionsData: SubmissionsResponse | null;
@@ -17,27 +18,38 @@ export const SubmissionView = ({
   submissionsData,
 }: SubmissionViewProps) => {
   let currentStatus = "Loading Status...";
-  let isDeadlineOver = false;
+  let isDeadlineOver: boolean | string = false;
 
   if (submissionsData) {
+    const now = new Date();
+
     if (submissionsData.current_stageID === 0) {
       currentStatus = submissionsData.payment_status;
+      isDeadlineOver = false;
     } else {
       const activeStage = submissionsData.stages.find(
         (stage) => stage.stage_name === submissionsData.current_stage
       );
-      currentStatus = activeStage?.status_submission || "Waiting...";
-    }
-    const now = new Date();
-    const firstOverdueIndex = submissionsData.stages.findIndex(
-      (s) => s.stage_deadline && new Date(s.stage_deadline) < now
-    );
-    const currentIndex = submissionsData.stages.findIndex(
-      (s) => s.stage_name === submissionsData.current_stage
-    );
 
-    isDeadlineOver =
-      firstOverdueIndex !== -1 && currentIndex >= firstOverdueIndex;
+      if (activeStage) {
+        currentStatus = activeStage.status_submission || "Waiting...";
+
+        const completedStatuses = [
+          "lolos",
+          "diproses",
+          "terverifikasi",
+          "selesai",
+        ];
+        const hasDeadline = activeStage.stage_deadline;
+        const isOverdue =
+          hasDeadline && new Date(activeStage.stage_deadline) < now;
+        const isNotCompleted = !completedStatuses.includes(
+          activeStage.status_submission?.toLowerCase() || ""
+        );
+
+        isDeadlineOver = isOverdue && isNotCompleted;
+      }
+    }
   }
 
   return (
