@@ -19,7 +19,9 @@ export const SubmissionView = ({
 }: SubmissionViewProps) => {
   let currentStatus = "Loading Status...";
   let isDeadlineOver: boolean | string = false;
-
+  let currentStage: string | undefined = undefined;
+  let nextDeadline: string | null = null;
+  console.log(submissionsData);
   if (submissionsData) {
     const now = new Date();
 
@@ -27,12 +29,16 @@ export const SubmissionView = ({
       currentStatus = submissionsData.payment_status;
       isDeadlineOver = false;
     } else {
+      // Set current stage
+      currentStage = submissionsData.current_stage;
+
       const activeStage = submissionsData.stages.find(
         (stage) => stage.stage_name === submissionsData.current_stage
       );
 
       if (activeStage) {
         currentStatus = activeStage.status_submission || "Waiting...";
+        nextDeadline = activeStage.stage_deadline || null;
 
         const completedStatuses = [
           "lolos",
@@ -59,6 +65,8 @@ export const SubmissionView = ({
           competitionCategory={teamData.competition_category}
           status={currentStatus}
           isDeadlineOver={isDeadlineOver}
+          currentStage={currentStage}
+          nextDeadline={nextDeadline}
         />
       </motion.section>
 
