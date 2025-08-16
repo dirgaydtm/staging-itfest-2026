@@ -33,10 +33,15 @@ export const StageItem = ({
   const showFinalistText =
     stage.stage_name === "Proposal" && stage.status_submission === "lolos";
 
+  // Manual deadline check for debugging
+  const currentDate = new Date();
+  const deadline = stage.stage_deadline ? new Date(stage.stage_deadline) : null;
+  const isManuallyOverdue = deadline ? currentDate > deadline : false;
+
   // Check if this stage is truly overdue (deadline passed AND no progress made)
   const isActuallyOverdue =
     isCurrent &&
-    isDeadlineOver &&
+    isManuallyOverdue && // Use manual check instead of prop
     (!stage.status_submission ||
       ![
         "diproses",
@@ -45,6 +50,8 @@ export const StageItem = ({
         "tidak lolos",
         "ditolak",
       ].includes(stage.status_submission));
+
+  // Debug logging
 
   return (
     <div
@@ -61,7 +68,6 @@ export const StageItem = ({
           Congrats, You are a finalist
         </p>
       )}
-
       <div
         className={cn(
           "cursor-pointer rotate-45 transition-all duration-300 overflow-x-auto w-full",
@@ -84,7 +90,7 @@ export const StageItem = ({
           // Special cases for Proposal lolos and Final stage
           (stage.stage_name === "Proposal" &&
             stage.status_submission === "lolos") ||
-            (stage.stage_name === "Final" && isCurrent)
+            (stage.stage_name === "Final Pitch Deck" && isCurrent)
             ? "glow-yellow"
             : "",
 
@@ -92,8 +98,7 @@ export const StageItem = ({
           (stage.status_submission === "tidak lolos" ||
             stage.status_submission === "ditolak") &&
             "bg-red-400 glow-red",
-
-          // Only apply overdue styling if actually overdue (no progress made)
+          // Only apply overdue styling if actually overdue (deadline passed AND no progress)
           isActuallyOverdue && "glow-blackhole-box purple-particles",
 
           isDesktop ? "w-12 h-12" : "w-16 h-16"
@@ -104,7 +109,7 @@ export const StageItem = ({
         <p
           className={cn(
             "text-white font-bold mb-2",
-            isDesktop ? "text-xl" : "text-lg"
+            isDesktop ? "text-base" : "text-lg"
           )}
         >
           {stageName}
