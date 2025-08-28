@@ -8,7 +8,7 @@ interface StageItemProps {
   isPast: boolean;
   isLast: boolean;
   isDesktop: boolean;
-  isDeadlineOver: boolean;
+  isDeadlineOver: boolean | string;
 }
 
 const formatDate = (dateString: string | null) => {
@@ -24,7 +24,6 @@ export const StageItem = ({
   stage,
   isCurrent,
   isPast,
-  isLast,
   isDesktop,
   isDeadlineOver,
 }: StageItemProps) => {
@@ -34,6 +33,26 @@ export const StageItem = ({
   const showFinalistText =
     stage.stage_name === "Proposal" && stage.status_submission === "lolos";
 
+  // Manual deadline check for debugging
+  const currentDate = new Date();
+  const deadline = stage.stage_deadline ? new Date(stage.stage_deadline) : null;
+  const isManuallyOverdue = deadline ? currentDate > deadline : false;
+
+  // Check if this stage is truly overdue (deadline passed AND no progress made)
+  const isActuallyOverdue =
+    isCurrent &&
+    isManuallyOverdue && // Use manual check instead of prop
+    (!stage.status_submission ||
+      ![
+        "diproses",
+        "lolos",
+        "terverifikasi",
+        "tidak lolos",
+        "ditolak",
+      ].includes(stage.status_submission));
+
+  // Debug logging
+
   return (
     <div
       className={cn("relative flex flex-col items-center", isDesktop && "w-24")}
@@ -41,37 +60,47 @@ export const StageItem = ({
       {showFinalistText && (
         <p
           className={cn(
-            "absolute text-glow-yellow   font-bold whitespace-nowrap",
-            isDesktop ? "text-xl -top-12" : "text-lg  bottom-30",
+            "absolute text-glow-yellow font-bold whitespace-nowrap",
+            isDesktop ? "text-xl -top-12" : "text-lg bottom-30",
             "left-1/2 -translate-x-1/2"
           )}
         >
           Congrats, You are a finalist
         </p>
       )}
-
       <div
         className={cn(
           "cursor-pointer rotate-45 transition-all duration-300 overflow-x-auto w-full",
           "bg-purple-200",
+
+          // Current stage styling
           isCurrent && "bg-white glow-white",
+
+          // Past stages with successful status
           isPast &&
             (stage.status_submission === "lolos" ||
               stage.status_submission === "terverifikasi") &&
             "bg-white glow-whites",
+
+          // Current stage being processed
           isCurrent &&
             stage.status_submission === "diproses" &&
             "bg-white glow-whites animate-pulse",
+
+          // Special cases for Proposal lolos and Final stage
           (stage.stage_name === "Proposal" &&
             stage.status_submission === "lolos") ||
-            (stage.stage_name === "Final" && isCurrent)
+            (stage.stage_name === "Final Pitch Deck" && isCurrent)
             ? "glow-yellow"
             : "",
-          stage.status_submission === "lolos" && isLast ? "" : "",
+
+          // Failed status
           (stage.status_submission === "tidak lolos" ||
             stage.status_submission === "ditolak") &&
             "bg-red-400 glow-red",
-          isDeadlineOver && "glow-blackhole-box purple-particles",
+          // Only apply overdue styling if actually overdue (deadline passed AND no progress)
+          isActuallyOverdue && "glow-blackhole-box purple-particles",
+
           isDesktop ? "w-12 h-12" : "w-16 h-16"
         )}
       />
@@ -80,7 +109,7 @@ export const StageItem = ({
         <p
           className={cn(
             "text-white font-bold mb-2",
-            isDesktop ? "text-xl" : "text-lg"
+            isDesktop ? "text-base" : "text-lg"
           )}
         >
           {stageName}

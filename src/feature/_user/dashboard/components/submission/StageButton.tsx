@@ -14,7 +14,7 @@ interface StageActionButtonProps {
   status: IStage["status_submission"];
   stageName: string;
   submission_deadline: string;
-  isDeadlineOver: boolean;
+  isDeadlineOver: boolean | string;
 }
 
 export const StageActionButton = ({
@@ -33,7 +33,12 @@ export const StageActionButton = ({
   } = useStageSubmission(stageName);
 
   if (isCurrent) {
-    if (["diproses", "tidak lolos", "ditolak", "lolos"].includes(status)) {
+    // If status shows progress/completion, show the actual status regardless of deadline
+    if (
+      ["diproses", "tidak lolos", "ditolak", "lolos", "terverifikasi"].includes(
+        status
+      )
+    ) {
       return (
         <Button
           variant="disabled"
@@ -45,7 +50,12 @@ export const StageActionButton = ({
         </Button>
       );
     }
-    if (isDeadlineOver) {
+
+    // Only show "Late" if deadline is over AND no progress has been made
+    if (
+      isDeadlineOver &&
+      (!status || status === "waiting.." || status === "")
+    ) {
       return (
         <Button
           variant="disabled"
@@ -60,8 +70,8 @@ export const StageActionButton = ({
 
     if (stageName === "Final") {
       const currentDate = new Date();
-      const submissionStart = new Date("2025-07-17");
-      const submissionEnd = new Date("2025-07-20");
+      const submissionStart = new Date("2025-08-16");
+      const submissionEnd = new Date("2025-08-19");
 
       if (currentDate < submissionStart) {
         return (
@@ -126,9 +136,10 @@ export const StageActionButton = ({
     );
   }
 
+  // For non-current stages, always show the actual status
   return (
     <Button variant="disabled" size="small" className="text-lg w-32 h-12">
-      {isDeadlineOver ? "late.." : status || "waiting.."}
+      {status || "waiting.."}
     </Button>
   );
 };

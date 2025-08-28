@@ -24,11 +24,11 @@ export const TimelineData: TTimelineListData[] = [
   {
     id: 5,
     title: "Technical Meeting",
-    date: "23 Agustus 2025",
+    date: "17 Agustus 2025",
   },
   {
     id: 6,
     title: "Final Pitching and Awarding",
-    date: "25 Agustus 2025",
+    date: "23 Agustus 2025",
   },
 ];

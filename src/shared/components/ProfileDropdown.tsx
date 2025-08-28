@@ -106,10 +106,12 @@ const ProfileDropdown = ({ user, logout, isAdmin }: ProfileDropdownProps) => {
               </Link>
 
               {isAdmin && (
-                <button className="w-full px-4 py-2 text-left text-white/90 hover:bg-blue-400/10 transition-all duration-300 flex items-center cursor-pointer gap-3">
-                  <Shield size={16} className="text-blue-300/90" />
-                  <span className="text-sm">Admin Panel</span>
-                </button>
+                <Link href="/mangujo/admin/dashboard">
+                  <button className="w-full px-4 py-2 text-left text-white/90 hover:bg-blue-400/10 transition-all duration-300 flex items-center cursor-pointer gap-3">
+                    <Shield size={16} className="text-blue-300/90" />
+                    <span className="text-sm">Admin Panel</span>
+                  </button>
+                </Link>
               )}
             </div>
 

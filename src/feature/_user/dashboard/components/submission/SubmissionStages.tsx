@@ -44,11 +44,34 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
   if (!data) return null;
 
   const { current_stage, current_stageID } = data;
-
   const now = new Date();
-  const firstOverdueIndex = allStages.findIndex(
-    (s) => s.stage_deadline && new Date(s.stage_deadline) < now
-  );
+
+  // Function to check if a specific stage is overdue
+  const isStageOverdue = (stage: IStage, isCurrent: boolean) => {
+    if (!stage.stage_deadline) return false;
+
+    const deadline = new Date(stage.stage_deadline);
+    const isOverdue = deadline < now;
+
+    // Only mark as overdue if:
+    // 1. It's the current stage
+    // 2. The deadline has passed
+    // 3. The stage hasn't been completed successfully
+    const completedStatuses = [
+      "lolos",
+      "diproses",
+      "terverifikasi",
+      "selesai",
+      "tidak lolos",
+      "ditolak",
+    ];
+
+    const isNotCompleted = !completedStatuses.includes(
+      stage.status_submission?.toLowerCase() || ""
+    );
+
+    return isCurrent && isOverdue && isNotCompleted;
+  };
 
   const renderStage = (stage: IStage, index: number, isDesktop: boolean) => {
     const { isCurrent, isPast, isLast } = getStageStatus(
@@ -59,6 +82,8 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
       current_stageID
     );
 
+    const stageIsOverdue = isStageOverdue(stage, isCurrent);
+
     return (
       <div key={index} className="flex items-center flex-col lg:flex-row">
         <StageItem
@@ -67,18 +92,14 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
           isPast={isPast}
           isDesktop={isDesktop}
           isLast={isLast}
-          isDeadlineOver={
-            firstOverdueIndex !== -1 && index >= firstOverdueIndex
-          }
+          isDeadlineOver={stageIsOverdue}
         />
         {!isLast && (
           <StageConnector
             isPast={isPast}
             orientation={isDesktop ? "horizontal" : "vertical"}
             isCurrent={isCurrent}
-            isDeadlineOver={
-              firstOverdueIndex !== -1 && index >= firstOverdueIndex
-            }
+            isDeadlineOver={stageIsOverdue}
           />
         )}
       </div>
