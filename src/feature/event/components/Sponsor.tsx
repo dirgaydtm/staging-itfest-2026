@@ -12,8 +12,8 @@ import SeedFinance from "@/assets/img/event/seeds.png";
 
 const Sponsor = () => {
   return (
-    <div className="w-full bg-[#37176E] mt-10 flex justify-center items-center py-6">
-      <div className="max-w-screen-lg mx-auto content-center px-10 items-center grid grid-cols-2 lg:grid-cols-4 mt-10 gap-6">
+    <div className="w-full bg-[#37176E] mt-10 mb-30 flex justify-center items-center py-6">
+      <div className="max-w-screen-lg mx-auto px-10 place-items-center grid grid-cols-2 lg:grid-cols-4 mt-10 gap-6">
         <Image
           className="w-full h-auto object-contain"
           alt="Tekno"
@@ -45,25 +45,25 @@ const Sponsor = () => {
           draggable={false}
         />
         <Image
-          className="w-full h-auto object-contain"
+          className="w-full h-24 object-cover"
           alt="HTS"
           src={HTS}
           draggable={false}
         />
         <Image
-          className="w-full h-auto object-contain"
+          className="w-full h-24 object-cover"
           alt="MacroScope"
           src={MacroScope}
           draggable={false}
         />
         <Image
-          className="w-full h-auto object-contain"
+          className="w-full h-24 object-cover"
           alt="Idearium"
           src={Idearium}
           draggable={false}
         />
         <Image
-          className="w-full h-auto object-contain mb-6"
+          className="w-1/3 md:w-1/5 h-auto object-contain mb-6 last:col-span-2 lg:last:col-span-4"
           alt="Seed Finance"
           src={SeedFinance}
           draggable={false}

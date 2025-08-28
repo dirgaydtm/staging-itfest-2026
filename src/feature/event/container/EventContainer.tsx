@@ -5,7 +5,7 @@ import EventSeparator from "../components/EventSeparator";
 
 const EventContainer = () => {
   return (
-    <section className="eventbg min-h-[650px] md:min-h-[730px] py-20 md:py-25 -mt-10  z-10 relative">
+    <section className="eventbg min-h-[650px] md:min-h-[730px] py-20 md:py-25 -mt-10 z-10 relative">
       <Hero />
       <Sponsor />
       <EventSeparator />
