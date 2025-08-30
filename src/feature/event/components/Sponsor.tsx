@@ -63,7 +63,7 @@ const Sponsor = () => {
           draggable={false}
         />
         <Image
-          className="w-1/3 md:w-1/5 h-auto object-contain mb-6 last:col-span-2 lg:last:col-span-4"
+          className="w-1/3 md:w-1/5 h-auto object-contain mb-7 last:col-span-2 lg:last:col-span-4"
           alt="Seed Finance"
           src={SeedFinance}
           draggable={false}
