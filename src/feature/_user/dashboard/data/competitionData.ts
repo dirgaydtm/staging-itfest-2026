@@ -13,6 +13,11 @@ export const competitionData = {
     icon: bp,
     link: "https://drive.google.com/file/d/10ZoiqBb3L0IDxuCHn1zf2PywxVfS5zDf/view?usp=drive_link",
   },
+  "Digital Media": {
+    title: "Digital Media",
+    icon: blankPhone, // Ganti dengan ikon yang sesuai jika ada
+    link: "https//...", // Ganti dengan link yang sesuai jika ada
+  },
   "Not Registered": {
     title: "Register Now",
     icon: blankPhone,

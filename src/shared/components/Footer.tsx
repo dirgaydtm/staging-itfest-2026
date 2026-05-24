@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Instagram } from "lucide-react";
+import { FaInstagram} from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import logoitfest from "../../assets/img/footer/logoitfest.webp";
@@ -12,7 +12,7 @@ const Footer = () => {
       ? "62" + phoneNumber.slice(1)
       : phoneNumber;
 
-    const message = `Halo ${name}, saya ingin bertanya tentang IT FEST 2025`;
+    const message = `Halo ${name}, saya ingin bertanya tentang IT FEST 2026`;
 
     const encodedMessage = encodeURIComponent(message);
 
@@ -36,7 +36,7 @@ const Footer = () => {
               </p>
             </div>
             <p className="text-base md:text-xl text-center lg:text-left">
-              © 2025 IT FEST 2025. All rights reserved. Universitas Brawijaya
+              © 2026 IT FEST 2026. All rights reserved. Universitas Brawijaya
             </p>
           </section>
 
@@ -78,7 +78,7 @@ const Footer = () => {
                 className="flex mt-2 items-center gap-3.5"
                 href="https://www.instagram.com/itfest.filkom/"
               >
-                <Instagram className="w-8 text-blue-200 h-8" />
+                <FaInstagram className="w-8 text-blue-200 h-8" />
                 <p className="text-base md:text-lg">@itfest.filkom</p>
               </Link>
               <Link

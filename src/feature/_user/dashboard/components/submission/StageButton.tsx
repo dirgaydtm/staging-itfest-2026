@@ -70,8 +70,8 @@ export const StageActionButton = ({
 
     if (stageName === "Final") {
       const currentDate = new Date();
-      const submissionStart = new Date("2025-08-16");
-      const submissionEnd = new Date("2025-08-19");
+      const submissionStart = new Date("2026-XX-XX"); // Ganti dengan tanggal mulai submission final yang sebenarnya  
+      const submissionEnd = new Date("2026-XX-XX"); // Ganti dengan tanggal akhir submission final yang sebenarnya  
 
       if (currentDate < submissionStart) {
         return (

@@ -13,6 +13,7 @@ const ChooseLomba: React.FC<ChooseLombaProps> = ({
   const competitions = [
     { id: 2, title: "UI/UX DESIGN" },
     { id: 3, title: "BUSINESS PLAN" },
+    
   ];
 
   return (

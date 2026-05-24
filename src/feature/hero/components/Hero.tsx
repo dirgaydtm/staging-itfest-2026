@@ -17,7 +17,7 @@ const Hero = () => {
     <section className="font-changa z-20 relative">
       <div className="flex flex-col mycontainer justify-center items-center z-50 h-screen text-white text-center -translate-y-10 gap-8">
         <h1 className="text-glow xl:text-9xl lg:text-8xl text-7xl font-robotech z-50">
-          IT FEST 2025
+          IT FEST 2026
         </h1>
         <p className="xl:text-3xl lg:text-2xl md:text-md text-sm font-bold">
           Visionary Design for Limitless Technological Breakthroughs
