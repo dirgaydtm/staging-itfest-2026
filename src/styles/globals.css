@@ -16,17 +16,39 @@
 
   /* COLOR DESIGN SYSTEM */
   --color-white: #f0f0f0;
+  /* RED */
+  --color-light-red: #f2e6e6;
+  --color-light-hover-red: #ebd9d9;
+  --color-light-active-red: #d5b0b0;
+  --color-normal-red: #780000;
+  --color-normal-hover-red: #6c0000;
+  --color-normal-active-red: #600000;
+  --color-dark-red: #5a0000;
+  --color-dark-hover-red: #480000;
+  --color-dark-active-red: #360000;
+  --color-darker-red: #2a0000;
+  /* RED2 */
+  --color-light-red2: #f9e7e9;
+  --color-light-hover-red2: #f6dbdd;
+  --color-light-active-red2: #ecb6ba;
+  --color-normal-red2: #c1121f;
+  --color-normal-hover-red2: #ae101c;
+  --color-normal-active-red2: #9a0e19;
+  --color-dark-red2: #910e17;
+  --color-dark-hover-red2: #740b13;
+  --color-dark-active-red2: #57080e;
+  --color-darker-red2: #44060b;
   /* BLUE */
-  --color-gray-400: #4f5d6e;
-  --color-gray-800: #182636;
-  --color-blue-100: #b3c9e3;
-  --color-blue-200: #6794c7;
-  --color-blue-250: #3ab0ca;
-  --color-blue-300: #3f5daa;
-  --color-blue-350: #143861;
-  --color-blue-400: #171f74;
-  --color-blue-450: #0a2a4d;
-  --color-blue-500: #030d35;
+  --color-light-blue: #f0f5f8;
+  --color-light-hover-blue: #e8f0f5;
+  --color-light-active-blue: #d0e0ea;
+  --color-normal-blue: #669BBC;
+  --color-normal-hover-blue: #5c8ca9;
+  --color-normal-active-blue: #527c96;
+  --color-dark-blue: #4d748d;
+  --color-dark-hover-blue: #3d5d71;
+  --color-dark-active-blue: #2e4655;
+  --color-darker-blue: #243642;
   /* purple */
   --color-purple-100: #c3b8ea;
   --color-purple-200: #8872d5;
