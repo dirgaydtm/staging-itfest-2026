@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { changa, neighbor, robotech, leaguespartan, comucan } from "@/shared/utils/font";
+import { changa, neighbor, robotech, leaguespartan, comucan, anton } from "@/shared/utils/font";
 import { Analytics } from "@vercel/analytics/next";
 import StructuredData from "@/shared/data/StructuredData";
 
