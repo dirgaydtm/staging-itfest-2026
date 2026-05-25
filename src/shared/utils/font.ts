@@ -66,7 +66,7 @@ export const changa = localFont({
 export const anton = localFont({
   src: [
     {
-      path: "../../assets/fonts/anton/Anton-Regular.otf",
+      path: "../../assets/fonts/anton/Anton-Regular.ttf",
       style: "normal",
       weight: "400",
     },
