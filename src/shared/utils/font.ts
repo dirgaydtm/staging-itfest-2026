@@ -62,3 +62,54 @@ export const changa = localFont({
   ],
   variable: "--font-changa",
 });
+
+export const leaguespartan = localFont({
+  src: [
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-Thin.ttf",
+      style: "normal",
+      weight: "100",
+    },
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-ExtraLight.ttf",
+      style: "normal",
+      weight: "200",
+    },
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-Light.ttf",
+      style: "normal",
+      weight: "300",
+    },
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-Regular.ttf",
+      style: "normal",
+      weight: "400",
+    },
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-Medium.ttf",
+      style: "normal",
+      weight: "500",
+    },
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-SemiBold.ttf",
+      style: "normal",
+      weight: "600",
+    },
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-Bold.ttf",
+      style: "normal",
+      weight: "700",
+    },
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-ExtraBold.ttf",
+      style: "normal",
+      weight: "800",
+    },
+    {
+      path: "../../assets/fonts/leaguespartan/LeagueSpartan-Black.ttf",
+      style: "normal",
+      weight: "900",
+    },
+  ],
+  variable: "--font-leaguespartan",
+});
