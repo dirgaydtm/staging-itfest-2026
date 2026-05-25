@@ -38,6 +38,28 @@
   --color-dark-hover-red2: #740b13;
   --color-dark-active-red2: #57080e;
   --color-darker-red2: #44060b;
+  /* YELLOW */
+  --color-light-yellow: #fffefb;
+  --color-light-hover-yellow: #fffdf9;
+  --color-light-active-yellow: #fefaf2;
+  --color-normal-yellow: #fdf0d5;
+  --color-normal-hover-yellow: #e4d8c0;
+  --color-normal-active-yellow: #cac0aa;
+  --color-dark-yellow: #beb4a0;
+  --color-dark-hover-yellow: #989080;
+  --color-dark-active-yellow: #726c60;
+  --color-darker-yellow: #59544b;
+  /* GREEN */
+  --color-light-green: #e6eaed;
+  --color-light-hover-green: #d9e0e4;
+  --color-light-active-green: #b0bfc7;
+  --color-normal-green: #003049;
+  --color-normal-hover-green: #002b42;
+  --color-normal-active-green: #00263a;
+  --color-dark-green: #002437;
+  --color-dark-hover-green: #001d2c;
+  --color-dark-active-green: #001621;
+  --color-darker-green: #00111a;
   /* BLUE */
   --color-light-blue: #f0f5f8;
   --color-light-hover-blue: #e8f0f5;
