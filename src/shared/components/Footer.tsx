@@ -3,9 +3,6 @@ import React from "react";
 import { FaInstagram} from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
-import logoitfest from "../../assets/img/footer/logoitfest.webp";
-import whatsapp from "../../assets/img/footer/whatsapp.webp";
-import Tiktok from "@/assets/img/footer/tiktok.png";
 const Footer = () => {
   const handleWhatsAppClick = (phoneNumber: string, name: string) => {
     const formattedNumber = phoneNumber.startsWith("0")
@@ -26,11 +23,6 @@ const Footer = () => {
         <div className="pt-12 md:pt-24 flex lg:flex-row flex-col justify-center lg:justify-between gap-8 lg:gap-0">
           <section className="flex gap-y-4 flex-col justify-center md:gap-6 items-center lg:items-start">
             <div className="flex items-center gap-6 md:gap-10">
-              <Image
-                src={logoitfest}
-                alt="Logo"
-                className="w-20 h-20 md:w-30 md:h-30"
-              />
               <p className="font-semibold font-robotech text-4xl md:text-7xl text-glow">
                 IT FEST
               </p>
@@ -48,11 +40,7 @@ const Footer = () => {
                   className="flex items-center gap-3.5 cursor-pointer p-2 rounded-lg transition-colors"
                   onClick={() => handleWhatsAppClick("082132929575", "Devi")}
                 >
-                  <Image
-                    src={whatsapp}
-                    alt="whatsapp"
-                    className="w-8 h-8 md:w-11 md:h-11"
-                  />
+                
                   <p className="text-base md:text-lg">Devi</p>
                 </div>
 
@@ -60,11 +48,7 @@ const Footer = () => {
                   className="flex items-center gap-3.5 cursor-pointer  p-2 rounded-lg transition-colors"
                   onClick={() => handleWhatsAppClick("082140456252", "Izza")}
                 >
-                  <Image
-                    src={whatsapp}
-                    alt="whatsapp"
-                    className="w-8 h-8 md:w-11 md:h-11"
-                  />
+              
                   <p className="text-base md:text-lg">Izza</p>
                 </div>
               </div>
@@ -85,7 +69,7 @@ const Footer = () => {
                 className="flex items-center gap-3.5"
                 href="https://www.tiktok.com/@itfest_filkom"
               >
-                <Image src={Tiktok} alt="whatsapp" className="w-8" />
+
                 <p className="text-base md:text-lg">@itfest_filkom</p>
               </Link>
             </div>

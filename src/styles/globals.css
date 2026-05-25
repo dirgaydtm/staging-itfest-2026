@@ -731,10 +731,10 @@
   );
 }
 
-.eventbg {
-  background-image: url("../assets/img/event/eventbg.svg");
+/* .eventbg {
+  background-image: url("");
   @apply bg-bottom bg-cover;
-}
+} */
 
 @keyframes bounce-down {
   0% {
