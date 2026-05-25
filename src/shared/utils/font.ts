@@ -63,6 +63,17 @@ export const changa = localFont({
   variable: "--font-changa",
 });
 
+export const comucan = localFont({
+  src: [
+    {
+      path: "../../assets/fonts/comucan/Comucan-Regular.otf",
+      style: "normal",
+      weight: "400",
+    },
+  ],
+  variable: "--font-comucan",
+});
+
 export const leaguespartan = localFont({
   src: [
     {
