@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
   TableFooter,
-} from "@/components/ui/table";
+} from "@/shared/components/ui/table";
 import { getPaymentStatusStyle } from "@/shared/utils/paymentStyles";
 import { TeamDetailsData } from "@/api/services/admin";
 import Link from "next/link";
