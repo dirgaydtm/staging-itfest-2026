@@ -18,7 +18,7 @@ const Footer = () => {
     window.open(whatsappUrl, "_blank");
   };
   return (
-    <footer className="min-h-[35rem] md:min-h-fit bg-linear-180 from-blue-500 to-blue-400 text-white font-changa border-t-5 border-blue-250">
+    <footer className="min-h-[35rem] md:min-h-screen bg-linear-180 from-blue-500 to-blue-400 text-white font-changa border-t-5 border-blue-250">
       <div className="mycontainer mb-10 md:mb-20">
         <div className="pt-12 md:pt-24 flex lg:flex-row flex-col justify-center lg:justify-between gap-8 lg:gap-0">
           <section className="flex gap-y-4 flex-col justify-center md:gap-6 items-center lg:items-start">

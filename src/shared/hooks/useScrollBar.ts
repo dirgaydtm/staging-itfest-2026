@@ -1,45 +1,24 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const useScrollNavbar = (hideThreshold: number, showAgainThreshold: number) => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
+const useScroll = (threshold: number = 20) => {
+  const [isScroll, setIsScroll] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-
-      // At the top of the page
-      if (currentScrollPos === 0) {
-        setIsVisible(true);
-      }
-      // When scrolling down and passing the first threshold
-      else if (
-        currentScrollPos > prevScrollPos &&
-        currentScrollPos > hideThreshold &&
-        currentScrollPos < showAgainThreshold
-      ) {
-        setIsVisible(false);
-      }
-      // When scrolling down past the show-again threshold
-      else if (currentScrollPos > showAgainThreshold) {
-        setIsVisible(true);
-      }
-      // When scrolling up
-      else if (currentScrollPos < prevScrollPos) {
-        setIsVisible(true);
-      }
-
-      setPrevScrollPos(currentScrollPos);
+      setIsScroll(window.scrollY > threshold);
     };
+
+    // Set initial value
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [prevScrollPos, hideThreshold, showAgainThreshold]);
+  }, [threshold]);
 
-  return { isVisible };
+  return { isScroll };
 };
 
-export default useScrollNavbar;
+export default useScroll;
