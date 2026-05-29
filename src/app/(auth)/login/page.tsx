@@ -1,6 +1,5 @@
-import LoginContainer from "@/feature/_user/login/container/LoginContainer";
+import LoginContainer from "@/feature/auth/login/container/LoginContainer";
 import { AuthProvider } from "@/shared/context/AuthContext";
-import React from "react";
 
 const page = () => {
   return (

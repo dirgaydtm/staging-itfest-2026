@@ -2,7 +2,7 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
 import { useLoginForm } from "../hooks/useLoginForm";
-import Stars from "@/feature/hero/components/Stars";
+// import Stars from "@/feature/hero/components/Stars";
 
 const LoginContainer = () => {
   const {
@@ -34,7 +34,7 @@ const LoginContainer = () => {
         handleSubmit={handleSubmit}
         logout={logout}
       />
-      <Stars />
+      {/* <Stars /> */}
     </section>
   );
 };
