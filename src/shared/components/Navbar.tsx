@@ -7,8 +7,8 @@ import useScroll from "../hooks/useScrollBar";
 import { AuthProvider } from "../context/AuthContext";
 import { useAuth } from "../hooks/useAuth";
 import ProfileDropdown from "./ProfileDropdown";
+import ProfilePicture from "./ProfilePicture";
 import Link from "next/link";
-import Image from "next/image";
 import { Shield, LogOut, Trophy, LogIn } from "lucide-react";
 
 const NavbarContent = () => {
@@ -111,13 +111,11 @@ const NavbarContent = () => {
                 {isAuthenticated ? (
                   <div className="flex flex-col gap-5">
                     <div className="flex items-center gap-3 rounded-full">
-                      <Image
-                        width={32}
-                        height={32}
+                      <ProfilePicture
+                        size={32}
+                        seed={user?.name || user?.email}
                         className="size-8 rounded-full border border-white/20"
                         alt="user avatar"
-                        unoptimized
-                        src={`https://api.dicebear.com/10.x/bottts-neutral/svg?seed=${user?.name || user?.email}`}
                       />
                       <div className="flex-1 min-w-0">
                         <p className="text-light-red font-leaguaspartan text-sm font-medium truncate">
