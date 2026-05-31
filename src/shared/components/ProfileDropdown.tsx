@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown, LogOut, Shield, Trophy } from "lucide-react";
 import { User as UserType } from "../type/TAuth";
 import Link from "next/link";
-import Image from "next/image";
+import ProfilePicture from "./ProfilePicture";
 
 const ProfileDropdown = ({
   user,
@@ -36,13 +36,11 @@ const ProfileDropdown = ({
       onClick={() => setIsOpen(!isOpen)}
     >
       <button className="flex items-center gap-2 px-4 py-1.5 rounded-full transition-all duration-300 hover:scale-105 text-light-red">
-        <Image
-          width={40}
-          height={40}
+        <ProfilePicture
+          size={40}
+          seed={user?.name || user?.email}
           className="size-6 rounded-full border border-white/20"
           alt="user profile"
-          unoptimized
-          src={`https://api.dicebear.com/10.x/bottts-neutral/svg?seed=${user?.name || user?.email}`}
         />
         <span className="font-leaguespartan font-medium">
           {user?.name || user?.email?.split("@")[0] || "Username"}
