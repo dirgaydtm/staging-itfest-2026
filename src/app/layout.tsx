@@ -62,7 +62,7 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body
-        className={` ${neighbor.variable} ${robotech.variable} ${changa.variable} antialiased`}
+        className={` ${neighbor.variable} ${robotech.variable} ${changa.variable} ${leaguespartan.variable} ${comucan.variable} ${anton.variable}antialiased`}
       >
         {children}
         <Analytics />

@@ -121,7 +121,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
     );
   }
   return (
-    <div className="bg-blue-400 space-y-6 w-[90%] sm:w-[80%] md:w-[60%] lg:w-2/5 rounded-3xl border-[3px] font-changa border-purple-300 p-6 sm:p-8 md:p-10 relative z-10 mt-4 mx-auto">
+    <div className="bg-light-active-green/15 border border-white/30 backdrop-blur-md space-y-6 w-[90%] sm:w-[80%] md:w-[60%] lg:w-2/5 rounded-3xl font-leaguespartan p-6 sm:p-8 md:p-10 relative z-10 mt-4 mx-auto">
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
           <div className="text-red-200 text-sm bg-red-500/20 p-3 rounded border border-red-300/20">
@@ -131,13 +131,14 @@ const LoginForm: React.FC<LoginFormProps> = ({
         )}
 
         <div className="space-y-2">
+          <h5 className="text-4xl text-center font-bold leading-16">Sign In</h5>
           <label htmlFor="email" className="block text-sm sm:text-base">
             Email
           </label>
           <Input
             type="email"
             id="email"
-            placeholder="Enter your email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -155,7 +156,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
             <Input
               type={passwordToggle.isVisible ? "text" : "password"}
               id="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -180,7 +181,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
         <div className="text-sm text-right sm:text-sm text-white/80 text-glow">
           <Link href={"/forgot-password"} className="text-[#85FFF5]">
-            Forgot password?
+            Forgot Password?
           </Link>
         </div>
 
@@ -196,17 +197,17 @@ const LoginForm: React.FC<LoginFormProps> = ({
               ? "Logging in..."
               : isAuthenticated
               ? "Already Logged In"
-              : "Login"}
+              : "Sign In"}
           </Button>
         </div>
 
         <div className="flex justify-center gap-1 text-sm sm:text-base">
-          <span>Belum punya akun?</span>
+          <span>Don’t have an account?</span>
           <Link
             className="text-glow text-[#85FFF5] hover:underline"
             href={"/register"}
           >
-            Daftar
+            Sign Up
           </Link>
         </div>
       </form>

@@ -19,10 +19,6 @@ const LoginContainer = () => {
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 to-indigo-900 relative">
-      <div className="font-changa text-center text-white mb-6 z-20">
-        <h5 className="text-4xl font-bold leading-16">Masuk</h5>
-        <span className="text-lg">Akses Akunmu</span>
-      </div>
       <LoginForm
         email={email}
         password={password}
