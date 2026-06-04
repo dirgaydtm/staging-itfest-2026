@@ -23,7 +23,7 @@ const RegisterForm = () => {
   const confirmPasswordToggle = useTogglePassword();
 
   return (
-    <div className="bg-blue-400 space-y-6 w-[90%] sm:w-[80%] md:w-[60%] lg:w-2/5 rounded-3xl border-[3px] font-leaguespartan border-purple-300 p-6 sm:p-8 md:p-10 relative z-10 mt-4 mx-auto">
+    <div className="bg-light-active-green/15 border border-white/30 space-y-6 w-[90%] sm:w-[80%] md:w-[60%] lg:w-2/5 rounded-3xl font-leaguespartan p-6 sm:p-8 md:p-10 relative z-10 mt-4 mx-auto">
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
@@ -53,7 +53,7 @@ const RegisterForm = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            placeholder="Enter your email address"
+            placeholder="Email"
             className="w-full"
             variant="primary"
             required
@@ -76,7 +76,7 @@ const RegisterForm = () => {
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              placeholder="Enter your password"
+              placeholder="Password"
               className="w-full pr-12"
               variant="primary"
               required
@@ -115,7 +115,7 @@ const RegisterForm = () => {
               name="confirm_password"
               value={formData.confirm_password}
               onChange={handleInputChange}
-              placeholder="Confirm your password"
+              placeholder="Password"
               className="w-full pr-12"
               variant="primary"
               required
@@ -143,23 +143,23 @@ const RegisterForm = () => {
         <div className="pt-2">
           <Button
             type="submit"
-            variant="primary"
+            variant="forauth"
             size="normal"
             className="w-full"
             disabled={isLoading}
           >
-            {isLoading ? "Mendaftar..." : "Daftar"}
+            {isLoading ? "Mendaftar..." : "Sign Up"}
           </Button>
         </div>
       </form>
 
       <div className="flex justify-center gap-1 text-sm sm:text-base">
-        <span>Sudah Punya akun?</span>
+        <span>Already have an account?</span>
         <Link
-          className="text-glow text-[#85FFF5] hover:underline"
+          className="text-glow text-light-active-blue hover:underline"
           href={"/login"}
         >
-          Masuk
+          Sign In
         </Link>
       </div>
     </div>
