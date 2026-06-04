@@ -23,7 +23,7 @@ const RegisterForm = () => {
   const confirmPasswordToggle = useTogglePassword();
 
   return (
-    <div className="bg-light-active-green/15 border border-white/30 space-y-6 w-[90%] sm:w-[80%] md:w-[60%] lg:w-2/5 rounded-3xl font-leaguespartan p-6 sm:p-8 md:p-10 relative z-10 mt-4 mx-auto">
+    <div className="bg-light-active-green/15 border border-white/30 backdrop-blur-md space-y-6 w-[90%] sm:w-[80%] md:w-[60%] lg:w-2/5 rounded-3xl font-leaguespartan p-6 sm:p-8 md:p-10 relative z-10 mt-4 mx-auto">
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
