@@ -130,8 +130,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
           </div>
         )}
 
+        <h5 className="text-4xl text-center font-bold leading-16">Sign In</h5>
         <div className="space-y-2">
-          <h5 className="text-4xl text-center font-bold leading-16">Sign In</h5>
           <label htmlFor="email" className="block text-sm sm:text-base">
             Email
           </label>
