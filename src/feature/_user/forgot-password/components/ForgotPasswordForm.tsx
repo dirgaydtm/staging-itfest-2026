@@ -63,7 +63,7 @@ export const ForgotPasswordForm: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center mycontainer  w-full md:w-4/5 lg:w-3/5 p-2 md:p-4">
-      <div className="bg-blue-400 z-10 mt-4 rounded-3xl border-purple-300 border-3 p-4 md:p-8 space-y-4 md:space-y-6 font-mono w-full max-w-md">
+      <div className="bg-blue-400 z-10 mt-4 rounded-3xl border-purple-300 border-3 p-4 md:p-8 space-y-4 md:space-y-6 font-leaguespartan w-full max-w-md">
         {errorMessage && (
           <div className="bg-red-500/20 border border-red-400 p-2 md:p-3 rounded-xl text-center text-white text-sm md:text-base">
             {errorMessage}
@@ -78,6 +78,10 @@ export const ForgotPasswordForm: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
           <div>
+            <div className="text-center mb-4 md:mb-6">
+              <h5 className="font-bold text-3xl">Forgot Password</h5>
+              <p>Write your email below</p>
+            </div>
             <label
               htmlFor="email"
               className="block text-white font-semibold mb-1 md:mb-2 text-sm md:text-base"
