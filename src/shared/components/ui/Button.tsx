@@ -15,6 +15,8 @@ const buttonVariants = cva(
         disabled: "bg-button-bg text-white text-[#4F5D6E] cursor-not-allowed",
         tertiary:
           "bg-transparent border-4 border-button-bg text-button-text [text-shadow:_0px_0px_30px_rgba(255,255,255,0.6)] hover:bg-button-bg hover:bg-opacity-20",
+        forauth:
+          "bg-normal-hover-blue text-white [text-shadow:_0px_0px_30px_rgba(255,255,255,0.6)] hover:bg-button-bg/50",
       },
       size: {
         small: "w-36",

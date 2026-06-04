@@ -179,8 +179,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
           </div>
         </div>
 
-        <div className="text-sm text-right sm:text-sm text-white/80 text-glow">
-          <Link href={"/forgot-password"} className="text-[#85FFF5]">
+        <div className="text-sm text-right sm:text-sm">
+          <Link href={"/forgot-password"} className="text-light-active-blue hover:underline">
             Forgot Password?
           </Link>
         </div>
@@ -188,7 +188,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
         <div className="pt-2">
           <Button
             type="submit"
-            variant="primary"
+            variant="forauth"
             size="normal"
             disabled={loading || !email || !password || isAuthenticated}
             className="w-full"
@@ -204,7 +204,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
         <div className="flex justify-center gap-1 text-sm sm:text-base">
           <span>Don’t have an account?</span>
           <Link
-            className="text-glow text-[#85FFF5] hover:underline"
+            className="text-glow text-light-active-blue hover:underline"
             href={"/register"}
           >
             Sign Up
