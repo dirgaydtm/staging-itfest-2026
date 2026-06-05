@@ -1,4 +1,4 @@
-import Stars from "@/feature/hero/components/Stars";
+import Stars from"@/feature/hero/components/Stars";
 import React from "react";
 import RegisterForm from "../components/RegisterForm";
 
