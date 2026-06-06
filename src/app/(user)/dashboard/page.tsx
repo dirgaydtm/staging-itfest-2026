@@ -1,12 +1,26 @@
-import DashboardContainer from "@/feature/_user/dashboard/container/DashboardContainer";
-import React from "react";
+"use client";
 
-const page = () => {
+import {
+  DashboardLayout,
+  DashboardThemeProvider,
+} from "@/feature/userDashboard/layout";
+
+export default function DashboardPreviewPage() {
   return (
-    <div className="comingsoonbg w-full">
-      <DashboardContainer />
-    </div>
+    <DashboardThemeProvider>
+      {/* coba juga: initialCompetition="bp" atau "dml" atau "uiux" */}
+      <DashboardLayout
+        infoContent={
+          <div className="text-white p-8 bg-white/5 rounded-2xl">
+            Konten Information (dummy)
+          </div>
+        }
+        submitContent={
+          <div className="text-white p-8 bg-white/5 rounded-2xl">
+            Konten Submit (dummy)
+          </div>
+        }
+      />
+    </DashboardThemeProvider>
   );
-};
-
-export default page;
+}

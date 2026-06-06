@@ -2,6 +2,11 @@
 
 import clsx from "clsx";
 import { useDashboardTheme } from "./DashboardThemeContext";
+import {
+  buttonDisabledClass,
+  buttonInactiveClass,
+  buttonTextClass,
+} from "./themes";
 
 export type DashboardTab = "info" | "submit";
 
@@ -9,6 +14,9 @@ type Props = {
   active: DashboardTab;
   onChange: (tab: DashboardTab) => void;
 };
+
+const baseBtn =
+  "py-4 px-6 font-bold md:text-lg text-base rounded-2xl transition w-full flex justify-center items-center";
 
 const DashboardSideButtons = ({ active, onChange }: Props) => {
   const { theme, isRegistered } = useDashboardTheme();
@@ -20,8 +28,9 @@ const DashboardSideButtons = ({ active, onChange }: Props) => {
         type="button"
         onClick={() => onChange("info")}
         className={clsx(
-          "py-4 px-6 font-changa font-bold md:text-lg text-base rounded-2xl transition w-full flex justify-center items-center",
-          active === "info" ? theme.buttonActive : theme.buttonInactive,
+          baseBtn,
+          buttonTextClass,
+          active === "info" ? theme.buttonActive : buttonInactiveClass,
         )}
       >
         Information
@@ -32,12 +41,14 @@ const DashboardSideButtons = ({ active, onChange }: Props) => {
         onClick={() => !submitDisabled && onChange("submit")}
         disabled={submitDisabled}
         className={clsx(
-          "py-4 px-6 font-changa font-bold md:text-lg text-base rounded-2xl transition w-full flex justify-center items-center truncate",
+          baseBtn,
+          buttonTextClass,
+          "truncate",
           submitDisabled
-            ? "bg-white/10 text-white/40 cursor-not-allowed"
+            ? buttonDisabledClass
             : active === "submit"
             ? theme.buttonActive
-            : theme.buttonInactive,
+            : buttonInactiveClass,
         )}
       >
         Submit Your Work
