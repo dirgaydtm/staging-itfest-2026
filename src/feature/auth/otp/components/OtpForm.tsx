@@ -201,17 +201,16 @@ export const OtpForm: React.FC<Props> = ({
   // Main OTP form
   const instructionText =
     type === "forgot-password"
-      ? "Kami telah mengirimkan 6-digit kode reset password ke email Anda."
-      : "Kami telah mengirimkan 6-digit kode verifikasi ke email Anda.";
+      ? "We've sent a 6-digit reset password code to your email."
+      : "We've sent a 6-digit verification code to your email.";
 
-  const buttonText =
-    type === "forgot-password" ? "Verifikasi Kode Reset" : "Verifikasi OTP";
+  const buttonText = "Submit";
   const buttonLoadingText =
-    type === "forgot-password" ? "Memverifikasi kode..." : "Memverifikasi...";
+    type === "forgot-password" ? "Verifying Code..." : "Verifying...";
 
   return (
     <div className="flex items-center justify-center p-4">
-      <div className="bg-blue-400 z-10 rounded-3xl border-purple-300 border-3 p-8 space-y-6 font-leaguespartan">
+      <div className="bg-light-active-green/15 border border-white/30 backdrop-blur-md z-10 rounded-3xl p-8 space-y-6 font-leaguespartan">
         <div className="text-center">
           <h5 className="text-3xl font-bold">Email Verification</h5>
           <span>Enter the 6-digit code sent to your email</span>
@@ -223,14 +222,14 @@ export const OtpForm: React.FC<Props> = ({
               {expiredError || "Kode OTP telah kadaluarsa!"}
             </p>
             <p className="text-red-100 text-sm mt-1">
-              Silakan kirim ulang kode OTP untuk melanjutkan verifikasi.
+              Please resend the OTP code to continue the verification.
             </p>
           </div>
         ) : (
           <div className="bg-green-400/20 border border-green-400 p-3 rounded-xl text-center">
             <p className="text-purple-100 mb-1">{instructionText}</p>
             <p className="font-bold text-yellow-500">
-              Kadaluarsa dalam: {formatTime(timeLeft)}
+              Expired in: {formatTime(timeLeft)}
             </p>
           </div>
         )}
@@ -255,7 +254,7 @@ export const OtpForm: React.FC<Props> = ({
                   onChange={(e) => handleInputChange(i, e.target.value)}
                   onKeyDown={(e) => onKeyDown(i, e)}
                   onPaste={onPaste}
-                  className={`w-12 h-12 text-center text-xl text-black bg-white/90 border-2 rounded-xl focus:ring-purple-200 transition-colors ${
+                  className={`w-12 h-15 text-center text-xl text-black bg-white/90 border-2 rounded-xl focus:ring-purple-200 transition-colors font-semibold ${
                     errorMessage
                       ? "border-red-400 focus:border-red-500"
                       : "border-purple-300 focus:border-purple-500"
