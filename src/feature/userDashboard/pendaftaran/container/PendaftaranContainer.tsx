@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import BoardingTemplate from "@/shared/components/onboarding/BoardingTemplate";
+// import BoardingTemplate from "@/shared/components/onboarding/BoardingTemplate";
 import SplitPanelLayout from "@/shared/components/layout/SplitPanelLayout";
 
 import PendaftaranForm from "../components/page1/PendaftaranForm";
@@ -21,7 +21,7 @@ const PendaftaranContainer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [selectedCompetition, setSelectedCompetition] = useState<number | null>(
-    null,
+    null
   );
   const [teamName, setTeamName] = useState("");
   const [biodataKetua, setBiodataKetua] = useState<BiodataKetuaRequest>({
@@ -47,14 +47,12 @@ const PendaftaranContainer = () => {
         teamProfile.competition_category &&
         teamProfile.competition_category !== "Not Registered"
       );
-
       if (isFillingForm && currentPage < 6 && !isSubmitting) {
         e.preventDefault();
         e.returnValue =
           "Apakah Anda yakin ingin pergi? Data yang belum disimpan akan hilang.";
       }
     };
-
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [currentPage, isSubmitting, teamProfile]);
@@ -66,7 +64,7 @@ const PendaftaranContainer = () => {
   const goToPrevious = () => {
     if (
       window.confirm(
-        "Apakah Anda yakin ingin kembali? Kemajuan pada halaman ini akan hilang.",
+        "Apakah Anda yakin ingin kembali? Kemajuan pada halaman ini akan hilang."
       )
     ) {
       if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -92,7 +90,7 @@ const PendaftaranContainer = () => {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center space-y-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-blue mx-auto" />
-            <p className="font-changa text-light-green">
+            <p className="font-leaguespartan text-light-green">
               Memeriksa status pendaftaran...
             </p>
           </div>
@@ -110,10 +108,10 @@ const PendaftaranContainer = () => {
       <SplitPanelLayout>
         <div className="flex-1 flex items-center justify-center text-center">
           <div className="space-y-6">
-            <h1 className="text-3xl md:text-4xl font-changa font-bold text-light-green">
+            <h1 className="text-3xl md:text-4xl font-leaguespartan font-bold text-light-green">
               Anda Sudah Terdaftar
             </h1>
-            <p className="font-changa text-lg text-light-blue">
+            <p className="font-leaguespartan text-lg text-light-blue">
               Tim Anda{" "}
               <span className="font-bold">{teamProfile.team_name}</span> sudah
               terdaftar di kompetisi{" "}
@@ -122,7 +120,7 @@ const PendaftaranContainer = () => {
               </span>
               .
             </p>
-            <p className="font-changa text-light-green">
+            <p className="font-leaguespartan text-light-green">
               Anda tidak dapat mengakses halaman ini lagi.
             </p>
           </div>
@@ -137,7 +135,7 @@ const PendaftaranContainer = () => {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center space-y-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-blue mx-auto" />
-            <p className="font-changa text-light-green">
+            <p className="font-leaguespartan text-light-green">
               Memproses pendaftaran...
             </p>
           </div>
@@ -217,13 +215,13 @@ const PendaftaranContainer = () => {
     }
   };
 
-  return (
-    <BoardingTemplate>
-      <div className="md:mx-4 lg:mx-20 md:py-6 lg:py-12 h-full">
-        {renderCurrentPage()}
-      </div>
-    </BoardingTemplate>
-  );
+  // return (
+  //   <BoardingTemplate>
+  //     <div className="md:mx-4 lg:mx-20 md:py-6 lg:py-12 h-full">
+  //       {renderCurrentPage()}
+  //     </div>
+  //   </BoardingTemplate>
+  // );
 };
 
 export default PendaftaranContainer;

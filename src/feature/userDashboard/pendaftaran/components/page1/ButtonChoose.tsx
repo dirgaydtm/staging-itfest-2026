@@ -23,7 +23,7 @@ const ButtonChoose: React.FC<ButtonChooseProps> = ({
           : "border-[0.5px] border-light-blue bg-light-active-green/20"
       }`}
     >
-      <span className="font-changa font-bold text-base md:text-lg text-light-blue">
+      <span className="font-leaguespartan font-bold text-base md:text-lg text-light-blue">
         {title}
       </span>
     </button>

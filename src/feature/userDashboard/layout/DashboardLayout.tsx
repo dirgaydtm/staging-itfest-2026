@@ -1,9 +1,12 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import DashboardSideButtons, { DashboardTab } from "./DashboardSideButtons";
+import DashboardSideButtons, {
+  DashboardTab,
+} from "./DashboardSideButtons";
 import { useDashboardTheme } from "./DashboardThemeContext";
 import { dashboardBackground } from "./themes";
+import BackgroundSparkles from "@/shared/components/layout/BackgroundSparkles";
 
 type Props = {
   infoContent: ReactNode;
@@ -28,22 +31,24 @@ const DashboardLayout = ({
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-0 h-[400px] w-[400px] md:h-[600px] md:w-[600px] lg:h-[800px] lg:w-[800px] rounded-full opacity-60 blur-[120px]"
+        className="pointer-events-none absolute inset-y-0 left-0 w-1/2"
         style={{ background: theme.glowLeft }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/2 -translate-y-1/2 translate-x-1/2 right-0 h-[400px] w-[400px] md:h-[600px] md:w-[600px] lg:h-[800px] lg:w-[800px] rounded-full opacity-60 blur-[120px]"
+        className="pointer-events-none absolute inset-y-0 right-0 w-1/2"
         style={{ background: theme.glowRight }}
       />
 
-      <div className="mycontainer relative pt-24 md:pt-28 lg:pt-32 pb-10">
-        <div className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:items-start items-stretch">
-          <aside className="w-full lg:w-64 lg:shrink-0">
+      <BackgroundSparkles />
+
+      <div className="mycontainer relative pt-32 pb-10">
+        <div className="flex flex-col lg:flex-row gap-6 lg:items-start items-center">
+          <aside className="lg:w-64 w-full">
             <DashboardSideButtons active={visibleTab} onChange={setActive} />
           </aside>
 
-          <main className="flex-1 w-full min-w-0">
+          <main className="flex-1 w-full">
             {visibleTab === "info" ? infoContent : submitContent}
           </main>
         </div>
