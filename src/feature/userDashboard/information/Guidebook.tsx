@@ -20,7 +20,7 @@ const Guidebook = ({ competitionCategory, isDeadlinePassed = false }: Props) => 
   const btnBase =
     "inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 rounded-2xl font-bold text-sm sm:text-base transition";
   const btnDisabled =
-    "bg-disabled-gray text-light-blue/60 cursor-not-allowed pointer-events-none";
+    "bg-disabled-gray text-light-blue/60 cursor-not-allowed";
   const btnActive = `${theme.buttonActive} text-light-blue`;
 
   const renderAction = () => {
