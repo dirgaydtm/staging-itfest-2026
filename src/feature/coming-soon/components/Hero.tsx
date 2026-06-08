@@ -1,5 +1,5 @@
 "use client";
-import { Instagram, Youtube } from "lucide-react";
+import { FaInstagram, FaYoutube } from "react-icons/fa";
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
@@ -13,7 +13,7 @@ const Hero = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-4xl md:text-6xl text-center">IT FEST 2025</h1>
+        <h1 className="text-4xl md:text-6xl text-center">IT FEST 2026</h1>
         <h2 className="text-6xl md:text-8xl mt-8 text-center">COMING SOON</h2>
       </motion.div>
 
@@ -42,10 +42,10 @@ const Hero = () => {
         transition={{ delay: 1.1 }}
       >
         <Link href={"#"}>
-          <Instagram />
+          <FaInstagram />
         </Link>
         <Link href={"#"}>
-          <Youtube />
+          <FaYoutube />
         </Link>
       </motion.div>
     </section>

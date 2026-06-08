@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <h1>IT FEST 2026 — Official Website</h1>
+  <p>Website resmi IT FEST 2026 — Kompetisi teknologi mahasiswa nasional oleh KBMDSI FILKOM UB.</p>
 
-## Getting Started
+  ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+  ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4-38bdf8?logo=tailwindcss)
+</div>
 
-First, run the development server:
+---
 
+## 📋 Daftar Isi
+- [Tentang Project](#tentang-project)
+- [Tech Stack](#tech-stack)
+- [Cara Menjalankan Lokal](#cara-menjalankan-lokal)
+- [Environment Variables](#environment-variables)
+- [Konvensi Kode](#konvensi-kode)
+- [Kontribusi](#kontribusi)
+
+---
+
+## Tentang Project
+
+Website IT FEST 2026 adalah platform registrasi dan informasi untuk kompetisi tahunan yang diselenggarakan oleh KBMDSI Fakultas Ilmu Komputer, Universitas Brawijaya. Terdiri dari tiga kategori lomba: **Digital Media**, **Business Plan**, dan **UI/UX Design**.
+
+---
+
+## Tech Stack
+
+| Teknologi | Versi | Kegunaan |
+|---|---|---|
+| Next.js | 15.x | Framework React (App Router) |
+| React | 19.x | UI Library |
+| TypeScript | 5.x | Static typing |
+| Tailwind CSS | 4.x | Styling |
+| Framer Motion | 12.x | Animasi |
+| Axios | 1.x | HTTP client ke API |
+| Shadcn/UI | latest | Komponen UI |
+| Lucide React | latest | Icon library |
+
+---
+
+## Cara Menjalankan Lokal
+
+**Prasyarat:** Node.js 18+ dan npm sudah terinstall.
+
+1. Clone repo
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   git clone https://github.com/kbmdsi/itfest26-web.git
+   cd itfest26-web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependency
+```bash
+   npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Buat file environment variable
+```bash
+   cp .env.example .env.local
+   # Isi nilai di .env.local sesuai kebutuhan
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Jalankan development server
+```bash
+   npm run dev
+```
+   
+   Buka [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Salin `.env.example` menjadi `.env.local` dan isi nilainya:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable | Deskripsi | Contoh |
+|---|---|---|
+| `NEXT_PUBLIC_API_BASE_URL` | URL base API backend | `https://api.itfest-filkom.com/api/v1` |
+| `NEXT_PUBLIC_SITE_URL` | URL frontend (untuk SEO) | `https://itfest-filkom.com` |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Konvensi Kode
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Penamaan file:** PascalCase untuk komponen (`Button.tsx`), camelCase untuk hooks & utils (`useAuth.ts`)
+- **Styling:** Tailwind utility classes. Custom color ada di `globals.css` dalam `@theme`
+- **Komponen baru:** Ikuti struktur feature-based — buat folder di `src/feature/` jika fiturnya besar
+- **Commit message:** Gunakan format conventional commits: `feat:`, `fix:`, `chore:`, `refactor:`
+
+---
+
+## Kontribusi
+
+1. Buat branch baru dari `main`: `git checkout -b feat/nama-fitur`
+2. Kerjakan perubahan
+3. Commit dengan pesan yang deskriptif
+4. Push dan buat Pull Request ke `main`
+5. Minta review dari minimal 1 orang sebelum merge

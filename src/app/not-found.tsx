@@ -1,10 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import Stars from "@/feature/hero/components/Stars";
-import Planets from "@/assets/img/planets.svg";
 import Image from "next/image";
-import Mobil from "@/assets/img/mobil.png";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -18,7 +15,6 @@ export default function NotFound() {
 
       {/* Stars component dengan z-index rendah */}
       <div className="absolute inset-0 z-0">
-        <Stars />
       </div>
 
       <motion.div
@@ -56,13 +52,6 @@ export default function NotFound() {
               404
             </h1>
           </motion.div>
-
-          <Image
-            src={Planets}
-            alt="Floating Planets"
-            className="pointer-events-none select-none"
-            priority
-          />
 
           {/* Subtitle */}
           <motion.div
@@ -110,12 +99,7 @@ export default function NotFound() {
               ease: "easeInOut",
             }}
           >
-            <Image
-              src={Mobil}
-              alt="Go Home"
-              className="w-16 sm:w-20 md:w-28 drop-shadow-[0_0_6px_#00ffff] hover:drop-shadow-[0_0_12px_#00ffff] transition-all duration-300"
-              priority
-            />
+
           </motion.div>
 
           {/* Hologram teks: animasi sekali saat masuk */}

@@ -2,9 +2,9 @@ const StructuredData = () => {
   const eventData = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: "IT FEST 2025",
-    startDate: "2025-07-01T09:00", // Ganti dengan tanggal mulai acara
-    endDate: "2025-08-25T17:00", // Ganti dengan tanggal selesai acara
+    name: "IT FEST 2026",
+    startDate: "2026-XX-XXT09:00",  // isi nanti kalau sudah ada info dari event organizer
+    endDate: "2026-XX-XXT17:00",  // isi nanti kalau sudah ada info dari event organizer
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode", // Jika online
     eventStatus: "https://schema.org/EventScheduled",
     location: {
@@ -12,7 +12,7 @@ const StructuredData = () => {
       url: "https://itfest-filkom.com/",
     },
     description:
-      "IT FEST 2025 adalah kompetisi mahasiswa tingkat nasional yang diselenggarakan oleh KBMDSI FILKOM UB. Terdiri dari kategori Business Plan dan UI/UX Competition, acara ini menjadi wadah bagi mahasiswa kreatif se-Indonesia untuk berkompetisi dan berinovasi.",
+      "IT FEST 2026 adalah kompetisi mahasiswa tingkat nasional yang diselenggarakan oleh KBMDSI FILKOM UB. Terdiri dari kategori Digital Media, Business Plan dan UI/UX Competition, acara ini menjadi wadah bagi mahasiswa kreatif se-Indonesia untuk berkompetisi dan berinovasi.",
     image: [""],
     organizer: {
       "@type": "Organization",

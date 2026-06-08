@@ -1,32 +1,32 @@
-import AboutContainer from "@/feature/about/container/container";
-import CategoryContainer from "@/feature/category/container/container";
-import EventContainer from "@/feature/event/container/EventContainer";
-import FaqContainer from "@/feature/faq/container/FaqContainer";
-import GuideContainer from "@/feature/guide/container/GuideContainer";
-import HeroContainer from "@/feature/hero/container/container";
-import SpecialPrizeContainer from "@/feature/special-prize/container/container";
-import TimelineContainer from "@/feature/timeline/container/container";
+import AboutContainer from "@/feature/landing/about/container/container";
+import CategoryContainer from "@/feature/landing/category/container/container";
+import EventContainer from "@/feature/landing/event-sponsor/container/EventContainer";
+import FaqContainer from "@/feature/landing/faq/container/FaqContainer";
+import GuideContainer from "@/feature/landing/guide/container/GuideContainer";
+import HeroContainer from "@/feature/landing/hero/container/container";
+import SpecialPrizeContainer from "@/feature/landing/prize/container/container";
+import TimelineContainer from "@/feature/landing/timeline/container/container";
 
 export default function Home() {
   return (
     <main className="min-h-screen scroll-smooth">
-      <HeroContainer />
+      {/* <HeroContainer /> */}
       <section id="about">
-        <AboutContainer />
+        {/* <AboutContainer /> */}
       </section>
-      <CategoryContainer />
+      {/* <CategoryContainer /> */}
       <section id="timeline">
-        <TimelineContainer />
+        {/* <TimelineContainer /> */}
       </section>
       <section id="prize">
-        <SpecialPrizeContainer />
+        {/* <SpecialPrizeContainer /> */}
       </section>
       <section id="faq">
-        <FaqContainer />
+        {/* <FaqContainer /> */}
       </section>
-      <EventContainer />
+      {/* <EventContainer /> */}
       <section id="guide">
-        <GuideContainer />
+        {/* <GuideContainer /> */}
       </section>
     </main>
   );
