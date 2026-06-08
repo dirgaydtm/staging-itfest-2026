@@ -4,23 +4,21 @@ import {
   DashboardLayout,
   DashboardThemeProvider,
 } from "@/feature/userDashboard/layout";
+import InformationContainer from "@/feature/userDashboard/information/InformationContainer";
 
-export default function Home() {
+const DashboardPage = () => {
   return (
     <DashboardThemeProvider>
-      {/* coba juga: initialCompetition="bp" atau "dml" atau "uiux" */}
       <DashboardLayout
-        infoContent={
-          <div className="text-white p-8 bg-white/5 rounded-2xl">
-            Konten Information (dummy)
-          </div>
-        }
+        infoContent={<InformationContainer />}
         submitContent={
-          <div className="text-white p-8 bg-white/5 rounded-2xl">
-            Konten Submit (dummy)
+          <div className="font-leaguespartan text-light-blue text-center py-20">
+            Submit Your Work — dikerjakan oleh teman.
           </div>
         }
       />
     </DashboardThemeProvider>
   );
-}
+};
+
+export default DashboardPage;
