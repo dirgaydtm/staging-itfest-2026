@@ -11,7 +11,7 @@ const InformationContainer = () => {
   // === MOCK DATA (preview tanpa backend) ===
   const data = {
     competition_category: "Not Registered" as const,
-    deadline: "2026-12-31T23:59:59Z",
+    deadline: "2026-06-31T15:11:39+07:00",
   };
   const loading = false;
   const error = null;
