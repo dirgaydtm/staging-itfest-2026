@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 interface ButtonChooseProps {
@@ -6,25 +8,36 @@ interface ButtonChooseProps {
   onClick?: () => void;
 }
 
-const ButtonChoose: React.FC<ButtonChooseProps> = ({ 
-  title, 
-  isActive = false, 
-  onClick 
+const ButtonChoose: React.FC<ButtonChooseProps> = ({
+  title,
+  isActive = false,
+  onClick,
 }) => {
+  const activeStyle: React.CSSProperties = {
+    borderRadius: "12px",
+    background: "linear-gradient(90deg, #243642 0%, #3D5D71 100%)",
+    border: "0.5px solid transparent",
+  };
+
+  const inactiveStyle: React.CSSProperties = {
+    borderRadius: "12px",
+    border: "0.5px solid #F0F5F8",
+    background: "rgba(176, 191, 199, 0.20)",
+  };
+
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`w-full border-2 py-2 rounded-xl text-center transition-all duration-300 cursor-pointer hover:scale-105 ${
-        isActive
-          ? "bg-purple-300 border-purple-300 text-white shadow-lg"
-          : "border-purple-300 bg-transparent hover:bg-purple-300/20"
-      }`}
+      className="w-full max-w-xs md:max-w-sm py-3 transition-all duration-300 hover:scale-[1.02] active:scale-95"
+      style={isActive ? activeStyle : inactiveStyle}
     >
-      <h5 className={`font-changa font-bold ${
-        isActive ? "text-white" : "text-[#C3B8EA]"
-      }`}>
+      <span
+        className="font-changa font-bold text-base md:text-lg"
+        style={{ color: "#F0F5F8" }}
+      >
         {title}
-      </h5>
+      </span>
     </button>
   );
 };

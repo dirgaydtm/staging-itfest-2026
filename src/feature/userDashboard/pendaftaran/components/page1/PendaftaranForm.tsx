@@ -1,7 +1,6 @@
-// src/feature/_user/pendaftaran/components/page1/PendaftaranForm.tsx
+"use client";
+
 import React from "react";
-import PageIndex from "../PageIndex";
-import { Button } from "@/shared/components/ui/Button";
 import ChooseLomba from "./ChooseLomba";
 
 interface PendaftaranFormProps {
@@ -16,28 +15,56 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
   onNext,
 }) => {
   const handleNext = () => {
-    if (selectedCompetition) {
-      onNext();
-    }
+    if (selectedCompetition) onNext();
   };
 
   return (
-    <section className="flex flex-col items-center justify-center gap-10 md:gap-0 md:justify-between  h-screen md:h-full">
-      <PageIndex index={1} title="Pilih Lomba" />
+    <div className="flex-1 flex flex-col gap-8">
+      {/* Header chip */}
+      <div
+        className="w-full text-center py-3 px-4"
+        style={{
+          borderRadius: "12px",
+          border: "0.5px solid #F0F5F8",
+          background: "rgba(176, 191, 199, 0.50)",
+        }}
+      >
+        <span
+          className="font-changa font-bold text-base md:text-lg"
+          style={{ color: "#E6EAED" }}
+        >
+          Select Competition
+        </span>
+      </div>
+
+      {/* Competition branch picker */}
       <ChooseLomba
         selectedCompetition={selectedCompetition}
         onCompetitionSelect={onCompetitionSelect}
       />
-      <Button
-        type="button"
-        size={"normal"}
-        className="w-full text-base h-12 sm:text-base disabled:opacity-50"
-        disabled={!selectedCompetition}
-        onClick={handleNext}
-      >
-        Lanjut
-      </Button>
-    </section>
+
+      {/* Next button */}
+      <div className="mt-auto pt-4 flex justify-center">
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={!selectedCompetition}
+          className="w-full max-w-xs md:max-w-sm py-3 transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{
+            borderRadius: "16px",
+            border: "0.5px solid #F0F5F8",
+            background: "rgba(176, 191, 199, 0.20)",
+          }}
+        >
+          <span
+            className="font-changa font-bold text-base md:text-lg"
+            style={{ color: "#E6EAED" }}
+          >
+            Next
+          </span>
+        </button>
+      </div>
+    </div>
   );
 };
 
