@@ -1,5 +1,4 @@
 "use client";
-import Stars from "@/feature/hero/components/Stars";
 import React, { useMemo } from "react";
 import { OtpForm } from "../components/OtpForm";
 import { useOtp } from "../hooks/useOtp";
@@ -85,7 +84,6 @@ const OtpContainer = () => {
         onResend={resend}
         inputRefs={inputRefs}
       />
-      <Stars />
     </main>
   );
 };
