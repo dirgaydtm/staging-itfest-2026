@@ -30,21 +30,11 @@ const sparkles: Array<{
 
 const SplitPanelLayout: React.FC<SplitPanelLayoutProps> = ({ children }) => {
   return (
-    <section
-      className="relative min-h-screen w-full overflow-hidden pt-20 md:pt-24 pb-10"
-      style={{
-        background:
-          "radial-gradient(ellipse at top, #1f3a52 0%, #16293a 45%, #0e1d2a 100%)",
-      }}
-    >
+    <section className="relative min-h-screen w-full overflow-hidden pt-20 md:pt-24 pb-10 bg-[radial-gradient(ellipse_at_top,_var(--color-normal-green)_0%,_var(--color-dark-green)_45%,_var(--color-darker-green)_100%)]">
       {/* Curved bottom glow */}
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-[45vh]"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(102,155,188,0.45) 0%, rgba(102,155,188,0.15) 35%, rgba(102,155,188,0) 70%)",
-        }}
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-[45vh] bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,_var(--color-normal-blue)/45_0%,_var(--color-normal-blue)/15_35%,_transparent_70%)]"
       />
 
       {/* Sparkles */}
@@ -72,29 +62,13 @@ const SplitPanelLayout: React.FC<SplitPanelLayoutProps> = ({ children }) => {
       {/* Content */}
       <div className="relative mycontainer">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 items-stretch">
-          {/* Left panel (children) */}
-          <div
-            className="rounded-2xl p-6 md:p-8 lg:p-10 min-h-[60vh] flex flex-col"
-            style={{
-              border: "0.5px solid #F0F5F8",
-              background: "rgba(176, 191, 199, 0.10)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-            }}
-          >
+          {/* Left panel */}
+          <div className="rounded-2xl p-6 md:p-8 lg:p-10 min-h-[60vh] flex flex-col border-[0.5px] border-light-blue bg-light-active-green/10 backdrop-blur-md">
             {children}
           </div>
 
-          {/* Right panel: Star + welcome (hidden on mobile) */}
-          <div
-            className="hidden md:flex rounded-2xl p-10 flex-col items-center justify-center gap-8"
-            style={{
-              border: "0.5px solid #F0F5F8",
-              background: "rgba(176, 191, 199, 0.10)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-            }}
-          >
+          {/* Right panel — hidden on mobile */}
+          <div className="hidden md:flex rounded-2xl p-10 flex-col items-center justify-center gap-8 border-[0.5px] border-light-blue bg-light-active-green/10 backdrop-blur-md">
             <Image
               src={Star}
               alt="ITFEST Star"
@@ -102,16 +76,10 @@ const SplitPanelLayout: React.FC<SplitPanelLayoutProps> = ({ children }) => {
               className="w-40 md:w-48 lg:w-56 xl:w-64 h-auto"
             />
             <div className="text-center space-y-2">
-              <h2
-                className="font-changa font-bold text-2xl lg:text-3xl"
-                style={{ color: "#E6EAED" }}
-              >
+              <h2 className="font-changa font-bold text-2xl lg:text-3xl text-light-green">
                 Welcome to ITFEST!
               </h2>
-              <p
-                className="font-changa text-base lg:text-lg"
-                style={{ color: "#E6EAED" }}
-              >
+              <p className="font-changa text-base lg:text-lg text-light-green">
                 Compete, Collaborate, and Win Together!
               </p>
             </div>

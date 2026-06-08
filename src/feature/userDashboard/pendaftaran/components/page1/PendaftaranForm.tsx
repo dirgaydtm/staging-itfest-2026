@@ -21,18 +21,8 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
   return (
     <div className="flex-1 flex flex-col gap-8">
       {/* Header chip */}
-      <div
-        className="w-full text-center py-3 px-4"
-        style={{
-          borderRadius: "12px",
-          border: "0.5px solid #F0F5F8",
-          background: "rgba(176, 191, 199, 0.50)",
-        }}
-      >
-        <span
-          className="font-changa font-bold text-base md:text-lg"
-          style={{ color: "#E6EAED" }}
-        >
+      <div className="w-full text-center py-3 px-4 rounded-xl border-[0.5px] border-light-blue bg-light-active-green/50">
+        <span className="font-changa font-bold text-base md:text-lg text-light-green">
           Select Competition
         </span>
       </div>
@@ -49,17 +39,9 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
           type="button"
           onClick={handleNext}
           disabled={!selectedCompetition}
-          className="w-full max-w-xs md:max-w-sm py-3 transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-          style={{
-            borderRadius: "16px",
-            border: "0.5px solid #F0F5F8",
-            background: "rgba(176, 191, 199, 0.20)",
-          }}
+          className="w-full max-w-xs md:max-w-sm py-3 rounded-2xl border-[0.5px] border-light-blue bg-light-active-green/20 transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
-          <span
-            className="font-changa font-bold text-base md:text-lg"
-            style={{ color: "#E6EAED" }}
-          >
+          <span className="font-changa font-bold text-base md:text-lg text-light-green">
             Next
           </span>
         </button>

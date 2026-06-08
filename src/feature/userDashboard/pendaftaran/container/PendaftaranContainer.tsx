@@ -21,7 +21,7 @@ const PendaftaranContainer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [selectedCompetition, setSelectedCompetition] = useState<number | null>(
-    null
+    null,
   );
   const [teamName, setTeamName] = useState("");
   const [biodataKetua, setBiodataKetua] = useState<BiodataKetuaRequest>({
@@ -66,7 +66,7 @@ const PendaftaranContainer = () => {
   const goToPrevious = () => {
     if (
       window.confirm(
-        "Apakah Anda yakin ingin kembali? Kemajuan pada halaman ini akan hilang."
+        "Apakah Anda yakin ingin kembali? Kemajuan pada halaman ini akan hilang.",
       )
     ) {
       if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -91,8 +91,8 @@ const PendaftaranContainer = () => {
       <SplitPanelLayout>
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto" />
-            <p className="font-changa" style={{ color: "#E6EAED" }}>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-blue mx-auto" />
+            <p className="font-changa text-light-green">
               Memeriksa status pendaftaran...
             </p>
           </div>
@@ -110,13 +110,10 @@ const PendaftaranContainer = () => {
       <SplitPanelLayout>
         <div className="flex-1 flex items-center justify-center text-center">
           <div className="space-y-6">
-            <h1
-              className="text-3xl md:text-4xl font-changa font-bold"
-              style={{ color: "#E6EAED" }}
-            >
+            <h1 className="text-3xl md:text-4xl font-changa font-bold text-light-green">
               Anda Sudah Terdaftar
             </h1>
-            <p className="font-changa text-lg" style={{ color: "#F0F5F8" }}>
+            <p className="font-changa text-lg text-light-blue">
               Tim Anda{" "}
               <span className="font-bold">{teamProfile.team_name}</span> sudah
               terdaftar di kompetisi{" "}
@@ -125,7 +122,7 @@ const PendaftaranContainer = () => {
               </span>
               .
             </p>
-            <p className="font-changa" style={{ color: "#E6EAED" }}>
+            <p className="font-changa text-light-green">
               Anda tidak dapat mengakses halaman ini lagi.
             </p>
           </div>
@@ -139,8 +136,8 @@ const PendaftaranContainer = () => {
       <SplitPanelLayout>
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto" />
-            <p className="font-changa" style={{ color: "#E6EAED" }}>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-blue mx-auto" />
+            <p className="font-changa text-light-green">
               Memproses pendaftaran...
             </p>
           </div>
@@ -149,7 +146,6 @@ const PendaftaranContainer = () => {
     );
   }
 
-  // Step 1 — layout baru sesuai Figma
   if (currentPage === 1) {
     return (
       <SplitPanelLayout>
@@ -162,7 +158,6 @@ const PendaftaranContainer = () => {
     );
   }
 
-  // Step 2–6 — masih pakai BoardingTemplate (akan di-refactor menyusul)
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 2:

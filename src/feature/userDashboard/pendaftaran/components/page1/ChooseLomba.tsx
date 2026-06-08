@@ -22,16 +22,10 @@ const ChooseLomba: React.FC<ChooseLombaProps> = ({
   return (
     <div className="flex flex-col items-center w-full gap-4">
       <div className="text-center space-y-1">
-        <h3
-          className="font-changa font-bold text-xl md:text-2xl"
-          style={{ color: "#F0F5F8" }}
-        >
+        <h3 className="font-changa font-bold text-xl md:text-2xl text-light-blue">
           Competition Branch
         </h3>
-        <p
-          className="font-changa text-sm md:text-base"
-          style={{ color: "#F0F5F8" }}
-        >
+        <p className="font-changa text-sm md:text-base text-light-blue">
           Choose between 3 competition branches that you want to register for
         </p>
       </div>
