@@ -1,4 +1,4 @@
-import RegisterContainer from "@/feature/_user/register/container/RegisterContainer";
+import RegisterContainer from "@/feature/auth/register/container/RegisterContainer";
 import React from "react";
 
 const page = () => {
