@@ -212,6 +212,10 @@ export const OtpForm: React.FC<Props> = ({
   return (
     <div className="flex items-center justify-center p-4">
       <div className="bg-blue-400 z-10 rounded-3xl border-purple-300 border-3 p-8 space-y-6 font-mono">
+        <div className="text-center">
+          <h5 className="text-3xl font-bold">Email Verification</h5>
+          <span>Enter the 6-digit code sent to your email</span>
+        </div>
         {/* Instruction or Expired Message */}
         {isExpired ? (
           <div className="bg-red-500/20 border border-red-400 p-3 rounded-xl text-center">
@@ -273,7 +277,7 @@ export const OtpForm: React.FC<Props> = ({
         {/* Verify Button - only show when not expired */}
         {!isExpired && (
           <Button
-            variant="primary"
+            variant="forauth"
             className="w-full"
             disabled={loading || otp.join("").length !== 6}
             onClick={onVerify}

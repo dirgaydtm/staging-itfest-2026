@@ -55,7 +55,7 @@ export const ResendButton: React.FC<ResendButtonProps> = ({
 
   const ResendButtonElement = (
     <Button
-      variant={"primary"}
+      variant={"forauth"}
       size={"small"}
       onClick={onResend}
       disabled={resendLoading || !resendAvailable}
