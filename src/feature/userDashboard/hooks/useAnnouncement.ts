@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { userService } from "@/api/services/user";
-import { Announcement } from "@/feature/_user/dashboard/types/announcement";
-
+import { Announcement } from "../types/announcement";
 export const useAnnouncement = () => {
   const [data, setData] = useState<Announcement[]>([]);
   const [loading, setLoading] = useState(true);
