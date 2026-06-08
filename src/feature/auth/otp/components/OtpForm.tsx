@@ -174,7 +174,7 @@ export const OtpForm: React.FC<Props> = ({
                     style={{ width: `${progress}%` }}
                   ></div>
                 </div>
-                <div className="mt-2 text-xs text-green-300 font-mono">
+                <div className="mt-2 text-xs text-green-300 font-leaguespartan">
                   {progress}% Complete
                 </div>
               </div>
@@ -211,7 +211,7 @@ export const OtpForm: React.FC<Props> = ({
 
   return (
     <div className="flex items-center justify-center p-4">
-      <div className="bg-blue-400 z-10 rounded-3xl border-purple-300 border-3 p-8 space-y-6 font-mono">
+      <div className="bg-blue-400 z-10 rounded-3xl border-purple-300 border-3 p-8 space-y-6 font-leaguespartan">
         <div className="text-center">
           <h5 className="text-3xl font-bold">Email Verification</h5>
           <span>Enter the 6-digit code sent to your email</span>
