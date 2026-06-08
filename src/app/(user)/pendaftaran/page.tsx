@@ -1,8 +1,8 @@
 import React from "react";
-import PendaftaranContainer from "@/feature/_user/pendaftaran/container/PendaftaranContainer";
+import PendaftaranContainer from "@/feature/userDashboard/pendaftaran/container/PendaftaranContainer";
 
-const page = () => {
-  return <PendaftaranContainer/>;
+const Page = () => {
+  return <PendaftaranContainer />;
 };
 
-export default page;
+export default Page;

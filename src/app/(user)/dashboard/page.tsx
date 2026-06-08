@@ -1,12 +1,24 @@
-import DashboardContainer from "@/feature/_user/dashboard/container/DashboardContainer";
-import React from "react";
+"use client";
 
-const page = () => {
+import {
+  DashboardLayout,
+  DashboardThemeProvider,
+} from "@/feature/userDashboard/layout";
+import InformationContainer from "@/feature/userDashboard/information/InformationContainer";
+
+const DashboardPage = () => {
   return (
-    <div className="comingsoonbg w-full">
-      <DashboardContainer />
-    </div>
+    <DashboardThemeProvider>
+      <DashboardLayout
+        infoContent={<InformationContainer />}
+        submitContent={
+          <div className="font-leaguespartan text-light-blue text-center py-20">
+            Submit Your Work — dikerjakan oleh teman.
+          </div>
+        }
+      />
+    </DashboardThemeProvider>
   );
 };
 
-export default page;
+export default DashboardPage;

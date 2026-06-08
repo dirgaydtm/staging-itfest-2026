@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 interface ButtonChooseProps {
@@ -6,25 +8,24 @@ interface ButtonChooseProps {
   onClick?: () => void;
 }
 
-const ButtonChoose: React.FC<ButtonChooseProps> = ({ 
-  title, 
-  isActive = false, 
-  onClick 
+const ButtonChoose: React.FC<ButtonChooseProps> = ({
+  title,
+  isActive = false,
+  onClick,
 }) => {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`w-full border-2 py-2 rounded-xl text-center transition-all duration-300 cursor-pointer hover:scale-105 ${
+      className={`w-full max-w-xs md:max-w-sm py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 ${
         isActive
-          ? "bg-purple-300 border-purple-300 text-white shadow-lg"
-          : "border-purple-300 bg-transparent hover:bg-purple-300/20"
+          ? "bg-gradient-to-r from-darker-blue to-dark-hover-blue border-[0.5px] border-transparent"
+          : "border-[0.5px] border-light-blue bg-light-active-green/20"
       }`}
     >
-      <h5 className={`font-changa font-bold ${
-        isActive ? "text-white" : "text-[#C3B8EA]"
-      }`}>
+      <span className="font-leaguespartan font-bold text-base md:text-lg text-light-blue">
         {title}
-      </h5>
+      </span>
     </button>
   );
 };

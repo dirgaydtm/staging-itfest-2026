@@ -1,4 +1,8 @@
-import { redirect } from "next/navigation";
-export default function Home() {
-  return redirect("/home");
-}
+import React from "react";
+import PendaftaranContainer from "@/feature/userDashboard/pendaftaran/container/PendaftaranContainer";
+
+const Page = () => {
+  return <PendaftaranContainer />;
+};
+
+export default Page;
