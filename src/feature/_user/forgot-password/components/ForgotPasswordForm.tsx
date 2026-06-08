@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/shared/components/ui/Button";
+import Link from "next/link";
 import { toast } from "react-toastify";
 import { forgotPasswordService } from "@/api/services/forgot-password";
 
@@ -62,8 +63,8 @@ export const ForgotPasswordForm: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center mycontainer  w-full md:w-4/5 lg:w-3/5 p-2 md:p-4">
-      <div className="bg-blue-400 z-10 mt-4 rounded-3xl border-purple-300 border-3 p-4 md:p-8 space-y-4 md:space-y-6 font-leaguespartan w-full max-w-md">
+    <div className="flex items-center justify-center mycontainer w-full md:w-4/5 lg:w-3/5 p-2 md:p-4">
+      <div className="bg-light-active-green/15 border border-white/30 backdrop-blur-md z-10 mt-4 rounded-3xl border-purple-300 p-4 md:p-8 space-y-4 md:space-y-6 font-leaguespartan w-full max-w-xl">
         {errorMessage && (
           <div className="bg-red-500/20 border border-red-400 p-2 md:p-3 rounded-xl text-center text-white text-sm md:text-base">
             {errorMessage}
@@ -86,7 +87,7 @@ export const ForgotPasswordForm: React.FC = () => {
               htmlFor="email"
               className="block text-white font-semibold mb-1 md:mb-2 text-sm md:text-base"
             >
-              Email Address
+              Email
             </label>
             <input
               id="email"
@@ -97,8 +98,8 @@ export const ForgotPasswordForm: React.FC = () => {
                 if (errorMessage) setErrorMessage("");
                 if (successMessage) setSuccessMessage("");
               }}
-              className="w-full px-3 md:px-4 py-2 md:py-3 rounded-xl border-2 border-purple-300 focus:border-purple-500 focus:ring-purple-200 bg-white/90 text-black placeholder-gray-500 text-sm md:text-base"
-              placeholder="contoh@email.com"
+              className="w-full px-3 md:px-4 py-2 md:py-3 rounded-xl bg-white/90 text-black placeholder-gray-500 text-sm md:text-base"
+              placeholder="Email"
               disabled={loading}
               autoComplete="email"
               required
@@ -107,12 +108,21 @@ export const ForgotPasswordForm: React.FC = () => {
 
           <Button
             type="submit"
-            variant="primary"
-            className="w-full text-sm md:text-base py-2 md:py-3"
+            variant="forauth"
+            className="w-full text-sm md:text-xl py-2 md:py-3 mt-8"
             disabled={loading || !email.trim()}
           >
-            {loading ? "Mengirim..." : "Kirim Kode Verifikasi"}
+            {loading ? "Mengirim..." : "Submit"}
           </Button>
+          <div className="flex justify-center gap-1 text-sm sm:text-base">
+            <span>Already have an account?</span>
+            <Link
+              className="text-glow text-light-active-blue hover:underline"
+              href={"/login"}
+            >
+              Sign In
+            </Link>
+          </div>
         </form>
       </div>
     </div>
