@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import BoardingTemplate from "@/shared/components/onboarding/BoardingTemplate";
+import SplitPanelLayout from "@/shared/components/layout/SplitPanelLayout";
 
 import PendaftaranForm from "../components/page1/PendaftaranForm";
 import BiodataKetuaForm from "../components/page2/BiodataKetuaForm";
@@ -11,7 +12,7 @@ import BiodataAnggota2Form from "../components/page4/BiodataAnggota2Form";
 import PendaftaranSelesaiForm from "../components/page5/SuccesForm";
 
 import { TeamMember, BiodataKetuaRequest } from "@/api/services/pendaftaran";
-import { useTeamProfile } from "../../dashboard/hooks/useTeamProfile";
+import { useTeamProfile } from "../../hooks/useTeamProfile";
 
 const PendaftaranContainer = () => {
   const { data: teamProfile, loading: isProfileLoading } = useTeamProfile();
@@ -57,6 +58,7 @@ const PendaftaranContainer = () => {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [currentPage, isSubmitting, teamProfile]);
+
   const goToNext = () => {
     if (currentPage < 6) setCurrentPage(currentPage + 1);
   };
@@ -77,21 +79,92 @@ const PendaftaranContainer = () => {
         return "UI/UX DESIGN";
       case 3:
         return "BUSINESS PLAN";
+      case 4: // TODO: ganti ID DML setelah backend confirm
+        return "DIGITAL MEDIA LEARNING";
       default:
         return "";
     }
   };
 
+  if (isProfileLoading) {
+    return (
+      <SplitPanelLayout>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto" />
+            <p className="font-changa" style={{ color: "#E6EAED" }}>
+              Memeriksa status pendaftaran...
+            </p>
+          </div>
+        </div>
+      </SplitPanelLayout>
+    );
+  }
+
+  if (
+    teamProfile &&
+    teamProfile.competition_category &&
+    teamProfile.competition_category !== "Not Registered"
+  ) {
+    return (
+      <SplitPanelLayout>
+        <div className="flex-1 flex items-center justify-center text-center">
+          <div className="space-y-6">
+            <h1
+              className="text-3xl md:text-4xl font-changa font-bold"
+              style={{ color: "#E6EAED" }}
+            >
+              Anda Sudah Terdaftar
+            </h1>
+            <p className="font-changa text-lg" style={{ color: "#F0F5F8" }}>
+              Tim Anda{" "}
+              <span className="font-bold">{teamProfile.team_name}</span> sudah
+              terdaftar di kompetisi{" "}
+              <span className="font-bold">
+                {teamProfile.competition_category}
+              </span>
+              .
+            </p>
+            <p className="font-changa" style={{ color: "#E6EAED" }}>
+              Anda tidak dapat mengakses halaman ini lagi.
+            </p>
+          </div>
+        </div>
+      </SplitPanelLayout>
+    );
+  }
+
+  if (isSubmitting) {
+    return (
+      <SplitPanelLayout>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto" />
+            <p className="font-changa" style={{ color: "#E6EAED" }}>
+              Memproses pendaftaran...
+            </p>
+          </div>
+        </div>
+      </SplitPanelLayout>
+    );
+  }
+
+  // Step 1 — layout baru sesuai Figma
+  if (currentPage === 1) {
+    return (
+      <SplitPanelLayout>
+        <PendaftaranForm
+          selectedCompetition={selectedCompetition}
+          onCompetitionSelect={setSelectedCompetition}
+          onNext={goToNext}
+        />
+      </SplitPanelLayout>
+    );
+  }
+
+  // Step 2–6 — masih pakai BoardingTemplate (akan di-refactor menyusul)
   const renderCurrentPage = () => {
     switch (currentPage) {
-      case 1:
-        return (
-          <PendaftaranForm
-            selectedCompetition={selectedCompetition}
-            onCompetitionSelect={setSelectedCompetition}
-            onNext={goToNext}
-          />
-        );
       case 2:
         return (
           <BiodataKetuaForm
@@ -145,75 +218,9 @@ const PendaftaranContainer = () => {
           />
         );
       default:
-        return (
-          <PendaftaranForm
-            selectedCompetition={selectedCompetition}
-            onCompetitionSelect={setSelectedCompetition}
-            onNext={goToNext}
-          />
-        );
+        return null;
     }
   };
-
-  if (isProfileLoading) {
-    return (
-      <BoardingTemplate>
-        <div className="h-full flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
-            <p className="text-white font-changa">
-              Memeriksa status pendaftaran...
-            </p>
-          </div>
-        </div>
-      </BoardingTemplate>
-    );
-  }
-
-  if (
-    teamProfile &&
-    teamProfile.competition_category &&
-    teamProfile.competition_category !== "Not Registered"
-  ) {
-    {
-      return (
-        <BoardingTemplate>
-          <div className="md:h-full h-screen flex items-center justify-center text-center text-white">
-            <div className="space-y-6">
-              <h1 className="text-4xl font-robotech text-purple-100">
-                Anda Sudah Terdaftar
-              </h1>
-              <p className="font-changa text-xl">
-                Tim Anda{" "}
-                <span className="font-bold text-yellow-300">
-                  {teamProfile.team_name}
-                </span>{" "}
-                sudah terdaftar di kompetisi{" "}
-                <span className="font-bold text-yellow-300">
-                  {teamProfile.competition_category}
-                </span>
-                .
-              </p>
-              <p>Anda tidak dapat mengakses halaman ini lagi.</p>
-            </div>
-          </div>
-        </BoardingTemplate>
-      );
-    }
-  }
-
-  if (isSubmitting) {
-    return (
-      <BoardingTemplate>
-        <div className="h-full flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
-            <p className="text-white font-changa">Memproses pendaftaran...</p>
-          </div>
-        </div>
-      </BoardingTemplate>
-    );
-  }
 
   return (
     <BoardingTemplate>
