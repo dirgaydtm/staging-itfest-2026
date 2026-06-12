@@ -23,12 +23,12 @@ export const ForgotPasswordForm: React.FC = () => {
     setSuccessMessage("");
 
     if (!email.trim()) {
-      setErrorMessage("Email harus diisi");
+      setErrorMessage("Email must be filled");
       return;
     }
 
     if (!validateEmail(email)) {
-      setErrorMessage("Format email tidak valid");
+      setErrorMessage("Invalid email format");
       return;
     }
 
