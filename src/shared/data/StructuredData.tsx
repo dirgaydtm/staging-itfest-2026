@@ -9,7 +9,7 @@ const StructuredData = () => {
     eventStatus: "https://schema.org/EventScheduled",
     location: {
       "@type": "VirtualLocation",
-      url: "https://itfest-filkom.com/",
+      url: "https://itfest.ub.ac.id/",
     },
     description:
       "IT FEST 2026 adalah kompetisi mahasiswa tingkat nasional yang diselenggarakan oleh KBMDSI FILKOM UB. Terdiri dari kategori Digital Media, Business Plan dan UI/UX Competition, acara ini menjadi wadah bagi mahasiswa kreatif se-Indonesia untuk berkompetisi dan berinovasi.",
@@ -17,7 +17,7 @@ const StructuredData = () => {
     organizer: {
       "@type": "Organization",
       name: "KBMDSI FILKOM Universitas Brawijaya",
-      url: "https://kbmdsi.filkom.ub.ac.id/",
+      url: "https://kbmdsi.ub.ac.id/",
     },
   };
 
