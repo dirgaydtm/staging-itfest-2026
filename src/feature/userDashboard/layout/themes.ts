@@ -53,4 +53,8 @@ export const dashboardThemes: Record<CompetitionKey, DashboardTheme> = {
   },
 };
 
-export const defaultTheme: DashboardTheme = dashboardThemes.uiux;
+export const defaultTheme: DashboardTheme = {
+  ...dashboardThemes.uiux,
+  buttonActive:
+    "bg-gradient-to-r from-dark-hover-blue to-normal-hover-blue text-white shadow-[0_0_18px_rgba(102,155,188,0.45)]",
+};
