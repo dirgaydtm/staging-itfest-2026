@@ -2,6 +2,7 @@
 import React, { useMemo } from "react";
 import { OtpForm } from "../components/OtpForm";
 import { useOtp } from "../hooks/useOtp";
+import BackgroundAuth from "@/shared/components/layout/BackgroundAuth";
 
 const OtpContainer = () => {
   const {
@@ -61,6 +62,7 @@ const OtpContainer = () => {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 to-indigo-900 relative font-leaguespartan">
+      <BackgroundAuth />
       <OtpForm
         type="registration"
         errorMessage={errorMessage}
