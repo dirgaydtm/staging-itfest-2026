@@ -67,7 +67,10 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
       <FormChipHeader title="File" />
 
       {error && (
-        <div className="rounded-xl border border-light-red/40 bg-light-red/10 p-3 text-center font-leaguespartan text-sm text-light-red">
+        <div
+          role="alert"
+          className="rounded-xl border-2 border-red-500 bg-red-500/25 p-3 text-center font-leaguespartan font-semibold text-sm text-red-100 shadow-[0_0_12px_rgba(239,68,68,0.45)]"
+        >
           {error}
         </div>
       )}
