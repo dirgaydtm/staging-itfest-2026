@@ -18,7 +18,7 @@ export function useForgotPasswordOtp() {
   useEffect(() => {
     const init = () => {
       if (!forgotPasswordService.canAccessOTPPage()) {
-        toast.error("Silakan lakukan reset password terlebih dahulu.");
+        toast.error("Please reset your password first.");
         setHasAccess(false);
         return;
       }
@@ -26,7 +26,7 @@ export function useForgotPasswordOtp() {
       setTimeLeft(rem);
       setIsPageReady(true);
       if (rem <= 0) {
-        toast.warning("Kode OTP sudah kadaluarsa. Silakan kirim ulang.");
+        toast.warning("Your verification code has expired. Please tap resend to try again.");
         setResendAvailable(true);
       }
     };
@@ -37,7 +37,7 @@ export function useForgotPasswordOtp() {
   useEffect(() => {
     if (!isPageReady || timeLeft <= 0) {
       if (isPageReady && timeLeft <= 0) {
-        setExpiredError("Kode OTP sudah kadaluarsa. Silakan kirim ulang.");
+        setExpiredError("Your verification code has expired. Please tap resend to try again.");
         setResendAvailable(true);
       }
       return;
@@ -57,11 +57,11 @@ export function useForgotPasswordOtp() {
   const verify = async () => {
     const code = otp.join("");
     if (!code) {
-      setErrorMessage("Masukkan kode OTP");
+      setErrorMessage("Please enter the OTP code");
       return;
     }
     if (code.length !== 6) {
-      setErrorMessage("Kode OTP harus 6 digit");
+      setErrorMessage("OTP code must be 6 digits");
       return;
     }
 
@@ -72,21 +72,21 @@ export function useForgotPasswordOtp() {
       const res = await forgotPasswordService.verifyForgotPasswordOTP(code);
       if (res.status.isSuccess) {
         setVerificationSuccess(true);
-        toast.success("Verifikasi OTP berhasil!");
+        toast.success("OTP verification successful!");
         setTimeout(() => {
           window.location.href = " /forgot-password/reset-password";
         }, 2000);
       } else {
-        setErrorMessage(res.message || "Verifikasi OTP gagal");
+        setErrorMessage(res.message || "OTP verification failed");
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Verifikasi OTP gagal";
+      const msg = err instanceof Error ? err.message : "OTP verificatioin failed";
 
       if (
         msg.toLowerCase().includes("expired") ||
         msg.toLowerCase().includes("kadaluarsa")
       ) {
-        setExpiredError("Kode OTP sudah kadaluarsa. Silakan kirim ulang.");
+        setExpiredError("Your verification code has expired. Please tap resend to try again.");
         setResendAvailable(true);
         setTimeLeft(0);
         setOtp(["", "", "", "", "", ""]);
@@ -106,17 +106,17 @@ export function useForgotPasswordOtp() {
 
       const res = await forgotPasswordService.resendForgotPasswordOTP();
       if (res.status.isSuccess) {
-        toast.success("OTP baru telah dikirim ke email Anda");
+        toast.success("OTP has been resent to your email!");
         const rem = forgotPasswordService.getOTPTimeRemaining();
         setTimeLeft(rem);
         setResendAvailable(false);
         setOtp(["", "", "", "", "", ""]);
       } else {
-        setErrorMessage(res.message || "Gagal mengirim ulang OTP");
+        setErrorMessage(res.message || "Failed to resend OTP");
       }
     } catch (err) {
       const msg =
-        err instanceof Error ? err.message : "Gagal mengirim ulang OTP";
+        err instanceof Error ? err.message : "Failed to resend OTP";
       setErrorMessage(msg);
     } finally {
       setResendLoading(false);
