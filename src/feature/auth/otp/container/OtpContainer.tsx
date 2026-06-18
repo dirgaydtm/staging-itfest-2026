@@ -61,7 +61,7 @@ const OtpContainer = () => {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 to-indigo-900 relative font-leaguespartan">
+    <main className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-darker-blue relative font-leaguespartan">
       <BackgroundAuth />
       <OtpForm
         type="registration"
