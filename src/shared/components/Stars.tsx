@@ -1,15 +1,15 @@
 const starGlyphs = ["✦", "✧", "✶", "✦", "✧"];
 
 function createSideStars(side: "left" | "right") {
-    return Array.from({ length: 30 }, (_, index) => {
+    return Array.from({ length: 70 }, (_, index) => {
         const isLeft = side === "left";
-        const top = Math.floor(Math.random() * 100);
+        const top = Math.floor(Math.random() * 800);
         const animationDelay = `${(index % 5) * 0.35 + Math.random() * 0.2}s`;
         const animationDuration = `${2.2 + (index % 4) * 0.25 + Math.random() * 0.15}s`;
 
         return {
             id: `${side}-${index}`,
-            top: `${top}%`,
+            top: `${top}vh`,
             offset: `${Math.floor(Math.random() * 20)}%`,
             size: 14 + Math.floor(Math.random() * 18),
             rotate: -24 + Math.floor(Math.random() * 48),

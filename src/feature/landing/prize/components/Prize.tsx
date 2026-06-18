@@ -11,7 +11,7 @@ export default function Prize() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.5 }}
-      className="relative grid place-items-center min-h-[70vh] lg:min-h-screen w-full"
+      className="relative grid place-items-center min-h-[70vh] lg:min-h-[125vh] w-full"
     >
       {/* Rockets */}
       <RocketAnimation className="left-0 md:left-[10%] lg:left-[15%]" />
