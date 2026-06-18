@@ -2,6 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
+import BintangLeft from "@/assets/img/auth/bintangLeft.png";
+import BintangRight from "@/assets/img/auth/bintangRight.png";
 import Star from "@/assets/img/userDashboard/Star.webp";
 import {
   dashboardBackground,
@@ -20,6 +22,17 @@ const SplitPanelLayout: React.FC<SplitPanelLayoutProps> = ({ children }) => {
     <section
       className={`relative min-h-screen w-full overflow-hidden pt-24 md:pt-28 lg:pt-32 pb-10 ${dashboardBackground}`}
     >
+      <Image 
+        src={BintangLeft} 
+        alt="Hiasan Kiri" 
+        className="absolute left-0"
+      />
+      <Image 
+        src={BintangRight} 
+        alt="Hiasan Kanan" 
+        className="absolute right-0"
+      />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] md:w-[1800px] h-[400px] md:h-[700px] rounded-[100%] border-t-[8px] border-sky-200/40 bg-gradient-to-b from-sky-400/10 to-transparent blur-md pointer-events-none" />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -translate-x-1/2"
