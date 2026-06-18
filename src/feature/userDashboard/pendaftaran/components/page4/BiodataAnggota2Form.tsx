@@ -61,10 +61,12 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
     try {
       const biodataResponse = await pendaftaranService.registerBiodataKetua(
         competitionId,
-        biodataKetua
+        biodataKetua,
       );
       if (!biodataResponse.status.isSuccess) {
-        throw new Error(biodataResponse.message || "Failed to save leader biodata");
+        throw new Error(
+          biodataResponse.message || "Failed to save leader biodata",
+        );
       }
 
       if (ktmFile) {
@@ -94,7 +96,9 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
     } catch (err) {
       console.error("Error submitting registration:", err);
       setSubmitError(
-        err instanceof Error ? err.message : "An error occurred during registration"
+        err instanceof Error
+          ? err.message
+          : "An error occurred during registration",
       );
     } finally {
       setIsLoading(false);
@@ -106,11 +110,15 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
       <FormChipHeader title="Member Biodata 2" />
 
       <p className="text-center font-leaguespartan text-xs md:text-sm text-light-blue">
-        If you don&apos;t have Member 2, fill all fields with &quot;-&quot; and click Next.
+        If you don&apos;t have Member 2, fill all fields with &quot;-&quot; and
+        click Next.
       </p>
 
       {submitError && (
-        <div className="rounded-xl border border-light-red/40 bg-light-red/10 p-3 text-center font-leaguespartan text-sm text-light-red">
+        <div
+          role="alert"
+          className="rounded-xl border-2 border-red-500 bg-red-500/25 p-3 text-center font-leaguespartan font-semibold text-sm text-red-100 shadow-[0_0_12px_rgba(239,68,68,0.45)]"
+        >
           {submitError}
         </div>
       )}
