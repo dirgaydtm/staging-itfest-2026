@@ -15,6 +15,7 @@ export default function LenisProvider({
         lerp: 0.1,
         duration: 1.5,
         syncTouch: true,
+        anchors: true,
       }}
     >
       {children}
