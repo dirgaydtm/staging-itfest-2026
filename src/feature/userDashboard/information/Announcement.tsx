@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useAnnouncement } from "../../hooks/useAnnouncement";
+import { useAnnouncement } from "../../../../hooks/useAnnouncement";
 
 const formatDate = (isoDate: string) => {
   const date = new Date(isoDate);
