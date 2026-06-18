@@ -18,20 +18,12 @@ const CenteredFormLayout: React.FC<CenteredFormLayoutProps> = ({ children }) => 
     <section
       className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center px-4 pt-28 md:pt-32 lg:pt-36 pb-10 ${dashboardBackground}`}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -translate-x-1/2"
-        style={{ background: theme.glowLeft }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-1/2 translate-x-1/2"
-        style={{ background: theme.glowRight }}
-      />
+      
 
       <BackgroundSparkles />
 
-      <div className="relative w-full max-w-md flex flex-col gap-5">
+      {/* SATU card (kotak form) — auto-fit konten, no min-h */}
+      <div className="relative w-full max-w-md rounded-2xl p-6 md:p-8 border-[0.5px] border-light-blue bg-light-active-green/15 backdrop-blur-md flex flex-col gap-5">
         {children}
       </div>
     </section>
