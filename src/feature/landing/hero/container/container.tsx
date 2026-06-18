@@ -1,14 +1,11 @@
-import React from "react";
 import Hero from "../components/Hero";
-import Ornament from "../components/Ornament";
-import Stars from "../components/Stars";
+import GlowBackground from "../components/GlowBackground";
 
 const HeroContainer = () => {
   return (
-    <main className="comingsoonbg h-screen relative overflow-hidden">
-      <Stars />
+    <main className="h-screen relative overflow-hidden">
+      <GlowBackground className="absolute top-0 left-0 translate-y-[-50%] z-10" />
       <Hero />
-      <Ornament />
     </main>
   );
 };

@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { changa, neighbor, robotech, leaguespartan, comucan, anton } from "@/shared/utils/font";
+import { leaguespartan, comucan, anton } from "@/shared/utils/font";
 import { Analytics } from "@vercel/analytics/next";
 import StructuredData from "@/shared/data/StructuredData";
+import LenisProvider from "@/shared/providers/LenisProvider";
+import SplashScreen from "@/shared/components/SplashScreen";
 
 const siteUrl = "https://itfest-filkom.com/";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
-  title: "IT FEST 2026 | Lomba Digital Media, Business Plan, & UI/UX Nasional FILKOM UB",
+  title:
+    "IT FEST 2026 | Lomba Digital Media, Business Plan, & UI/UX Nasional FILKOM UB",
 
   description:
     "Daftarkan dirimu di IT FEST 2026! Kompetisi mahasiswa nasional oleh HIMA KBMDSI FILKOM UB dengan kategori Digital Media, Business Plan, dan UI/UX Competition. Tunjukkan inovasimu dan menangkan hadiahnya!",
@@ -62,9 +65,13 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body
+        suppressHydrationWarning
         className={`${comucan.variable} ${leaguespartan.variable} ${anton.variable} antialiased`}
       >
-        {children}
+        <LenisProvider>
+          <SplashScreen />
+          {children}
+        </LenisProvider>
         <Analytics />
       </body>
     </html>

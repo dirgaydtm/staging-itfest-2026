@@ -1,14 +1,9 @@
-import React from "react";
-import Hero from "../components/Hero";
-import Background from "../components/Background";
+import About from "../components/About";
 
 const AboutContainer = () => {
   return (
-    <main className="lg:min-h-[50rem] xl:min-h-[60rem] 2xl:min-h-[50rem] min-h-screen pb-40  lg:pb-0 relative bg-blue-350">
-      <Background />
-      <div className="mycontainer">
-        <Hero />
-      </div>
+    <main className="mycontainer lg:min-h-200 xl:min-h-240 2xl:min-h-200 min-h-screen pb-40  lg:pb-0 relative bg-blue-350">
+      <About />
     </main>
   );
 };
