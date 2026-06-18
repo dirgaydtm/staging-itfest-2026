@@ -4,6 +4,7 @@ import { leaguespartan, comucan, anton } from "@/shared/utils/font";
 import { Analytics } from "@vercel/analytics/next";
 import StructuredData from "@/shared/data/StructuredData";
 import LenisProvider from "@/shared/providers/LenisProvider";
+import SplashScreen from "@/shared/components/SplashScreen";
 
 const siteUrl = "https://itfest-filkom.com/";
 
@@ -64,9 +65,13 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body
+        suppressHydrationWarning
         className={`${comucan.variable} ${leaguespartan.variable} ${anton.variable} antialiased`}
       >
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <SplashScreen />
+          {children}
+        </LenisProvider>
         <Analytics />
       </body>
     </html>
