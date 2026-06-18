@@ -4,7 +4,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "@/shared/utils/cn";
 
 const inputVariants = cva(
-  "rounded-lg w-full px-4 py-2 font-changa transition-colors focus:outline-none focus:ring-2",
+  "rounded-lg w-full px-4 py-2 font-leaguespartan transition-colors focus:outline-none focus:ring-2",
   {
     variants: {
       variant: {

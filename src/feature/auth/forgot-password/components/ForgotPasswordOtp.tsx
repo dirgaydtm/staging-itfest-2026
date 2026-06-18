@@ -89,14 +89,6 @@ export const ForgotPasswordOTPPage: React.FC = () => {
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-2 sm:text-3xl md:text-4xl">
-            Verifikasi Reset Password
-          </h1>
-          <p className="text-sm text-purple-100 sm:text-base">
-            Masukkan kode OTP yang dikirim ke email Anda
-          </p>
-        </div>
 
         <OtpForm
           type="forgot-password"

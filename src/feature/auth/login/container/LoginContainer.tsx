@@ -2,6 +2,7 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
 import { useLoginForm } from "../hooks/useLoginForm";
+import BackgroundAuth from "@/shared/components/layout/BackgroundAuth";
 // import Stars from "@/feature/hero/components/Stars";
 
 const LoginContainer = () => {
@@ -18,11 +19,8 @@ const LoginContainer = () => {
   } = useLoginForm();
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 to-indigo-900 relative">
-      <div className="font-changa text-center text-white mb-6 z-20">
-        <h5 className="text-4xl font-bold leading-16">Masuk</h5>
-        <span className="text-lg">Akses Akunmu</span>
-      </div>
+    <section className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-darker-blue relative">
+      <BackgroundAuth />
       <LoginForm
         email={email}
         password={password}
