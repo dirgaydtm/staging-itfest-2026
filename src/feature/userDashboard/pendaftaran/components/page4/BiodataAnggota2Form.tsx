@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import PageIndex from "../PageIndex";
-import { Button } from "@/shared/components/ui/Button";
-import { Input } from "@/shared/components/ui/Input";
+import FormChipHeader from "../shared/FormChipHeader";
+import FormInput from "../shared/FormInput";
+import FormNavButtons from "../shared/FormNavButtons";
 import {
   TeamMember,
   BiodataKetuaRequest,
@@ -35,146 +35,129 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
   onBack,
   setIsLoading,
 }) => {
-  const [error, setError] = useState("");
+  const [extra, setExtra] = useState({ university: "", phone_number: "" });
+  const [submitError, setSubmitError] = useState("");
 
-  const handleInputChange = (field: keyof TeamMember, value: string) => {
-    onMember2Change({
-      ...member2,
-      [field]: value,
-    });
-    setError("");
+  const handleMemberChange = (field: keyof TeamMember, value: string) => {
+    onMember2Change({ ...member2, [field]: value });
   };
 
+  const handleExtraChange = (field: keyof typeof extra, value: string) => {
+    setExtra((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const isFormValid =
+    member2.name.trim() !== "" &&
+    member2.student_number.trim() !== "" &&
+    extra.university.trim() !== "" &&
+    extra.phone_number.trim() !== "";
+
   const handleSubmit = async () => {
+    if (!isFormValid) return;
+
     setIsLoading(true);
-    setError("");
+    setSubmitError("");
 
     try {
-      // Step 1: Register biodata ketua
       const biodataResponse = await pendaftaranService.registerBiodataKetua(
         competitionId,
         biodataKetua
       );
-
       if (!biodataResponse.status.isSuccess) {
-        throw new Error(
-          biodataResponse.message || "Gagal menyimpan biodata ketua"
-        );
+        throw new Error(biodataResponse.message || "Failed to save leader biodata");
       }
 
-      // Step 2: Upload KTM if file exists
       if (ktmFile) {
         const ktmResponse = await pendaftaranService.uploadKTM(ktmFile);
         if (!ktmResponse.status.isSuccess) {
-          throw new Error(ktmResponse.message || "Gagal mengupload KTM");
+          throw new Error(ktmResponse.message || "Failed to upload KTM");
         }
       }
 
-      // Step 3: Prepare and submit team data
       const members: TeamMember[] = [];
-
-      // Add member1 if has data
       if (member1.name.trim() && member1.student_number.trim()) {
         members.push(member1);
       }
-
-      // Add member2 if has data
       if (member2.name.trim() && member2.student_number.trim()) {
         members.push(member2);
       }
 
-      const teamData = {
+      const teamResponse = await pendaftaranService.upsertTeam({
         team_name: teamName,
-        members: members,
-      };
-
-      const teamResponse = await pendaftaranService.upsertTeam(teamData);
-
+        members,
+      });
       if (!teamResponse.status.isSuccess) {
-        throw new Error(teamResponse.message || "Gagal menyimpan data tim");
+        throw new Error(teamResponse.message || "Failed to save team data");
       }
 
-      // All successful, proceed to success page
       onNext();
     } catch (err) {
       console.error("Error submitting registration:", err);
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Terjadi kesalahan saat pendaftaran"
+      setSubmitError(
+        err instanceof Error ? err.message : "An error occurred during registration"
       );
     } finally {
       setIsLoading(false);
     }
   };
 
-  const isFormValid =
-    member2.name.trim() !== "" && member2.student_number.trim() !== "";
-
   return (
-    <section className="flex flex-col items-center justify-center gap-4 md:gap-0 md:justify-between h-screen md:h-full">
-      <PageIndex index={5} title="Biodata Anggota 2" />
+    <>
+      <FormChipHeader title="Member Biodata 2" />
 
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center">
-          <h3 className="font-bold font-changa text-xl text-white">
-            Biodata Anggota 2
-          </h3>
-          <p className="text-base font-changa text-white mt-2 md:px-4">
-            {`Jika tidak ada Anggota 2, maka isi dengan "-" dan klik `}
-            Selesaikan
-          </p>
+      <p className="text-center font-leaguespartan text-xs md:text-sm text-light-blue">
+        If you don&apos;t have Member 2, fill all fields with &quot;-&quot; and click Next.
+      </p>
+
+      {submitError && (
+        <div className="rounded-xl border border-light-red/40 bg-light-red/10 p-3 text-center font-leaguespartan text-sm text-light-red">
+          {submitError}
         </div>
+      )}
 
-        {error && (
-          <div className="bg-red-500/20 border border-red-400 p-3 rounded-xl text-center text-white text-sm">
-            {error}
-          </div>
-        )}
-
-        <div className="space-y-4">
-          <Input
-            label="Nama Anggota 2"
-            type="text"
-            value={member2.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            placeholder="Masukkan nama anggota (opsional)"
-          />
-
-          <Input
-            label="NIM Anggota 2"
-            type="text"
-            value={member2.student_number}
-            onChange={(e) =>
-              handleInputChange("student_number", e.target.value)
-            }
-            placeholder="Masukkan NIM anggota (opsional)"
-          />
-        </div>
+      <div className="flex flex-col gap-4 w-full">
+        <FormInput
+          label="Full name"
+          name="full_name"
+          value={member2.name}
+          onChange={(e) => handleMemberChange("name", e.target.value)}
+          placeholder="Enter Full Name"
+          required
+        />
+        <FormInput
+          label="NIM"
+          name="student_number"
+          value={member2.student_number}
+          onChange={(e) => handleMemberChange("student_number", e.target.value)}
+          placeholder="Enter NIM"
+          required
+        />
+        <FormInput
+          label="Institution Name"
+          name="university"
+          value={extra.university}
+          onChange={(e) => handleExtraChange("university", e.target.value)}
+          placeholder="Enter Institution Name"
+          required
+        />
+        <FormInput
+          label="Phone Number (WhatsApp)"
+          name="phone_number"
+          type="tel"
+          inputMode="numeric"
+          value={extra.phone_number}
+          onChange={(e) => handleExtraChange("phone_number", e.target.value)}
+          placeholder="Enter Phone Number"
+          required
+        />
       </div>
 
-      <div className="w-full flex flex-col md:flex-row md:justify-between lg:justify-center gap-2">
-        <Button
-          type="button"
-          size="normal"
-          variant="tertiary"
-          className="w-full md:w-[48%] text-lg h-12 py-2"
-          onClick={onBack}
-        >
-          Kembali
-        </Button>
-        <Button
-          type="button"
-          size="normal"
-          variant={"primary"}
-          className="w-full md:w-[48%] disabled:opacity-50 text-lg h-12 py-2"
-          disabled={!isFormValid}
-          onClick={handleSubmit}
-        >
-          Selesaikan Pendaftaran
-        </Button>
-      </div>
-    </section>
+      <FormNavButtons
+        onBack={onBack}
+        onNext={handleSubmit}
+        nextDisabled={!isFormValid}
+      />
+    </>
   );
 };
 
