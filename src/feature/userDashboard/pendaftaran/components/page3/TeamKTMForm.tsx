@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import FormChipHeader from "../shared/FormChipHeader";
 import FormInput from "../shared/FormInput";
 import FormFileInput from "../shared/FormFileInput";
@@ -23,15 +23,54 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
   onNext,
   onBack,
 }) => {
-  const isFormValid = teamName.trim() !== "" && ktmFile !== null;
+  const [error, setError] = useState("");
+
+  const handleFileChange = (file: File | null) => {
+    if (file) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      if (!allowedTypes.includes(file.type)) {
+        setError("File harus berupa gambar (JPG, PNG)");
+        onKtmFileChange(null);
+        return;
+      }
+
+      const maxSize = 1 * 1024 * 1024;
+      if (file.size > maxSize) {
+        setError("Ukuran file maksimal 1MB");
+        onKtmFileChange(null);
+        return;
+      }
+
+      onKtmFileChange(file);
+      setError("");
+    } else {
+      onKtmFileChange(null);
+    }
+  };
 
   const handleNext = () => {
-    if (isFormValid) onNext();
+    if (!teamName.trim()) {
+      setError("Nama tim harus diisi");
+      return;
+    }
+    if (!ktmFile) {
+      setError("Pilih file KTM terlebih dahulu");
+      return;
+    }
+    onNext();
   };
+
+  const isFormValid = teamName.trim() !== "" && ktmFile !== null;
 
   return (
     <>
       <FormChipHeader title="File" />
+
+      {error && (
+        <div className="rounded-xl border border-light-red/40 bg-light-red/10 p-3 text-center font-leaguespartan text-sm text-light-red">
+          {error}
+        </div>
+      )}
 
       <div className="flex flex-col gap-4 w-full">
         <FormInput
@@ -42,12 +81,30 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
           placeholder="Enter Team Name"
           required
         />
-        <FormFileInput
-          label="Scan KTM"
-          file={ktmFile}
-          onFileChange={onKtmFileChange}
-          placeholder="Upload Here"
-        />
+
+        <div className="flex flex-col gap-1.5">
+          <FormFileInput
+            label="Scan KTM"
+            file={ktmFile}
+            onFileChange={handleFileChange}
+            placeholder="Upload Here"
+            accept=".jpg,.jpeg,.png"
+          />
+          <p className="font-leaguespartan text-xs text-light-blue/70 px-1">
+            Format: JPG, PNG (Max 1MB)
+          </p>
+
+          {ktmFile && (
+            <div className="rounded-lg border border-light-active-green/40 bg-light-active-green/10 p-2 mt-1">
+              <p className="font-leaguespartan text-sm text-light-green">
+                ✓ File terpilih: {ktmFile.name}
+              </p>
+              <p className="font-leaguespartan text-xs text-light-green/80">
+                Ukuran: {(ktmFile.size / 1024 / 1024).toFixed(2)} MB
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       <FormNavButtons
