@@ -5,19 +5,9 @@ import type { ReactNode } from "react";
 interface FloatSwayProps {
   children: ReactNode;
   className?: string;
-  /** Animation duration in seconds (default: 5) */
   duration?: number;
 }
 
-/**
- * `<FloatSway>` — wraps children in a continuous floating + swaying idle animation.
- * Moves on y, x, and applies a subtle rotation to feel organic and alive.
- *
- * @example
- * <FloatSway>
- *   <Image src={logo} alt="logo" />
- * </FloatSway>
- */
 export default function FloatSway({
   children,
   className,
