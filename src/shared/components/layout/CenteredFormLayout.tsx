@@ -16,7 +16,7 @@ const theme = dashboardThemes.uiux;
 const CenteredFormLayout: React.FC<CenteredFormLayoutProps> = ({ children }) => {
   return (
     <section
-      className={`relative min-h-screen w-full overflow-hidden pt-24 md:pt-28 lg:pt-32 pb-10 ${dashboardBackground}`}
+      className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center px-4 pt-28 md:pt-32 lg:pt-36 pb-10 ${dashboardBackground}`}
     >
       <div
         aria-hidden
@@ -31,12 +31,8 @@ const CenteredFormLayout: React.FC<CenteredFormLayoutProps> = ({ children }) => 
 
       <BackgroundSparkles />
 
-      <div className="relative mycontainer">
-        <div className="w-full max-w-md mx-auto px-2 md:px-4">
-          <div className="rounded-2xl p-6 md:p-8 lg:p-10 border-[0.5px] border-light-blue bg-light-active-green/15 backdrop-blur-md flex flex-col gap-6">
-            {children}
-          </div>
-        </div>
+      <div className="relative w-full max-w-md flex flex-col gap-5">
+        {children}
       </div>
     </section>
   );
