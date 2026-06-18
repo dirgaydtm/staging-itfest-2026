@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-// import BoardingTemplate from "@/shared/components/onboarding/BoardingTemplate";
 import SplitPanelLayout from "@/shared/components/layout/SplitPanelLayout";
+import CenteredFormLayout from "@/shared/components/layout/CenteredFormLayout";
 
 import PendaftaranForm from "../components/page1/PendaftaranForm";
 import BiodataKetuaForm from "../components/page2/BiodataKetuaForm";
@@ -50,7 +50,7 @@ const PendaftaranContainer = () => {
       if (isFillingForm && currentPage < 6 && !isSubmitting) {
         e.preventDefault();
         e.returnValue =
-          "Apakah Anda yakin ingin pergi? Data yang belum disimpan akan hilang.";
+          "Are you sure you want to leave? Unsaved data will be lost.";
       }
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -64,23 +64,10 @@ const PendaftaranContainer = () => {
   const goToPrevious = () => {
     if (
       window.confirm(
-        "Apakah Anda yakin ingin kembali? Kemajuan pada halaman ini akan hilang."
+        "Are you sure you want to go back? Progress on this page will be lost."
       )
     ) {
       if (currentPage > 1) setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const getCompetitionName = () => {
-    switch (selectedCompetition) {
-      case 2:
-        return "UI/UX DESIGN";
-      case 3:
-        return "BUSINESS PLAN";
-      case 4: // TODO: ganti ID DML setelah backend confirm
-        return "DIGITAL MEDIA LEARNING";
-      default:
-        return "";
     }
   };
 
@@ -91,7 +78,7 @@ const PendaftaranContainer = () => {
           <div className="text-center space-y-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-blue mx-auto" />
             <p className="font-leaguespartan text-light-green">
-              Memeriksa status pendaftaran...
+              Checking registration status...
             </p>
           </div>
         </div>
@@ -109,19 +96,19 @@ const PendaftaranContainer = () => {
         <div className="flex-1 flex items-center justify-center text-center">
           <div className="space-y-6">
             <h1 className="text-3xl md:text-4xl font-leaguespartan font-bold text-light-green">
-              Anda Sudah Terdaftar
+              You are already registered
             </h1>
             <p className="font-leaguespartan text-lg text-light-blue">
-              Tim Anda{" "}
-              <span className="font-bold">{teamProfile.team_name}</span> sudah
-              terdaftar di kompetisi{" "}
+              Your team{" "}
+              <span className="font-bold">{teamProfile.team_name}</span> is
+              already registered in{" "}
               <span className="font-bold">
                 {teamProfile.competition_category}
               </span>
               .
             </p>
             <p className="font-leaguespartan text-light-green">
-              Anda tidak dapat mengakses halaman ini lagi.
+              You cannot access this page anymore.
             </p>
           </div>
         </div>
@@ -131,16 +118,16 @@ const PendaftaranContainer = () => {
 
   if (isSubmitting) {
     return (
-      <SplitPanelLayout>
-        <div className="flex-1 flex items-center justify-center">
+      <CenteredFormLayout>
+        <div className="flex items-center justify-center py-12">
           <div className="text-center space-y-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-blue mx-auto" />
             <p className="font-leaguespartan text-light-green">
-              Memproses pendaftaran...
+              Processing registration...
             </p>
           </div>
         </div>
-      </SplitPanelLayout>
+      </CenteredFormLayout>
     );
   }
 
@@ -204,24 +191,13 @@ const PendaftaranContainer = () => {
           />
         );
       case 6:
-        return (
-          <PendaftaranSelesaiForm
-            teamName={teamName}
-            competitionType={getCompetitionName()}
-          />
-        );
+        return <PendaftaranSelesaiForm />;
       default:
         return null;
     }
   };
 
-  // return (
-  //   <BoardingTemplate>
-  //     <div className="md:mx-4 lg:mx-20 md:py-6 lg:py-12 h-full">
-  //       {renderCurrentPage()}
-  //     </div>
-  //   </BoardingTemplate>
-  // );
+  return <CenteredFormLayout>{renderCurrentPage()}</CenteredFormLayout>;
 };
 
 export default PendaftaranContainer;
