@@ -21,7 +21,7 @@ const PendaftaranContainer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [selectedCompetition, setSelectedCompetition] = useState<number | null>(
-    null
+    null,
   );
   const [teamName, setTeamName] = useState("");
   const [biodataKetua, setBiodataKetua] = useState<BiodataKetuaRequest>({
@@ -62,13 +62,7 @@ const PendaftaranContainer = () => {
   };
 
   const goToPrevious = () => {
-    if (
-      window.confirm(
-        "Are you sure you want to go back? Progress on this page will be lost."
-      )
-    ) {
-      if (currentPage > 1) setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
   if (isProfileLoading) {
