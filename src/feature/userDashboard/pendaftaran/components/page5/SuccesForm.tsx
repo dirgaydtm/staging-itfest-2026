@@ -1,50 +1,42 @@
+"use client";
+
 import React from "react";
-import PageIndex from "../PageIndex";
-import { Button } from "@/shared/components/ui/Button";
-import InformartionSucces from "./InformartionSucces";
 import { useRouter } from "next/navigation";
+import FormChipHeader from "../shared/FormChipHeader";
 
 interface SuccesFormProps {
-  teamName: string;
-  competitionType: string;
+  teamName?: string;
+  competitionType?: string;
 }
 
 const PendaftaranSelesaiForm: React.FC<SuccesFormProps> = () => {
   const router = useRouter();
 
-  const handleGoToDashboard = () => {
+  const handleBack = () => {
     router.push("/dashboard");
   };
 
-  const handleGoToHome = () => {
-    router.push("/home");
-  };
-
   return (
-    <section className="flex flex-col items-center justify-center gap-4 md:gap-0 md:justify-between h-screen md:h-full ">
-      <PageIndex index={5} title="Selesai" />
-      <InformartionSucces />
-      <div className="flex flex-col items-center justify-center w-full space-y-2">
-        <Button
-          type="button"
-          size="normal"
-          className="w-full text-base"
-          onClick={handleGoToDashboard}
-        >
-          Lihat Dashboard
-        </Button>
+    <>
+      <FormChipHeader title="Finished" />
 
-        <Button
-          type="button"
-          size="normal"
-          variant="tertiary"
-          className="w-full text-sm"
-          onClick={handleGoToHome}
-        >
-          Kembali ke Beranda
-        </Button>
+      <div className="flex flex-col items-center text-center gap-3 py-4">
+        <h3 className="font-leaguespartan font-bold text-xl md:text-2xl text-light-blue">
+          Registration Successful!
+        </h3>
+        <p className="font-leaguespartan text-sm md:text-base text-light-blue max-w-xs">
+          Registration payment information is available on the Dashboard
+        </p>
       </div>
-    </section>
+
+      <button
+        type="button"
+        onClick={handleBack}
+        className="w-full py-3 rounded-2xl border-[0.5px] border-light-blue bg-light-active-green/20 hover:scale-[1.02] active:scale-95 transition-all duration-300 font-leaguespartan font-bold text-base text-light-green"
+      >
+        Back
+      </button>
+    </>
   );
 };
 
