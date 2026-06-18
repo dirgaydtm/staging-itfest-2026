@@ -4,7 +4,7 @@ import Modal from "@/shared/components/ui/Modal";
 import { Button } from "@/shared/components/ui/Button";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import { useSubmissionStatus } from "../../../hooks/useSubmissionStatus";
+import { useSubmissionStatus } from "../../hooks/useSubmissionStatus";
 
 interface SubmissionStatusModalProps {
   isOpen: boolean;

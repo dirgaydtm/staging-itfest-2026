@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { Button } from "@/shared/components/ui/Button";
-import { IStage } from "../../types/submission";
+import { IStage } from "../types/submission";
 import SubmitLinkModal from "./modal/SubmitLinkModal";
 import SubmitPaymentModal from "./modal/UploadPaymentModal";
 import StatusModal from "./modal/StatusModal";
-import { useStageSubmission } from "../../hooks/useStageSubmission";
+import { useStageSubmission } from "../hooks/useStageSubmission";
 
 interface StageActionButtonProps {
   isCurrent: boolean;
