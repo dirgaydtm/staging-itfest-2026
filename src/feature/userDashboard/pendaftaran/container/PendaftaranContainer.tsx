@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import SplitPanelLayout from "@/shared/components/layout/SplitPanelLayout";
 import CenteredFormLayout from "@/shared/components/layout/CenteredFormLayout";
 
@@ -13,6 +14,16 @@ import PendaftaranSelesaiForm from "../components/page5/SuccesForm";
 
 import { TeamMember, BiodataKetuaRequest } from "@/api/services/pendaftaran";
 import { useTeamProfile } from "../../hooks/useTeamProfile";
+
+const pageVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut", when: "beforeChildren" },
+  },
+  exit: { opacity: 0, y: -24, transition: { duration: 0.25, ease: "easeIn" } },
+};
 
 const PendaftaranContainer = () => {
   const { data: teamProfile, loading: isProfileLoading } = useTeamProfile();
@@ -87,7 +98,12 @@ const PendaftaranContainer = () => {
   ) {
     return (
       <SplitPanelLayout>
-        <div className="flex-1 flex items-center justify-center text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="flex-1 flex items-center justify-center text-center"
+        >
           <div className="space-y-6">
             <h1 className="text-3xl md:text-4xl font-leaguespartan font-bold text-light-green">
               You are already registered
@@ -105,7 +121,7 @@ const PendaftaranContainer = () => {
               You cannot access this page anymore.
             </p>
           </div>
-        </div>
+        </motion.div>
       </SplitPanelLayout>
     );
   }
@@ -125,18 +141,31 @@ const PendaftaranContainer = () => {
     );
   }
 
+  // ===== Halaman 1 (SplitPanelLayout) =====
   if (currentPage === 1) {
     return (
       <SplitPanelLayout>
-        <PendaftaranForm
-          selectedCompetition={selectedCompetition}
-          onCompetitionSelect={setSelectedCompetition}
-          onNext={goToNext}
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="page-1"
+            variants={pageVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="flex-1 flex flex-col"
+          >
+            <PendaftaranForm
+              selectedCompetition={selectedCompetition}
+              onCompetitionSelect={setSelectedCompetition}
+              onNext={goToNext}
+            />
+          </motion.div>
+        </AnimatePresence>
       </SplitPanelLayout>
     );
   }
 
+  // ===== Halaman 2–6 (CenteredFormLayout) =====
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 2:
@@ -191,7 +220,22 @@ const PendaftaranContainer = () => {
     }
   };
 
-  return <CenteredFormLayout>{renderCurrentPage()}</CenteredFormLayout>;
+  return (
+    <CenteredFormLayout>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`page-${currentPage}`}
+          variants={pageVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="flex flex-col gap-5 w-full"
+        >
+          {renderCurrentPage()}
+        </motion.div>
+      </AnimatePresence>
+    </CenteredFormLayout>
+  );
 };
 
 export default PendaftaranContainer;

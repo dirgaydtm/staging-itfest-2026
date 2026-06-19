@@ -34,35 +34,40 @@ const DashboardLayout = ({
     <div
       className={`relative min-h-screen w-full overflow-hidden ${dashboardBackground}`}
     >
-      <Image 
-        src={BintangLeft} 
-        alt="Hiasan Kiri" 
-        className="absolute left-0"
-      />
-      <Image 
-        src={BintangRight} 
-        alt="Hiasan Kanan" 
-        className="absolute right-0"
-      />
-      <Image 
-        src={UnionLeft} 
-        alt="Union Kiri" 
-        className="absolute left-0 top-24"
-      />
-      <Image 
-        src={UnionRight} 
-        alt="Union Kanan" 
-        className="absolute right-0 bottom-20"
-      />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -translate-x-1/2"
+        className="pointer-events-none absolute left-0 top-24 -translate-x-1/3 -translate-y-1/4
+                   rounded-full blur-[100px] md:blur-[130px] opacity-80
+                   w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] lg:w-[620px] lg:h-[620px]"
         style={{ background: theme.glowLeft }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-1/2 translate-x-1/2"
+        className="pointer-events-none absolute right-0 bottom-20 translate-x-1/3 translate-y-1/4
+                   rounded-full blur-[100px] md:blur-[130px] opacity-80
+                   w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] lg:w-[620px] lg:h-[620px]"
         style={{ background: theme.glowRight }}
+      />
+
+      <Image
+        src={BintangLeft}
+        alt="Hiasan Kiri"
+        className="absolute left-0"
+      />
+      <Image
+        src={BintangRight}
+        alt="Hiasan Kanan"
+        className="absolute right-0"
+      />
+      <Image
+        src={UnionLeft}
+        alt="Union Kiri"
+        className="absolute left-0 top-24"
+      />
+      <Image
+        src={UnionRight}
+        alt="Union Kanan"
+        className="absolute right-0 bottom-20"
       />
 
       <BackgroundSparkles />
