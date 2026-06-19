@@ -11,7 +11,6 @@ interface ChooseLombaProps {
 const competitions = [
   { id: 2, title: "UI/UX Design" },
   { id: 3, title: "Business Plan" },
-  // TODO: ganti ID DML setelah backend confirm (placeholder = 4)
   { id: 4, title: "Digital Media Learning" },
 ];
 

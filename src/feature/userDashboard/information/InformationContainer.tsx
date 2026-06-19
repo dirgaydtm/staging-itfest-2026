@@ -10,34 +10,14 @@ import Guidebook from "./Guidebook";
 import TeamProfile from "./TeamProfile";
 import Announcement from "./Announcement";
 
-// DUMMY DATA — ganti dengan useTeamProfile() saat integrasi backend
-const DUMMY_PROFILE: TeamProfileResponse = {
-  team_name: "Tim Hebat",
-  leader_name: "Budi Santoso",
-  student_number: "225150400111001",
-  competition_category: "UI/UX",
-  deadline: "2026-12-31T23:59:59+07:00",
-  members: [
-    { full_name: "Andi Pratama", student_number: "225150400111002" },
-    { full_name: "Citra Dewi", student_number: "225150400111003" },
-  ],
-};
+interface InformationContainerProps {
+  teamData: TeamProfileResponse | null;
+}
 
-const InformationContainer = () => {
-  const { isRegistered, selectedCompetition } = useDashboardTheme();
+const InformationContainer = ({ teamData }: InformationContainerProps) => {
+  const { isRegistered } = useDashboardTheme();
 
-  const profile: TeamProfileResponse = {
-    ...DUMMY_PROFILE,
-    competition_category: isRegistered
-      ? selectedCompetition === "bp"
-        ? "BP"
-        : selectedCompetition === "dml"
-        ? "DML"
-        : "UI/UX"
-      : "Not Registered",
-  };
-
-  const countdown = useCountdown(profile.deadline);
+  const countdown = useCountdown(teamData?.deadline ?? "");
   const isDeadlinePassed =
     countdown.days === "00" &&
     countdown.hours === "00" &&
@@ -71,21 +51,21 @@ const InformationContainer = () => {
           custom={2}
         >
           <Guidebook
-            competitionCategory={profile.competition_category}
+            competitionCategory={teamData?.competition_category ?? "Not Registered"}
             isDeadlinePassed={isDeadlinePassed}
           />
         </motion.section>
       </div>
 
-      {/* Row 2: TeamProfile + Announcement (hanya saat registered) */}
-      {isRegistered && (
+      {/* Row 2: TeamProfile + Announcement (only when registered) */}
+      {isRegistered && teamData && (
         <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row lg:items-start">
           <motion.section
             className="w-full lg:w-1/2"
             variants={stackUpStagger}
             custom={3}
           >
-            <TeamProfile profile={profile} />
+            <TeamProfile profile={teamData} />
           </motion.section>
 
           <motion.section
