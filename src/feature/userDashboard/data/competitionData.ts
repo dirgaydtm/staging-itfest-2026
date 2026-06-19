@@ -1,3 +1,4 @@
+
 export const competitionData = {
   "UI/UX": {
     title: "UI/UX DESIGN",
@@ -7,9 +8,10 @@ export const competitionData = {
     title: "Business Plan",
     link: "https://drive.google.com/file/d/10ZoiqBb3L0IDxuCHn1zf2PywxVfS5zDf/view?usp=drive_link",
   },
-  "Digital Media": {
-    title: "Digital Media",
-    link: "https//...", // Ganti dengan link yang sesuai jika ada
+  DML: {
+    title: "Digital Media Learning",
+
+    link: "#", // TODO: link guidebook DML
   },
   "Not Registered": {
     title: "Register Now",
