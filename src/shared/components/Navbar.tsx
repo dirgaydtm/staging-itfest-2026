@@ -79,7 +79,7 @@ const NavbarContent = () => {
 
       {/* Mobile Navbar */}
       <nav
-        className={`w-screen px-5 flex z-[100] fixed justify-between items-center lg:hidden transition-[padding] duration-300 ${isScroll ? "py-2.5" : "py-4"
+        className={`w-screen px-5 flex z-[100] fixed justify-between items-center md:hidden transition-[padding] duration-300 ${isScroll ? "py-2.5" : "py-4"
           }`}
       >
         <Link href="/home">
@@ -105,7 +105,7 @@ const NavbarContent = () => {
                 ))}
               </ul>
 
-              <div className="h-px bg-white/[0.1] mx-3" />
+              <div className="h-px bg-white/10 mx-3" />
 
               <div className="p-4">
                 {isAuthenticated ? (
