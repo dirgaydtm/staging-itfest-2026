@@ -1,4 +1,3 @@
-
 export const competitionData = {
   "UI/UX": {
     title: "UI/UX DESIGN",
@@ -10,8 +9,7 @@ export const competitionData = {
   },
   DML: {
     title: "Digital Media Learning",
-
-    link: "#", // TODO: link guidebook DML
+    link: "#", // TODO: ganti dengan link guidebook DML
   },
   "Not Registered": {
     title: "Register Now",
