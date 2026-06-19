@@ -7,62 +7,31 @@ const PrizeCount = () => {
   const { ref, isVisible } = useScrollTrigger(0.1);
   const [digits, isFinished] = useSlotMachineAnimation(
     isVisible,
-    6500000,
-    2500
+    4000000,
+    2500,
   );
   const [isShaking, setIsShaking] = useState(false);
 
-  // Trigger shake animation when finished
   useEffect(() => {
     if (isFinished) {
       setIsShaking(true);
-      const timer = setTimeout(() => setIsShaking(false), 1000); // shake for 1s
+      const timer = setTimeout(() => setIsShaking(false), 1000);
       return () => clearTimeout(timer);
     }
   }, [isFinished]);
 
-  const addThousandSeparators = (digitArray: number[]): React.ReactNode => {
-    const digitString = digitArray.join("");
-    const reversedDigits = digitString.split("").reverse();
-    const result: React.ReactNode[] = [];
-
-    reversedDigits.forEach((digit, index) => {
-      if (index > 0 && index % 3 === 0) {
-        result.unshift(
-          <span key={`dot-${index}`} className="mx-1">
-            .
-          </span>
-        );
-      }
-      result.unshift(
-        <span
-          key={`digit-${reversedDigits.length - 1 - index}`}
-          className="inline-block tabular-nums"
-          style={{
-            minWidth: "1ch",
-            textAlign: "center",
-          }}
-        >
-          {digit}
-        </span>
-      );
-    });
-
-    return result;
-  };
+  const formattedValue = digits.join("").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
   return (
     <div
       ref={ref}
-      className={`text-center font-robotech relative xl:text-9xl lg:text-7xl text-6xl textprizeglow text-blue-100 transition-transform duration-300 ${
+      className={`text-center font-anton font-normal relative text-6xl sm:text-6x sm:text-7xl lg:text-[128px] leading-[115%] tracking-[-1.28px] text-[#D0E0EA] [text-shadow:0_0_15px_rgba(232,240,245,0.75)] transition-transform duration-300 ${
         isShaking ? "animate-bounce-down " : ""
       }`}
     >
       <div className="flex items-center justify-center leading-none">
-        <span className="mr-2">RP.</span>
-        <div className="flex items-center tabular-nums leading-none">
-          {addThousandSeparators(digits)}
-        </div>
+        <span className="mr-2 md:mr-4">Rp.</span>
+        <span className="tabular-nums">{formattedValue}</span>
       </div>
     </div>
   );
