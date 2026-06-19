@@ -6,27 +6,31 @@ import GuideContainer from "@/feature/landing/guide/container/GuideContainer";
 import HeroContainer from "@/feature/landing/hero/container/container";
 import SpecialPrizeContainer from "@/feature/landing/prize/container/container";
 import TimelineContainer from "@/feature/landing/timeline/container/container";
+import Stars from "@/shared/components/Stars";
 
 export default function Home() {
   return (
-    <main className="min-h-screen scroll-smooth">
-      {/* <HeroContainer /> */}
-      <section id="about">
-        {/* <AboutContainer /> */}
+    <main className="relative min-h-screen scroll-smooth bg-darker-blue overflow-hidden">
+      <Stars className="z-0" />
+      <section id="hero">
+        <HeroContainer />
       </section>
-      {/* <CategoryContainer /> */}
+      <section id="about">
+        <AboutContainer />
+      </section>
+      <CategoryContainer />
       <section id="timeline">
-        {/* <TimelineContainer /> */}
+        <TimelineContainer />
       </section>
       <section id="prize">
-        {/* <SpecialPrizeContainer /> */}
+        <SpecialPrizeContainer />
       </section>
       <section id="faq">
-        {/* <FaqContainer /> */}
+        <FaqContainer />
       </section>
-      {/* <EventContainer /> */}
+      <EventContainer />
       <section id="guide">
-        {/* <GuideContainer /> */}
+        <GuideContainer />
       </section>
     </main>
   );
