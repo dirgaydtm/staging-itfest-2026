@@ -1,8 +1,24 @@
-import React from "react";
-import PendaftaranContainer from "@/feature/userDashboard/pendaftaran/container/PendaftaranContainer";
+"use client";
 
-const Page = () => {
-  return <PendaftaranContainer />;
+import {
+  DashboardLayout,
+  DashboardThemeProvider,
+} from "@/feature/userDashboard/layout";
+import InformationContainer from "@/feature/userDashboard/information/InformationContainer";
+
+const DashboardPage = () => {
+  return (
+    <DashboardThemeProvider initialCompetition="dml">
+      <DashboardLayout
+        infoContent={<InformationContainer />}
+        submitContent={
+          <div className="font-leaguespartan text-light-blue text-center py-20">
+            Submit Your Work — dikerjakan oleh teman.
+          </div>
+        }
+      />
+    </DashboardThemeProvider>
+  );
 };
 
-export default Page;
+export default DashboardPage;
