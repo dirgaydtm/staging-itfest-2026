@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { useTeamProfile } from "../hooks/useTeamProfile";
-import { useSubmissions } from "../hooks/useSubmission";
-import SideButtons from "../components/information/SideButton";
+import { useTeamProfile } from "../userDashboard/hooks/useTeamProfile";
+import { useSubmissions } from "../userDashboard/hooks/useSubmission";
+import SideButtons from "../userDashboard/information/SideButton";
 import { motion, AnimatePresence } from "framer-motion";
-import { stackUpStagger } from "../lib/motionVarians";
-import { InformationView } from "../components/InformationView";
-import { SubmissionView } from "../components/SubmissionView";
+import { stackUpStagger } from "../userDashboard/lib/motionVarians";
+import { InformationView } from "../userDashboard/information/InformationView";
+import { SubmissionView } from "../userDashboard/submission/SubmissionView";
 
 const DashboardContainer = () => {
   const { data: teamData, error: teamError } = useTeamProfile();

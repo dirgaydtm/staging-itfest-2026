@@ -5,17 +5,28 @@ import {
   DashboardThemeProvider,
 } from "@/feature/userDashboard/layout";
 import InformationContainer from "@/feature/userDashboard/information/InformationContainer";
+import { SubmissionView } from "@/feature/userDashboard/submission/SubmissionView";
+import { TeamProfileResponse } from "@/feature/userDashboard/types/teamProfile";
+
+const mockTeamData: TeamProfileResponse = {
+  leader_name: "Alya Putri",
+  student_number: "202310045",
+  competition_category: "BP",
+  deadline: "2026-07-15T23:59:59+07:00",
+  team_name: "Nebula Innovators",
+  members: [
+    { full_name: "Raka Satria", student_number: "202310046" },
+    { full_name: "Dina Maharani", student_number: "202310047" },
+    { full_name: "Fauzan Rizky", student_number: "202310048" },
+  ],
+};
 
 const DashboardPage = () => {
   return (
-    <DashboardThemeProvider>
+    <DashboardThemeProvider initialCompetition="bp">
       <DashboardLayout
         infoContent={<InformationContainer />}
-        submitContent={
-          <div className="font-leaguespartan text-light-blue text-center py-20">
-            Submit Your Work — dikerjakan oleh teman.
-          </div>
-        }
+        submitContent={<SubmissionView teamData={mockTeamData} submissionsData={null} />}
       />
     </DashboardThemeProvider>
   );

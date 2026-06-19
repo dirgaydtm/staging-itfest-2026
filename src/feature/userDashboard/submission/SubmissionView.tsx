@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import { TeamProfileResponse } from "../types/teamProfile";
 import { SubmissionsResponse } from "../types/submission";
-import SubmissionHeader from "./submission/SubmissionHeader";
+import SubmissionHeader from "../submission/SubmissionHeader";
 import { floatDownSoft, stackUpStagger } from "../lib/motionVarians";
-import SubmissionStages from "./submission/SubmissionStages";
-import SubmissionBottom from "./submission/SubmissionBottom";
+import SubmissionStages from "../submission/SubmissionStages";
+import SubmissionBottom from "../submission/SubmissionBottom";
 
 interface SubmissionViewProps {
   teamData: TeamProfileResponse;

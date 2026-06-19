@@ -2,7 +2,7 @@
 
 import Modal from "@/shared/components/ui/Modal";
 import { Button } from "@/shared/components/ui/Button";
-import { useSubmitLink } from "../../../hooks/useSubmitLink";
+import { useSubmitLink } from "../../hooks/useSubmitLink";
 
 interface SubmitLinkModalProps {
   isOpen: boolean;
