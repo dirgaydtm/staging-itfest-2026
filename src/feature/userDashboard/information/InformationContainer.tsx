@@ -32,7 +32,6 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
       exit="hidden"
       className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6"
     >
-      {/* Row 1: Deadline + Guidebook */}
       <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row">
         <motion.section
           className="w-full lg:w-1/2"
@@ -57,7 +56,6 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
         </motion.section>
       </div>
 
-      {/* Row 2: TeamProfile + Announcement (only when registered) */}
       {isRegistered && teamData && (
         <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row lg:items-start">
           <motion.section

@@ -21,7 +21,6 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
 
   return (
     <div className="flex-1 flex flex-col gap-8">
-      {/* Header chip */}
       <div className="w-full text-center py-3 px-4 rounded-xl border-[0.5px] border-light-blue bg-light-active-green/50">
         <span className="font-leaguespartan font-bold text-base md:text-lg text-light-green">
           Select Competition
@@ -33,7 +32,6 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
         onCompetitionSelect={onCompetitionSelect}
       />
 
-      {/* Next */}
       <div className="mt-auto pt-4 flex justify-center">
         <button
           type="button"

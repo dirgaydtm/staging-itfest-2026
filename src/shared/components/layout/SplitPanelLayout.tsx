@@ -20,7 +20,6 @@ const SplitPanelLayout: React.FC<SplitPanelLayoutProps> = ({ children }) => {
 
       <div className="relative mycontainer">
         <div className="max-w-md lg:max-w-6xl xl:max-w-7xl mx-auto px-2 md:px-4 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
-          {/* Panel form — entrance animation */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

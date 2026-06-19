@@ -14,10 +14,8 @@ export type DashboardTheme = {
   accentText: string;
 };
 
-// Background sama untuk semua mode
 export const dashboardBackground = "bg-darker-blue";
 
-// Class shared lintas mode
 export const buttonInactiveClass =
   "bg-white/5 hover:bg-white/10 border border-white/10";
 export const buttonDisabledClass =
