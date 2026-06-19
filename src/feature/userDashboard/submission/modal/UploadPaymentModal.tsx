@@ -2,7 +2,7 @@
 
 import Modal from "@/shared/components/ui/Modal";
 import { Button } from "@/shared/components/ui/Button";
-import { useUploadPayment } from "../../../hooks/useUploadPayment";
+import { useUploadPayment } from "../../hooks/useUploadPayment";
 import Image from "next/image";
 import { useState } from "react";
 
