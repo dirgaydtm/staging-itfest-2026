@@ -1,78 +1,102 @@
 "use client";
 
 import { motion } from "framer-motion";
-// import { useTeamProfile } from "../hooks/useTeamProfile";
 import { useCountdown } from "../hooks/useCountdown";
 import { stackUpStagger } from "../lib/motionVarians";
+import { useDashboardTheme } from "../layout/DashboardThemeContext";
+import { TeamProfileResponse } from "../types/teamProfile";
 import Deadline from "./Deadline";
 import Guidebook from "./Guidebook";
+import TeamProfile from "./TeamProfile";
+import Announcement from "./Announcement";
+
+// DUMMY DATA — ganti dengan useTeamProfile() saat integrasi backend
+const DUMMY_PROFILE: TeamProfileResponse = {
+  team_name: "Tim Hebat",
+  leader_name: "Budi Santoso",
+  student_number: "225150400111001",
+  competition_category: "UI/UX",
+  deadline: "2026-12-31T23:59:59+07:00",
+  members: [
+    { full_name: "Andi Pratama", student_number: "225150400111002" },
+    { full_name: "Citra Dewi", student_number: "225150400111003" },
+  ],
+};
 
 const InformationContainer = () => {
-  // === MOCK DATA (preview tanpa backend) ===
-  const data = {
-    competition_category: "Not Registered" as const,
-    deadline: "2026-06-31T15:11:39+07:00",
+  const { isRegistered, selectedCompetition } = useDashboardTheme();
+
+  const profile: TeamProfileResponse = {
+    ...DUMMY_PROFILE,
+    competition_category: isRegistered
+      ? selectedCompetition === "bp"
+        ? "BP"
+        : selectedCompetition === "dml"
+        ? "DML"
+        : "UI/UX"
+      : "Not Registered",
   };
-  const loading = false;
-  const error = null;
-  // === END MOCK ===
 
-  // const { data, loading, error } = useTeamProfile();
-
-  const countdown = useCountdown(data?.deadline ?? "");
+  const countdown = useCountdown(profile.deadline);
   const isDeadlinePassed =
     countdown.days === "00" &&
     countdown.hours === "00" &&
     countdown.minutes === "00" &&
     countdown.seconds === "00";
 
-  if (loading) {
-    return (
-      <div className="font-leaguespartan text-light-blue text-center py-16 sm:py-20">
-        Loading...
-      </div>
-    );
-  }
-
-  if (error || !data) {
-    return (
-      <div className="font-leaguespartan text-light-blue text-center py-16 sm:py-20">
-        Gagal memuat data tim.
-      </div>
-    );
-  }
-
-  const isNotRegistered = data.competition_category === "Not Registered";
-
   return (
     <motion.div
-      key="info"
+      key={isRegistered ? "registered" : "unregistered"}
       initial="hidden"
       animate="visible"
       exit="hidden"
-      className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row"
+      className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6"
     >
-      <motion.section
-        className="w-full lg:w-1/2"
-        variants={stackUpStagger}
-        custom={1}
-      >
-        <Deadline
-          title={isNotRegistered ? "Registration Deadline" : "Submission Deadline"}
-          countdown={countdown}
-        />
-      </motion.section>
+      {/* Row 1: Deadline + Guidebook */}
+      <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row">
+        <motion.section
+          className="w-full lg:w-1/2"
+          variants={stackUpStagger}
+          custom={1}
+        >
+          <Deadline
+            title={isRegistered ? "Submission Deadline" : "Registration Deadline"}
+            countdown={countdown}
+          />
+        </motion.section>
 
-      <motion.section
-        className="w-full lg:w-1/2"
-        variants={stackUpStagger}
-        custom={2}
-      >
-        <Guidebook
-          competitionCategory={data.competition_category}
-          isDeadlinePassed={isDeadlinePassed}
-        />
-      </motion.section>
+        <motion.section
+          className="w-full lg:w-1/2"
+          variants={stackUpStagger}
+          custom={2}
+        >
+          <Guidebook
+            competitionCategory={profile.competition_category}
+            isDeadlinePassed={isDeadlinePassed}
+          />
+        </motion.section>
+      </div>
+
+      {/* Row 2: TeamProfile + Announcement (hanya saat registered) */}
+      {isRegistered && (
+        <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row lg:items-start">
+          <motion.section
+            className="w-full lg:w-1/2"
+            variants={stackUpStagger}
+            custom={3}
+          >
+            <TeamProfile profile={profile} />
+          </motion.section>
+
+          <motion.section
+            className="w-full lg:w-1/2"
+            variants={stackUpStagger}
+            custom={4}
+          >
+            <Announcement />
+          </motion.section>
+        </div>
+      )}
     </motion.div>
   );
 };

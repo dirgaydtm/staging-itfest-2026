@@ -4,7 +4,7 @@ import Link from "next/link";
 import { competitionData } from "../data/competitionData";
 import { useDashboardTheme } from "../layout/DashboardThemeContext";
 
-type CompetitionCategory = "BP" | "UI/UX" | "Digital Media" | "Not Registered";
+type CompetitionCategory = "BP" | "UI/UX" | "DML" | "Not Registered";
 
 type Props = {
   competitionCategory: CompetitionCategory;
@@ -19,8 +19,7 @@ const Guidebook = ({ competitionCategory, isDeadlinePassed = false }: Props) => 
 
   const btnBase =
     "inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 rounded-2xl font-bold text-sm sm:text-base transition";
-  const btnDisabled =
-    "bg-disabled-gray text-light-blue/60 cursor-not-allowed";
+  const btnDisabled = "bg-[#7c7c7c] text-light-blue/60 cursor-not-allowed";
   const btnActive = `${theme.buttonActive} text-light-blue`;
 
   const renderAction = () => {

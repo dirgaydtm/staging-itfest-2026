@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { cn } from "@/shared/utils/cn";
-import { competitionData } from "../../data/competitionData";
+import { competitionData } from "../data/competitionData";
 
 interface SubmissionHeaderProps {
-  competitionCategory: "BP" | "UI/UX" | "Not Registered";
+  competitionCategory: "BP" | "UI/UX" | "DML" | "Not Registered";
   status: string;
   isDeadlineOver: boolean | string;
   currentStage?: string; // Optional: to show current stage name
@@ -49,13 +49,13 @@ const SubmissionHeader = ({
     <header className="flex flex-col lg:flex-row lg:justify-between items-center bg-blue-500 border-2 mycontainer border-purple-300 p-4 rounded-4xl gap-4 lg:gap-8 mr-10 font-changa">
       {/* Left section - Icon and Title */}
       <section className="flex items-center gap-4 text-center lg:text-left flex-shrink-0">
-        <Image
-          src={content.icon}
+        {/* <Image
+          // src={content.icon}
           alt="Category Icon"
           width={100}
           height={100}
           className="w-24 lg:w-32 p-2 object-contain flex-shrink-0"
-        />
+        /> */}
 
         <div className="relative">
           <h2 className="text-3xl lg:text-5xl font-robotech text-purple-100 font-bold leading-tight">

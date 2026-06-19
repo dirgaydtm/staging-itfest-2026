@@ -8,7 +8,8 @@ import InformationContainer from "@/feature/userDashboard/information/Informatio
 
 const DashboardPage = () => {
   return (
-    <DashboardThemeProvider>
+    // Preview: "uiux" | "bp" | "dml" — hapus initialCompetition untuk state Unregistered
+    <DashboardThemeProvider initialCompetition="uiux">
       <DashboardLayout
         infoContent={<InformationContainer />}
         submitContent={

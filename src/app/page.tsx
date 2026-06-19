@@ -8,7 +8,7 @@ import InformationContainer from "@/feature/userDashboard/information/Informatio
 
 const DashboardPage = () => {
   return (
-    <DashboardThemeProvider initialCompetition="dml">
+    <DashboardThemeProvider>
       <DashboardLayout
         infoContent={<InformationContainer />}
         submitContent={
