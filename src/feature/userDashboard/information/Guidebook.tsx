@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { competitionData } from "../data/competitionData";
+import { competitionData } from "../../../shared/data/competitionData";
 import { useDashboardTheme } from "../layout/DashboardThemeContext";
 
 type CompetitionCategory = "BP" | "UI/UX" | "DML" | "Not Registered";

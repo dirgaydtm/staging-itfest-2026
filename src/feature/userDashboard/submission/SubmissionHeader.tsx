@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/shared/utils/cn";
-import { competitionData } from "../data/competitionData";
+import { competitionData } from "../../../shared/data/competitionData";
 
 interface SubmissionHeaderProps {
   competitionCategory: "BP" | "UI/UX" | "DML" | "Not Registered";
