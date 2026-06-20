@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useTeamProfile } from "../userDashboard/hooks/useTeamProfile";
 import { useSubmissions } from "../userDashboard/hooks/useSubmission";
-import SideButtons from "../userDashboard/information/SideButton";
+import SideButtons from "../userDashboard/layout/DashboardSideButtons";
 import { motion, AnimatePresence } from "framer-motion";
 import { stackUpStagger } from "../userDashboard/lib/motionVarians";
 import { InformationView } from "../userDashboard/information/InformationView";
