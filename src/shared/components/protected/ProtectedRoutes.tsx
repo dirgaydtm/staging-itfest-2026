@@ -8,7 +8,7 @@ interface ProtectedRouteProps {
   requiredRole?: string;
   requiredPermission?: string;
   requireAdmin?: boolean;
-  userOnly?: boolean; // New prop to restrict admin access
+  userOnly?: boolean;
   fallbackPath?: string;
 }
 
@@ -22,33 +22,39 @@ export function ProtectedRoute({
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const [isChecking, setIsChecking] = useState(true);
+  const [assetsLoaded, setAssetsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (document.readyState === "complete") {
+      setAssetsLoaded(true);
+      return;
+    }
+    const handleLoad = () => setAssetsLoaded(true);
+    window.addEventListener("load", handleLoad);
+    return () => window.removeEventListener("load", handleLoad);
+  }, []);
 
   const checkAuthorization = useCallback(() => {
     if (loading) {
       return;
     }
-
     setIsChecking(true);
-
     try {
       if (!isAuthenticated) {
         setIsAuthorized(false);
         router.push(fallbackPath);
         return;
       }
-
       if (userOnly && IsAdmin) {
         setIsAuthorized(false);
         router.push("/mangujo/admin/dashboard");
         return;
       }
-
       if (requireAdmin && !IsAdmin) {
         setIsAuthorized(false);
         router.push("/unauthorized");
         return;
       }
-
       setIsAuthorized(true);
     } catch (error) {
       console.error("Authorization check error:", error);
@@ -71,9 +77,9 @@ export function ProtectedRoute({
     checkAuthorization();
   }, [checkAuthorization]);
 
-  if (loading || isChecking || isAuthorized === null) {
+  if (loading || isChecking || isAuthorized === null || !assetsLoaded) {
     return (
-      <div className="flex items-center justify-center h-screen bg-[#030d35]">
+      <div className="flex items-center justify-center h-screen bg-darker-blue">
         <div className="flex flex-col items-center space-y-4">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
           <p className="text-white text-sm">Loading...</p>
