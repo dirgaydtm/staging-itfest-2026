@@ -17,8 +17,8 @@ const SubmissionBottom = () => {
     <div className="relative w-full">
       <div
         className={`
-        relative bg-blue-500 
-        border-2 border-purple-300 p-6 rounded-4xl 
+        relative bg-white/[0.06] backdrop-blur-lg border border-white/20 
+        p-6 rounded-4xl 
         transform transition-all duration-300 hover:shadow-purple-500/30
       `}
       >
