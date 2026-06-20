@@ -7,6 +7,8 @@ import SubmitLinkModal from "./modal/SubmitLinkModal";
 import SubmitPaymentModal from "./modal/UploadPaymentModal";
 import StatusModal from "./modal/StatusModal";
 import { useStageSubmission } from "../hooks/useStageSubmission";
+import { useDashboardTheme } from "../layout/DashboardThemeContext";
+import { cn } from "@/shared/utils/cn";
 
 interface StageActionButtonProps {
   isCurrent: boolean;
@@ -31,6 +33,7 @@ export const StageActionButton = ({
     showStatusModal,
     setShowStatusModal,
   } = useStageSubmission(stageName);
+  const { theme } = useDashboardTheme();
 
   if (isCurrent) {
     // If status shows progress/completion, show the actual status regardless of deadline
@@ -103,9 +106,12 @@ export const StageActionButton = ({
     return (
       <>
         <Button
-          variant="primary"
+          variant="primary" 
           size="small"
-          className="text-lg w-32 h-12"
+          className={cn(
+            "text-lg w-32 h-12 text-white border-none", // Class dasar
+            theme.buttonActive // Class dinamis dari themes.ts (warna + glow)
+          )}
           onClick={() => setModalOpen(true)}
         >
           {isLoading ? "Submitting..." : "Submit"}
