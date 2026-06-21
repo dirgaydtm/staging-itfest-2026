@@ -27,13 +27,13 @@ const Guidebook = ({
 
   const renderAction = () => {
     if (isNotRegistered) {
-      // if (isDeadlinePassed) {
-      //   return (
-      //     <span className={`${btnBase} ${btnDisabled}`} aria-disabled="true">
-      //       Registration Closed
-      //     </span>
-      //   );
-      // }
+      if (isDeadlinePassed) {
+        return (
+          <span className={`${btnBase} ${btnDisabled}`} aria-disabled="true">
+            Registration Closed
+          </span>
+        );
+      }
       return (
         <Link href="/onboarding" className={`${btnBase} ${btnActive}`}>
           Register Now!

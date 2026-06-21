@@ -33,11 +33,11 @@ const SplitPanelLayout: React.FC<SplitPanelLayoutProps> = ({ children }) => {
       <div className="relative mycontainer">
         <div className="max-w-md lg:max-w-6xl xl:max-w-7xl mx-auto px-2 md:px-4 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
           {/* Panel form (kiri) */}
-          <div className="rounded-2xl lg:rounded-l-2xl lg:rounded-r-none p-6 md:p-8 lg:p-10 min-h-[45vh] md:min-h-[50vh] flex flex-col border-[0.5px] border-light-blue bg-light-active-green/15 backdrop-blur-md">
+          <div className="rounded-2xl lg:rounded-l-2xl lg:rounded-r-none p-6 md:p-8 lg:p-10 min-h-[45vh] md:min-h-[50vh] flex flex-col border-2 border-white/10 bg-light-active-green/5 backdrop-blur-xl shadow-[0_8px_24px_-4px_rgba(0,0,0,0.3)] lg:shadow-[-4px_0_24px_-4px_rgba(0,0,0,0.4),_0_8px_24px_-4px_rgba(0,0,0,0.3)]">
             {children}
           </div>
 
-          <div className="hidden lg:flex lg:rounded-r-2xl lg:rounded-l-none p-8 lg:p-10 flex-col items-center justify-center gap-6 lg:gap-8 border-[0.5px] border-light-blue bg-light-active-green/15 backdrop-blur-md">
+          <div className="hidden lg:flex lg:rounded-r-2xl lg:rounded-l-none p-8 lg:p-10 flex-col items-center justify-center gap-6 lg:gap-8 border-2 border-white/10 bg-light-active-green/5 backdrop-blur-xl shadow-[4px_0_24px_-4px_rgba(0,0,0,0.4),_0_8px_24px_-4px_rgba(0,0,0,0.3)]">
             <motion.div
               variants={starBreathing}
               animate="animate"
