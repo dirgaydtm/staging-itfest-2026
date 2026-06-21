@@ -33,7 +33,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push("/home");
+      router.push("/dashboard");
     }
   }, [isAuthenticated, redirect]);
   const [progress, setProgress] = useState(0);
