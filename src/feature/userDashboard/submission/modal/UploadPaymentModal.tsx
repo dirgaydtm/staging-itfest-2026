@@ -5,6 +5,7 @@ import { Button } from "@/shared/components/ui/Button";
 import { useUploadPayment } from "../../hooks/useUploadPayment";
 import Image from "next/image";
 import { useState } from "react";
+import { useDashboardTheme } from "../../layout/DashboardThemeContext";
 
 interface UploadPaymentModalProps {
   isOpen: boolean;
@@ -59,8 +60,17 @@ const PaymentInfoSection = () => {
     }
   };
 
+const { theme } = useDashboardTheme();
+
+  // 3. Mapping warna background dan border yang sesuai dengan tema lomba
+const modalThemeClass = {
+  uiux: "bg-gradient-to-r from-darker-blue to-dark-hover-blue shadow-[0_0_18px_rgba(102,155,188,0.35)]",
+  bp: "bg-gradient-to-r from-darker-red2 to-dark-hover-red2 shadow-[0_0_18px_rgba(193,18,31,0.35)]",
+  dml: "bg-gradient-to-r from-darker-yellow to-dark-hover-yellow shadow-[0_0_18px_rgba(190,180,160,0.35)]",
+}[theme.key];
+
   return (
-    <div className="bg-normal-active-blue border border-purple-500/20 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+    <div className={` ${modalThemeClass} rounded-lg p-3 sm:p-4 mb-4 sm:mb-6`}>
       <div className="text-center mb-3 sm:mb-4">
         <h3 className="text-white font-semibold text-sm sm:text-base mb-2">
           Informasi Pembayaran
