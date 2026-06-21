@@ -32,7 +32,7 @@ const Guidebook = ({ competitionCategory, isDeadlinePassed = false }: Props) => 
         );
       }
       return (
-        <Link href="/pendaftaran" className={`${btnBase} ${btnActive}`}>
+        <Link href="/onboarding" className={`${btnBase} ${btnActive}`}>
           Register Now!
         </Link>
       );
