@@ -24,7 +24,7 @@ export const StageConnector = ({
   return (
     <div
       className={cn(
-        "rounded-full transition-all duration-500 lg:-translate-y-22",
+        "rounded-full transition-all duration-500 lg:-translate-y-25",
         {
           "w-1 h-12 mt-6": !isHorizontal,
           "h-1 w-12 mx-6": isHorizontal,
