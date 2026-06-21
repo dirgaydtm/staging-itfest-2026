@@ -1,4 +1,11 @@
+import { StaticImageData } from "next/image";
 import { TeamProfileResponse } from "../types/teamProfile";
+import UnionRightUIUX from "@/assets/img/userDashboard/information/UnionRight.png";
+import UnionLeftUIUX from "@/assets/img/userDashboard/information/UnionLeft.png";
+import UnionRightBP from "@/assets/img/userDashboard/information/UnionRightBP.png";
+import UnionLeftBP from "@/assets/img/userDashboard/information/UnionLeftBP.png";
+import UnionRightDML from "@/assets/img/userDashboard/information/UnionRightDML.png";
+import UnionLeftDML from "@/assets/img/userDashboard/information/UnionLeftDML.png";
 
 export type CompetitionKey = "uiux" | "bp" | "dml";
 
@@ -8,6 +15,8 @@ export type DashboardTheme = {
   competitionTitle: string;
   glowLeft: string;
   glowRight: string;
+  unionLeft: StaticImageData;
+  unionRight: StaticImageData;
   buttonActive: string;
   cardBackground: string;
   cardBorder: string;
@@ -31,6 +40,8 @@ export const dashboardThemes: Record<CompetitionKey, DashboardTheme> = {
       "radial-gradient(circle at center, rgba(102,155,188,0.55) 0%, rgba(102,155,188,0.15) 40%, transparent 75%)",
     glowRight:
       "radial-gradient(circle at center, rgba(102,155,188,0.55) 0%, rgba(102,155,188,0.15) 40%, transparent 75%)",
+    unionLeft: UnionLeftUIUX,
+    unionRight: UnionRightUIUX,
     buttonActive:
       "bg-gradient-to-r from-darker-blue to-dark-hover-blue shadow-[0_0_18px_rgba(102,155,188,0.35)]",
     cardBackground: "bg-white/5",
@@ -45,6 +56,8 @@ export const dashboardThemes: Record<CompetitionKey, DashboardTheme> = {
       "radial-gradient(circle at center, rgba(193,18,31,0.55) 0%, rgba(193,18,31,0.15) 40%, transparent 75%)",
     glowRight:
       "radial-gradient(circle at center, rgba(193,18,31,0.55) 0%, rgba(193,18,31,0.15) 40%, transparent 75%)",
+    unionLeft: UnionLeftBP,
+    unionRight: UnionRightBP,
     buttonActive:
       "bg-gradient-to-r from-darker-red2 to-dark-hover-red2 shadow-[0_0_18px_rgba(193,18,31,0.35)]",
     cardBackground: "bg-white/5",
@@ -59,6 +72,8 @@ export const dashboardThemes: Record<CompetitionKey, DashboardTheme> = {
       "radial-gradient(circle at center, rgba(190,180,160,0.55) 0%, rgba(190,180,160,0.15) 40%, transparent 75%)",
     glowRight:
       "radial-gradient(circle at center, rgba(190,180,160,0.55) 0%, rgba(190,180,160,0.15) 40%, transparent 75%)",
+    unionLeft: UnionLeftDML,
+    unionRight: UnionRightDML,
     buttonActive:
       "bg-gradient-to-r from-darker-yellow to-dark-hover-yellow shadow-[0_0_18px_rgba(190,180,160,0.35)]",
     cardBackground: "bg-white/5",
