@@ -2,17 +2,12 @@
 
 import React from "react";
 import ButtonChoose from "./ButtonChoose";
+import { COMPETITIONS } from "../../constants";
 
 interface ChooseLombaProps {
   selectedCompetition: number | null;
   onCompetitionSelect: (competitionId: number) => void;
 }
-
-const competitions = [
-  { id: 2, title: "UI/UX Design" },
-  { id: 3, title: "Business Plan" },
-  { id: 4, title: "Digital Media Learning" },
-];
 
 const ChooseLomba: React.FC<ChooseLombaProps> = ({
   selectedCompetition,
@@ -30,7 +25,7 @@ const ChooseLomba: React.FC<ChooseLombaProps> = ({
       </div>
 
       <div className="w-full flex flex-col items-center gap-3 mt-2">
-        {competitions.map((c) => (
+        {COMPETITIONS.map((c) => (
           <ButtonChoose
             key={c.id}
             title={c.title}

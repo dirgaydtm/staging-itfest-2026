@@ -35,7 +35,7 @@ const Guidebook = ({
         );
       }
       return (
-        <Link href="/onboarding" className={`${btnBase} ${btnActive}`}>
+        <Link href="/pendaftaran" className={`${btnBase} ${btnActive}`}>
           Register Now!
         </Link>
       );
