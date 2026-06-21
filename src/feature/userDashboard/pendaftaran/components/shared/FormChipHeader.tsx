@@ -8,8 +8,8 @@ interface FormChipHeaderProps {
 
 const FormChipHeader: React.FC<FormChipHeaderProps> = ({ title }) => {
   return (
-    <div className="w-full text-center py-3 px-4 rounded-xl border-[0.5px] border-light-blue bg-light-active-green/50">
-      <span className="font-leaguespartan font-bold text-base md:text-lg text-light-green">
+    <div className="w-full bg-white/10 backdrop-blur-md border border-white/20 py-2.5 px-6 rounded-xl text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
+      <span className="text-sm lg:text-base font-bold tracking-widest font-leaguespartan text-slate-200">
         {title}
       </span>
     </div>

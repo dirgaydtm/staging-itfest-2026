@@ -18,13 +18,13 @@ const PendaftaranSelesaiForm: React.FC<SuccesFormProps> = () => {
 
   return (
     <>
-      <FormChipHeader title="Finished" />
+      <FormChipHeader title="FINISHED" />
 
       <div className="flex flex-col items-center text-center gap-3 py-4">
-        <h3 className="font-leaguespartan font-bold text-xl md:text-2xl text-light-blue">
+        <h3 className="font-leaguespartan font-bold text-xl md:text-2xl text-cyan-300 drop-shadow-[0_0_12px_rgba(34,211,238,0.4)]">
           Registration Successful!
         </h3>
-        <p className="font-leaguespartan text-sm md:text-base text-light-blue max-w-xs">
+        <p className="font-leaguespartan text-sm md:text-base text-slate-300/90 max-w-xs leading-relaxed">
           Registration payment information is available on the Dashboard
         </p>
       </div>
@@ -32,9 +32,9 @@ const PendaftaranSelesaiForm: React.FC<SuccesFormProps> = () => {
       <button
         type="button"
         onClick={handleBack}
-        className="w-full py-3 rounded-2xl border-[0.5px] border-light-blue bg-light-active-green/20 hover:scale-[1.02] active:scale-95 transition-all duration-300 font-leaguespartan font-bold text-base text-light-green"
+        className="w-full py-2.5 rounded-xl border bg-white/15 border-white/30 hover:bg-white/25 text-white active:scale-[0.98] shadow-[0_4px_12px_rgba(0,0,0,0.1)] backdrop-blur-md font-leaguespartan font-semibold text-sm tracking-wide transition-all duration-300"
       >
-        Back
+        Back to Dashboard
       </button>
     </>
   );

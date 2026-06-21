@@ -164,6 +164,7 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
         onBack={onBack}
         onNext={handleSubmit}
         nextDisabled={!isFormValid}
+        nextLabel="Submit"
       />
     </>
   );
