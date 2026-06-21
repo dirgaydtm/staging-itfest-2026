@@ -3,6 +3,7 @@
 import React from 'react';
 import { Button } from '@/shared/components/ui/Button';
 import { TeamStagesData } from '@/api/services/admin';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 interface JudgingCardProps {
     stageData: TeamStagesData | null;
@@ -12,8 +13,8 @@ interface JudgingCardProps {
 }
 
 const DiamondIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L2 12L12 22L22 12L12 2Z" stroke="#A78BFA" strokeWidth="2" strokeLinejoin="round" />
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 12L12 22L22 12L12 2Z" stroke="#B0BFC7" strokeWidth="2" strokeLinejoin="round" />
     </svg>
 );
 
@@ -29,61 +30,82 @@ const JudgingCard = ({
     }
 
     const areActionsDisabled = stageData.current_stage === '0' || stagesLoading;
-    // Tidak bisa jika current_stage adalah '0' (Pembayaran) atau sedang loading
 
     return (
-        <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 text-center">
-            {/* Header */}
-            <div className="flex items-center gap-4 mb-6">
-                <h2 className="text-2xl font-bold">Pass/Not Pass</h2>
-                {/* <span className={`px-3 py-1 text-sm font-semibold rounded-full ${getCurrentStagesStyle(stageData.current_stage)}`}>
-                    {stageData.current_stage}
-                </span> */}
+        // Menggunakan pakem figma asli: bg-[#B0BFC7]/10 dengan border tipis transparan dan h-full
+        <div className="p-6 sm:p-8 bg-[#B0BFC7]/10 border border-white/10 backdrop-blur-md rounded-2xl text-white h-full flex flex-col gap-6">
+            
+            {/* Header Bagian Kelolosan */}
+            <div className="flex justify-between items-center pb-4 border-b border-white/5">
+                <div className="flex flex-col">
+                    <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Section</span>
+                    <h2 className="text-lg font-bold tracking-wide">Stage Determination</h2>
+                </div>
             </div>
 
-            {/* Konten Utama */}
-            <div className="flex flex-col md:flex-row items-center gap-6">
+            {/* Grid Layout Pembagian Area Info Stage & Tombol Kendali */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center mt-2">
 
-                {/* Kolom Kiri: Info Stage */}
-                <div className="flex-1 space-y-4 text-left">
-                    <div>
-                        <p className="text-md text-gray-300">Current Stage</p>
-                        <div className="flex items-center gap-3 mt-1">
+                {/* Sisi Kiri (md:col-span-6): Informasi Detail Tahapan */}
+                <div className="md:col-span-6 flex flex-col gap-5 text-left">
+                    <div className="flex flex-col">
+                        <span className="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">
+                            Current Stage
+                        </span>
+                        <div className="flex items-center gap-2.5 bg-white/5 border border-white/5 px-4 py-2.5 rounded-xl">
                             <DiamondIcon />
-                            <span className="text-xl font-semibold">{stageData.current_stage ? stageData.current_stage : "(tidak ada)"}</span>
+                            <span className="text-sm font-semibold tracking-wide text-white">
+                                {stageData.current_stage ? stageData.current_stage : "(tidak ada)"}
+                            </span>
                         </div>
                     </div>
-                    <div>
-                        <p className="text-md text-gray-300">Next Stage</p>
-                        <div className="flex items-center gap-3 mt-1">
+                    
+                    <div className="flex flex-col">
+                        <span className="text-xs font-bold text-white/40 uppercase tracking-widest block mb-2">
+                            Target Phase
+                        </span>
+                        <div className="flex items-center gap-2.5 bg-white/5 border border-white/5 px-4 py-2.5 rounded-xl">
                             <DiamondIcon />
-                            <span className="text-xl font-semibold">{stageData.next_stage ? stageData.next_stage : "(tidak ada)"}</span>
+                            <span className="text-sm font-semibold tracking-wide text-white">
+                                {stageData.next_stage ? stageData.next_stage : "(tidak ada)"}
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                {/* Garis Pemisah */}
-                <div className="border-l border-gray-600 h-4 md:h-24 rotate-90 md:rotate-0"></div>
+                {/* Sisi Kanan (md:col-span-6): Panel Tombol Eksekusi Kelolosan */}
+                <div className="md:col-span-6 flex flex-col gap-3 border-t md:border-t-0 md:border-l border-white/5 pt-6 md:pt-0 md:pl-8 w-full">
+                    <span className="text-xs font-bold text-white/40 uppercase tracking-widest block mb-1 md:hidden">
+                        Actions
+                    </span>
 
-                {/* Kolom Kanan: Tombol Aksi */}
-                <div className="flex flex-col gap-4 w-56">
+                    {/* Tombol Meloloskan Tim */}
                     <Button
                         type="button"
                         onClick={onPass}
                         disabled={areActionsDisabled}
-                        className="bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full h-10 text-xs font-bold rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 hover:border-green-500/40 transition-all flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed"
                     >
-                        {stagesLoading ? 'Processing...' : `Pass to ${stageData.next_stage}`}
+                        <CheckCircle size={14} />
+                        <span className="truncate">
+                            {stagesLoading ? 'Processing...' : `Pass to ${stageData.next_stage || 'Next'}`}
+                        </span>
                     </Button>
+
+                    {/* Tombol Tidak Meloloskan Tim */}
                     <Button
                         type="button"
                         onClick={onReject}
                         disabled={areActionsDisabled}
-                        className="bg-red-700 hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full h-10 text-xs font-bold rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 hover:border-red-500/40 transition-all flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed"
                     >
-                        {stagesLoading ? 'Processing...' : `Reject ${stageData.next_stage}`}
+                        <XCircle size={14} />
+                        <span className="truncate">
+                            {stagesLoading ? 'Processing...' : `Reject ${stageData.next_stage || 'Next'}`}
+                        </span>
                     </Button>
                 </div>
+
             </div>
         </div>
     );

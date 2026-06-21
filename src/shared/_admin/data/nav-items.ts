@@ -2,7 +2,7 @@ import { NavItem } from "../type/nav-item";
 
 export const navItems: NavItem[] = [
   {
-    title: "Dashboard",
+    title: "Information",
     path: "/mangujo/admin/dashboard",
     icon: "dashboard",
   },

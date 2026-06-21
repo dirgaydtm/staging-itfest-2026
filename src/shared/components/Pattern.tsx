@@ -1,16 +1,16 @@
 import Image from "next/image";
 import React from "react";
-import pattern from "@/assets/img/comingsoon/heropattern.svg";
+import pattern from "@/assets/img/background/bg1.webp";
+
 const Pattern = () => {
   return (
-    <div className=" w-[70rem]  lg:w-[80rem] xl:w-full transition-all absolute bottom-0  border-white comingsoonpattern">
+    <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none comingsoonpattern">
       <Image
         alt="pattern"
-        className="w-full animate-pulse mix-blend-screen"
-        width={100}
-        height={100}
         src={pattern}
+        className="w-full h-full object-cover animate-pulse mix-blend-screen opacity-40"
         draggable={false}
+        priority
       />
     </div>
   );

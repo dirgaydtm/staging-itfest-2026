@@ -36,7 +36,7 @@ export const useParticipant = (): UseParticipantReturn => {
   };
 
   const totalAll = participantData
-    ? participantData.total_uiux + participantData.total_bp
+    ? participantData.total_uiux + participantData.total_bp + participantData.total_dml
     : 0;
 
   useEffect(() => {
