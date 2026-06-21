@@ -1,83 +1,35 @@
-import { useState, useEffect } from "react";
+interface SubmissionBottomProps {
+  status?: string;
+  stageName?: string;
+}
 
-const SubmissionBottom = () => {
-  const [scanLine, setScanLine] = useState(0);
+const SubmissionBottom = ({ status, stageName }: SubmissionBottomProps) => {
+  // 1. Pesan Default (Muncul saat tahap awal / Payment)
+  let messageTitle = "Message:";
+  let messageContent =
+    "Please submit your payment through....\nIf you have any problems, please tell our Contact Person at :....";
 
-  useEffect(() => {
-    const scanInterval = setInterval(() => {
-      setScanLine((prev) => (prev + 1) % 100);
-    }, 50);
+  // 2. Pesan Dinamis jika peserta Tidak Lolos / Ditolak (Sesuai catatan Figma)
+  if (status === "tidak lolos" || status === "ditolak") {
+    messageContent =
+      "Thank you for participating and giving your best effort. Even if you didn't make it to the next stage, don't give up, because every step along the way is a step toward success!";
+  }
 
-    return () => {
-      clearInterval(scanInterval);
-    };
-  }, []);
+  // 3. (Opsional) Pesan Dinamis jika peserta Lolos ke Final
+  if (status === "lolos" && stageName === "Final Pitch Deck") {
+    messageContent =
+      "Congratulations on making it to the final stage! Please prepare your best pitch deck and stay tuned on our WhatsApp group for further information.";
+  }
 
   return (
-    <div className="relative w-full">
-      <div
-        className={`
-        relative bg-white/[0.06] backdrop-blur-lg border border-white/20 
-        p-6 rounded-4xl 
-        transform transition-all duration-300 hover:shadow-purple-500/30
-      `}
-      >
-        <div
-          className="absolute left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-purple-200 to-transparent opacity-70"
-          style={{ top: `${scanLine}%`, transition: "top 0.05s linear" }}
-        ></div>
-
-        <div className="relative z-10 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-200 to-purple-300 rounded-lg rotate-45 opacity-80"></div>
-              <div className="absolute inset-2 bg-blue-600 rounded-lg rotate-45"></div>
-            </div>
-
-            <div className="space-y-1">
-              <div className="w-16 h-2 bg-purple-200 rounded-full opacity-80"></div>
-              <div className="w-12 h-2 bg-purple-300 rounded-full opacity-60"></div>
-              <div className="w-20 h-2 bg-purple-200 rounded-full opacity-70"></div>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="w-16 h-16 bg-gradient-to-r from-purple-200 to-indigo-200 rounded-full opacity-70 animate-pulse"></div>
-            <div className="absolute inset-3 bg-blue-600 rounded-full"></div>
-            <div className="absolute inset-6 bg-purple-100 rounded-full animate-ping"></div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-purple-200 rounded-full animate-pulse"></div>
-              <div className="w-8 h-1 bg-purple-200 rounded-full"></div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-indigo-200 rounded-full animate-bounce"></div>
-              <div className="w-12 h-1 bg-indigo-200 rounded-full"></div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-purple-300 rounded-full animate-pulse"></div>
-              <div className="w-6 h-1 bg-purple-300 rounded-full"></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-purple-200 rounded-full opacity-60 animate-float"
-              style={{
-                left: `${10 + i * 10}%`,
-                top: `${20 + (i % 3) * 20}%`,
-                animationDelay: `${i * 0.7}s`,
-                animationDuration: `${4 + i * 0.3}s`,
-              }}
-            ></div>
-          ))}
-        </div>
-      </div>
+    <div className="w-full bg-white/[0.06] backdrop-blur-lg border border-white/20 rounded-4xl p-6 md:p-8 font-leaguespartan">
+      <h3 className="text-white text-xl md:text-2xl font-bold mb-2">
+        {messageTitle}
+      </h3>
+      {/* whitespace-pre-line digunakan agar karakter \n bisa menjadi enter/baris baru */}
+      <p className="text-white opacity-80 text-sm md:text-base whitespace-pre-line leading-relaxed">
+        {messageContent}
+      </p>
     </div>
   );
 };
