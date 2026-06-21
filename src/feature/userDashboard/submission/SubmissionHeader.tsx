@@ -65,7 +65,7 @@ const SubmissionHeader = ({
             <span className="text-base lg:text-base font-bold text-white whitespace-nowrap">
               Stage:
             </span>
-            <span className="text-sm lg:text-sm font-normal text-purple-100 text-center lg:text-right">
+            <span className="text-sm lg:text-sm font-normal text-white text-center lg:text-right">
               {currentStage}
             </span>
           </div>
