@@ -51,7 +51,7 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
         >
           <Guidebook
             competitionCategory={teamData?.competition_category ?? "Not Registered"}
-            isDeadlinePassed={!isDeadlinePassed}
+            isDeadlinePassed={isDeadlinePassed}
           />
         </motion.section>
       </div>
