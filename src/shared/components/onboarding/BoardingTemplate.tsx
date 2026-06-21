@@ -6,9 +6,9 @@ import { motion, Variants } from "framer-motion";
 import Star from "@/assets/img/onboarding/star.webp";
 import Bg from "@/assets/img/background/bg1.webp";
 
-// interface BoardingTemplateProps {
-//   children: React.ReactNode;
-// }
+interface BoardingTemplateProps {
+  children: React.ReactNode;
+}
 
 const slideInLeft: Variants = {
   hidden: { x: "-100%", opacity: 0 },

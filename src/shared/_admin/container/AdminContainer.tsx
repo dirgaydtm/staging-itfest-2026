@@ -1,7 +1,6 @@
 "use client";
 import { ProtectedRoute } from "@/shared/components/protected/ProtectedRoutes";
 import Sidebar from "../components/sidebar";
-import Pattern from "@/shared/components/Pattern";
 import { useAuth } from "@/shared/hooks/useAuth";
 import ImageAdmin from "@/assets/img/_admin/rusdi.webp";
 interface AdminContainerProps {
@@ -29,7 +28,6 @@ export function AdminContainer({
           className={`flex-1 relative overflow-hidden min-h-screen ${className}`}
         >
           <div className="relative z-10 h-full">{children}</div>
-          <Pattern />
         </main>
       </div>
     </ProtectedRoute>
