@@ -19,7 +19,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
       {/* Kontainer atau 'kartu' modal */}
       <div
         onClick={(e) => e.stopPropagation()} // Mencegah modal tertutup saat konten di dalamnya diklik
-        className="bg-blue-500 border-2 border-purple-200 rounded-2xl shadow-lg p-8 m-4 max-w-md w-full"
+        className="bg-darker-blue border border-white/30 backdrop-blur-md rounded-2xl shadow-lg p-8 m-4 max-w-md w-full"
       >
         {children} {/* Di sinilah konten unik Anda akan ditampilkan */}
       </div>

@@ -60,7 +60,7 @@ const PaymentInfoSection = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/20 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+    <div className="bg-normal-active-blue border border-purple-500/20 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
       <div className="text-center mb-3 sm:mb-4">
         <h3 className="text-white font-semibold text-sm sm:text-base mb-2">
           Informasi Pembayaran
@@ -216,7 +216,7 @@ const UploadPaymentModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="font-changa w-full max-w-md mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
+      <div className="font-leaguespartan w-full max-w-md mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
         <h2 className="text-white text-lg sm:text-xl font-semibold text-center mb-3 sm:mb-4">
           Upload Bukti Pembayaran
         </h2>
@@ -297,7 +297,7 @@ const UploadPaymentModal = ({
               </div>
 
               <div className="mt-2 sm:mt-3">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-purple-600 text-white">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-normal-blue text-white">
                   Pilih File
                 </span>
               </div>
@@ -312,7 +312,7 @@ const UploadPaymentModal = ({
         )}
 
         <Button
-          variant={!preview ? "disabled" : "primary"}
+          variant={!preview ? "disabled" : "forauth"}
           size="small"
           className="w-full h-10 sm:h-12 mt-3 sm:mt-4 text-xs sm:text-sm"
           onClick={handleSubmit}
