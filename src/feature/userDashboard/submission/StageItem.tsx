@@ -1,6 +1,9 @@
 import { cn } from "@/shared/utils/cn";
 import { IStage } from "../types/submission";
 import { StageActionButton } from "./StageButton";
+import { PuzzleIcon } from "../layout/PuzzleIcon"; // Sesuaikan path import
+import { PUZZLES_ITEMS } from "../layout/puzzles"; // Sesuaikan path import
+import { useDashboardTheme } from "../layout/DashboardThemeContext";
 
 interface StageItemProps {
   stage: IStage;
@@ -9,6 +12,7 @@ interface StageItemProps {
   isLast: boolean;
   isDesktop: boolean;
   isDeadlineOver: boolean | string;
+  stageIndex: number;
 }
 
 const formatDate = (dateString: string | null) => {
@@ -26,7 +30,11 @@ export const StageItem = ({
   isPast,
   isDesktop,
   isDeadlineOver,
+  stageIndex,
+
 }: StageItemProps) => {
+  const { theme } = useDashboardTheme();
+
   const stageName =
     stage.stage_name === "" ? stage.status_submission : stage.stage_name;
 
@@ -53,9 +61,11 @@ export const StageItem = ({
 
   // Debug logging
 
+  const puzzleData = PUZZLES_ITEMS[stageIndex % PUZZLES_ITEMS.length];
+
   return (
     <div
-      className={cn("relative flex flex-col items-center", isDesktop && "w-24")}
+      className={cn("relative flex flex-col items-center justify-center", isDesktop && "w-24")}
     >
       {showFinalistText && (
         <p
@@ -68,44 +78,15 @@ export const StageItem = ({
           Congrats, You are a finalist
         </p>
       )}
-      <div
-        className={cn(
-          "cursor-pointer rotate-45 transition-all duration-300 overflow-x-auto w-full",
-          "bg-purple-200",
-
-          // Current stage styling
-          isCurrent && "bg-white glow-white",
-
-          // Past stages with successful status
-          isPast &&
-            (stage.status_submission === "lolos" ||
-              stage.status_submission === "terverifikasi") &&
-            "bg-white glow-whites",
-
-          // Current stage being processed
-          isCurrent &&
-            stage.status_submission === "diproses" &&
-            "bg-white glow-whites animate-pulse",
-
-          // Special cases for Proposal lolos and Final stage
-          (stage.stage_name === "Proposal" &&
-            stage.status_submission === "lolos") ||
-            (stage.stage_name === "Final Pitch Deck" && isCurrent)
-            ? "glow-yellow"
-            : "",
-
-          // Failed status
-          (stage.status_submission === "tidak lolos" ||
-            stage.status_submission === "ditolak") &&
-            "bg-red-400 glow-red",
-          // Only apply overdue styling if actually overdue (deadline passed AND no progress)
-          isActuallyOverdue && "glow-blackhole-box purple-particles",
-
-          isDesktop ? "w-12 h-12" : "w-16 h-16"
-        )}
+      <PuzzleIcon
+        icon={puzzleData.icon}
+        isActive={isPast || isCurrent}
+        isOverdue={isActuallyOverdue}
+        themeColorClass={theme.accentText} // Mengambil warna tema (merah/kuning/biru pudar)
       />
 
       <div className="mt-8 text-center">
+        <div className="h-14 md:h-16 flex items-center justify-center mb-2">
         <p
           className={cn(
             "text-white font-bold mb-2",
@@ -114,7 +95,7 @@ export const StageItem = ({
         >
           {stageName}
         </p>
-
+        </div>
         <p
           className={cn(
             "text-white font-normal opacity-75 mb-4",

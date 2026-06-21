@@ -93,6 +93,7 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
           isDesktop={isDesktop}
           isLast={isLast}
           isDeadlineOver={stageIsOverdue}
+          stageIndex={index}
         />
         {!isLast && (
           <StageConnector
