@@ -3,15 +3,17 @@ import React from "react";
 interface TotalEachCompeProps {
   total_bp?: number;
   total_uiux?: number;
+  total_dml?: number;
   label: string;
 }
 
 const TotalEachCompe = ({
   total_bp,
   total_uiux,
+  total_dml,
   label,
 }: TotalEachCompeProps) => {
-  const total = total_bp ?? total_uiux ?? 0;
+  const total = total_bp ?? total_uiux ?? total_dml ?? 0;
 
   return (
     <>

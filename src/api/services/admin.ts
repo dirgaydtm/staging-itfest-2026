@@ -7,6 +7,7 @@ export type SubmissionStatus = "lolos" | "tidak lolos";
 export interface ParticipantTotalData {
   total_uiux: number;
   total_bp: number;
+  total_dml: number;
 }
 
 export interface TeamDetailsData {

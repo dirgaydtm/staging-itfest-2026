@@ -23,7 +23,7 @@ export default function Sidebar({ profileData, onLogout }: SidebarProps) {
     <>
       {/* Mobile Menu Button */}
       <button
-        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-blue-500 text-white md:hidden"
+        className="fixed top-4 left-4 z-50 p-2 rounded-xl bg-[#B0BFC7]/20 border border-white/20 text-white backdrop-blur-md md:hidden shadow-lg cursor-pointer"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         <svg
@@ -50,27 +50,32 @@ export default function Sidebar({ profileData, onLogout }: SidebarProps) {
         </svg>
       </button>
 
+      {/* Mobile Backdrop Blur */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/40 blur-3xl z-50 md:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
+      {/* ASIDE CONTAINER (Diubah menjadi h-screen & fixed/sticky agar pas setinggi layar monitor) */}
       <aside
         className={cn(
-          "fixed md:static w-64 min-h-screen z-50 bg-blue-400 text-white p-4 flex flex-col transition-transform duration-300 ease-in-out",
+          "fixed md:sticky top-0 left-0 w-64 h-screen z-50 bg-[#B0BFC7]/10 border-r border-white/10 backdrop-blur-lg text-white p-6 flex flex-col transition-transform duration-300 ease-in-out overflow-hidden",
           "md:transform-none",
           isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
       >
+        {/* Profile Section - Tetap diam di atas */}
         <AdminProfile
           imageUrl={profileData.imageUrl}
           email={profileData.email}
           username={profileData.username}
         />
-        <nav>
-          <ul className="space-y-6 mt-10 px-6">
+        
+        {/* Navigation Menu - Ditambahkan overflow-y-auto agar jika menu panjang, hanya area ini yang bisa di-scroll */}
+        <nav className="flex-1 overflow-y-auto pr-1 my-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+          <ul className="space-y-4">
             {navItems.map((item, idx) => (
               <SidebarItem
                 key={idx}
@@ -81,12 +86,14 @@ export default function Sidebar({ profileData, onLogout }: SidebarProps) {
             ))}
           </ul>
         </nav>
+
+        {/* Logout Button - Terkunci kokoh di paling bawah kontainer screen tanpa terdorong keluar layar */}
         <button
           onClick={() => {
             setIsSidebarOpen(false);
             onLogout();
           }}
-          className="mt-auto flex items-center justify-center font-bold px-4 py-2 text-red-600 transition-colors hover:bg-red-100"
+          className="flex items-center justify-center font-bold w-full px-4 py-2.5 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 transition-all hover:bg-red-500/20 hover:border-red-500/50 cursor-pointer text-sm shrink-0"
         >
           <span>Logout</span>
         </button>
