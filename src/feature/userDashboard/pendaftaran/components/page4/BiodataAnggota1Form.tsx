@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import PageIndex from "../PageIndex";
-import { Button } from "@/shared/components/ui/Button";
-import { Input } from "@/shared/components/ui/Input";
+import FormChipHeader from "../shared/FormChipHeader";
+import FormInput from "../shared/FormInput";
+import FormNavButtons from "../shared/FormNavButtons";
 import { TeamMember } from "@/api/services/pendaftaran";
+import { COMPETITION_IDS } from "../../constants";
 
 interface BiodataAnggota1FormProps {
+  competitionId: number;
   member1: TeamMember;
   onMember1Change: (member: TeamMember) => void;
   onNext: () => void;
@@ -14,98 +16,86 @@ interface BiodataAnggota1FormProps {
 }
 
 const BiodataAnggota1Form: React.FC<BiodataAnggota1FormProps> = ({
+  competitionId,
   member1,
   onMember1Change,
   onNext,
   onBack,
 }) => {
-  const [error, setError] = useState("");
+  const [extra, setExtra] = useState({ university: "", phone_number: "" });
 
-  const handleInputChange = (field: keyof TeamMember, value: string) => {
-    onMember1Change({
-      ...member1,
-      [field]: value,
-    });
-    setError("");
+  const handleMemberChange = (field: keyof TeamMember, value: string) => {
+    onMember1Change({ ...member1, [field]: value });
   };
 
-  const handleNext = () => {
-    if (!member1.name.trim() || !member1.student_number.trim()) {
-      setError("Nama dan NIM anggota harus diisi");
-      return;
-    }
-    onNext();
+  const handleExtraChange = (field: keyof typeof extra, value: string) => {
+    setExtra((prev) => ({ ...prev, [field]: value }));
   };
-
-  // Removed unused handleSkip function
 
   const isFormValid =
-    member1.name.trim() !== "" && member1.student_number.trim() !== "";
+    member1.name.trim() !== "" &&
+    member1.student_number.trim() !== "" &&
+    extra.university.trim() !== "" &&
+    extra.phone_number.trim() !== "";
+
+  const handleNext = () => {
+    if (isFormValid) onNext();
+  };
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4 md:gap-0 md:justify-between h-screen md:h-full">
-      <PageIndex index={4} title="Biodata Anggota 1" />
+    <>
+      <FormChipHeader title="Member Biodata 1" />
 
-      <div className="w-full max-w-md space-y-3">
-        <div className="text-center">
-          <h3 className="font-bold font-changa text-xl text-white">
-            Biodata Anggota 1
-          </h3>
-          <p className="text-base font-changa text-white mt-2 md:px-4">
-            {`Jika tidak ada Anggota 1, maka isi dengan "-" dan klik `}
-            Lanjut
-          </p>
-        </div>
+      {competitionId === COMPETITION_IDS.UIUX && (
+        <p className="text-center font-leaguespartan text-xs md:text-sm text-light-blue">
+          If you don&apos;t have Member 1, fill all fields with &quot;-&quot;
+          and click Next.
+        </p>
+      )}
 
-        {error && (
-          <div className="bg-red-500/20 border border-red-400 p-3 rounded-xl text-center text-white text-sm">
-            {error}
-          </div>
-        )}
-
-        <div className="space-y-4">
-          <Input
-            label="Nama Anggota 1"
-            type="text"
-            value={member1.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            placeholder="Masukkan nama anggota (opsional)"
-          />
-
-          <Input
-            label="NIM Anggota 1"
-            type="text"
-            value={member1.student_number}
-            onChange={(e) =>
-              handleInputChange("student_number", e.target.value)
-            }
-            placeholder="Masukkan NIM anggota (opsional)"
-          />
-        </div>
+      <div className="flex flex-col gap-4 w-full">
+        <FormInput
+          label="Full name"
+          name="full_name"
+          value={member1.name}
+          onChange={(e) => handleMemberChange("name", e.target.value)}
+          placeholder="Enter Full Name"
+          required
+        />
+        <FormInput
+          label="NIM"
+          name="student_number"
+          value={member1.student_number}
+          onChange={(e) => handleMemberChange("student_number", e.target.value)}
+          placeholder="Enter NIM"
+          required
+        />
+        <FormInput
+          label="Institution Name"
+          name="university"
+          value={extra.university}
+          onChange={(e) => handleExtraChange("university", e.target.value)}
+          placeholder="Enter Institution Name"
+          required
+        />
+        <FormInput
+          label="Phone Number (WhatsApp)"
+          name="phone_number"
+          type="tel"
+          inputMode="numeric"
+          value={extra.phone_number}
+          onChange={(e) => handleExtraChange("phone_number", e.target.value)}
+          placeholder="Enter Phone Number"
+          required
+        />
       </div>
 
-      <div className="w-full flex flex-col md:flex-row md:justify-between lg:justify-center gap-2">
-        <Button
-          type="button"
-          size="normal"
-          variant="tertiary"
-          className="w-full md:w-[48%] text-lg h-12 py-2"
-          onClick={onBack}
-        >
-          Kembali
-        </Button>
-        <Button
-          type="button"
-          size="normal"
-          variant={"primary"}
-          className="w-full md:w-[48%] disabled:opacity-50 text-lg h-12 py-2"
-          disabled={!isFormValid}
-          onClick={handleNext}
-        >
-          Lanjut
-        </Button>
-      </div>
-    </section>
+      <FormNavButtons
+        onBack={onBack}
+        onNext={handleNext}
+        nextDisabled={!isFormValid}
+      />
+    </>
   );
 };
 

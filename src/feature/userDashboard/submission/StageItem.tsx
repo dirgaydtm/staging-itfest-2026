@@ -1,5 +1,5 @@
 import { cn } from "@/shared/utils/cn";
-import { IStage } from "../../types/submission";
+import { IStage } from "../types/submission";
 import { StageActionButton } from "./StageButton";
 
 interface StageItemProps {

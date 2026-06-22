@@ -1,4 +1,4 @@
-import { ForgotPasswordOTPPage } from "@/feature/_user/forgot-password/components/ForgotPasswordOtp";
+import { ForgotPasswordOTPPage } from "@/feature/auth/forgot-password/components/ForgotPasswordOtp";
 // import Stars from "@/feature/hero/components/Stars";
 import React from "react";
 

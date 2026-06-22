@@ -5,7 +5,7 @@ import { Input } from "@/shared/components/ui/Input";
 import React, { useEffect, useState } from "react";
 import { forgotPasswordService } from "@/api/services/forgot-password";
 import { Eye, EyeOff } from "lucide-react";
-import { useTogglePassword } from "@/feature/_user/register/hooks/useTogglePassword";
+import { useTogglePassword } from "@/feature/auth/register/hooks/useTogglePassword";
 // import Stars from "@/feature/hero/components/Stars";
 
 const ResetPassword: React.FC = () => {

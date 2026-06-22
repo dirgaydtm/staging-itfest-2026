@@ -1,8 +1,8 @@
 "use client";
-import Stars from "@/feature/hero/components/Stars";
 import React, { useMemo } from "react";
 import { OtpForm } from "../components/OtpForm";
 import { useOtp } from "../hooks/useOtp";
+import BackgroundAuth from "@/shared/components/layout/BackgroundAuth";
 
 const OtpContainer = () => {
   const {
@@ -61,9 +61,8 @@ const OtpContainer = () => {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 to-indigo-900 relative font-changa">
-      <h5 className="text-5xl font-bold">Verifikasi Email</h5>
-      <span>Masukkan kode 6 digit yang ada di email Anda</span>
+    <main className="min-h-screen flex flex-col items-center justify-center overflow-hidden bg-darker-blue relative font-leaguespartan">
+      <BackgroundAuth />
       <OtpForm
         type="registration"
         errorMessage={errorMessage}
@@ -85,7 +84,6 @@ const OtpContainer = () => {
         onResend={resend}
         inputRefs={inputRefs}
       />
-      <Stars />
     </main>
   );
 };

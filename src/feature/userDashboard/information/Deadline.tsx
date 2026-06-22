@@ -1,18 +1,25 @@
-import React from "react";
-import { useCountdown } from "../../hooks/useCountdown";
+"use client";
 
-interface Props {
-  deadline: string;
-}
+type CountdownValue = {
+  days: string;
+  hours: string;
+  minutes: string;
+  seconds: string;
+};
 
-const Deadline = ({ deadline }: Props) => {
-  const timeLeft = useCountdown(deadline);
+type Props = {
+  title?: string;
+  countdown: CountdownValue;
+};
 
+const Deadline = ({ title = "Submission Deadline", countdown }: Props) => {
   return (
-    <section className="px-2 py-14 bg-blue-500 rounded-4xl text-white text-center border-2 border-purple-300 h-full">
-      <h2 className="font-changa font-bold text-3xl">Submission Deadline</h2>
-      <p className="font-robotech lg:text-5xl text-5xl mt-2 text-purple-100 lg:tracking-widest tracking-wide">
-        {`${timeLeft.days}:${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`}
+    <section className="h-full rounded-2xl sm:rounded-3xl bg-white/[0.06] backdrop-blur-lg border border-white/15 px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10 text-center font-leaguespartan text-light-blue">
+      <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 sm:mb-5 md:mb-6">
+        {title}
+      </h2>
+      <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wider text-light-active-green">
+        {countdown.days}: {countdown.hours}: {countdown.minutes}: {countdown.seconds}
       </p>
     </section>
   );

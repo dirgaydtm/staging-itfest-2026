@@ -1,7 +1,7 @@
 import { apiClient } from "@/api/core/core";
-import { Announcement } from "@/feature/_user/dashboard/types/announcement";
-import { PostSubmissionsResponse, SubmissionsResponse } from "@/feature/_user/dashboard/types/submission";
-import { TeamProfileResponse } from "@/feature/_user/dashboard/types/teamProfile";
+import { Announcement } from "@/feature/userDashboard/types/announcement";
+import { PostSubmissionsResponse, SubmissionsResponse } from "@/feature/userDashboard/types/submission";
+import { TeamProfileResponse } from "@/feature/userDashboard/types/teamProfile";
 
 export const userService = {
     getMyTeamProfile: async (): Promise<TeamProfileResponse> => {

@@ -1,75 +1,67 @@
-import Image from "next/image";
-import { Button } from "@/shared/components/ui/Button";
-import crossCircle from "@/assets/img/_user/dashboard/crossCircle.webp";
-import { competitionData } from "../../data/competitionData";
+"use client";
+
 import Link from "next/link";
+import { competitionData } from "../../../shared/data/competitionData";
+import { useDashboardTheme } from "../layout/DashboardThemeContext";
 
-interface GuidebookProps {
-  competitionCategory: "BP" | "UI/UX" | "Not Registered";
-}
+type CompetitionCategory = "BP" | "UI/UX" | "DML" | "Not Registered";
 
-const Guidebook = ({ competitionCategory }: GuidebookProps) => {
+type Props = {
+  competitionCategory: CompetitionCategory;
+  isDeadlinePassed?: boolean;
+};
+
+const Guidebook = ({
+  competitionCategory,
+  isDeadlinePassed = false,
+}: Props) => {
+  const { theme } = useDashboardTheme();
   const isNotRegistered = competitionCategory === "Not Registered";
   const content =
     competitionData[competitionCategory as keyof typeof competitionData];
 
+  const btnBase =
+    "inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 rounded-2xl font-bold text-sm sm:text-base transition-all duration-300";
+  const btnDisabled = "bg-[#7c7c7c] text-light-blue/60 cursor-not-allowed";
+  const btnActive = `${theme.buttonActive} text-light-blue hover:scale-[1.03] hover:shadow-[0_0_28px_rgba(255,255,255,0.35)] active:scale-95`;
+
+  const renderAction = () => {
+    if (isNotRegistered) {
+      if (isDeadlinePassed) {
+        return (
+          <span className={`${btnBase} ${btnDisabled}`} aria-disabled="true">
+            Registration Closed
+          </span>
+        );
+      }
+      return (
+        <Link href="/pendaftaran" className={`${btnBase} ${btnActive}`}>
+          Register Now!
+        </Link>
+      );
+    }
+
+    if (isDeadlinePassed) {
+      return (
+        <span className={`${btnBase} ${btnDisabled}`} aria-disabled="true">
+          Submission Closed
+        </span>
+      );
+    }
+    return (
+      <Link href={content.link} className={`${btnBase} ${btnActive}`}>
+        Download Guidebook
+      </Link>
+    );
+  };
+
   return (
-    <div className="w-full max-w-xl h-full bg-blue-500 border-2 border-purple-300 rounded-4xl p-4 flex xl:flex-row flex-col items-center justify-center text-white space-y-4">
-      <section className="flex flex-col items-center">
-        {isNotRegistered ? (
-          <div className="relative mb-4 translate-y-4 translate-x-2">
-            <Image
-              src={content.icon}
-              alt="Blank Phone"
-              className="object-contain w-30 z-10 glow-purple"
-              width={150}
-              height={150}
-            />
-            <Image
-              src={crossCircle}
-              alt="Cross Circle"
-              className="object-contain w-14 absolute top-10 left-8 glitch"
-            />
-          </div>
-        ) : (
-          <Image
-            src={content.icon}
-            alt="Category Icon"
-            width={300}
-            height={300}
-            className="w-36 min-w-24 p-2 object-contain"
-          />
-        )}
-      </section>
-
-      <section className="flex-1 text-center">
-        <h2
-          className={`mb-2 font-bold ${
-            isNotRegistered
-              ? "text-3xl text-white font-changa"
-              : "text-4xl 2xl:text-5xl font-robotech text-purple-100"
-          }`}
-        >
-          {isNotRegistered ? "Not registered yet" : content.title}
-        </h2>
-
-        <div className="flex justify-center">
-          {isNotRegistered ? (
-            <Link href={"/pendaftaran"}>
-              <Button variant="primary" size="normal" className="2xl:w-60 w-48">
-                Register Now
-              </Button>
-            </Link>
-          ) : (
-            <Link href={content.link}>
-              <Button variant="primary" size="normal">
-                <span className="text-xl">Download GuideBook</span>
-              </Button>
-            </Link>
-          )}
-        </div>
-      </section>
-    </div>
+    <section className="h-full rounded-2xl sm:rounded-3xl bg-white/[0.06] backdrop-blur-lg border border-white/15 px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10 text-center font-leaguespartan text-light-blue flex flex-col items-center justify-center gap-4 sm:gap-5 md:gap-6">
+      <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+        {isNotRegistered ? "Not Registered Yet" : content.title}
+      </h2>
+      {renderAction()}
+    </section>
   );
 };
 

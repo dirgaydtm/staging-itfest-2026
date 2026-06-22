@@ -1,4 +1,4 @@
-import OtpContainer from "@/feature/_user/otp/container/OtpContainer";
+import OtpContainer from "@/feature/auth/otp/container/OtpContainer";
 import React from "react";
 
 const page = () => {

@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import BoardingTemplate from "@/shared/components/onboarding/BoardingTemplate";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import SplitPanelLayout from "@/shared/components/layout/SplitPanelLayout";
+import CenteredFormLayout from "@/shared/components/layout/CenteredFormLayout";
 
 import PendaftaranForm from "../components/page1/PendaftaranForm";
 import BiodataKetuaForm from "../components/page2/BiodataKetuaForm";
@@ -11,7 +13,17 @@ import BiodataAnggota2Form from "../components/page4/BiodataAnggota2Form";
 import PendaftaranSelesaiForm from "../components/page5/SuccesForm";
 
 import { TeamMember, BiodataKetuaRequest } from "@/api/services/pendaftaran";
-import { useTeamProfile } from "../../dashboard/hooks/useTeamProfile";
+import { useTeamProfile } from "../../hooks/useTeamProfile";
+
+const pageVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut", when: "beforeChildren" },
+  },
+  exit: { opacity: 0, y: -24, transition: { duration: 0.25, ease: "easeIn" } },
+};
 
 const PendaftaranContainer = () => {
   const { data: teamProfile, loading: isProfileLoading } = useTeamProfile();
@@ -20,7 +32,7 @@ const PendaftaranContainer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [selectedCompetition, setSelectedCompetition] = useState<number | null>(
-    null
+    null,
   );
   const [teamName, setTeamName] = useState("");
   const [biodataKetua, setBiodataKetua] = useState<BiodataKetuaRequest>({
@@ -46,52 +58,116 @@ const PendaftaranContainer = () => {
         teamProfile.competition_category &&
         teamProfile.competition_category !== "Not Registered"
       );
-
       if (isFillingForm && currentPage < 6 && !isSubmitting) {
         e.preventDefault();
         e.returnValue =
-          "Apakah Anda yakin ingin pergi? Data yang belum disimpan akan hilang.";
+          "Are you sure you want to leave? Unsaved data will be lost.";
       }
     };
-
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [currentPage, isSubmitting, teamProfile]);
+
   const goToNext = () => {
     if (currentPage < 6) setCurrentPage(currentPage + 1);
   };
 
   const goToPrevious = () => {
-    if (
-      window.confirm(
-        "Apakah Anda yakin ingin kembali? Kemajuan pada halaman ini akan hilang."
-      )
-    ) {
-      if (currentPage > 1) setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const getCompetitionName = () => {
-    switch (selectedCompetition) {
-      case 2:
-        return "UI/UX DESIGN";
-      case 3:
-        return "BUSINESS PLAN";
-      default:
-        return "";
-    }
-  };
+  if (isProfileLoading) {
+    return (
+      <SplitPanelLayout>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-blue mx-auto" />
+            <p className="font-leaguespartan text-light-green">
+              Checking registration status...
+            </p>
+          </div>
+        </div>
+      </SplitPanelLayout>
+    );
+  }
 
+  if (
+    teamProfile &&
+    teamProfile.competition_category &&
+    teamProfile.competition_category !== "Not Registered"
+  ) {
+    return (
+      <SplitPanelLayout>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="flex-1 flex items-center justify-center text-center"
+        >
+          <div className="space-y-6">
+            <h1 className="text-3xl md:text-4xl font-leaguespartan font-bold text-light-green">
+              You are already registered
+            </h1>
+            <p className="font-leaguespartan text-lg text-light-blue">
+              Your team{" "}
+              <span className="font-bold">{teamProfile.team_name}</span> is
+              already registered in{" "}
+              <span className="font-bold">
+                {teamProfile.competition_category}
+              </span>
+              .
+            </p>
+            <p className="font-leaguespartan text-light-green">
+              You cannot access this page anymore.
+            </p>
+          </div>
+        </motion.div>
+      </SplitPanelLayout>
+    );
+  }
+
+  if (isSubmitting) {
+    return (
+      <CenteredFormLayout>
+        <div className="flex items-center justify-center py-12">
+          <div className="text-center space-y-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-blue mx-auto" />
+            <p className="font-leaguespartan text-light-green">
+              Processing registration...
+            </p>
+          </div>
+        </div>
+      </CenteredFormLayout>
+    );
+  }
+
+  // ===== Halaman 1 (SplitPanelLayout) =====
+  if (currentPage === 1) {
+    return (
+      <SplitPanelLayout>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="page-1"
+            variants={pageVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="flex-1 flex flex-col"
+          >
+            <PendaftaranForm
+              selectedCompetition={selectedCompetition}
+              onCompetitionSelect={setSelectedCompetition}
+              onNext={goToNext}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </SplitPanelLayout>
+    );
+  }
+
+  // ===== Halaman 2–6 (CenteredFormLayout) =====
   const renderCurrentPage = () => {
     switch (currentPage) {
-      case 1:
-        return (
-          <PendaftaranForm
-            selectedCompetition={selectedCompetition}
-            onCompetitionSelect={setSelectedCompetition}
-            onNext={goToNext}
-          />
-        );
       case 2:
         return (
           <BiodataKetuaForm
@@ -116,6 +192,7 @@ const PendaftaranContainer = () => {
       case 4:
         return (
           <BiodataAnggota1Form
+            competitionId={selectedCompetition!}
             member1={member1}
             onMember1Change={setMember1}
             onNext={goToNext}
@@ -138,89 +215,27 @@ const PendaftaranContainer = () => {
           />
         );
       case 6:
-        return (
-          <PendaftaranSelesaiForm
-            teamName={teamName}
-            competitionType={getCompetitionName()}
-          />
-        );
+        return <PendaftaranSelesaiForm />;
       default:
-        return (
-          <PendaftaranForm
-            selectedCompetition={selectedCompetition}
-            onCompetitionSelect={setSelectedCompetition}
-            onNext={goToNext}
-          />
-        );
+        return null;
     }
   };
 
-  if (isProfileLoading) {
-    return (
-      <BoardingTemplate>
-        <div className="h-full flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
-            <p className="text-white font-changa">
-              Memeriksa status pendaftaran...
-            </p>
-          </div>
-        </div>
-      </BoardingTemplate>
-    );
-  }
-
-  if (
-    teamProfile &&
-    teamProfile.competition_category &&
-    teamProfile.competition_category !== "Not Registered"
-  ) {
-    {
-      return (
-        <BoardingTemplate>
-          <div className="md:h-full h-screen flex items-center justify-center text-center text-white">
-            <div className="space-y-6">
-              <h1 className="text-4xl font-robotech text-purple-100">
-                Anda Sudah Terdaftar
-              </h1>
-              <p className="font-changa text-xl">
-                Tim Anda{" "}
-                <span className="font-bold text-yellow-300">
-                  {teamProfile.team_name}
-                </span>{" "}
-                sudah terdaftar di kompetisi{" "}
-                <span className="font-bold text-yellow-300">
-                  {teamProfile.competition_category}
-                </span>
-                .
-              </p>
-              <p>Anda tidak dapat mengakses halaman ini lagi.</p>
-            </div>
-          </div>
-        </BoardingTemplate>
-      );
-    }
-  }
-
-  if (isSubmitting) {
-    return (
-      <BoardingTemplate>
-        <div className="h-full flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
-            <p className="text-white font-changa">Memproses pendaftaran...</p>
-          </div>
-        </div>
-      </BoardingTemplate>
-    );
-  }
-
   return (
-    <BoardingTemplate>
-      <div className="md:mx-4 lg:mx-20 md:py-6 lg:py-12 h-full">
-        {renderCurrentPage()}
-      </div>
-    </BoardingTemplate>
+    <CenteredFormLayout>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`page-${currentPage}`}
+          variants={pageVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="flex flex-col gap-5 w-full"
+        >
+          {renderCurrentPage()}
+        </motion.div>
+      </AnimatePresence>
+    </CenteredFormLayout>
   );
 };
 

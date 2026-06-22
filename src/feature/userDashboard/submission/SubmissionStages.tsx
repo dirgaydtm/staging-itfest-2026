@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { StageItem } from "./StageItem";
 import { StageConnector } from "./StageConnector";
-import { IStage, SubmissionsResponse } from "../../types/submission";
+import { IStage, SubmissionsResponse } from "../types/submission";
 
 interface SubmissionStagesProps {
   submissionsData: SubmissionsResponse | undefined;

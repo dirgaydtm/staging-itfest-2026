@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
-import { useAnnouncement } from "../../hooks/useAnnouncement";
+import { useAnnouncement } from "../hooks/useAnnouncement";
+import DashboardCard from "../layout/DashboardCard";
+import { useDashboardTheme } from "../layout/DashboardThemeContext";
 
 const formatDate = (isoDate: string) => {
   const date = new Date(isoDate);
@@ -16,6 +17,7 @@ const formatDate = (isoDate: string) => {
 
 const Announcement = () => {
   const { data, loading, error } = useAnnouncement();
+  const { theme } = useDashboardTheme();
 
   const displayedAnnouncements = data
     .slice()
@@ -27,40 +29,40 @@ const Announcement = () => {
     .slice(0, 5);
 
   return (
-    <section className="p-6 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 h-full">
-      <h2 className="font-changa font-bold text-2xl text-center mb-4">
-        Announcement
-      </h2>
+    <DashboardCard title="Announcement" className="flex flex-col">
+      <div className="flex-1 flex flex-col">
+        {loading ? (
+          <p className="text-center text-sm text-light-blue/60">Loading...</p>
+        ) : error ? null : displayedAnnouncements.length > 0 ? (
+          <ul className="space-y-3">
+            {displayedAnnouncements.map((item) => (
+              <li
+                key={item.id_announcement}
+                className="bg-white/5 rounded-xl p-4 border border-white/10"
+              >
+                <p className="text-sm leading-relaxed whitespace-pre-line">
+                  {item.message_announcement}
+                </p>
+                <p className={`mt-2 text-xs text-right ${theme.accentText}`}>
+                  {formatDate(item.date_announcement)}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-center text-sm text-light-blue/60">
+            No announcements yet...
+          </p>
+        )}
 
-      {loading ? (
-        <p className="text-center">Loading...</p>
-      ) : error ? (
-        <p className="text-center "></p>
-      ) : displayedAnnouncements.length > 0 ? (
-        <ul className="space-y-6 rounded-2xl max-h-84 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-200">
-          {displayedAnnouncements.map((item) => (
-            <li
-              key={item.id_announcement}
-              className="bg-white/10 rounded-xl p-4"
-            >
-              <p className="text-sm whitespace-pre-line leading-relaxed">
-                {item.message_announcement}
-              </p>
-              <p className="mt-2 text-xs text-purple-200 text-right">
-                {formatDate(item.date_announcement)}
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-center">No announcements yet...</p>
-      )}
-
-      <p className="mt-6 text-sm text-center flex flex-col">
-        Stay tuned at our social media
-        <span className="font-semibold text-purple-100">@itfest.filkom</span>
-      </p>
-    </section>
+        <p className="mt-6 text-xs sm:text-sm text-center">
+          <span className="text-light-blue/60">Stay tuned at our social media </span>
+          <span className={`font-semibold ${theme.accentText}`}>
+            @itfest_filkom
+          </span>
+        </p>
+      </div>
+    </DashboardCard>
   );
 };
 

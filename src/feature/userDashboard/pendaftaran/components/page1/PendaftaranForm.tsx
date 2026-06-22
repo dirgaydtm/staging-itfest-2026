@@ -1,8 +1,8 @@
-// src/feature/_user/pendaftaran/components/page1/PendaftaranForm.tsx
+"use client";
+
 import React from "react";
-import PageIndex from "../PageIndex";
-import { Button } from "@/shared/components/ui/Button";
 import ChooseLomba from "./ChooseLomba";
+import FormChipHeader from "../shared/FormChipHeader";
 
 interface PendaftaranFormProps {
   selectedCompetition: number | null;
@@ -16,28 +16,36 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
   onNext,
 }) => {
   const handleNext = () => {
-    if (selectedCompetition) {
-      onNext();
-    }
+    if (selectedCompetition) onNext();
   };
 
+  const baseBtn =
+    "w-full max-w-xs md:max-w-sm py-2.5 rounded-xl border font-leaguespartan font-semibold text-sm tracking-wide transition-all duration-300 backdrop-blur-md";
+
   return (
-    <section className="flex flex-col items-center justify-center gap-10 md:gap-0 md:justify-between  h-screen md:h-full">
-      <PageIndex index={1} title="Pilih Lomba" />
+    <div className="flex-1 flex flex-col gap-8">
+      <FormChipHeader title="SELECT COMPETITION" />
+
       <ChooseLomba
         selectedCompetition={selectedCompetition}
         onCompetitionSelect={onCompetitionSelect}
       />
-      <Button
-        type="button"
-        size={"normal"}
-        className="w-full text-base h-12 sm:text-base disabled:opacity-50"
-        disabled={!selectedCompetition}
-        onClick={handleNext}
-      >
-        Lanjut
-      </Button>
-    </section>
+
+      <div className="mt-auto pt-4 flex justify-center">
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={!selectedCompetition}
+          className={`${baseBtn} ${
+            selectedCompetition
+              ? "bg-white/15 border-white/30 hover:bg-white/25 text-white active:scale-[0.98] shadow-[0_4px_12px_rgba(0,0,0,0.1)] cursor-pointer"
+              : "bg-white/5 border-white/5 text-white/30 cursor-not-allowed"
+          }`}
+        >
+          Next
+        </button>
+      </div>
+    </div>
   );
 };
 
