@@ -29,7 +29,7 @@ const FormInput: React.FC<FormInputProps> = ({
     <div className="flex flex-col w-full">
       <label
         htmlFor={name}
-        className="font-leaguespartan font-bold text-sm md:text-base text-light-blue mb-1.5"
+        className="font-leaguespartan font-semibold text-sm text-slate-200 mb-1.5 tracking-wide"
       >
         {label}
       </label>
@@ -43,7 +43,7 @@ const FormInput: React.FC<FormInputProps> = ({
         required={required}
         maxLength={maxLength}
         inputMode={inputMode}
-        className="w-full h-11 px-4 rounded-[12px] bg-[#F0F5F8] text-darker-blue placeholder:text-darker-blue/50 font-leaguespartan text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-light-blue/50"
+        className="w-full h-11 px-4 rounded-xl bg-slate-950/30 border border-white/10 text-white placeholder:text-slate-400 font-leaguespartan text-sm md:text-base backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
       />
     </div>
   );

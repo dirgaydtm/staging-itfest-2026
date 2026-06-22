@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { competitionData } from "../data/competitionData";
+import { competitionData } from "../../../shared/data/competitionData";
 import { useDashboardTheme } from "../layout/DashboardThemeContext";
 
 type CompetitionCategory = "BP" | "UI/UX" | "DML" | "Not Registered";
@@ -11,16 +11,19 @@ type Props = {
   isDeadlinePassed?: boolean;
 };
 
-const Guidebook = ({ competitionCategory, isDeadlinePassed = false }: Props) => {
+const Guidebook = ({
+  competitionCategory,
+  isDeadlinePassed = false,
+}: Props) => {
   const { theme } = useDashboardTheme();
   const isNotRegistered = competitionCategory === "Not Registered";
   const content =
     competitionData[competitionCategory as keyof typeof competitionData];
 
   const btnBase =
-    "inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 rounded-2xl font-bold text-sm sm:text-base transition";
+    "inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 rounded-2xl font-bold text-sm sm:text-base transition-all duration-300";
   const btnDisabled = "bg-[#7c7c7c] text-light-blue/60 cursor-not-allowed";
-  const btnActive = `${theme.buttonActive} text-light-blue`;
+  const btnActive = `${theme.buttonActive} text-light-blue hover:scale-[1.03] hover:shadow-[0_0_28px_rgba(255,255,255,0.35)] active:scale-95`;
 
   const renderAction = () => {
     if (isNotRegistered) {

@@ -36,7 +36,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
 
       const maxSize = 1 * 1024 * 1024;
       if (file.size > maxSize) {
-        setError("Ukuran file maksimal 1MB");
+        setError("Maximum file size is 1MB");
         onKtmFileChange(null);
         return;
       }
@@ -100,10 +100,10 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
           {ktmFile && (
             <div className="rounded-lg border border-light-active-green/40 bg-light-active-green/10 p-2 mt-1">
               <p className="font-leaguespartan text-sm text-light-green">
-                ✓ File terpilih: {ktmFile.name}
+                ✓ File selected: {ktmFile.name}
               </p>
               <p className="font-leaguespartan text-xs text-light-green/80">
-                Ukuran: {(ktmFile.size / 1024 / 1024).toFixed(2)} MB
+                Size: {(ktmFile.size / 1024 / 1024).toFixed(2)} MB
               </p>
             </div>
           )}

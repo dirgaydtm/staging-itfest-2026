@@ -5,8 +5,10 @@ import FormChipHeader from "../shared/FormChipHeader";
 import FormInput from "../shared/FormInput";
 import FormNavButtons from "../shared/FormNavButtons";
 import { TeamMember } from "@/api/services/pendaftaran";
+import { COMPETITION_IDS } from "../../constants";
 
 interface BiodataAnggota1FormProps {
+  competitionId: number;
   member1: TeamMember;
   onMember1Change: (member: TeamMember) => void;
   onNext: () => void;
@@ -14,6 +16,7 @@ interface BiodataAnggota1FormProps {
 }
 
 const BiodataAnggota1Form: React.FC<BiodataAnggota1FormProps> = ({
+  competitionId,
   member1,
   onMember1Change,
   onNext,
@@ -43,9 +46,12 @@ const BiodataAnggota1Form: React.FC<BiodataAnggota1FormProps> = ({
     <>
       <FormChipHeader title="Member Biodata 1" />
 
-      <p className="text-center font-leaguespartan text-xs md:text-sm text-light-blue">
-        If you don&apos;t have Member 1, fill all fields with &quot;-&quot; and click Next.
-      </p>
+      {competitionId === COMPETITION_IDS.UIUX && (
+        <p className="text-center font-leaguespartan text-xs md:text-sm text-light-blue">
+          If you don&apos;t have Member 1, fill all fields with &quot;-&quot;
+          and click Next.
+        </p>
+      )}
 
       <div className="flex flex-col gap-4 w-full">
         <FormInput

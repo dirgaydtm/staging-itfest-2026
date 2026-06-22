@@ -192,6 +192,7 @@ const PendaftaranContainer = () => {
       case 4:
         return (
           <BiodataAnggota1Form
+            competitionId={selectedCompetition!}
             member1={member1}
             onMember1Change={setMember1}
             onNext={goToNext}

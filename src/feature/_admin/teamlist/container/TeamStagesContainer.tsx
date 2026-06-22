@@ -12,7 +12,6 @@ import Modal from "@/shared/components/ui/Modal";
 import { Button } from "@/shared/components/ui/Button";
 import { useTeamStagesStatus } from "../hooks/useTeamStagesStatus";
 import { AlertCircle, Loader2 } from "lucide-react";
-// import { useSubmissions, useSubmissionStage } from "@/feature/_user/dashboard/hooks/useSubmission";
 
 interface ModalState {
     isOpen: boolean;
@@ -78,7 +77,6 @@ const TeamListContainer = () => {
                 await updateStatus(currentStageId, 'lolos');
             }
 
-            // Refresh the data
             await Promise.all([
                 refetch(),
                 stagesRefetch()
@@ -95,16 +93,31 @@ const TeamListContainer = () => {
         }
     };
 
+    // State Loading yang disinkronkan dengan desain transparan dashboard
     if (loading || stagesLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="h-full w-full flex items-center justify-center py-24">
+                <div className="text-center space-y-4">
+                    <Loader2 className="w-12 h-12 text-white/40 animate-spin mx-auto" />
+                    <p className="text-white/60 font-leaguespartan text-sm tracking-wide">
+                        Loading stages details...
+                    </p>
+                </div>
+            </div>
+        );
     }
 
+    // State Error dengan wrapper alert box transparan kemerahan
     if (error || stagesError) {
-        return <div>Error: {error || stagesError}</div>;
+        return (
+            <div className="w-full max-w-xl mx-auto p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-center text-red-400 font-medium text-sm mt-10">
+                Error: {error || stagesError}
+            </div>
+        );
     }
 
     if (!teamInformationData || !stagesData) {
-        return <div>No team information or stages data found.</div>;
+        return <div className="text-center text-white/60 p-8">No team information or stages data found.</div>;
     }
 
     const handleCheckStageDetails = (stageIndex: number) => {
@@ -118,101 +131,116 @@ const TeamListContainer = () => {
     };
 
     return (
-        <section className="px-4 sm:px-8 mycontainer md:px-12 lg:px-20 py-24 md:py-12 lg:py-20 h-full font-changa">
+        <section className="px-4 sm:px-8 mycontainer md:px-12 lg:px-20 py-24 md:py-12 lg:py-20 h-full w-full font-leaguespartan  text-white">
             <div className="">
                 <Link
                     href={`/mangujo/admin/team-list/${team_id}`}
-                    className="inline-block mb-4 text-white font-bold hover:text-slate-400 transition-colors transition-100"
+                    className="inline-block mb-6 text-white/80 font-bold hover:text-white transition-colors"
                 >
                     ← Back to Team Information
                 </Link>
             </div>
-            <div className=" text-white">
-                <h1 className="text-3xl font-bold mb-6">Team Stages</h1>
+            
+            <div className="w-full">
+                <h1 className="text-2xl font-bold mb-8 tracking-wide">Team Stages</h1>
 
-                <div className="flex flex-col lg:flex-row gap-6 w-full mb-8">
-                    <div className="w-full lg:w-1/2">
+                {/* Main Content Row: Pembagian simetris kiri-kanan */}
+                <div className="flex flex-col lg:flex-row gap-8 w-full mb-10">
+                    <div className="w-full lg:w-1/2 flex flex-col">
                         <StagesCard teamInfo={teamInformationData} stageData={stagesData} />
                     </div>
 
-                    <div className="w-full lg:w-1/2">
+                    <div className="w-full lg:w-1/2 flex flex-col">
                         {stagesData && <JudgingCard stageData={stagesData} onPass={handlePass} onReject={handleReject} />}
                     </div>
                 </div>
 
-                <SubmissionStages stagesData={stagesData} onCheckStageDetails={handleCheckStageDetails} />
+                {/* Kelompok List Submission di Bagian Bawah */}
+                <div className="w-full transition-all duration-300">
+                    <SubmissionStages stagesData={stagesData} onCheckStageDetails={handleCheckStageDetails} />
+                </div>
             </div>
 
+            {/* Modal Manajemen Tahapan Kelolosan (Sesuai pakem modal kustom sebelumnya) */}
             <Modal isOpen={modalState.isOpen} onClose={handleCloseModal}>
-                <div className="text-center text-white p-4">
+                <div className="w-full max-w-[420px] bg-[#1A2831] border border-white/10 rounded-2xl p-6 flex flex-col gap-6 shadow-2xl">
+                    
+                    {/* Bagian Kepala Modal (Header Badge) */}
+                    <div className={`w-full py-2 rounded-xl text-center text-white font-bold text-sm tracking-wide border ${
+                        modalState.type === 'error'
+                            ? "bg-red-500/10 border-red-500/20"
+                            : modalState.type === 'pass'
+                            ? "bg-green-500/20 border-green-500/30"
+                            : "bg-red-500/20 border-red-500/30"
+                    }`}>
+                        {modalState.type === 'error' ? 'System Alert' : modalState.type === 'pass' ? 'Stage Promotion' : 'Stage Drop'}
+                    </div>
+
+                    {/* Konten Utama Dialog Modal */}
                     {modalState.type === 'error' ? (
                         <>
-                            <div className="flex justify-center mb-4">
-                                <AlertCircle className="w-12 h-12 text-red-500" />
+                            <div className="text-center flex flex-col items-center gap-3">
+                                <AlertCircle className="w-10 h-10 text-red-500/80 animate-pulse" />
+                                <h4 className="font-bold text-base text-white">Action Prohibited</h4>
+                                <p className="text-xs text-white/60 leading-relaxed px-2">
+                                    {modalState.errorMessage || 'An unexpected error occurred'}
+                                </p>
                             </div>
-                            <h2 className="text-2xl font-bold mb-4">Error Occurred</h2>
-                            <p className="text-gray-300 mb-8">
-                                {modalState.errorMessage || 'An unexpected error occurred'}
-                            </p>
-                            <div className="flex justify-center gap-4 ">
-                                <Button
+                            
+                            <div className="w-full pt-2">
+                                <button
                                     type="button"
-                                    size="small"
-                                    variant="secondary"
+                                    className="w-full h-10 border border-white/20 bg-white/5 hover:bg-white/10 text-white text-xs font-bold rounded-xl transition-all cursor-pointer"
                                     onClick={handleCloseModal}
                                 >
-                                    Close
-                                </Button>
+                                    Close Dialog
+                                </button>
                             </div>
-
                         </>
                     ) : (
                         <>
-                            <h2 className="text-2xl font-bold mb-4">
-                                {modalState.type === 'pass' ? (
-                                    'Confirm Stage Progression'
-                                ) : (
-                                    'Confirm Stage Rejection'
-                                )}
-                            </h2>
-                            <p className="text-gray-300 mb-8">
-                                Are you sure you want to
-                                <span className="font-bold mx-1">
-                                    {modalState.type === 'pass' ? 'PASS' : 'REJECT'}
-                                </span>
-                                this team{modalState.type === 'pass' ? ' to the next stage' : ''}?
-                                This action cannot be undone.
-                            </p>
-                            <div className="flex justify-center gap-4">
-                                <Button
+                            <div className="text-center flex flex-col gap-2">
+                                <h4 className="font-bold text-lg text-white">
+                                    {modalState.type === 'pass' ? 'Advance Team Status?' : 'Drop Team Status?'}
+                                </h4>
+                                <p className="text-xs text-white/60 leading-relaxed px-1">
+                                    Are you sure you want to
+                                    <span className={`font-bold mx-1 ${modalState.type === 'pass' ? 'text-green-400' : 'text-red-400'}`}>
+                                        {modalState.type === 'pass' ? 'PASS' : 'REJECT'}
+                                    </span>
+                                    this team{modalState.type === 'pass' ? ' to the next competition stage' : ' from this phase'}? This action cannot be undone.
+                                </p>
+                            </div>
+
+                            <div className="flex justify-between gap-4 pt-1">
+                                <button
                                     type="button"
-                                    size="small"
-                                    variant="secondary"
+                                    className="w-1/2 h-10 border border-white/40 bg-transparent text-white text-xs font-bold rounded-xl transition-all hover:bg-white/10 cursor-pointer disabled:opacity-40"
                                     onClick={handleCloseModal}
                                     disabled={updateLoading}
                                 >
                                     Cancel
-                                </Button>
-                                <Button
+                                </button>
+                                
+                                <button
                                     type="button"
-                                    size="small"
                                     onClick={handleConfirmAction}
                                     disabled={updateLoading}
-                                    className={
+                                    className={`w-1/2 h-10 text-white text-xs font-bold rounded-xl border transition-all cursor-pointer flex items-center justify-center gap-2 ${
                                         modalState.type === 'pass'
-                                            ? 'bg-green-600 hover:bg-green-500 disabled:bg-green-800'
-                                            : 'bg-red-600 hover:bg-red-500 disabled:bg-red-800'
-                                    }
+                                            ? 'bg-green-600/30 border-green-500/40 hover:bg-green-600/50 disabled:bg-green-800/30'
+                                            : 'bg-red-600/30 border-red-500/40 hover:bg-red-600/50 disabled:bg-red-800/30'
+                                    }`}
                                 >
                                     {updateLoading ? (
-                                        <span className="flex items-center gap-2">
-                                            <Loader2 className="w-4 h-4 animate-spin" />
-                                            Processing...
-                                        </span>
+                                        <>
+                                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                            <span>Processing...</span>
+                                        </>
                                     ) : (
                                         <>Yes, {modalState.type === 'pass' ? 'Pass' : 'Reject'}</>
                                     )}
-                                </Button>
+                                </button>
                             </div>
                         </>
                     )}

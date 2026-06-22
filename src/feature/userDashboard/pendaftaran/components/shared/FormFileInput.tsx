@@ -31,19 +31,19 @@ const FormFileInput: React.FC<FormFileInputProps> = ({
 
   return (
     <div className="flex flex-col w-full">
-      <label className="font-leaguespartan font-bold text-sm md:text-base text-light-blue mb-1.5">
+      <label className="font-leaguespartan font-semibold text-sm text-slate-200 mb-1.5 tracking-wide">
         {label}
       </label>
 
       <button
         type="button"
         onClick={handleClick}
-        className="w-full h-11 px-4 rounded-[12px] bg-[#F0F5F8] flex items-center justify-between font-leaguespartan text-sm md:text-base text-darker-blue focus:outline-none focus:ring-2 focus:ring-light-blue/50"
+        className="w-full h-11 px-4 rounded-xl bg-slate-950/30 border border-white/10 backdrop-blur-md flex items-center justify-between font-leaguespartan text-sm md:text-base text-white transition-all duration-300 hover:bg-slate-950/40 hover:border-white/20 focus:outline-none focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
       >
-        <span className={file ? "truncate" : "text-darker-blue/50"}>
+        <span className={file ? "truncate" : "text-slate-400"}>
           {file ? file.name : placeholder}
         </span>
-        <Folder className="w-5 h-5 text-darker-blue shrink-0" />
+        <Folder className="w-5 h-5 text-slate-300 shrink-0" />
       </button>
 
       <input

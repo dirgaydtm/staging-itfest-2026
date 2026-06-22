@@ -2,7 +2,7 @@
 
 import React from "react";
 import ChooseLomba from "./ChooseLomba";
-import { buttonDisabledClass } from "@/feature/userDashboard/layout/themes";
+import FormChipHeader from "../shared/FormChipHeader";
 
 interface PendaftaranFormProps {
   selectedCompetition: number | null;
@@ -19,13 +19,12 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
     if (selectedCompetition) onNext();
   };
 
+  const baseBtn =
+    "w-full max-w-xs md:max-w-sm py-2.5 rounded-xl border font-leaguespartan font-semibold text-sm tracking-wide transition-all duration-300 backdrop-blur-md";
+
   return (
     <div className="flex-1 flex flex-col gap-8">
-      <div className="w-full text-center py-3 px-4 rounded-xl border-[0.5px] border-light-blue bg-light-active-green/50">
-        <span className="font-leaguespartan font-bold text-base md:text-lg text-light-green">
-          Select Competition
-        </span>
-      </div>
+      <FormChipHeader title="SELECT COMPETITION" />
 
       <ChooseLomba
         selectedCompetition={selectedCompetition}
@@ -37,15 +36,13 @@ const PendaftaranForm: React.FC<PendaftaranFormProps> = ({
           type="button"
           onClick={handleNext}
           disabled={!selectedCompetition}
-          className={`w-full max-w-xs md:max-w-sm py-3 rounded-2xl border-[0.5px] border-light-blue transition-all duration-300 ${
+          className={`${baseBtn} ${
             selectedCompetition
-              ? "bg-light-active-green/20 hover:scale-[1.02] active:scale-95"
-              : `${buttonDisabledClass}`
+              ? "bg-white/15 border-white/30 hover:bg-white/25 text-white active:scale-[0.98] shadow-[0_4px_12px_rgba(0,0,0,0.1)] cursor-pointer"
+              : "bg-white/5 border-white/5 text-white/30 cursor-not-allowed"
           }`}
         >
-          <span className="font-leaguespartan font-bold text-base md:text-lg text-light-green">
-            Next
-          </span>
+          Next
         </button>
       </div>
     </div>

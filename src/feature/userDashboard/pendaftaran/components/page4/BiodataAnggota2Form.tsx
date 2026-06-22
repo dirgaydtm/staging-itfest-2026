@@ -9,6 +9,7 @@ import {
   BiodataKetuaRequest,
   pendaftaranService,
 } from "@/api/services/pendaftaran";
+import { COMPETITION_IDS } from "../../constants";
 
 interface BiodataAnggota2FormProps {
   teamName: string;
@@ -109,10 +110,12 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
     <>
       <FormChipHeader title="Member Biodata 2" />
 
-      <p className="text-center font-leaguespartan text-xs md:text-sm text-light-blue">
-        If you don&apos;t have Member 2, fill all fields with &quot;-&quot; and
-        click Next.
-      </p>
+      {competitionId === COMPETITION_IDS.UIUX && (
+        <p className="text-center font-leaguespartan text-xs md:text-sm text-light-blue">
+          If you don&apos;t have Member 2, fill all fields with &quot;-&quot;
+          and click Submit.
+        </p>
+      )}
 
       {submitError && (
         <div
@@ -164,6 +167,7 @@ const BiodataAnggota2Form: React.FC<BiodataAnggota2FormProps> = ({
         onBack={onBack}
         onNext={handleSubmit}
         nextDisabled={!isFormValid}
+        nextLabel="Submit"
       />
     </>
   );
