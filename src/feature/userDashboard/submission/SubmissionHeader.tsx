@@ -85,10 +85,10 @@ const SubmissionHeader = ({
 
               // Processing status
               isProcessing &&
-                "text-white glow-whites animate-pulse font-semibold",
+                "text-white animate-pulse font-semibold",
 
               // Success statuses
-              isPassed && "text-white glow-whites font-semibold",
+              isPassed && "text-white font-semibold",
 
               // Finalist special styling
               isFinalist && "font-semibold text-glow-yellow",
