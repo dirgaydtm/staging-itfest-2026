@@ -47,7 +47,7 @@ const StatusModal = ({
             : "Pengisian link gagal. Silakan periksa koneksi atau ulangi lagi nanti."}
         </p>
 
-        <Button variant="primary" className="w-full" onClick={handleClose}>
+        <Button variant="tertiary" className="w-full" onClick={handleClose}>
           Kembali
         </Button>
       </div>

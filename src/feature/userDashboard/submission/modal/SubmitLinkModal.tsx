@@ -22,7 +22,7 @@ const SubmitLinkModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="font-changa">
+      <div className="font-leaguespartan">
         <h2 className="text-white text-xl font-semibold text-center mb-4">
           Kirim Link Submission
         </h2>
@@ -63,7 +63,7 @@ const SubmitLinkModal = ({
           Reminder: Link tidak boleh mengandung spasi
         </p>
         <Button
-          variant="primary"
+          variant="tertiary"
           size="small"
           className="w-full h-12 mt-4"
           onClick={handleSubmit}

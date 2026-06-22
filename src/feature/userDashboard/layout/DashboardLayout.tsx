@@ -9,8 +9,6 @@ import { dashboardBackground } from "./themes";
 import Image from "next/image";
 import BintangLeft from "@/assets/img/auth/bintangLeft.png";
 import BintangRight from "@/assets/img/auth/bintangRight.png";
-import UnionRight from "@/assets/img/userDashboard/information/UnionRight.png";
-import UnionLeft from "@/assets/img/userDashboard/information/UnionLeft.png";
 import BackgroundSparkles from "@/shared/components/layout/BackgroundSparkles";
 
 type Props = {
@@ -60,12 +58,12 @@ const DashboardLayout = ({
         className="absolute right-0"
       />
       <Image
-        src={UnionLeft}
+        src={theme.unionLeft}
         alt="Union Kiri"
         className="absolute left-0 top-24"
       />
       <Image
-        src={UnionRight}
+        src={theme.unionRight}
         alt="Union Kanan"
         className="absolute right-0 bottom-20"
       />
