@@ -6,6 +6,7 @@ import { useUploadPayment } from "../../hooks/useUploadPayment";
 import Image from "next/image";
 import { useState } from "react";
 import { useDashboardTheme } from "../../layout/DashboardThemeContext";
+import QrisImage from "@/assets/img/userDashboard/submit/qrisitfest.jpeg"; 
 
 interface UploadPaymentModalProps {
   isOpen: boolean;
@@ -15,59 +16,27 @@ interface UploadPaymentModalProps {
 }
 
 const PaymentInfoSection = () => {
-  const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
+  const { theme } = useDashboardTheme();
 
-  const paymentData = {
-    amount: "Rp60.000,00",
-    website: "itfest-filkom.com",
-    accounts: [
-      {
-        bank: "BNI",
-        number: "1923919257",
-        name: "MUTHIA KHALISHA",
-      },
-      {
-        bank: "MANDIRI",
-        number: "1560024894356",
-        name: "ALYA HAMIDAH",
-      },
-    ],
-  };
-
-  const copyToClipboard = async (text: string, accountType: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopiedAccount(accountType);
-      setTimeout(() => setCopiedAccount(null), 2000);
-    } catch (err) {
-      console.warn("Clipboard API gagal, menggunakan fallback:", err);
-      const textArea = document.createElement("textarea");
-      textArea.value = text;
-      textArea.style.position = "fixed";
-      textArea.style.top = "-9999px";
-      textArea.style.left = "-9999px";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      try {
-        document.execCommand("copy");
-        setCopiedAccount(accountType);
-        setTimeout(() => setCopiedAccount(null), 2000);
-      } catch (copyErr) {
-        console.error("Fallback: Gagal menyalin teks", copyErr);
-      }
-      document.body.removeChild(textArea);
+  // Logika dinamis untuk harga berdasarkan tema/kategori lomba
+  const getPaymentAmount = () => {
+    switch (theme.key) {
+      case "dml":
+        return "Rp50.000,00";
+      case "bp":
+        return "Rp70.000,00";
+      case "uiux":
+      default:
+        return "Rp60.000,00";
     }
   };
 
-const { theme } = useDashboardTheme();
-
-  // 3. Mapping warna background dan border yang sesuai dengan tema lomba
-const modalThemeClass = {
-  uiux: "bg-gradient-to-r from-darker-blue to-dark-hover-blue shadow-[0_0_18px_rgba(102,155,188,0.35)]",
-  bp: "bg-gradient-to-r from-darker-red2 to-dark-hover-red2 shadow-[0_0_18px_rgba(193,18,31,0.35)]",
-  dml: "bg-gradient-to-r from-darker-yellow to-dark-hover-yellow shadow-[0_0_18px_rgba(190,180,160,0.35)]",
-}[theme.key];
+  // Mapping warna background dan border yang sesuai dengan tema lomba
+  const modalThemeClass = {
+    uiux: "bg-gradient-to-r from-darker-blue to-dark-hover-blue shadow-[0_0_18px_rgba(102,155,188,0.35)]",
+    bp: "bg-gradient-to-r from-darker-red2 to-dark-hover-red2 shadow-[0_0_18px_rgba(193,18,31,0.35)]",
+    dml: "bg-gradient-to-r from-darker-yellow to-dark-hover-yellow shadow-[0_0_18px_rgba(190,180,160,0.35)]",
+  }[theme.key];
 
   return (
     <div className={` ${modalThemeClass} rounded-lg p-3 sm:p-4 mb-4 sm:mb-6`}>
@@ -77,96 +46,37 @@ const modalThemeClass = {
         </h3>
         <div className="text-yellow-200 text-xs sm:text-sm">
           Biaya Pendaftaran:{" "}
-          <span className="font-bold text-white">{paymentData.amount}</span>
+          <span className="font-bold text-white text-base">{getPaymentAmount()}</span>
         </div>
       </div>
 
-      <div className="space-y-2 sm:space-y-3">
-        <div className="text-white text-xs sm:text-sm font-medium text-center mb-2 sm:mb-3">
-          Transfer ke salah satu rekening:
+      <div className="space-y-2 sm:space-y-3 flex flex-col items-center">
+        <div className="text-white text-xs sm:text-sm font-medium text-center mb-2">
+          Scan QRIS berikut untuk melakukan pembayaran:
         </div>
 
-        {paymentData.accounts.map((account, index) => (
-          <div
-            key={index}
-            className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-2 sm:p-3"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-              <div className="flex-1">
-                <div className="flex items-center space-x-2 mb-1">
-                  <span className="flex-shrink-0 bg-blue-600 text-white text-xs px-2 py-1 min-w-[60px] text-center rounded font-bold">
-                    {account.bank}
-                  </span>
-                  <span className="text-white font-mono text-xs sm:text-sm break-all">
-                    {account.number}
-                  </span>
-                </div>
-                <div className="text-gray-300 text-left text-xs">
-                  a.n. {account.name}
-                </div>
-              </div>
-
-              <button
-                className={`
-                  w-full sm:w-auto sm:ml-2 h-8 px-3 text-xs rounded transition-all flex-shrink-0
-                  ${
-                    copiedAccount === account.bank
-                      ? "bg-green-600 text-white"
-                      : "bg-gray-700 hover:bg-gray-600 text-gray-300"
-                  }
-                `}
-                onClick={() => copyToClipboard(account.number, account.bank)}
-                disabled={copiedAccount === account.bank}
-              >
-                {copiedAccount === account.bank ? (
-                  <span className="flex items-center">
-                    <svg
-                      className="w-3 h-3 mr-1.5 inline"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    Tersalin!
-                  </span>
-                ) : (
-                  <span className="flex items-center">
-                    <svg
-                      className="w-3 h-3 mr-1.5 inline"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                      />
-                    </svg>
-                    Salin
-                  </span>
-                )}
-              </button>
-            </div>
-          </div>
-        ))}
+        <div className="bg-white p-2 rounded-xl w-48 sm:w-56 shadow-lg">
+          <Image
+            src={QrisImage}
+            alt="QRIS IT Fest"
+            className="w-full h-auto rounded-lg"
+          />
+        </div>
+        <div className="text-gray-200 text-xs text-center mt-2 font-medium">
+          a.n. NICHOLAS RAVAEL ONDIHON GULTOM, IT FEST
+        </div>
       </div>
 
-      <div className="mt-3 sm:mt-4 p-2 sm:p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
+      <div className="mt-4 sm:mt-5 p-2 sm:p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
         <div className="flex items-start justify-center space-x-2">
           <div className="text-yellow-200 text-xs">
             <div className="font-medium mb-1">Langkah pembayaran:</div>
             <div className="space-y-1">
-              <div>1. Transfer ke salah satu rekening di atas</div>
-              <div>2. Screenshot bukti transfer yang jelas</div>
-              <div>3. Upload di form di bawah ini</div>
+              <div>1. Buka aplikasi m-banking atau e-wallet Anda</div>
+              <div>2. Scan QRIS di atas dan pastikan nama penerima sesuai</div>
+              <div>3. Masukkan nominal <span className="font-bold">{getPaymentAmount()}</span></div>
+              <div>4. Screenshot bukti transfer yang berhasil</div>
+              <div>5. Upload gambar pada form di bawah ini</div>
             </div>
           </div>
         </div>
@@ -226,7 +136,7 @@ const UploadPaymentModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="font-leaguespartan w-full max-w-md mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
+      <div className="font-leaguespartan w-full max-w-md mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto hidden-scrollbar">
         <h2 className="text-white text-lg sm:text-xl font-semibold text-center mb-3 sm:mb-4">
           Upload Bukti Pembayaran
         </h2>
@@ -317,7 +227,7 @@ const UploadPaymentModal = ({
 
         {error && (
           <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-2 sm:p-3 mb-3 sm:mb-4">
-            <p className="text-red-400 text-xs">⚠️ {error}</p>
+            <p className="text-red-400 text-xs"> {error}</p>
           </div>
         )}
 
