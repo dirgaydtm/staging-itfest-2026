@@ -29,6 +29,7 @@ const Announcement = () => {
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
+      e.stopPropagation();
       el.scrollTop += e.deltaY;
     };
 
@@ -41,6 +42,7 @@ const Announcement = () => {
       const delta = lastTouchY - y;
       lastTouchY = y;
       e.preventDefault();
+      e.stopPropagation();
       el.scrollTop += delta;
     };
 
@@ -68,7 +70,8 @@ const Announcement = () => {
       <div className="h-full flex flex-col min-h-0">
         <div
           ref={scrollRef}
-          className="flex-1 min-h-0 overflow-y-auto overscroll-none touch-pan-y pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30"
+          style={{ touchAction: "none", overscrollBehavior: "none" }}
+          className="flex-1 min-h-0 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30"
         >
           {loading ? (
             <p className="text-center text-sm text-light-blue/60">Loading...</p>
@@ -100,7 +103,7 @@ const Announcement = () => {
             Stay tuned at our social media{" "}
           </span>
           <span className={`font-semibold ${theme.accentText}`}>
-            @itfest_filkom
+            @itfest.filkom
           </span>
         </p>
       </div>
