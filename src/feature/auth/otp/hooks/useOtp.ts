@@ -72,9 +72,15 @@ export function useOtp() {
       if (res.status.isSuccess) {
         setVerificationSuccess(true);
         registerService.clearTempRegisterData();
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 2000);
+        registerService.clearTempLoginData();
+        
+        // Small delay to ensure token is saved in cookies
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Redirect to dashboard with full page reload to ensure auth state is fresh
+        if (typeof window !== "undefined") {
+          window.location.replace("/dashboard");
+        }
       } else {
         setErrorMessage(res.message || "Verifikasi OTP gagal");
       }
@@ -113,6 +119,7 @@ export function useOtp() {
       const msg =
         err instanceof Error ? err.message : "Gagal mengirim ulang OTP";
       setErrorMessage(msg);
+      toast.error(msg);
     } finally {
       setResendLoading(false);
     }

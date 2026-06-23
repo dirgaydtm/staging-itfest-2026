@@ -21,6 +21,8 @@ export class AuthService {
     try {
       const response = await apiClient.post<{
         token: string;
+        email_verified: boolean;
+        user_id?: string;
       }>("/auth/login", credentials);
 
       if (response.status.isSuccess && response.data) {
@@ -29,9 +31,17 @@ export class AuthService {
         const authData = {
           token: response.data.token,
           user: userInfo,
+          email_verified: response.data.email_verified,
+          user_id: response.data.user_id,
         };
 
-        this.setAuthData(authData);
+        // Only save token to storage if email is verified
+        if (response.data.email_verified) {
+          this.setAuthData({
+            token: authData.token,
+            user: authData.user,
+          });
+        }
 
         return {
           status: response.status,
@@ -42,7 +52,7 @@ export class AuthService {
 
       return response as AuthResponse;
     } catch (err) {
-      let errorMessage = "Terjadi kesalahan saat registrasi";
+      let errorMessage = "Terjadi kesalahan saat login";
 
       if (err instanceof AxiosError) {
         const apiMessage = err.response?.data?.data;
