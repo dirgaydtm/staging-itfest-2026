@@ -1,74 +1,61 @@
 const starGlyphs = ["✦", "✧", "✶", "✦", "✧"];
 
-function createSideStars(side: "left" | "right") {
-    return Array.from({ length: 70 }, (_, index) => {
-        const isLeft = side === "left";
-        const top = Math.floor(Math.random() * 800);
-        const animationDelay = `${(index % 5) * 0.35 + Math.random() * 0.2}s`;
-        const animationDuration = `${2.2 + (index % 4) * 0.25 + Math.random() * 0.15}s`;
-
-        return {
-            id: `${side}-${index}`,
-            top: `${top}vh`,
-            offset: `${Math.floor(Math.random() * 20)}%`,
-            size: 14 + Math.floor(Math.random() * 18),
-            rotate: -24 + Math.floor(Math.random() * 48),
-            opacity: 0.55 + Math.random() * 0.35,
-            glyph: starGlyphs[(index + (isLeft ? 1 : 2)) % starGlyphs.length],
-            animationDelay,
-            animationDuration,
-        };
-    });
+function seededRand(seed: number) {
+  const x = Math.sin(seed + 1) * 10000;
+  return x - Math.floor(x);
 }
 
+function createSideStars(side: "left" | "right") {
+  return Array.from({ length: 80 }, (_, i) => {
+    const seed = side === "left" ? i : i + 100;
+    const r = (offset: number) => seededRand(seed + offset);
+    return {
+      id: `${side}-${i}`,
+      top: `${Math.floor(r(0) * 800)}vh`,
+      offset: `${Math.floor(r(1) * 18)}%`,
+      size: 13 + Math.floor(r(2) * 16),
+      rotate: -24 + Math.floor(r(3) * 48),
+      opacity: 0.5 + r(4) * 0.4,
+      glyph: starGlyphs[(i + (side === "left" ? 1 : 2)) % starGlyphs.length],
+      animationDuration: `${2.2 + (i % 4) * 0.35}s`,
+      animationDelay: `${(i % 5) * 0.4}s`,
+    };
+  });
+}
+
+const LEFT_STARS = createSideStars("left");
+const RIGHT_STARS = createSideStars("right");
+
 export default function Stars({ className }: { className?: string }) {
-    const leftStars = createSideStars("left");
-    const rightStars = createSideStars("right");
+  const renderStar = (star: (typeof LEFT_STARS)[0], side: "left" | "right") => (
+    <span
+      key={star.id}
+      className="star-twinkle absolute select-none font-bold text-white"
+      style={{
+        top: star.top,
+        [side]: star.offset,
+        fontSize: `${star.size}px`,
+        lineHeight: 1,
+        opacity: star.opacity,
+        transform: `rotate(${star.rotate}deg)`,
+        animationDelay: star.animationDelay,
+        animationDuration: star.animationDuration,
+        willChange: "opacity",
+      }}
+    >
+      {star.glyph}
+    </span>
+  );
 
-    return (
-        <div
-            aria-hidden="true"
-            className={`pointer-events-none absolute inset-0 overflow-hidden ${className ?? ""}`}
-        >
-            {leftStars.map((star) => (
-                <span
-                    key={star.id}
-                    className="absolute select-none font-bold text-white animate-pulse"
-                    style={{
-                        top: star.top,
-                        left: star.offset,
-                        fontSize: `${star.size}px`,
-                        lineHeight: 1,
-                        opacity: star.opacity,
-                        transform: `rotate(${star.rotate}deg)`,
-                        animationDelay: star.animationDelay,
-                        animationDuration: star.animationDuration,
-                        textShadow: "0 0 10px rgba(255,255,255,0.75), 0 0 18px rgba(255,255,255,0.25)",
-                    }}
-                >
-                    {star.glyph}
-                </span>
-            ))}
-
-            {rightStars.map((star) => (
-                <span
-                    key={star.id}
-                    className="absolute select-none font-bold text-white animate-pulse"
-                    style={{
-                        top: star.top,
-                        right: star.offset,
-                        fontSize: `${star.size}px`,
-                        lineHeight: 1,
-                        opacity: star.opacity,
-                        transform: `rotate(${star.rotate}deg)`,
-                        animationDelay: star.animationDelay,
-                        animationDuration: star.animationDuration,
-                        textShadow: "0 0 10px rgba(255,255,255,0.75), 0 0 18px rgba(255,255,255,0.25)",
-                    }}
-                >
-                    {star.glyph}
-                </span>
-            ))}
-        </div>
-    );
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 overflow-hidden ${
+        className ?? ""
+      }`}
+    >
+      {LEFT_STARS.map((s) => renderStar(s, "left"))}
+      {RIGHT_STARS.map((s) => renderStar(s, "right"))}
+    </div>
+  );
 }
