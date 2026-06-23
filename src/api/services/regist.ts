@@ -9,6 +9,7 @@ import { AxiosError } from "axios";
 
 const TEMP_REGISTER_KEY = "temp_register_data";
 const TEMP_REGISTER_FORM_KEY = "temp_register_form";
+const TEMP_LOGIN_KEY = "temp_login_data";
 
 export class RegisterService {
   private static instance: RegisterService;
@@ -72,11 +73,25 @@ export class RegisterService {
   }
 
   async verifyOTP(otpCode: string): Promise<AuthResponse> {
-    const temp = this.getTempRegisterData();
+    // Check if this is from login or register flow
+    const loginTemp = this.getTempLoginData();
+    const registerTemp = this.getTempRegisterData();
+    
+    let temp = null;
+    let isLoginFlow = false;
+    
+    if (loginTemp && loginTemp.user_id) {
+      temp = { UserID: loginTemp.user_id, token: loginTemp.token, expiresAt: loginTemp.expiresAt };
+      isLoginFlow = true;
+    } else if (registerTemp) {
+      temp = registerTemp;
+      isLoginFlow = false;
+    }
 
-    if (!temp || this.isTokenExpired(temp.token)) {
+    if (!temp || (temp.token && this.isTokenExpired(temp.token))) {
       throw new Error("Sesi OTP kadaluarsa. Silakan kirim ulang OTP.");
     }
+    
     const payload: OTPVerificationData = {
       user_id: temp.UserID,
       otp_code: otpCode,
@@ -89,12 +104,22 @@ export class RegisterService {
       }>("/auth/register", payload);
 
       if (response.status.isSuccess && response.data) {
+        // Save token first before doing anything else
         apiClient.setEncryptedAuthTokens(response.data.token);
-        localStorage.setItem(
-          "user_data",
-          JSON.stringify(this.decodeToken(response.data.token))
-        );
-        this.clearTempRegisterData();
+        
+        // Save user data to localStorage
+        const decodedUser = this.decodeToken(response.data.token);
+        localStorage.setItem("user_data", JSON.stringify(decodedUser));
+        
+        // Clear temporary data based on flow
+        if (isLoginFlow) {
+          this.clearTempLoginData();
+        } else {
+          this.clearTempRegisterData();
+        }
+
+        // Small delay to ensure cookie is written
+        await new Promise(resolve => setTimeout(resolve, 100));
 
         return {
           status: response.status,
@@ -130,14 +155,46 @@ export class RegisterService {
   }
 
   async resendOTP(): Promise<AuthResponse> {
-    const raw = localStorage.getItem("temp_register_data");
-    const temp = raw ? JSON.parse(raw) : null;
+    // Check if this is from login or register flow
+    // For resend, we don't check expiration - just check if data exists
+    const loginRaw = localStorage.getItem(TEMP_LOGIN_KEY);
+    const registerRaw = localStorage.getItem("temp_register_data");
+    
+    let temp = null;
+    let userId = null;
+    let isLoginFlow = false;
 
-    if (!temp || !temp.UserID) {
+    if (loginRaw) {
+      try {
+        const loginTemp = JSON.parse(loginRaw);
+        if (loginTemp && loginTemp.user_id) {
+          temp = loginTemp;
+          userId = loginTemp.user_id;
+          isLoginFlow = true;
+        }
+      } catch {
+        // Invalid JSON, ignore
+      }
+    }
+    
+    if (!temp && registerRaw) {
+      try {
+        const registerTemp = JSON.parse(registerRaw);
+        if (registerTemp && registerTemp.UserID) {
+          temp = registerTemp;
+          userId = registerTemp.UserID;
+          isLoginFlow = false;
+        }
+      } catch {
+        // Invalid JSON, ignore
+      }
+    }
+
+    if (!temp || !userId) {
       throw new Error("Data registrasi tidak ditemukan. Silakan daftar ulang.");
     }
 
-    const payload = { user_id: temp.UserID };
+    const payload = { user_id: userId };
 
     try {
       const response = await apiClient.patch<{ message: string }>(
@@ -145,12 +202,20 @@ export class RegisterService {
         payload
       );
 
-      const updated = {
-        ...temp,
-        expiresAt: Date.now() + 5 * 60 * 1000,
-      };
-
-      localStorage.setItem("temp_register_data", JSON.stringify(updated));
+      // Update expiration time based on flow
+      if (isLoginFlow) {
+        const updated = {
+          ...temp,
+          expiresAt: Date.now() + 5 * 60 * 1000,
+        };
+        localStorage.setItem(TEMP_LOGIN_KEY, JSON.stringify(updated));
+      } else {
+        const updated = {
+          ...temp,
+          expiresAt: Date.now() + 5 * 60 * 1000,
+        };
+        localStorage.setItem("temp_register_data", JSON.stringify(updated));
+      }
 
       return {
         status: response.status,
@@ -174,22 +239,58 @@ export class RegisterService {
   }
 
   getOTPTimeRemaining(): number {
-    const data = this.getTempRegisterData();
-    if (!data) return 0;
+    // Check both login and register flow
+    // Don't filter by expiration - just read the data
+    const loginRaw = localStorage.getItem(TEMP_LOGIN_KEY);
+    const registerRaw = localStorage.getItem("temp_register_data");
+    
+    let data = null;
+    
+    if (loginRaw) {
+      try {
+        data = JSON.parse(loginRaw);
+      } catch {
+        // Invalid JSON
+      }
+    }
+    
+    if (!data && registerRaw) {
+      try {
+        data = JSON.parse(registerRaw);
+      } catch {
+        // Invalid JSON
+      }
+    }
+    
+    if (!data || !data.expiresAt) return 0;
 
     return Math.max(0, Math.floor((data.expiresAt - Date.now()) / 1000));
   }
 
   canAccessOTPPage(): boolean {
-    const stored = localStorage.getItem(TEMP_REGISTER_KEY);
-    if (!stored) return false;
-
-    try {
-      const data = JSON.parse(stored);
-      return !!data?.UserID;
-    } catch {
-      return false;
+    // Check both login and register flow
+    const loginStored = localStorage.getItem(TEMP_LOGIN_KEY);
+    const registerStored = localStorage.getItem(TEMP_REGISTER_KEY);
+    
+    if (loginStored) {
+      try {
+        const data = JSON.parse(loginStored);
+        return !!data?.user_id;
+      } catch {
+        return false;
+      }
     }
+    
+    if (registerStored) {
+      try {
+        const data = JSON.parse(registerStored);
+        return !!data?.UserID;
+      } catch {
+        return false;
+      }
+    }
+    
+    return false;
   }
 
   private decodeToken(token: string): JWTPayload {
@@ -261,6 +362,37 @@ export class RegisterService {
 
   private clearTempRegisterForm(): void {
     localStorage.removeItem(TEMP_REGISTER_FORM_KEY);
+  }
+
+  // Methods for login OTP flow
+  private getTempLoginData(): {
+    token: string;
+    user_id: string;
+    timestamp: number;
+    expiresAt: number;
+  } | null {
+    const stored = localStorage.getItem(TEMP_LOGIN_KEY);
+    if (!stored) return null;
+
+    try {
+      const data = JSON.parse(stored) as {
+        token: string;
+        user_id: string;
+        timestamp: number;
+        expiresAt: number;
+      };
+      if (Date.now() > data.expiresAt) {
+        return null;
+      }
+      return data;
+    } catch {
+      return null;
+    }
+  }
+
+  clearTempLoginData(): void {
+    console.log("Menghapus data login sementara...");
+    localStorage.removeItem(TEMP_LOGIN_KEY);
   }
 }
 

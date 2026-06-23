@@ -100,6 +100,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error(errorMsg);
       }
 
+      // Check if email is verified
+      if (response.data.email_verified === false) {
+        // Save temporary data for OTP verification
+        const tempData = {
+          token: response.data.token || "",
+          user_id: response.data.user_id || "",
+          timestamp: Date.now(),
+          expiresAt: Date.now() + 5 * 60 * 1000, // 5 minutes
+        };
+        localStorage.setItem("temp_login_data", JSON.stringify(tempData));
+        
+        // Throw special error to trigger redirect to OTP page
+        throw new Error("EMAIL_NOT_VERIFIED");
+      }
+
       const userData = response.data.user;
       setUser(userData || null);
     } catch (error) {
