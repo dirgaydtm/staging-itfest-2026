@@ -5,17 +5,18 @@ type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  size?: "md" | "lg";
 };
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const Modal = ({ isOpen, onClose, children, size = "md" }: ModalProps) => {
   const { theme } = useDashboardTheme();
 
   useEffect(() => {
     if (isOpen) {
-      // Kunci scroll pada body dan html utama browser
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
       
+      // Kunci semua kontainer internal dashboard
       const backgroundContainers = document.querySelectorAll('.mycontainer, .overflow-y-auto, [class*="h-screen"], [class*="overflow-auto"]');
       backgroundContainers.forEach((el) => {
         if (!el.contains(document.activeElement) && el.id !== "modal-overlay") {
@@ -45,6 +46,8 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     dml: "bg-gradient-to-r from-darker-yellow to-dark-hover-yellow shadow-[0_0_18px_rgba(190,180,160,0.35)]",
   }[theme.key];
 
+  const maxWidthClass = size === "lg" ? "max-w-5xl" : "max-w-md";
+
   return (
     <div
       id="modal-overlay"
@@ -54,7 +57,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`${modalThemeClass} rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-5xl my-auto border border-white/10`}
+        className={`${modalThemeClass} rounded-2xl shadow-xl p-6 sm:p-8 w-full ${maxWidthClass} my-auto border border-white/10`}
       >
         {children}
       </div>

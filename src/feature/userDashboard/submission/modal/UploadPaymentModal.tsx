@@ -6,7 +6,6 @@ import { useUploadPayment } from "../../hooks/useUploadPayment";
 import Image from "next/image";
 import { useState } from "react";
 import { useDashboardTheme } from "../../layout/DashboardThemeContext";
-// PATH IMPORT SPESIFIK SESUAI STRUKTUR PROJECT ANDA
 import QrisImage from "@/assets/img/userDashboard/submit/qrisitfest.jpeg"; 
 
 interface UploadPaymentModalProps {
@@ -80,16 +79,14 @@ const UploadPaymentModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <div className="font-leaguespartan w-full text-white">
         <h2 className="text-white text-2xl lg:text-3xl font-bold text-center mb-6 lg:mb-8 tracking-wide">
           Selesaikan Pembayaran
         </h2>
 
-        {/* Pembagian Grid Responsif */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
           
-          {/* KOLOM KIRI: PURE QRIS GATEWAY TERMINAL */}
           <div className="w-full lg:w-5/12 flex flex-col items-center justify-center bg-black/30 rounded-2xl p-6 border border-white/5 shadow-inner">
             <div className="bg-white p-3.5 rounded-2xl w-full aspect-square flex items-center justify-center shadow-2xl transition-transform duration-300 hover:scale-[1.02]">
               <Image
@@ -107,10 +104,8 @@ const UploadPaymentModal = ({
             </div>
           </div>
 
-          {/* KOLOM KANAN: DETAIL INFORMASI & FORM UPLOAD */}
           <div className="w-full lg:w-7/12 flex flex-col justify-between gap-5">
             
-            {/* Rincian Harga Pembayaran */}
             <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 flex items-center justify-between">
               <div>
                 <h3 className="text-white font-semibold text-sm lg:text-base">Kategori Lomba: {theme.label}</h3>
@@ -121,7 +116,6 @@ const UploadPaymentModal = ({
               </div>
             </div>
 
-            {/* Panduan Ringkas */}
             <div className="p-4 bg-yellow-500/5 border border-yellow-500/20 rounded-xl text-xs sm:text-sm text-yellow-200/90 leading-relaxed">
               <span className="font-bold block mb-1 text-yellow-300">Panduan Transfer:</span>
               <ol className="list-decimal list-inside space-y-1 opacity-95">
@@ -131,7 +125,6 @@ const UploadPaymentModal = ({
               </ol>
             </div>
 
-            {/* Input & Dropzone File */}
             <div>
               <input
                 id="payment-file-input"
@@ -184,14 +177,12 @@ const UploadPaymentModal = ({
               </div>
             </div>
 
-            {/* Alert Error */}
             {error && (
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
                 <p className="text-red-400 text-xs font-medium">⚠️ {error}</p>
               </div>
             )}
 
-            {/* Aksi Konfirmasi Submit */}
             <div>
               <Button
                 variant={!preview ? "disabled" : "forauth"}
