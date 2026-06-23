@@ -30,7 +30,7 @@ const PrizeCount = () => {
       }`}
     >
       <div className="flex items-center justify-center leading-none">
-        <span className="md:mr-4">Rp.</span>
+        <span className="md:mr-4">Rp </span>
         <span className="tabular-nums">{formattedValue}</span>
         <span className="md:ml-4 -translate-y-3">++</span>
       </div>
