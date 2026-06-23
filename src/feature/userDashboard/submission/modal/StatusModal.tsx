@@ -43,8 +43,8 @@ const StatusModal = ({
 
         <p className="text-sm text-white opacity-80 mb-6 leading-relaxed">
           {isSuccess
-            ? `Pengisian link berhasil. Tunggu verifikasi pembayaran kami dan pantau terus di grup WhatsApp IT FEST.`
-            : "Pengisian link gagal. Silakan periksa koneksi atau ulangi lagi nanti."}
+            ? `Pengisian berhasil. Silahkan hubungi kami di grup WhatsApp IT FEST apabila ada kendala.`
+            : "Pengisian gagal. Silakan periksa koneksi atau ulangi lagi nanti."}
         </p>
 
         <Button variant="tertiary" className="w-full" onClick={handleClose}>
