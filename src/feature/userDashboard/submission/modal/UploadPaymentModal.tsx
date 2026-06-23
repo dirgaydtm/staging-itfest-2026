@@ -5,6 +5,7 @@ import { Button } from "@/shared/components/ui/Button";
 import { useUploadPayment } from "../../hooks/useUploadPayment";
 import Image from "next/image";
 import { useState } from "react";
+import { useDashboardTheme } from "../../layout/DashboardThemeContext";
 
 interface UploadPaymentModalProps {
   isOpen: boolean;
@@ -59,8 +60,17 @@ const PaymentInfoSection = () => {
     }
   };
 
+const { theme } = useDashboardTheme();
+
+  // 3. Mapping warna background dan border yang sesuai dengan tema lomba
+const modalThemeClass = {
+  uiux: "bg-gradient-to-r from-darker-blue to-dark-hover-blue shadow-[0_0_18px_rgba(102,155,188,0.35)]",
+  bp: "bg-gradient-to-r from-darker-red2 to-dark-hover-red2 shadow-[0_0_18px_rgba(193,18,31,0.35)]",
+  dml: "bg-gradient-to-r from-darker-yellow to-dark-hover-yellow shadow-[0_0_18px_rgba(190,180,160,0.35)]",
+}[theme.key];
+
   return (
-    <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/20 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+    <div className={` ${modalThemeClass} rounded-lg p-3 sm:p-4 mb-4 sm:mb-6`}>
       <div className="text-center mb-3 sm:mb-4">
         <h3 className="text-white font-semibold text-sm sm:text-base mb-2">
           Informasi Pembayaran
@@ -216,7 +226,7 @@ const UploadPaymentModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="font-changa w-full max-w-md mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
+      <div className="font-leaguespartan w-full max-w-md mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
         <h2 className="text-white text-lg sm:text-xl font-semibold text-center mb-3 sm:mb-4">
           Upload Bukti Pembayaran
         </h2>
@@ -297,7 +307,7 @@ const UploadPaymentModal = ({
               </div>
 
               <div className="mt-2 sm:mt-3">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-purple-600 text-white">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-normal-blue text-white">
                   Pilih File
                 </span>
               </div>
@@ -312,7 +322,7 @@ const UploadPaymentModal = ({
         )}
 
         <Button
-          variant={!preview ? "disabled" : "primary"}
+          variant={!preview ? "disabled" : "forauth"}
           size="small"
           className="w-full h-10 sm:h-12 mt-3 sm:mt-4 text-xs sm:text-sm"
           onClick={handleSubmit}

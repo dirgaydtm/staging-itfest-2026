@@ -3,7 +3,7 @@ import React from "react";
 
 const DashboardHeader = () => {
   return (
-    <div className="font-changa text-white">
+    <div className="font-leaguespartan text-white">
       <h4 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-relaxed">
         Team List
       </h4>

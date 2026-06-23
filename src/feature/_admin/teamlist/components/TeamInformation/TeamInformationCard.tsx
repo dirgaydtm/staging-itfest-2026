@@ -19,49 +19,65 @@ const TeamInformationCard = ({
       }
       return defaultMember;
     });
-  return (
-    <div className="p-8 bg-blue-500 rounded-4xl text-white border-2 border-purple-300 h-full">
-      <h2 className="text-xl font-bold mb-2">Team Name</h2>
-      <p className="text-2xl font-semibold text-cyan-400 mb-6">
-        {teamInfo.team_name || "[Team Name]"}
-      </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+  return (
+    // Menggunakan pakem figma asli: bg-[#B0BFC7]/10 dengan border tipis transparan
+    <div className="p-6 sm:p-8 bg-[#B0BFC7]/10 border border-white/10 backdrop-blur-md rounded-2xl text-white h-full flex flex-col gap-6">
+      
+      <div>
+        <span className="text-xs font-bold text-white/40 uppercase tracking-widest block mb-1">
+          Team Name
+        </span>
+        <h2 className="text-2xl font-bold text-white tracking-wide">
+          {teamInfo.team_name || "-"}
+        </h2>
+      </div>
+
+      {/* Grid Informasi Inti Anggota Tim */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-y border-white/5 py-6">
         <div>
-          <h3 className="font-bold text-lg">Team Leader</h3>
-          <p className="text-gray-300">Name: {teamInfo.leader_name || "-"}</p>
-          <p className="text-gray-300">
-            Student ID: {teamInfo.student_number || "-"}
-          </p>
+          <h3 className="font-bold text-base text-white mb-2">Team Leader</h3>
+          <div className="space-y-1 text-sm text-white/70">
+            <p><span className="text-white/40 font-medium">Name:</span> {teamInfo.leader_name || "-"}</p>
+            <p><span className="text-white/40 font-medium">NIM:</span> {teamInfo.student_number || "-"}</p>
+          </div>
         </div>
 
-        {/* Mapping untuk anggota tim */}
         {members.map((member, index) => (
           <div
             key={index}
-            className={`${!member.full_name ? "opacity-50" : ""}`}
+            className={`transition-opacity duration-200 ${!member.full_name ? "opacity-40" : ""}`}
           >
-            <h3 className="font-bold text-lg">Team Member {index + 1}</h3>
-            <p className="text-gray-300">Name: {member.full_name || "-"}</p>
-            <p className="text-gray-300">
-              Student ID: {member.student_number || "-"}
-            </p>
+            <h3 className="font-bold text-base text-white mb-2">Team Member {index + 1}</h3>
+            <div className="space-y-1 text-sm text-white/70">
+              <p><span className="text-white/40 font-medium">Name:</span> {member.full_name || "-"}</p>
+              <p><span className="text-white/40 font-medium">NIM:</span> {member.student_number || "-"}</p>
+            </div>
           </div>
         ))}
       </div>
-      <div>
-        <h4 className="text-xl font-bold my-2">Leader Contact Information</h4>
-        <div className="flex gap-4  w-1/2 ">
-          <div
+
+      {/* Bagian Bawah: Kontak Pemimpin Tim */}
+      <div className="flex flex-col gap-3 mt-auto">
+        <h4 className="text-xs font-bold text-white/40 uppercase tracking-widest">
+          Leader Contact Information
+        </h4>
+        
+        <div className="flex flex-wrap gap-4 w-full">
+          {/* Tombol Cek Kartu Mahasiswa (KTM) */}
+          <button
+            type="button"
             onClick={onCheckStudentCard}
             title="Check Student Card"
-            className="group p-2.5 w-fit border-2 border-purple-300  dark:bg-slate-800 rounded-lg  dark:border-slate-700 shadow-sm cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:border-purple-100 dark:hover:border-blue-600"
+            className="group p-3 flex items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 rounded-xl cursor-pointer transition-all duration-300"
           >
             <IdCardIcon
-              size={32}
-              className="text-purple-100  dark:text-slate-400 group-hover:text-purple-200 dark:group-hover:text-blue-400 transition-colors"
+              size={20}
+              className="text-white/70 group-hover:text-white transition-colors"
             />
-          </div>
+          </button>
+
+          {/* Tombol Akses WhatsApp Link */}
           <Link
             href={`https://wa.me/${
               teamInfo.phone_number && teamInfo.phone_number.startsWith("0")
@@ -71,13 +87,14 @@ const TeamInformationCard = ({
             title="Contact WhatsApp"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative gap-2  p-3  flex justify-center items-center border-2 border-green-300 dark:bg-slate-800 rounded-lg dark:border-slate-700 shadow-sm cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:border-green-100 dark:hover:border-green-600"
+            className="group px-4 py-2.5 flex items-center justify-center gap-2.5 bg-green-500/10 border border-green-500/20 hover:bg-green-500/20 hover:border-green-500/40 text-green-400 font-bold text-xs rounded-xl transition-all duration-300"
           >
-            <PhoneCall />
-            <span className=" ">{teamInfo.phone_number}</span>
+            <PhoneCall size={16} className="transition-transform group-hover:scale-110" />
+            <span className="tracking-wide">{teamInfo.phone_number || "No Phone Number"}</span>
           </Link>
         </div>
       </div>
+
     </div>
   );
 };

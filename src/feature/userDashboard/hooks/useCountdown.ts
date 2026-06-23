@@ -16,7 +16,7 @@ export const useCountdown = (deadline: string) => {
 
       if (isNaN(target) || diff <= 0) {
         setTimeLeft({
-          days: "00",
+          days: "12",
           hours: "00",
           minutes: "00",
           seconds: "00",

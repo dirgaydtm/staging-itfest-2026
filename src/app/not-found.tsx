@@ -3,10 +3,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import BackgroundAuth from "@/shared/components/layout/BackgroundAuth";
 
 export default function NotFound() {
   return (
-    <main className="bg-gradient-to-b from-slate-900 to-indigo-900 relative min-h-screen">
+    <main className="bg-darker-blue relative min-h-screen">
+      <BackgroundAuth />
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-pink-600/5"
         animate={{ opacity: [0.8, 1, 0.8] }}

@@ -93,6 +93,7 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
           isDesktop={isDesktop}
           isLast={isLast}
           isDeadlineOver={stageIsOverdue}
+          stageIndex={index}
         />
         {!isLast && (
           <StageConnector
@@ -107,7 +108,7 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
   };
 
   return (
-    <section className="bg-blue-500 rounded-4xl border-2 border-purple-300 overflow-x-auto font-changa py-10">
+    <section className="bg-white/[0.06] rounded-4xl border border-white/20 overflow-x-auto font-leaguespartan py-10">
       <header className="text-white text-3xl font-bold text-center mb-16">
         Stages
       </header>
