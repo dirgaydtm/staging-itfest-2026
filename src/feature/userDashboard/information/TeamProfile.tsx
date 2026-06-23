@@ -38,23 +38,42 @@ const TeamProfile = ({ profile }: Props) => {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
+
+    let lastTouchY = 0;
+
     const onWheel = (e: WheelEvent) => {
-      const atTop = el.scrollTop <= 0;
-      const atBottom =
-        el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-      if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) return;
       e.preventDefault();
       el.scrollTop += e.deltaY;
     };
+
+    const onTouchStart = (e: TouchEvent) => {
+      lastTouchY = e.touches[0].clientY;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const y = e.touches[0].clientY;
+      const delta = lastTouchY - y;
+      lastTouchY = y;
+      e.preventDefault();
+      el.scrollTop += delta;
+    };
+
     el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+    };
   }, []);
 
   return (
     <DashboardCard title="Team Profile">
       <div
         ref={scrollRef}
-        className="h-full overflow-y-auto overscroll-contain touch-pan-y pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30"
+        className="h-full overflow-y-auto overscroll-none touch-pan-y pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30"
       >
         <p className="font-bold text-base sm:text-lg mb-6">
           [ {profile.team_name || "Team Name"} ]

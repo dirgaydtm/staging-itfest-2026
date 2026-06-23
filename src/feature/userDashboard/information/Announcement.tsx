@@ -24,16 +24,35 @@ const Announcement = () => {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
+
+    let lastTouchY = 0;
+
     const onWheel = (e: WheelEvent) => {
-      const atTop = el.scrollTop <= 0;
-      const atBottom =
-        el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-      if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) return;
       e.preventDefault();
       el.scrollTop += e.deltaY;
     };
+
+    const onTouchStart = (e: TouchEvent) => {
+      lastTouchY = e.touches[0].clientY;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const y = e.touches[0].clientY;
+      const delta = lastTouchY - y;
+      lastTouchY = y;
+      e.preventDefault();
+      el.scrollTop += delta;
+    };
+
     el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+    };
   }, []);
 
   const displayedAnnouncements = data
@@ -41,7 +60,7 @@ const Announcement = () => {
     .sort(
       (a, b) =>
         new Date(b.date_announcement).getTime() -
-        new Date(a.date_announcement).getTime()
+        new Date(a.date_announcement).getTime(),
     );
 
   return (
@@ -49,7 +68,7 @@ const Announcement = () => {
       <div className="h-full flex flex-col min-h-0">
         <div
           ref={scrollRef}
-          className="flex-1 min-h-0 overflow-y-auto overscroll-contain touch-pan-y pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30"
+          className="flex-1 min-h-0 overflow-y-auto overscroll-none touch-pan-y pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30"
         >
           {loading ? (
             <p className="text-center text-sm text-light-blue/60">Loading...</p>
@@ -77,7 +96,9 @@ const Announcement = () => {
         </div>
 
         <p className="shrink-0 mt-4 pt-4 border-t border-white/10 text-xs sm:text-sm text-center">
-          <span className="text-light-blue/60">Stay tuned at our social media </span>
+          <span className="text-light-blue/60">
+            Stay tuned at our social media{" "}
+          </span>
           <span className={`font-semibold ${theme.accentText}`}>
             @itfest_filkom
           </span>
