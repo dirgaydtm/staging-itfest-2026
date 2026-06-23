@@ -20,7 +20,7 @@ export const category: TCategoryData[] = [
     cardBorderClass: "border-dark-blue",
     hoverShadowClass: "hover:shadow-[0_0_30px_rgba(102,155,188,0.8)]",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+      "Mengembangkan desain antarmuka pengguna dan pengalaman pengguna yang inovatif, efektif, guna menciptakan solusi digital yang fungsional.",
     link: "/onboarding",
   },
   {
@@ -31,18 +31,19 @@ export const category: TCategoryData[] = [
     cardBorderClass: "border-dark-hover-red",
     hoverShadowClass: "hover:shadow-[0_0_30px_rgba(193,18,31,0.8)]",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+      "Mengembangkan ide bisnis digital yang inovatif dan berkelanjutan guna menciptakan solusi yang bermanfaat serta mampu memberikan dampak positif.",
     link: "/onboarding",
   },
   {
     title: "DIGITAL MEDIA LEARNING",
     icon: <Lightbulb className="w-6 h-6" />,
-    colorClass: "text-normal-yellow border-dark-active-yellow bg-normal-yellow/20",
+    colorClass:
+      "text-normal-yellow border-dark-active-yellow bg-normal-yellow/20",
     buttonClass: "bg-dark-hover-yellow",
     cardBorderClass: "border-dark-active-yellow",
     hoverShadowClass: "hover:shadow-[0_0_30px_rgba(253,240,213,0.8)]",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+      "Menciptakan inovasi media digital guna mendukung proses pembelajaran yang lebih menarik.",
     link: "/onboarding",
   },
 ];

@@ -47,10 +47,10 @@ const Category = () => {
         </motion.h1>
         <motion.p
           variants={textVariants}
-          className="text-sm md:text-lg text-white font-leaguespartan"
+          className="text-sm md:text-lg text-white font-leaguespartan px-4"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Pilih kategori perlombaan yang sesuai dengan minat dan keahlianmu.
+          <br /> Tunjukkan inovasi, kemampuan, dan kreativitas terbaikmu.
         </motion.p>
       </motion.div>
 
