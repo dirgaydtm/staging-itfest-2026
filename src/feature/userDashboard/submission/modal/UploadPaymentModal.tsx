@@ -15,10 +15,19 @@ interface UploadPaymentModalProps {
   isLoading?: boolean;
 }
 
-const PaymentInfoSection = () => {
-  const { theme } = useDashboardTheme();
+const UploadPaymentModal = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  isLoading = false,
+}: UploadPaymentModalProps) => {
+  const { preview, error, handleImageChange, handleSubmit, isDisabled } =
+    useUploadPayment(onSubmit);
 
-  // Logika dinamis untuk harga berdasarkan tema/kategori lomba
+  const { theme } = useDashboardTheme();
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  // Logika dinamis biaya pendaftaran
   const getPaymentAmount = () => {
     switch (theme.key) {
       case "dml":
@@ -30,71 +39,6 @@ const PaymentInfoSection = () => {
         return "Rp60.000,00";
     }
   };
-
-  // Mapping warna background dan border yang sesuai dengan tema lomba
-  const modalThemeClass = {
-    uiux: "bg-gradient-to-r from-darker-blue to-dark-hover-blue shadow-[0_0_18px_rgba(102,155,188,0.35)]",
-    bp: "bg-gradient-to-r from-darker-red2 to-dark-hover-red2 shadow-[0_0_18px_rgba(193,18,31,0.35)]",
-    dml: "bg-gradient-to-r from-darker-yellow to-dark-hover-yellow shadow-[0_0_18px_rgba(190,180,160,0.35)]",
-  }[theme.key];
-
-  return (
-    <div className={` ${modalThemeClass} rounded-lg p-3 sm:p-4 mb-4 sm:mb-6`}>
-      <div className="text-center mb-3 sm:mb-4">
-        <h3 className="text-white font-semibold text-sm sm:text-base mb-2">
-          Informasi Pembayaran
-        </h3>
-        <div className="text-yellow-200 text-xs sm:text-sm">
-          Biaya Pendaftaran:{" "}
-          <span className="font-bold text-white text-base">{getPaymentAmount()}</span>
-        </div>
-      </div>
-
-      <div className="space-y-2 sm:space-y-3 flex flex-col items-center">
-        <div className="text-white text-xs sm:text-sm font-medium text-center mb-2">
-          Scan QRIS berikut untuk melakukan pembayaran:
-        </div>
-
-        <div className="bg-white p-2 rounded-xl w-48 sm:w-56 shadow-lg">
-          <Image
-            src={QrisImage}
-            alt="QRIS IT Fest"
-            className="w-full h-auto rounded-lg"
-          />
-        </div>
-        <div className="text-gray-200 text-xs text-center mt-2 font-medium">
-          a.n. NICHOLAS RAVAEL ONDIHON GULTOM, IT FEST
-        </div>
-      </div>
-
-      <div className="mt-4 sm:mt-5 p-2 sm:p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
-        <div className="flex items-start justify-center space-x-2">
-          <div className="text-yellow-200 text-xs">
-            <div className="font-medium mb-1">Langkah pembayaran:</div>
-            <div className="space-y-1">
-              <div>1. Buka aplikasi m-banking atau e-wallet Anda</div>
-              <div>2. Scan QRIS di atas dan pastikan nama penerima sesuai</div>
-              <div>3. Masukkan nominal <span className="font-bold">{getPaymentAmount()}</span></div>
-              <div>4. Screenshot bukti transfer yang berhasil</div>
-              <div>5. Upload gambar pada form di bawah ini</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const UploadPaymentModal = ({
-  isOpen,
-  onClose,
-  onSubmit,
-  isLoading = false,
-}: UploadPaymentModalProps) => {
-  const { preview, error, handleImageChange, handleSubmit, isDisabled } =
-    useUploadPayment(onSubmit);
-
-  const [isDragOver, setIsDragOver] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -135,124 +79,136 @@ const UploadPaymentModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="font-leaguespartan w-full max-w-md mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto hidden-scrollbar">
-        <h2 className="text-white text-lg sm:text-xl font-semibold text-center mb-3 sm:mb-4">
-          Upload Bukti Pembayaran
+    <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <div className="font-leaguespartan w-full text-white">
+        <h2 className="text-white text-2xl lg:text-3xl font-bold text-center mb-6 lg:mb-8 tracking-wide">
+          Selesaikan Pembayaran
         </h2>
 
-        <PaymentInfoSection />
-
-        <p className="text-white text-xs text-center font-normal mb-3 sm:mb-4 opacity-70 px-2">
-          Pastikan bukti pembayaran jelas dan dapat terbaca
-        </p>
-
-        <input
-          id="payment-file-input"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="hidden"
-        />
-
-        <div
-          className={`
-              relative border-2 border-dashed rounded-lg p-4 sm:p-6 text-center cursor-pointer transition-all duration-200 mb-3 sm:mb-4
-              ${
-                isDragOver
-                  ? "border-blue-400 bg-blue-400/10"
-                  : preview
-                  ? "border-green-400 bg-green-400/10"
-                  : "border-gray-400 hover:border-gray-300 hover:bg-gray-800/20"
-              }
-            `}
-          onClick={handleUploadAreaClick}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
-          {preview ? (
-            <div className="space-y-2 sm:space-y-3">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
+          
+          <div className="w-full lg:w-5/12 flex flex-col items-center justify-center bg-black/30 rounded-2xl p-6 border border-white/5 shadow-inner">
+            <div className="bg-white p-3.5 rounded-2xl w-full aspect-square flex items-center justify-center shadow-2xl transition-transform duration-300 hover:scale-[1.02]">
               <Image
-                src={preview}
-                alt="Preview"
-                width={300}
-                height={150}
-                className="rounded-lg max-h-24 sm:max-h-32 object-contain mx-auto"
+                src={QrisImage}
+                alt="QRIS IT Fest Pembayaran"
+                className="w-full h-full object-contain rounded-lg"
+                priority
               />
-              <div className="text-green-400 text-xs sm:text-sm font-medium">
-                ✓ File berhasil dipilih
-              </div>
-              <div className="text-gray-300 text-xs">
-                Klik untuk mengganti file
-              </div>
             </div>
-          ) : (
-            <div className="space-y-2 sm:space-y-3">
-              <div className="mx-auto w-8 h-8 sm:w-10 sm:h-10 text-gray-400">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  className="w-full h-full"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  />
-                </svg>
-              </div>
-
-              <div className="text-white font-medium text-xs sm:text-sm">
-                {isDragOver
-                  ? "Lepaskan file di sini"
-                  : "Pilih Gambar atau drag & drop"}
-              </div>
-
-              <div className="text-gray-400 text-xs space-y-1">
-                <div>Format: JPG, PNG</div>
-                <div>Maksimal: 1MB</div>
-              </div>
-
-              <div className="mt-2 sm:mt-3">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-normal-blue text-white">
-                  Pilih File
-                </span>
-              </div>
+            <div className="mt-4 text-center">
+              <p className="text-white/60 text-xs uppercase tracking-widest font-medium mb-1">Penyedia Jasa Pembayaran</p>
+              <p className="text-white font-bold text-sm lg:text-base tracking-wide">
+                a.n. NICHOLAS RAVAEL ONDIHON GULTOM, IT FEST
+              </p>
             </div>
-          )}
-        </div>
-
-        {error && (
-          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-2 sm:p-3 mb-3 sm:mb-4">
-            <p className="text-red-400 text-xs"> {error}</p>
           </div>
-        )}
 
-        <Button
-          variant={!preview ? "disabled" : "forauth"}
-          size="small"
-          className="w-full h-10 sm:h-12 mt-3 sm:mt-4 text-xs sm:text-sm"
-          onClick={handleSubmit}
-          disabled={isLoading || isDisabled || !preview}
-        >
-          {isLoading ? (
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-              <span className="text-xs sm:text-sm">Mengupload...</span>
+          <div className="w-full lg:w-7/12 flex flex-col justify-between gap-5">
+            
+            <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+              <div>
+                <h3 className="text-white font-semibold text-sm lg:text-base">Kategori Lomba: {theme.label}</h3>
+                <p className="text-white/50 text-xs mt-0.5">Biaya kontribusi pendaftaran tim</p>
+              </div>
+              <div className="text-right">
+                <span className="text-white font-bold text-xl lg:text-2xl text-yellow-200">{getPaymentAmount()}</span>
+              </div>
             </div>
-          ) : !preview ? (
-            "Pilih File Terlebih Dahulu"
-          ) : (
-            "Kirim Bukti Pembayaran"
-          )}
-        </Button>
 
-        <p className="text-yellow-300 text-xs text-center mt-2 sm:mt-3 opacity-90 px-2">
-          Gambar akan diverifikasi dalam 1-2 jam kerja
-        </p>
+            <div className="p-4 bg-yellow-500/5 border border-yellow-500/20 rounded-xl text-xs sm:text-sm text-yellow-200/90 leading-relaxed">
+              <span className="font-bold block mb-1 text-yellow-300">Panduan Transfer:</span>
+              <ol className="list-decimal list-inside space-y-1 opacity-95">
+                <li>Pindai QRIS di kolom kiri menggunakan m-banking / e-wallet.</li>
+                <li>Pastikan nama penerima sesuai dan masukkan nilai konfirmasi sebesar <span className="font-bold text-white">{getPaymentAmount()}</span>.</li>
+                <li>Unggah berkas tangkapan layar (*screenshot*) tanda bukti sukses di bawah ini.</li>
+              </ol>
+            </div>
+
+            <div>
+              <input
+                id="payment-file-input"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+
+              <div
+                className={`
+                  relative border-2 border-dashed rounded-2xl p-5 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 min-h-[200px]
+                  ${
+                    isDragOver
+                      ? "border-blue-400 bg-blue-400/10"
+                      : preview
+                      ? "border-green-400 bg-green-400/10"
+                      : "border-white/10 hover:border-white/30 bg-black/10 hover:bg-black/20"
+                  }
+                `}
+                onClick={handleUploadAreaClick}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                {preview ? (
+                  <div className="flex flex-col items-center justify-center space-y-3">
+                    <Image
+                      src={preview}
+                      alt="Pratinjau Bukti Transfer"
+                      width={280}
+                      height={160}
+                      className="rounded-xl max-h-36 object-contain shadow-md"
+                    />
+                    <div className="text-green-400 text-xs font-semibold bg-green-400/10 px-3 py-1 rounded-full">
+                      ✓ Dokumen Siap Dikirim
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center space-y-2 text-center">
+                    <div className="w-10 h-10 text-white/30 mb-1">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-full h-full">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                    </div>
+                    <p className="text-white/80 font-medium text-sm">Seret & lepas bukti transfer di sini</p>
+                    <p className="text-white/40 text-xs">Mendukung format JPG, PNG (Maks. 1MB)</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
+                <p className="text-red-400 text-xs font-medium">⚠️ {error}</p>
+              </div>
+            )}
+
+            <div>
+              <Button
+                variant={!preview ? "disabled" : "forauth"}
+                size="normal"
+                className="w-full h-12 text-sm font-semibold rounded-xl tracking-wide transition-all"
+                onClick={handleSubmit}
+                disabled={isLoading || isDisabled || !preview}
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <span>Memproses Dokumen...</span>
+                  </div>
+                ) : !preview ? (
+                  "Unggah Bukti Transaksi Terlebih Dahulu"
+                ) : (
+                  "Konfirmasi Pembayaran Selesai"
+                )}
+              </Button>
+              <p className="text-white/40 text-center text-xs mt-2">
+                Verifikasi administrasi membutuhkan waktu sekitar 1-2 jam kerja.
+              </p>
+            </div>
+
+          </div>
+        </div>
       </div>
     </Modal>
   );
