@@ -7,28 +7,27 @@ export const faqdata = [
   },
   {
     id: 2,
-    question:
-      "Jika ada pertanyaan lebih lanjut apakah ada contact person yang bisa dihubungi?",
+    question: "Apakah bisa mengikuti kompetisi tanpa membuat tim?",
     answer:
-      "Ada, jika ada pertanyaan lebih lanjut bisa langsung menghubungi Izza (082140456252) atau Devi (082132929575)",
+      "Pada kategori Business Plan dan Digital Media Learning, peserta diwajibkan mengikuti kompetisi dalam bentuk tim yang terdiri atas maksimal 3 anggota. Namun, pada kategori UI/UX Design, peserta dapat berpartisipasi secara individu tanpa harus membentuk tim.",
   },
   {
     id: 3,
-    question: "Apakah bisa mengikuti kompetisi tanpa membuat tim?",
-    answer:
-      "Bisa. Peserta dapat mendaftar secara individu atau membentuk tim dengan jumlah anggota 1 hingga maksimal 3 orang.",
-  },
-  {
-    id: 4,
-    question: "Apakah ada biaya pendaftaran?",
-    answer:
-      "Untuk biaya pendaftaran akan dikenakan biaya 60.000 per timnya. Pada kompetisi business plan, peserta akan membayar biaya pendaftaran setelah lolos seleksi BMC. Sementara untuk kompetisi UI/UX akan langsung dikenakan biaya pendaftaran saat mendaftar.",
-  },
-  {
-    id: 5,
     question: "Pada kompetisi IT-FEST terdapat berapa tahap?",
     answer:
       "Untuk Penyisihan Business Plan akan melalui 3 tahap (BMC, Proposal, dan Final), sementara untuk UI/UX akan melalui 2 tahap saja (Proposal dan Final)",
+  },
+  {
+    id: 4,
+    question: "Apakah karya yang dilombakan boleh merupakan karya yang pernah diikutsertakan dalam lomba lain namun belum meraih juara?",
+    answer:
+      "Karya yang diajukan harus merupakan hasil karya orisinal peserta. Karya yang pernah diikutsertakan dalam kompetisi lain namun belum memperoleh penghargaan atau kemenangan tetap dapat diajukan kembali, dengan ketentuan telah dilakukan pengembangan atau modifikasi sehingga memberikan nilai tambah dibandingkan versi sebelumnya.",
+  },
+  {
+    id: 5,
+    question: "Apakah ada biaya pendaftaran?",
+    answer:
+      "Untuk biaya pendaftaran akan dikenakan biaya berbeda-beda per timnya berdasarkan kategori lomba yang ingin diikuti.",
   },
   {
     id: 6,
@@ -44,9 +43,26 @@ export const faqdata = [
   },
   {
     id: 8,
-    question:
-      "Apakah boleh memiliki tim yang berasal dari perguruan tinggi yang berbeda?",
+    question: "Apakah peserta harus berasal dari satu institusi yang sama?",
     answer:
-      "Tidak. Setiap anggota tim harus dipastikan berasal dari perguruan tinggi yang sama.",
+      "Ya, seluruh anggota tim harus berasal dari institusi yang sama. Namun, boleh berasal dari program studi yang berbeda.",
+  },
+  {
+    id: 9,
+    question: "Bagaimana jika ditemukan indikasi plagiarisme?",
+    answer:
+      "Karya yang terbukti melakukan plagiarisme akan didiskualifikasi sesuai dengan ketentuan lomba.",
+  },
+  {
+    id: 10,
+    question: "Apakah final pitching dilakukan secara online atau offline?",
+    answer:
+      "Pelaksanaan babak final (final pitching) akan dilakukan secara offline di Universitas Brawijaya.",
+  },
+  {
+    id: 11,
+    question: "Jika ada pertanyaan lebih lanjut apakah ada contact person yang bisa dihubungi?",
+    answer:
+      "Jika ada pertanyaan lebih lanjut bisa langsung menghubungi Rasil (087754760836) atau Naufal (085811128272)",
   },
 ];
