@@ -7,7 +7,7 @@ const SubmissionBottom = ({ status, stageName }: SubmissionBottomProps) => {
   // 1. Pesan Default (Muncul saat tahap awal / Payment)
   let messageTitle = "Message:";
   let messageContent =
-    "Please submit your payment through....\nIf you have any problems, please tell our Contact Person at :\n087754760836 (Rasil)\n‎085811128272 (Naufal)";
+    "If you have any problems, please tell our Contact Person at :\n087754760836 (Rasil)\n‎085811128272 (Naufal)";
 
   // 2. Pesan Dinamis jika peserta Tidak Lolos / Ditolak (Sesuai catatan Figma)
   if (status === "tidak lolos" || status === "ditolak") {
