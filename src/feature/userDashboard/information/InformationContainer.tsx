@@ -39,7 +39,9 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
           custom={1}
         >
           <Deadline
-            title={isRegistered ? "Submission Deadline" : "Registration Deadline"}
+            title={
+              isRegistered ? "Submission Deadline" : "Registration Deadline"
+            }
             countdown={countdown}
           />
         </motion.section>
@@ -50,16 +52,18 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
           custom={2}
         >
           <Guidebook
-            competitionCategory={teamData?.competition_category ?? "Not Registered"}
+            competitionCategory={
+              teamData?.competition_category ?? "Not Registered"
+            }
             isDeadlinePassed={isDeadlinePassed}
           />
         </motion.section>
       </div>
 
       {isRegistered && teamData && (
-        <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row lg:items-start">
+        <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row">
           <motion.section
-            className="w-full lg:w-1/2"
+            className="w-full lg:w-1/2 h-[500px] flex"
             variants={stackUpStagger}
             custom={3}
           >
@@ -67,7 +71,7 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
           </motion.section>
 
           <motion.section
-            className="w-full lg:w-1/2"
+            className="w-full lg:w-1/2 h-[500px] flex"
             variants={stackUpStagger}
             custom={4}
           >
