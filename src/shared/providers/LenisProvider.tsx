@@ -1,5 +1,4 @@
 "use client";
-
 import { ReactLenis } from "lenis/react";
 
 export default function LenisProvider({
@@ -11,9 +10,9 @@ export default function LenisProvider({
     <ReactLenis
       root
       options={{
-        lerp: 0.1,
-        duration: 1.5,
-        syncTouch: true,
+        lerp: 0.08,      
+        duration: 1.2,
+        syncTouch: false, 
         anchors: true,
       }}
     >

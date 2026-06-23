@@ -34,6 +34,8 @@ export interface AuthResponse {
     otpSent?: boolean;
     UserID?: string;
     otpExpiresAt?: string;
+    email_verified?: boolean;
+    user_id?: string;
   } | null;
   tempData?: TempRegisterData;
 }

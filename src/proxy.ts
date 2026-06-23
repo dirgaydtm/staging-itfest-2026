@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 import CryptoJS from "crypto-js";
 
-const publicPaths = ["/login", "/register", "/forgot-password", "/"];
+const publicPaths = ["/login", "/register", "/forgot-password", "/otp", "/"];
 const adminPaths = ["/admin"];
 const userPaths = ["/dashboard", "/profile"];
 
