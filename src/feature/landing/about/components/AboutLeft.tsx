@@ -61,7 +61,7 @@ export const AboutLeft = () => {
           style={{ transformOrigin: "bottom left" }}
           className="font-leaguespartan lg:text-3xl text-4xl font-bold"
         >
-          Lorem ipsum dolor sit amet consectetur adipiscing elit
+          Getting to know IT FEST 2026
         </motion.h1>
       </div>
     </motion.div>

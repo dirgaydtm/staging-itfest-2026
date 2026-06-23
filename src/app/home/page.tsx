@@ -28,7 +28,7 @@ export default function Home() {
       <section id="faq">
         <FaqContainer />
       </section>
-      <EventContainer />
+      {/* <EventContainer /> */}
       <section id="guide">
         <GuideContainer />
       </section>

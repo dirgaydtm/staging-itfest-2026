@@ -4,7 +4,7 @@ export default function GlowBackground({ className }: { className?: string }) {
     return (
         <div
             className={cn(
-                "absolute inset-0 pointer-events-none h-[200%]",
+                "absolute inset-0 pointer-events-none h-[250%]",
                 className
             )}
         >
