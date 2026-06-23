@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { TeamProfileResponse } from "../types/teamProfile";
 import DashboardCard from "../layout/DashboardCard";
 
@@ -32,27 +33,49 @@ const MemberBlock = ({
 );
 
 const TeamProfile = ({ profile }: Props) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      const atTop = el.scrollTop <= 0;
+      const atBottom =
+        el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+      if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) return;
+      e.preventDefault();
+      el.scrollTop += e.deltaY;
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
+
   return (
     <DashboardCard title="Team Profile">
-      <p className="font-bold text-base sm:text-lg mb-6">
-        [ {profile.team_name || "Team Name"} ]
-      </p>
-      <div className="flex flex-col gap-6">
-        <MemberBlock
-          title="Team Leader"
-          name={profile.leader_name}
-          studentId={profile.student_number}
-        />
-        <MemberBlock
-          title="Team Member 1"
-          name={profile.members?.[0]?.full_name ?? ""}
-          studentId={profile.members?.[0]?.student_number ?? ""}
-        />
-        <MemberBlock
-          title="Team Member 2"
-          name={profile.members?.[1]?.full_name ?? ""}
-          studentId={profile.members?.[1]?.student_number ?? ""}
-        />
+      <div
+        ref={scrollRef}
+        className="h-full overflow-y-auto overscroll-contain touch-pan-y pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30"
+      >
+        <p className="font-bold text-base sm:text-lg mb-6">
+          [ {profile.team_name || "Team Name"} ]
+        </p>
+        <div className="flex flex-col gap-6">
+          <MemberBlock
+            title="Team Leader"
+            name={profile.leader_name}
+            studentId={profile.student_number}
+          />
+          <MemberBlock
+            title="Team Member 1"
+            name={profile.members?.[0]?.full_name ?? ""}
+            studentId={profile.members?.[0]?.student_number ?? ""}
+          />
+          <MemberBlock
+            title="Team Member 2"
+            name={profile.members?.[1]?.full_name ?? ""}
+            studentId={profile.members?.[1]?.student_number ?? ""}
+          />
+        </div>
       </div>
     </DashboardCard>
   );
