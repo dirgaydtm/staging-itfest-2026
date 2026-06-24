@@ -17,7 +17,12 @@ interface InformationContainerProps {
 const InformationContainer = ({ teamData }: InformationContainerProps) => {
   const { isRegistered } = useDashboardTheme();
 
-  const countdown = useCountdown(teamData?.deadline ?? "");
+  // Use registration deadline from env when not registered, otherwise use team deadline
+  const deadlineToUse = isRegistered 
+    ? (teamData?.deadline ?? "") 
+    : (process.env.NEXT_PUBLIC_REGISTRATION_DEADLINE ?? "2026-07-14T23:59:59+07:00");
+
+  const countdown = useCountdown(deadlineToUse);
   const isDeadlinePassed =
     countdown.days === "00" &&
     countdown.hours === "00" &&
