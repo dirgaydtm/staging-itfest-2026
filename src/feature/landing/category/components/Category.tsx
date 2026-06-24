@@ -54,7 +54,7 @@ const Category = () => {
         </motion.p>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full max-w-280 perspective-[1000px] relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full max-w-280 perspective-[1000px] relative z-10 mb-12">
         {category.map((item, index) => (
           <CategoryCard key={index} item={item} index={index} />
         ))}
