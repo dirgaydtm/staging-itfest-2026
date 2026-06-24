@@ -47,7 +47,7 @@ const NavbarContent = () => {
               className="w-1/5 transition-all duration-300 group hover:scale-105 flex items-center justify-start"
               href="/home"
             >
-              <p className="font-comucan mt-2 text-4xl font-bold transition-all text-light-red group-hover:tracking-widest">
+              <p className="font-comucan text-4xl font-bold transition-all text-light-red group-hover:tracking-widest flex items-center">
                 ITFEST
               </p>
             </Link>
@@ -82,8 +82,8 @@ const NavbarContent = () => {
         className={`w-screen px-5 flex z-[100] fixed justify-between items-center md:hidden transition-[padding] duration-300 ${isScroll ? "py-2.5" : "py-4"
           }`}
       >
-        <Link href="/home">
-          <h1 className="font-comucan text-2xl font-bold text-light-red">ITFEST</h1>
+        <Link href="/home" className="flex items-center">
+          <h1 className="font-comucan text-2xl font-bold text-light-red flex items-center">ITFEST</h1>
         </Link>
 
         <div className="relative" ref={mobileMenuRef}>
