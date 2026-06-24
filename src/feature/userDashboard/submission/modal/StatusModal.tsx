@@ -43,7 +43,7 @@ const StatusModal = ({
 
         <p className="text-sm text-white opacity-80 mb-6 leading-relaxed">
           {isSuccess
-            ? `Pengisian berhasil. Silahkan hubungi kami di grup WhatsApp IT FEST apabila ada kendala.`
+            ? `Pengisian berhasil. Silahkan hubungi contact person IT FEST apabila ada kendala.`
             : "Pengisian gagal. Silakan periksa koneksi atau ulangi lagi nanti."}
         </p>
 
