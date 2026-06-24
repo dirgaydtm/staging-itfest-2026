@@ -45,7 +45,7 @@ const SplitPanelLayout: React.FC<SplitPanelLayoutProps> = ({ children }) => {
             >
               <Image
                 src={Star}
-                alt="ITFEST Star"
+                alt="IT FEST Star"
                 priority
                 draggable={false}
                 className="w-32 md:w-40 lg:w-48 xl:w-56 h-auto"
@@ -54,7 +54,7 @@ const SplitPanelLayout: React.FC<SplitPanelLayoutProps> = ({ children }) => {
 
             <div className="text-center space-y-2">
               <h2 className="text-lg lg:text-xl xl:text-2xl font-bold font-leaguespartan text-white tracking-wide drop-shadow-md">
-                Welcome to ITFEST!
+                Welcome to IT FEST!
               </h2>
               <p className="text-xs lg:text-sm xl:text-base font-leaguespartan leading-relaxed text-slate-200">
                 Compete, Collaborate, and Win <br /> Together!

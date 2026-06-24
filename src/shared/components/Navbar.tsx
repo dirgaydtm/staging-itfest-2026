@@ -48,7 +48,7 @@ const NavbarContent = () => {
               href="/home"
             >
               <p className="font-comucan text-4xl font-bold transition-all text-light-red group-hover:tracking-widest flex items-center">
-                ITFEST
+                IT FEST
               </p>
             </Link>
 
@@ -83,7 +83,7 @@ const NavbarContent = () => {
           }`}
       >
         <Link href="/home" className="flex items-center">
-          <h1 className="font-comucan text-2xl font-bold text-light-red flex items-center">ITFEST</h1>
+          <h1 className="font-comucan text-2xl font-bold text-light-red flex items-center">IT FEST</h1>
         </Link>
 
         <div className="relative" ref={mobileMenuRef}>
