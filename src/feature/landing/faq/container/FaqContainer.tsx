@@ -49,7 +49,7 @@ const FaqContainer = () => {
                   </p>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-6 sm:px-8 pt-6 text-white bg-dark-active-blue">
-                  <p className="text-sm sm:text-base leading-relaxed">
+                  <p className="text-sm sm:text-base leading-relaxed whitespace-pre-line">
                     {faq.answer}
                   </p>
                 </AccordionContent>

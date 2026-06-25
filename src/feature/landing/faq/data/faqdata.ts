@@ -9,7 +9,7 @@ export const faqdata = [
     id: 2,
     question: "Apakah bisa mengikuti kompetisi tanpa membuat tim?",
     answer:
-      "Pada kategori Business Plan dan Digital Media Learning, peserta diwajibkan mengikuti kompetisi dalam bentuk tim yang terdiri atas maksimal 3 anggota. Namun, pada kategori UI/UX Design, peserta dapat berpartisipasi secara individu tanpa harus membentuk tim.",
+      "Ketentuan peserta untuk setiap kategori lomba adalah sebagai berikut:\n\n- UI/UX Design dapat diikuti secara individu maupun kelompok\n- Digital Media Learning (DML) wajib dalam bentuk tim dengan maksimal anggota 3 orang\n- Business Plan setiap tim wajib terdiri dari 3 anggota",
   },
   {
     id: 3,
@@ -61,6 +61,18 @@ export const faqdata = [
   },
   {
     id: 11,
+    question: "Bagaimana jika terdapat anggota tim yang berhalangan mengikuti babak final?",
+    answer:
+      "Peserta disarankan memastikan seluruh anggota tim dapat mengikuti rangkaian lomba. Ketentuan lebih lanjut mengenai perwakilan tim pada babak final mengacu pada guidebook masing-masing kategori.",
+  },
+  {
+    id: 12,
+    question: "Apakah peserta wajib mengikuti seluruh rangkaian acara?",
+    answer:
+      "Ya. Peserta yang dinyatakan lolos ke tahap berikutnya wajib mengikuti seluruh rangkaian kegiatan sesuai jadwal yang telah ditentukan oleh panitia.",
+  },
+  {
+    id: 13,
     question: "Jika ada pertanyaan lebih lanjut apakah ada contact person yang bisa dihubungi?",
     answer:
       "Jika ada pertanyaan lebih lanjut bisa langsung menghubungi Rasil (087754760836) atau Naufal (085811128272)",
