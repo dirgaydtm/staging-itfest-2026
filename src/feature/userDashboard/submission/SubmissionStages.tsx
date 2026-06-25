@@ -53,10 +53,6 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
     const deadline = new Date(stage.stage_deadline);
     const isOverdue = deadline < now;
 
-    // Only mark as overdue if:
-    // 1. It's the current stage
-    // 2. The deadline has passed
-    // 3. The stage hasn't been completed successfully
     const completedStatuses = [
       "lolos",
       "diproses",
@@ -107,14 +103,25 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
     );
   };
 
+  const isUserFinalist = allStages.some(
+    (stage) =>
+      (stage.stage_name === "Proposal" || stage.stage_name === "Artikel Final") &&
+      stage.status_submission === "lolos"
+  );
+
   return (
-    <section className="bg-white/[0.06] rounded-4xl border border-white/20 font-leaguespartan py-10 px-6 md:px-10">
-      {/* Header - Fixed, tidak ikut scroll */}
-      <header className="text-white text-3xl font-bold text-center mb-8">
+    <section className="bg-white/[0.06] rounded-4xl border border-white/20 overflow-x-auto font-leaguespartan py-10 px-10">
+      
+      <header className={`text-white text-3xl font-bold text-center ${isUserFinalist ? "mb-3" : "mb-16"}`}>
         Stages
       </header>
 
-      {/* Content - Scrollable */}
+      {isUserFinalist && (
+        <p className="text-glow-yellow font-bold text-center text-lg md:text-xl mb-10 animate-pulse tracking-wide">
+          Congrats, You are a finalist
+        </p>
+      )}
+
       <main className="w-full">
         {/* Mobile View - Vertical */}
         <div className="flex flex-col lg:hidden items-center space-y-8">
