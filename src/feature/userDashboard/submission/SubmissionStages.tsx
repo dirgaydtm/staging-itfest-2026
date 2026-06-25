@@ -108,18 +108,26 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
   };
 
   return (
-    <section className="bg-white/[0.06] rounded-4xl border border-white/20 overflow-x-auto font-leaguespartan py-10 px-10">
-      <header className="text-white text-3xl font-bold text-center mb-16">
+    <section className="bg-white/[0.06] rounded-4xl border border-white/20 font-leaguespartan py-10 px-6 md:px-10">
+      {/* Header - Fixed, tidak ikut scroll */}
+      <header className="text-white text-3xl font-bold text-center mb-8">
         Stages
       </header>
 
+      {/* Content - Scrollable */}
       <main className="w-full">
+        {/* Mobile View - Vertical */}
         <div className="flex flex-col lg:hidden items-center space-y-8">
           {allStages.map((stage, index) => renderStage(stage, index, false))}
         </div>
 
-        <div className="hidden lg:flex items-center justify-center">
-          {allStages.map((stage, index) => renderStage(stage, index, true))}
+        {/* Desktop View - Horizontal dengan scroll */}
+        <div className="hidden lg:block">
+          <div className="overflow-x-auto pb-4">
+            <div className="flex items-center justify-start min-w-max px-4">
+              {allStages.map((stage, index) => renderStage(stage, index, true))}
+            </div>
+          </div>
         </div>
       </main>
     </section>
