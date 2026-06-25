@@ -7,6 +7,7 @@ import SubmissionHeader from "../submission/SubmissionHeader";
 import { floatDownSoft, stackUpStagger } from "../lib/motionVarians";
 import SubmissionStages from "../submission/SubmissionStages";
 import SubmissionBottom from "../submission/SubmissionBottom";
+import GuideBookInfo from "../submission/GuideBookInfo";
 
 interface SubmissionViewProps {
   teamData: TeamProfileResponse;
@@ -75,12 +76,20 @@ export const SubmissionView = ({
         variants={stackUpStagger}
         custom={1}
       >
+        <GuideBookInfo competitionCategory={teamData.competition_category} />
+      </motion.section>
+
+      <motion.section
+        className="w-full mb-8"
+        variants={stackUpStagger}
+        custom={2}
+      >
         {submissionsData && (
           <SubmissionStages submissionsData={submissionsData} />
         )}
       </motion.section>
 
-      <motion.section className="w-full" variants={stackUpStagger} custom={2}>
+      <motion.section className="w-full" variants={stackUpStagger} custom={3}>
         <SubmissionBottom />
       </motion.section>
     </motion.div>

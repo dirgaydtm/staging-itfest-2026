@@ -74,8 +74,16 @@ const Announcement = () => {
           className="flex-1 min-h-0 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30"
         >
           {loading ? (
-            <p className="text-center text-sm text-light-blue/60">Loading...</p>
-          ) : error ? null : displayedAnnouncements.length > 0 ? (
+            <div className="min-h-[200px] flex items-center justify-center">
+              <p className="text-center text-sm text-light-blue/60">Loading...</p>
+            </div>
+          ) : error ? (
+            <div className="min-h-[300px] flex items-center justify-center">
+              <p className="text-center text-sm text-light-blue/60">
+                No announcement yet
+              </p>
+            </div>
+          ) : displayedAnnouncements.length > 0 ? (
             <ul className="space-y-3">
               {displayedAnnouncements.map((item) => (
                 <li
@@ -92,9 +100,11 @@ const Announcement = () => {
               ))}
             </ul>
           ) : (
-            <p className="text-center text-sm text-light-blue/60">
-              No announcements yet...
-            </p>
+            <div className="min-h-[200px] flex items-center justify-center">
+              <p className="text-center text-sm text-light-blue/60">
+                No announcement yet
+              </p>
+            </div>
           )}
         </div>
 
