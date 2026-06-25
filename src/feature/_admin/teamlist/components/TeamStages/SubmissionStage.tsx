@@ -126,19 +126,19 @@ const SubmissionStages = ({ onCheckStageDetails, stagesData }: SubmissionStagesP
 
   return (
     // Menggunakan pakem figma asli: bg-[#B0BFC7]/10 dengan border tipis transparan
-    <section className="bg-[#B0BFC7]/10 border border-white/10 backdrop-blur-md rounded-2xl overflow-x-auto font-changa py-8 px-6 w-full">
+    <section className="bg-[#B0BFC7]/10 border border-white/10 backdrop-blur-md rounded-2xl font-changa py-8 px-6 w-full">
       <header className="text-white text-xl font-bold border-b border-white/5 pb-4 mb-10 tracking-wide pl-2">
         Competition Stages Journey
       </header>
 
-      <main className="w-full">
+      <main className="w-full overflow-x-auto">
         {/* Tampilan Seluler (Mobile Viewport Layout) */}
-        <div className="flex flex-col lg:hidden items-center space-y-4">
+        <div className="flex flex-col lg:hidden items-center space-y-4 min-w-max">
           {allStages.map((stage, index) => renderStage(stage, index, false))}
         </div>
 
         {/* Tampilan Desktop (Desktop Viewport Layout) */}
-        <div className="hidden lg:flex items-center justify-center gap-1">
+        <div className="hidden lg:flex items-center justify-start gap-1 min-w-max px-4">
           {allStages.map((stage, index) => renderStage(stage, index, true))}
         </div>
       </main>
