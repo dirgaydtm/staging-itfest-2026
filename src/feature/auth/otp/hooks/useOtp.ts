@@ -75,11 +75,19 @@ export function useOtp() {
         registerService.clearTempLoginData();
         
         // Small delay to ensure token is saved in cookies
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise(resolve => setTimeout(resolve, 100));
         
-        // Redirect to dashboard with full page reload to ensure auth state is fresh
+        // Check if user is admin after verification
+        const { authService } = await import("@/api/services/auth");
+        const isAdmin = authService.IsAdmin();
+        
+        // Redirect based on role with full page reload
         if (typeof window !== "undefined") {
-          window.location.replace("/dashboard");
+          if (isAdmin) {
+            window.location.replace("/mangujo/admin/dashboard");
+          } else {
+            window.location.replace("/dashboard");
+          }
         }
       } else {
         setErrorMessage(res.message || "Verifikasi OTP gagal");

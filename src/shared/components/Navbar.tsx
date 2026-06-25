@@ -4,7 +4,6 @@ import { Navlink } from "../data/navlink";
 import Navlist from "./Navlist";
 import Hamburger from "hamburger-react";
 import useScroll from "../hooks/useScrollBar";
-import { AuthProvider } from "../context/AuthContext";
 import { useAuth } from "../hooks/useAuth";
 import ProfileDropdown from "./ProfileDropdown";
 import ProfilePicture from "./ProfilePicture";
@@ -177,10 +176,6 @@ const NavbarContent = () => {
   );
 };
 
-const Navbar = () => (
-  <AuthProvider>
-    <NavbarContent />
-  </AuthProvider>
-);
+const Navbar = () => <NavbarContent />;
 
 export default Navbar;
