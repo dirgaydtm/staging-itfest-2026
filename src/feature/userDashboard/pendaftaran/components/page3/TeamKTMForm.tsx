@@ -87,7 +87,7 @@ const TeamKTMForm: React.FC<TeamKTMFormProps> = ({
 
         <div className="flex flex-col gap-1.5">
           <FormFileInput
-            label="Scan KTM"
+            label="Team Leader's KTM"
             file={ktmFile}
             onFileChange={handleFileChange}
             placeholder="Upload Here"

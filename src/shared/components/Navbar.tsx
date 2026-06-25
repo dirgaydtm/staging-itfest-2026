@@ -4,7 +4,6 @@ import { Navlink } from "../data/navlink";
 import Navlist from "./Navlist";
 import Hamburger from "hamburger-react";
 import useScroll from "../hooks/useScrollBar";
-import { AuthProvider } from "../context/AuthContext";
 import { useAuth } from "../hooks/useAuth";
 import ProfileDropdown from "./ProfileDropdown";
 import ProfilePicture from "./ProfilePicture";
@@ -47,8 +46,8 @@ const NavbarContent = () => {
               className="w-1/5 transition-all duration-300 group hover:scale-105 flex items-center justify-start"
               href="/home"
             >
-              <p className="font-comucan mt-2 text-4xl font-bold transition-all text-light-red group-hover:tracking-widest">
-                ITFEST
+              <p className="font-comucan text-4xl font-bold transition-all text-light-red group-hover:tracking-widest flex items-center">
+                IT FEST
               </p>
             </Link>
 
@@ -82,8 +81,8 @@ const NavbarContent = () => {
         className={`w-screen px-5 flex z-[100] fixed justify-between items-center md:hidden transition-[padding] duration-300 ${isScroll ? "py-2.5" : "py-4"
           }`}
       >
-        <Link href="/home">
-          <h1 className="font-comucan text-2xl font-bold text-light-red">ITFEST</h1>
+        <Link href="/home" className="flex items-center">
+          <h1 className="font-comucan text-2xl font-bold text-light-red flex items-center">IT FEST</h1>
         </Link>
 
         <div className="relative" ref={mobileMenuRef}>
@@ -177,10 +176,6 @@ const NavbarContent = () => {
   );
 };
 
-const Navbar = () => (
-  <AuthProvider>
-    <NavbarContent />
-  </AuthProvider>
-);
+const Navbar = () => <NavbarContent />;
 
 export default Navbar;

@@ -17,7 +17,12 @@ interface InformationContainerProps {
 const InformationContainer = ({ teamData }: InformationContainerProps) => {
   const { isRegistered } = useDashboardTheme();
 
-  const countdown = useCountdown(teamData?.deadline ?? "");
+  // Use registration deadline from env when not registered, otherwise use team deadline
+  const deadlineToUse = isRegistered 
+    ? (teamData?.deadline ?? "") 
+    : (process.env.NEXT_PUBLIC_REGISTRATION_DEADLINE ?? "2026-07-14T23:59:59+07:00");
+
+  const countdown = useCountdown(deadlineToUse);
   const isDeadlinePassed =
     countdown.days === "00" &&
     countdown.hours === "00" &&
@@ -39,7 +44,9 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
           custom={1}
         >
           <Deadline
-            title={isRegistered ? "Submission Deadline" : "Registration Deadline"}
+            title={
+              isRegistered ? "Submission Deadline" : "Registration Deadline"
+            }
             countdown={countdown}
           />
         </motion.section>
@@ -50,16 +57,18 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
           custom={2}
         >
           <Guidebook
-            competitionCategory={teamData?.competition_category ?? "Not Registered"}
+            competitionCategory={
+              teamData?.competition_category ?? "Not Registered"
+            }
             isDeadlinePassed={isDeadlinePassed}
           />
         </motion.section>
       </div>
 
       {isRegistered && teamData && (
-        <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row lg:items-start">
+        <div className="flex w-full flex-col gap-4 sm:gap-5 lg:gap-6 lg:flex-row">
           <motion.section
-            className="w-full lg:w-1/2"
+            className="w-full lg:w-1/2 h-[500px] flex"
             variants={stackUpStagger}
             custom={3}
           >
@@ -67,7 +76,7 @@ const InformationContainer = ({ teamData }: InformationContainerProps) => {
           </motion.section>
 
           <motion.section
-            className="w-full lg:w-1/2"
+            className="w-full lg:w-1/2 h-[500px] flex"
             variants={stackUpStagger}
             custom={4}
           >

@@ -34,25 +34,27 @@ const MemberBlock = ({
 const TeamProfile = ({ profile }: Props) => {
   return (
     <DashboardCard title="Team Profile">
-      <p className="font-bold text-base sm:text-lg mb-6">
-        [ {profile.team_name || "Team Name"} ]
-      </p>
-      <div className="flex flex-col gap-6">
-        <MemberBlock
-          title="Team Leader"
-          name={profile.leader_name}
-          studentId={profile.student_number}
-        />
-        <MemberBlock
-          title="Team Member 1"
-          name={profile.members?.[0]?.full_name ?? ""}
-          studentId={profile.members?.[0]?.student_number ?? ""}
-        />
-        <MemberBlock
-          title="Team Member 2"
-          name={profile.members?.[1]?.full_name ?? ""}
-          studentId={profile.members?.[1]?.student_number ?? ""}
-        />
+      <div className="h-full">
+        <p className="font-bold text-base sm:text-lg mb-6">
+          [ {profile.team_name || "Team Name"} ]
+        </p>
+        <div className="flex flex-col gap-6">
+          <MemberBlock
+            title="Team Leader"
+            name={profile.leader_name}
+            studentId={profile.student_number}
+          />
+          <MemberBlock
+            title="Team Member 1"
+            name={profile.members?.[0]?.full_name ?? ""}
+            studentId={profile.members?.[0]?.student_number ?? ""}
+          />
+          <MemberBlock
+            title="Team Member 2"
+            name={profile.members?.[1]?.full_name ?? ""}
+            studentId={profile.members?.[1]?.student_number ?? ""}
+          />
+        </div>
       </div>
     </DashboardCard>
   );

@@ -1,6 +1,4 @@
-"use client";
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import type { ReactNode, CSSProperties } from "react";
 
 interface FloatSwayProps {
   children: ReactNode;
@@ -13,21 +11,14 @@ export default function FloatSway({
   className,
   duration = 5,
 }: FloatSwayProps) {
+  const style: CSSProperties = {
+    animation: `float-sway ${duration}s ease-in-out infinite`,
+    willChange: "transform",
+  };
+
   return (
-    <motion.div
-      className={className}
-      animate={{
-        y: [0, -14, -6, -16, 0],
-        x: [0, 5, -4, 6, 0],
-        rotate: [0, 1.8, -1.2, 1.5, 0],
-      }}
-      transition={{
-        duration,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    >
+    <div className={className} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

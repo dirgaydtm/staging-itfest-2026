@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useScrollTrigger } from "../hooks/useScrollTrigger";
 import { useSlotMachineAnimation } from "../hooks/useCountAnimation";
 
@@ -7,8 +7,8 @@ const PrizeCount = () => {
   const { ref, isVisible } = useScrollTrigger(0.1);
   const [digits, isFinished] = useSlotMachineAnimation(
     isVisible,
-    4000000,
-    2500,
+    9000000,
+    2000,
   );
   const [isShaking, setIsShaking] = useState(false);
 
@@ -30,8 +30,9 @@ const PrizeCount = () => {
       }`}
     >
       <div className="flex items-center justify-center leading-none">
-        <span className="mr-2 md:mr-4">Rp.</span>
+        <span className="md:mr-4">Rp </span>
         <span className="tabular-nums">{formattedValue}</span>
+        <span className="md:ml-4 -translate-y-3">++</span>
       </div>
     </div>
   );

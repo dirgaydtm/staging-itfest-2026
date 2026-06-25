@@ -42,13 +42,13 @@ export const AboutRight = () => {
             }}
             className="text-sm font-leaguespartan md:text-base leading-relaxed text-justify"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit animi id est laborum.
+            IT FEST 2026 merupakan kompetisi teknologi tingkat nasional yang
+            diselenggarakan oleh Keluarga Besar Mahasiswa Departemen Sistem
+            Informasi (KBMDSI) Fakultas Ilmu Komputer Universitas Brawijaya.
+            Mengusung tema “Advancing National Inovation through Digital
+            Excellence”, ajang ini menghadirkan tiga cabang lomba utama, yaitu
+            UI/UX, Business Plan, serta Digital Media Learning sebagai kategori
+            terbaru.
           </motion.p>
           <motion.p
             variants={{
@@ -61,13 +61,9 @@ export const AboutRight = () => {
             }}
             className="text-sm md:text-base font-leaguespartan leading-relaxed text-justify"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit animi id est laborum.
+            IT FEST 2026 hadir sebagai wadah untuk meningkatkan kemampuan
+            kompetisi dan portofolio nasional, sekaligus memacu kolaborasi
+            generasi penerus bangsa.
           </motion.p>
         </motion.div>
       </motion.div>

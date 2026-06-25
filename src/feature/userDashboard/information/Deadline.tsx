@@ -19,7 +19,7 @@ const Deadline = ({ title = "Submission Deadline", countdown }: Props) => {
         {title}
       </h2>
       <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wider text-light-active-green">
-        {countdown.days}: {countdown.hours}: {countdown.minutes}: {countdown.seconds}
+        {countdown.days}:{countdown.hours}:{countdown.minutes}:{countdown.seconds}
       </p>
     </section>
   );

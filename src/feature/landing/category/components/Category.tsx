@@ -47,14 +47,14 @@ const Category = () => {
         </motion.h1>
         <motion.p
           variants={textVariants}
-          className="text-sm md:text-lg text-white font-leaguespartan"
+          className="text-sm md:text-lg text-white font-leaguespartan px-4"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Pilih kategori perlombaan yang sesuai dengan minat dan keahlianmu.
+          <br /> Tunjukkan inovasi, kemampuan, dan kreativitas terbaikmu.
         </motion.p>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full max-w-280 perspective-[1000px] relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full max-w-280 perspective-[1000px] relative z-10 mb-12">
         {category.map((item, index) => (
           <CategoryCard key={index} item={item} index={index} />
         ))}

@@ -1,10 +1,11 @@
 import TeamStagesContainer from "@/feature/_admin/teamlist/container/TeamStagesContainer";
+import { DashboardThemeProvider } from "@/feature/userDashboard/layout";
 import React from "react";
 
 const page = () => {
-  return <div>
+  return <DashboardThemeProvider>
     <TeamStagesContainer />
-  </div>;
+  </DashboardThemeProvider>;
 };
 
 export default page;

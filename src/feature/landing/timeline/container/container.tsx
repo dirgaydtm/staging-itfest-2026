@@ -11,7 +11,7 @@ const TimelineContainer = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="relative h-[90vh] lg:h-[70vh] flex flex-col items-center justify-center"
+      className="relative h-[90vh] lg:h-[70vh] flex flex-col items-center justify-center pt-12 md:pt-16"
     >
       {/* Hand Images */}
       <LeftHand />

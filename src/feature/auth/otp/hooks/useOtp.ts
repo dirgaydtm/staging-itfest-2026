@@ -72,9 +72,23 @@ export function useOtp() {
       if (res.status.isSuccess) {
         setVerificationSuccess(true);
         registerService.clearTempRegisterData();
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 2000);
+        registerService.clearTempLoginData();
+        
+        // Small delay to ensure token is saved in cookies
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Check if user is admin after verification
+        const { authService } = await import("@/api/services/auth");
+        const isAdmin = authService.IsAdmin();
+        
+        // Redirect based on role with full page reload
+        if (typeof window !== "undefined") {
+          if (isAdmin) {
+            window.location.replace("/mangujo/admin/dashboard");
+          } else {
+            window.location.replace("/dashboard");
+          }
+        }
       } else {
         setErrorMessage(res.message || "Verifikasi OTP gagal");
       }
@@ -113,6 +127,7 @@ export function useOtp() {
       const msg =
         err instanceof Error ? err.message : "Gagal mengirim ulang OTP";
       setErrorMessage(msg);
+      toast.error(msg);
     } finally {
       setResendLoading(false);
     }

@@ -19,25 +19,24 @@ const rocketVariants: Variants = {
   }),
 };
 
-const COLORS = ["bg-orange-500", "bg-yellow-400", "bg-red-500"];
+const PARTICLE_CONFIGS = Array.from({ length: 12 }, (_, i) => ({
+  id: i,
+  color: (["bg-orange-500", "bg-yellow-400", "bg-red-500"] as const)[i % 3],
+  style: {
+    "--tx": `${((i * 37) % 60) - 30}px`,
+    "--ty": `${((i * 19) % 80) + 30}px`,
+    animationDuration: `${0.5 + (i % 5) * 0.1}s`,
+    animationDelay: `${(i % 5) * 0.1}s`,
+  } as React.CSSProperties,
+}));
 
-const RocketAnimation = ({ className, delay = 0 }: { className: string; delay?: number }) => {
-  const [particles, setParticles] = useState<any[]>([]);
-
-  useEffect(() => {
-    setParticles(
-      Array.from({ length: 50 }).map((_, i) => ({
-        id: i,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        scale: Math.random() + 5,
-        x: (Math.random() - 0.5) * 60,
-        y: Math.random() * 80 + 30,
-        duration: Math.random() * 0.5 + 0.5,
-        delay: Math.random() * 0.5,
-      }))
-    );
-  }, []);
-
+const RocketAnimation = ({
+  className,
+  delay = 0,
+}: {
+  className: string;
+  delay?: number;
+}) => {
   return (
     <motion.div
       custom={delay}
@@ -49,15 +48,12 @@ const RocketAnimation = ({ className, delay = 0 }: { className: string; delay?: 
         alt="Rocket"
         className="w-32 md:w-48 lg:w-72 object-contain relative z-10 drop-shadow-[0_0_15px_rgba(255,165,0,0.4)]"
       />
-      {/* Particles Engine */}
       <div className="relative w-full h-32 -mt-6 md:-mt-8 lg:-mt-12 flex justify-center">
-        {particles.map((p) => (
-          <motion.div
+        {PARTICLE_CONFIGS.map((p) => (
+          <div
             key={p.id}
-            initial={{ opacity: 1, scale: p.scale, y: 0, x: 0 }}
-            animate={{ opacity: 0, scale: 0, y: p.y, x: p.x }}
-            transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
-            className={`absolute top-0 w-3 h-3 md:w-4 md:h-4 rounded-full blur-[2px] ${p.color}`}
+            className={`rocket-particle absolute top-0 w-3 h-3 md:w-4 md:h-4 rounded-full blur-[2px] ${p.color}`}
+            style={p.style}
           />
         ))}
       </div>

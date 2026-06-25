@@ -123,12 +123,18 @@ const SubmissionStages = ({ submissionsData }: SubmissionStagesProps) => {
       )}
 
       <main className="w-full">
+        {/* Mobile View - Vertical */}
         <div className="flex flex-col lg:hidden items-center space-y-8">
           {allStages.map((stage, index) => renderStage(stage, index, false))}
         </div>
 
-        <div className="hidden lg:flex items-center justify-center">
-          {allStages.map((stage, index) => renderStage(stage, index, true))}
+        {/* Desktop View - Horizontal dengan scroll */}
+        <div className="hidden lg:block">
+          <div className="overflow-x-auto pb-4">
+            <div className="flex items-center justify-start min-w-max px-4">
+              {allStages.map((stage, index) => renderStage(stage, index, true))}
+            </div>
+          </div>
         </div>
       </main>
     </section>

@@ -11,17 +11,16 @@ interface CategoryCardProps {
 }
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 50, rotateX: 30, scale: 0.9 },
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
   visible: (index: number) => ({
     opacity: 1,
     y: 0,
-    rotateX: 0,
     scale: 1,
     transition: {
       type: "spring",
-      stiffness: 80,
-      damping: 15,
-      delay: index * 0.2, // Stagger based on index
+      stiffness: 100,
+      damping: 18,
+      delay: index * 0.15,
     },
   }),
 };

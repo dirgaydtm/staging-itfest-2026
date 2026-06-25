@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import StructuredData from "@/shared/data/StructuredData";
 import LenisProvider from "@/shared/providers/LenisProvider";
 import SplashScreen from "@/shared/components/SplashScreen";
+import { AuthProvider } from "@/shared/context/AuthContext";
 
 const siteUrl = "https://itfest-filkom.com/";
 
@@ -68,10 +69,12 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${comucan.variable} ${leaguespartan.variable} ${anton.variable} antialiased`}
       >
-        <LenisProvider>
-          <SplashScreen />
-          {children}
-        </LenisProvider>
+        <AuthProvider>
+          <LenisProvider>
+            <SplashScreen />
+            {children}
+          </LenisProvider>
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

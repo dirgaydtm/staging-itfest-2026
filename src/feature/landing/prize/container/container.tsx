@@ -1,4 +1,3 @@
-import React from "react";
 import Prize from "../components/Prize";
 
 const SpecialPrizeContainer = () => {
