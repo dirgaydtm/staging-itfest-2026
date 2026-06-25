@@ -14,6 +14,7 @@ export interface User {
   email: string;
   name: string;
   role: "admin" | "user" | string;
+  role_id?: number;
   permissions?: string[];
   createdAt?: string;
   updatedAt?: string;
@@ -61,6 +62,7 @@ export interface JWTPayload {
   role?: string;
   email?: string;
   IsAdmin?: boolean;
+  RoleID?: number;
   name?: string;
   permissions?: string[];
   exp: number;

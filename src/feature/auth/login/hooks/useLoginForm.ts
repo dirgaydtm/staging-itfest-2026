@@ -35,14 +35,22 @@ export const useLoginForm = () => {
       
       // Check if user is admin after successful login
       const isAdmin = authService.IsAdmin();
+      const storedUser = authService.getStoredUser();
+      const roleId = storedUser?.role_id;
       
-      console.log("Login successful, isAdmin:", isAdmin); // Debug log
+      console.log("Login successful, isAdmin:", isAdmin, "role_id:", roleId); // Debug log
       
       // Use window.location.href for full page reload to ensure middleware catches it
       if (typeof window !== "undefined") {
         if (isAdmin) {
-          console.log("Redirecting to admin dashboard"); // Debug log
-          window.location.href = "/mangujo/admin/dashboard";
+          // For role_id 3, 4, 5 (specific admin roles), redirect to team-list
+          if (roleId && [3, 4, 5].includes(roleId)) {
+            console.log("Redirecting to team list for specific admin role"); // Debug log
+            window.location.href = "/mangujo/admin/team-list";
+          } else {
+            console.log("Redirecting to admin dashboard"); // Debug log
+            window.location.href = "/mangujo/admin/dashboard";
+          }
         } else {
           console.log("Redirecting to user dashboard"); // Debug log
           window.location.href = "/dashboard";

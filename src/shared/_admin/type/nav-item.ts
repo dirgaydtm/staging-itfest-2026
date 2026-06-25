@@ -5,6 +5,7 @@ export interface NavItem {
   children?: NavItem[];
   disabled?: boolean;
   external?: boolean;
+  allowedRoles?: number[]; // Role IDs that can access this menu
 }
 
 export interface NavSection {

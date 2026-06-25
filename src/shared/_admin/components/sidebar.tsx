@@ -3,8 +3,9 @@ import { cn } from "@/shared/utils/cn";
 import { usePathname } from "next/navigation";
 import { navItems } from "../data/nav-items";
 import { AdminProfile } from "./AdminProfile";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import SidebarItem from "./SidebarItem";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 interface SidebarProps {
   profileData: {
@@ -18,6 +19,20 @@ interface SidebarProps {
 export default function Sidebar({ profileData, onLogout }: SidebarProps) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { user } = useAuth();
+
+  // Filter nav items based on user's role_id
+  const filteredNavItems = useMemo(() => {
+    const userRoleId = user?.role_id;
+    if (!userRoleId) return navItems;
+
+    return navItems.filter((item) => {
+      // If no allowedRoles defined, show to all
+      if (!item.allowedRoles || item.allowedRoles.length === 0) return true;
+      // Check if user's role_id is in allowedRoles
+      return item.allowedRoles.includes(userRoleId);
+    });
+  }, [user?.role_id]);
 
   return (
     <>
@@ -76,7 +91,7 @@ export default function Sidebar({ profileData, onLogout }: SidebarProps) {
         {/* Navigation Menu - Ditambahkan overflow-y-auto agar jika menu panjang, hanya area ini yang bisa di-scroll */}
         <nav className="flex-1 overflow-y-auto pr-1 my-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
           <ul className="space-y-4">
-            {navItems.map((item, idx) => (
+            {filteredNavItems.map((item, idx) => (
               <SidebarItem
                 key={idx}
                 item={item}

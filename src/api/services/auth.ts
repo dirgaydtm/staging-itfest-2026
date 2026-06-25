@@ -84,6 +84,7 @@ export class AuthService {
           return {
             ...response.data,
             role: tokenData.role,
+            role_id: tokenData.role_id,
             IsAdmin: tokenData.IsAdmin,
             UserID: tokenData.UserID,
             permissions: tokenData.permissions,
@@ -140,6 +141,7 @@ export class AuthService {
         email: "", // Empty since not in token
         name: "", // Empty since not in token
         role: role,
+        role_id: payload.RoleID,
         IsAdmin: IsAdmin,
         permissions: [], // Empty since not in token
       };

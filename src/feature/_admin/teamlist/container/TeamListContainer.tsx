@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import TeamListTable from "../components/TeamListTable";
 import TeamListHeader from "../components/TeamListHeader";
 import { useTeamDetails } from "../hooks/useTeamDetailsData";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 const TeamListContainer = () => {
   const { teamData, loading, error } = useTeamDetails();
+  const { user } = useAuth();
 
   const [competitionFilter, setCompetitionFilter] = useState("");
   const [stageFilter, setStageFilter] = useState("");
@@ -15,6 +17,23 @@ const TeamListContainer = () => {
     setCompetitionFilter(filter);
     setStageFilter("");
   };
+
+  // Get role-based label for header
+  const getRoleLabel = () => {
+    if (!user?.role_id) return "";
+    switch (user.role_id) {
+      case 3:
+        return "UI/UX";
+      case 4:
+        return "Business Plan";
+      case 5:
+        return "Digital Media Learning";
+      default:
+        return "";
+    }
+  };
+
+  const roleLabel = getRoleLabel();
 
   // State Loading yang diselaraskan dengan estetika admin dashboard
   if (loading) {
@@ -46,6 +65,13 @@ const TeamListContainer = () => {
       {/* Wrapper Header dengan jarak vertikal yang tegas */}
       <div className="mb-8 w-full">
         <TeamListHeader />
+        {roleLabel && (
+          <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl">
+            <p className="text-blue-300 text-sm font-medium text-center">
+              📋 Viewing <span className="font-bold">{roleLabel}</span> teams only
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Tabel Utama & Filter Bar */}
@@ -56,6 +82,7 @@ const TeamListContainer = () => {
           currentStageFilter={stageFilter}
           onCompetitionFilterChange={handleCompetitionFilterChange}
           onStageFilterChange={setStageFilter}
+          userRoleId={user?.role_id}
         />
       </div>
 

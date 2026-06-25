@@ -27,7 +27,14 @@ export const useLoginForm = () => {
     }
 
     try {
-      await login(email, password);
+      const result = await login(email, password);
+      
+      // Wait a bit to ensure user context is updated
+      await new Promise(resolve => setTimeout(resolve, 150));
+      
+      // Check role_id after login to redirect appropriately
+      // The user state should be updated after login
+      // We'll let the dashboard page handle the redirect for role_id 3,4,5
       router.push("/mangujo/admin/dashboard");
     } catch (error) {
       setError((error as Error).message || "Login failed. Please try again.");

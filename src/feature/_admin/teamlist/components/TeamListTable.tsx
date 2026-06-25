@@ -21,6 +21,7 @@ interface TeamListTableProps {
   currentStageFilter: string;
   onCompetitionFilterChange: (filter: string) => void;
   onStageFilterChange: (filter: string) => void;
+  userRoleId?: number;
 }
 
 const getDisplayValue = (value: string | null | undefined): string => {
@@ -62,6 +63,7 @@ const TeamListTable = ({
   currentStageFilter,
   onCompetitionFilterChange,
   onStageFilterChange,
+  userRoleId,
 }: TeamListTableProps) => {
 
   const visibleTeams =
@@ -132,63 +134,65 @@ const TeamListTable = ({
 
   return (
     <div className="w-full space-y-6 text-white">
-      {/* PANEL FILTER (Style Glassmorphism Container) */}
-      <div className="p-5 bg-[#B0BFC7]/10 backdrop-blur-md rounded-2xl border border-white/10 space-y-4">
-        <div className="flex justify-between items-center mb-2">
-          <div className="flex items-center gap-2 text-white font-bold text-sm tracking-wide">
-            <SlidersHorizontal size={16} className="text-white/60" />
-            <span>Filter Teams By Category</span>
+      {/* PANEL FILTER (Style Glassmorphism Container) - Hide for role_id 3,4,5 since they only see one competition */}
+      {userRoleId !== 3 && userRoleId !== 4 && userRoleId !== 5 && competitionNames.length > 1 && (
+        <div className="p-5 bg-[#B0BFC7]/10 backdrop-blur-md rounded-2xl border border-white/10 space-y-4">
+          <div className="flex justify-between items-center mb-2">
+            <div className="flex items-center gap-2 text-white font-bold text-sm tracking-wide">
+              <SlidersHorizontal size={16} className="text-white/60" />
+              <span>Filter Teams By Category</span>
+            </div>
+            {window && (currentCompetitionFilter || currentStageFilter) && (
+              <button
+                onClick={handleClearFilters}
+                className="flex items-center gap-1.5 text-xs text-yellow-400 hover:text-yellow-300 font-semibold transition-colors cursor-pointer"
+              >
+                <X size={14} /> Clear All
+              </button>
+            )}
           </div>
-          {window && (currentCompetitionFilter || currentStageFilter) && (
-            <button
-              onClick={handleClearFilters}
-              className="flex items-center gap-1.5 text-xs text-yellow-400 hover:text-yellow-300 font-semibold transition-colors cursor-pointer"
-            >
-              <X size={14} /> Clear All
-            </button>
-          )}
-        </div>
 
-        <div className="flex flex-col gap-3">
-          {competitionNames.map((name) => (
-            <div
-              key={name}
-              className="flex items-start md:items-center gap-4 p-3 bg-white/5 border border-white/5 rounded-xl flex-col md:flex-row"
-            >
-              <p className="w-28 text-white/80 font-bold text-xs uppercase tracking-wider flex-shrink-0 pl-1">
-                {name}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <FilterButton
-                  label={`ALL DATA`}
-                  isMainCategory
-                  isActive={
-                    currentCompetitionFilter === name && !currentStageFilter
-                  }
-                  onClick={() => {
-                    onCompetitionFilterChange(name);
-                    onStageFilterChange("");
-                  }}
-                />
-                {getStagesForCompetition(name).map((stage) => (
+          <div className="flex flex-col gap-3">
+            {competitionNames.map((name) => (
+              <div
+                key={name}
+                className="flex items-start md:items-center gap-4 p-3 bg-white/5 border border-white/5 rounded-xl flex-col md:flex-row"
+              >
+                <p className="w-28 text-white/80 font-bold text-xs uppercase tracking-wider flex-shrink-0 pl-1">
+                  {name}
+                </p>
+                <div className="flex flex-wrap gap-2">
                   <FilterButton
-                    key={stage}
-                    label={stage}
+                    label={`ALL DATA`}
+                    isMainCategory
                     isActive={
-                      currentCompetitionFilter === name &&
-                      currentStageFilter === stage
+                      currentCompetitionFilter === name && !currentStageFilter
                     }
                     onClick={() => {
                       onCompetitionFilterChange(name);
-                      onStageFilterChange(stage);
+                      onStageFilterChange("");
                     }}
                   />
-                ))}
+                  {getStagesForCompetition(name).map((stage) => (
+                    <FilterButton
+                      key={stage}
+                      label={stage}
+                      isActive={
+                        currentCompetitionFilter === name &&
+                        currentStageFilter === stage
+                      }
+                      onClick={() => {
+                        onCompetitionFilterChange(name);
+                        onStageFilterChange(stage);
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* TABEL UTAMA DATA TIM */}
       <div className="rounded-2xl border border-white/10 bg-[#B0BFC7]/5 overflow-hidden backdrop-blur-md shadow-xl">
