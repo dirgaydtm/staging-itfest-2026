@@ -22,6 +22,7 @@ interface TeamListTableProps {
   onCompetitionFilterChange: (filter: string) => void;
   onStageFilterChange: (filter: string) => void;
   userRoleId?: number;
+  loading?: boolean;
 }
 
 const getDisplayValue = (value: string | null | undefined): string => {
@@ -64,15 +65,11 @@ const TeamListTable = ({
   onCompetitionFilterChange,
   onStageFilterChange,
   userRoleId,
+  loading = false,
 }: TeamListTableProps) => {
 
-  const visibleTeams =
-    teamData?.filter(
-      (team) =>
-        team.competition_name && team.competition_name !== "Not Registered"
-    ) || [];
-
-  if (!teamData) {
+  // Show loading spinner only when loading is true
+  if (loading) {
     return (
       <div className="h-48 w-full flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
@@ -80,10 +77,17 @@ const TeamListTable = ({
     );
   }
 
-  if (visibleTeams.length === 0) {
+  const visibleTeams =
+    teamData?.filter(
+      (team) =>
+        team.competition_name && team.competition_name !== "Not Registered"
+    ) || [];
+
+  // Show empty state when no data or empty array
+  if (!teamData || visibleTeams.length === 0) {
     return (
       <div className="w-full p-6 bg-white/5 border border-white/10 rounded-2xl text-center text-white/60 text-sm">
-        Belum ada tim yang terdaftar di kompetisi.
+        No teams registered yet.
       </div>
     );
   }

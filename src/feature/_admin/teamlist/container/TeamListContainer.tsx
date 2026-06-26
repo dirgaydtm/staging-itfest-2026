@@ -83,6 +83,7 @@ const TeamListContainer = () => {
           onCompetitionFilterChange={handleCompetitionFilterChange}
           onStageFilterChange={setStageFilter}
           userRoleId={user?.role_id}
+          loading={loading}
         />
       </div>
 
